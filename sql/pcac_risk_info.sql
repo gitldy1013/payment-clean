@@ -5,7 +5,7 @@ drop table if exists pcac_risk_info;
 /*==============================================================*/
 create table pcac_risk_info
 (
-   id                   long not null comment 'id序号',
+   id                   int(64) not null comment 'id序号',
    up_date              varchar(10) comment '推送日期',
    reg_name             varbinary(128) comment '商户名称',
    cus_name             varchar(128) comment '商户简称',
@@ -25,3 +25,5 @@ create table pcac_risk_info
    registered_code      varchar(256) comment '商户注册号',
    primary key (id)
 );
+
+alter table pcac_risk_info comment '商户黑名单提示信息表';
