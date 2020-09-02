@@ -60,7 +60,7 @@
 
 #### 4.1.1风险商户同步请求接口
 
->* 接口类型：同步  请求类型：POST 请求路径：/localRiskReg/sync
+>* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskReg/sync
 
 * 请求报文字段
 
@@ -86,7 +86,7 @@
 
 #### 4.1.2风险商户查询请求接口
 
->* 接口类型：同步  请求类型：POST 请求路径：/localRiskReg/query
+>* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskReg/query
 
 * 请求报文字段
 
@@ -135,7 +135,7 @@
 
 #### 4.2.1风险个人同步请求接口
 
->* 接口类型：同步  请求类型：POST 请求路径：/localRiskPer/sync
+>* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskPer/sync
 
 * 请求报文字段
 
@@ -171,7 +171,7 @@
 
 #### 4.2.2风险个人查询请求接口
 
->* 接口类型：同步  请求类型：GET 请求路径：/localRiskPer/query
+>* 接口类型：同步  请求类型：GET 请求路径：/localRisk/localRiskPer/query
 
 * 响应报文字段
 
@@ -204,7 +204,7 @@
 
 #### 4.3.1风险企业同步请求接口
 
->* 接口类型：同步  请求类型：GET 请求路径：/localRiskCom/sync
+>* 接口类型：同步  请求类型：GET 请求路径：/localRisk/localRiskCom/sync
 
 * 响应报文字段
 
@@ -215,7 +215,7 @@
 
 #### 4.3.2风险企业查询请求接口
 
->* 接口类型：同步  请求类型：GET 请求路径：/localRiskCom/query
+>* 接口类型：同步  请求类型：GET 请求路径：/localRisk/localRiskCom/query
 
 * 响应报文字段
 
@@ -280,7 +280,7 @@
 
 #### 4.2.2风险商户查询
 
->* 接口类型：同步  请求类型：POST 请求路径：/isocRiskReg/query
+>* 接口类型：同步  请求类型：POST 请求路径：/isocRisk/isocRiskReg/query
 
 * 请求报文字段
 
@@ -315,6 +315,8 @@
 
 #### 4.2.3风险信息补发
 
+>* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskMsg/
+
 * 请求报文字段
 
 |字段名称|字段说明|参数类型|
@@ -328,6 +330,45 @@
 |-------|------|-----|
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
+
+### 4.3本地商户关联反馈
+
+#### 4.3.1本地关联风险商户查询
+
+>* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskMsg/
+
+* 请求报文字段
+
+|字段名称|字段说明|参数类型|
+|-------|------|-----|
+|occurtimeb|风险事件发生时间|String|
+|occurtimee|风险事件结束时间|String|
+
+* 响应报文字段
+
+|字段名称|字段说明|参数类型|
+|-------|------|-----|
+|/|推送名单类型|String|
+|/|推送时间|String|
+|/|风险信息等级|String|
+|/|风险类型|String|
+|/|商户简称|String|
+|/|商户名称|String|
+|/|法人证件类型|String|
+|/|法人证件号码|String|
+|/|法人（负责人）代表姓名|String|
+|/|法人（负责人）证件类型|String|
+|/|法人（负责人）证件号码|String|
+|/|有效期|String|
+|/|有效性|String|
+|/|商户类型|String|
+|/|风险事件发生地域|String|
+|/|关联商户编号|String|
+|/|商户状态|String|
+|/|是否加黑|String|
+|/|关联字段个数|String|
+|/|关联字段名称|String|
+|/|反馈情况|String|
 
 ## 5.项目架构图
 
