@@ -69,7 +69,7 @@
 |cusType|商户类型|String|
 |cusNature|商户属性|String|
 |cusNumber|商户编号|String|
-|cusName|商户名称|String|
+|regName|商户名称|String|
 |riskType|风险类型|String|
 |validDate|有效期|String|
 |level|风险信息等级|String|
@@ -93,7 +93,7 @@
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |cusNumber|商户编号|String|
-|cusName|商户名称|String|
+|regName|商户名称|String|
 |busLicenseNumber|营业执照编号|String|
 |docCode|法人身份证|String|
 |submitStartTime|报送开始时间|String|
@@ -104,33 +104,33 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|信息类型|String|
-|/|商户类型|String|
-|/|客户属性|String|
-|/|商户属性|String|
-|/|商户编号|String|
-|/|风险类型|String|
-|/|商户名称|String|
-|/|法人证件类型|String|
-|/|法人证件号码|String|
-|/|法定代表人（负责人）姓名|String|
-|/|法定代表人（负责人）证件类型|String|
-|/|法定代表人（负责人）证件号码|String|
-|/|银行结算账号（支付账户）|String|
-|/|开户行|String|
-|/|风险信息来源渠道|String|
-|/|有效期|String|
-|/|风险信息等级|String|
-|/|风险事件发生时间|String|
-|/|风险事件结束时间|String|
-|/|风险事件发生渠道|String|
-|/|风险事件发生地域|String|
-|/|风险事件描述|String|
-|/|录入时间|String|
-|/|失效时间|String|
-|/|状态|String|
-|/|操作人|String|
-|/|操作时间|String|
+|msgType|信息类型|String|
+|cusType|商户类型|String|
+|cusProperty|客户属性|String|
+|cusNature|商户属性|String|
+|cusNumber|商户编号|String|
+|riskType|风险类型|String|
+|RegName|商户名称|String|
+|docType|法人证件类型|String|
+|docCode|法人证件号码|String|
+|legRepName|法定代表人（负责人）姓名|String|
+|legDocType|法定代表人（负责人）证件类型|String|
+|legDocCode|法定代表人（负责人）证件号码|String|
+|bankNo|银行结算账号（支付账户）|String|
+|openBank|开户行|String|
+|sourceChannel|风险信息来源渠道|String|
+|validDate|有效期|String|
+|level|风险信息等级|String|
+|occurtimeb|风险事件发生时间|String|
+|occurtimee|风险事件结束时间|String|
+|occurchan|风险事件发生渠道|String|
+|occurarea|风险事件发生地域|String|
+|note|风险事件描述|String|
+|createTime|录入时间|String|
+|unvalidTime|失效时间|String|
+|status|状态|String|
+|operator|操作人|String|
+|operateTime|操作时间|String|
 
 
 #### 4.2.1风险个人同步请求接口
@@ -141,26 +141,25 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|风险类型|String|
-|/|风险信息来源渠道|String|
-|/|手机号|String|
-|/|付款账户/付款银行卡号（支付账户）|String|
-|/|开户机构|String|
-|/|收款账户/收款银行卡号（支付账户）|String|
-|/|开户机构|String|
-|/|交易金额|String|
-|/|交易币种|String|
-|/|证件类型|String|
-|/|证件号码|String|
-|/|个人姓名|String|
-|/|风险事件发现时间|String|
-|/|风险事件发生开始时间|String|
-|/|风险事件发生结束时间|String|
-|/|风险事件发生渠道|String|
-|/|风险事件发生地域|String|
-|/|有效期|String|
-|/|有效性|String|
-|/|风险事件描述|String|
+|riskType|风险类型|String|
+|sourceChannel|风险信息来源渠道|String|
+|mobileNo|手机号|String|
+|bankNo|付款账户/付款银行卡号（支付账户）|String|
+|openBank|开户机构|String|
+|collectAccount|收款账户/收款银行卡号（支付账户）|String|
+|amount|交易金额|String|
+|currency|交易币种|String|
+|docType|证件类型|String|
+|docCode|证件号码|String|
+|cusName|个人姓名|String|
+|riskFindTime|风险事件发现时间|String|
+|occurtimeb|风险事件发生开始时间|String|
+|occurtimee|风险事件发生结束时间|String|
+|occurchan|风险事件发生渠道|String|
+|occurarea|风险事件发生地域|String|
+|validDate|有效期|String|
+|validStatus|有效性|String|
+|note|风险事件描述|String|
 
 * 响应报文字段
 
@@ -177,30 +176,29 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|风险类型|String|
-|/|风险信息来源渠道|String|
-|/|手机号|String|
-|/|付款账户/付款银行卡号（支付账户）|String|
-|/|开户机构|String|
-|/|收款账户/收款银行卡号（支付账户）|String|
-|/|开户机构|String|
-|/|交易金额|String|
-|/|交易币种|String|
-|/|证件类型|String|
-|/|证件号码|String|
-|/|个人姓名|String|
-|/|风险事件发现时间|String|
-|/|风险事件发生时间|String|
-|/|风险事件结束时间|String|
-|/|风险事件发生渠道|String|
-|/|风险事件发生地域|String|
-|/|有效期|String|
-|/|有效性|String|
-|/|风险事件描述|String|
-|/|状态|String|
-|/|操作人|String|
-|/|操作时间|String|
-|/|备注（当状态为失败时，备注为失败原因）|String|
+|riskType|风险类型|String|
+|sourceChannel|风险信息来源渠道|String|
+|mobileNo|手机号|String|
+|bankNo|付款账户/付款银行卡号（支付账户）|String|
+|openBank|开户机构|String|
+|collectAccount|收款账户/收款银行卡号（支付账户）|String|
+|amount|交易金额|String|
+|currency|交易币种|String|
+|docType|证件类型|String|
+|docCode|证件号码|String|
+|cusName|个人姓名|String|
+|riskFindTime|风险事件发现时间|String|
+|occurtimeb|风险事件发生开始时间|String|
+|occurtimee|风险事件发生结束时间|String|
+|occurchan|风险事件发生渠道|String|
+|occurarea|风险事件发生地域|String|
+|validDate|有效期|String|
+|validStatus|有效性|String|
+|note|风险事件描述|String|
+|status|状态|String|
+|operator|操作人|String|
+|operateTime|操作时间|String|
+|remark|备注（当状态为失败时，备注为失败原因）|String|
 
 #### 4.3.1风险企业同步请求接口
 
@@ -221,52 +219,50 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|来源渠道标识|String|
-|/|风险信息编码|String|
-|/|商户类型|String|
-|/|机构代码|String|
-|/|信息类型|String|
-|/|风险类型|String|
-|/|商户属性|String|
-|/|商户简称|String|
-|/|商户名称|String|
-|/|商户代码|String|
-|/|法人证件类型|String|
-|/|法人证件号码|String|
-|/|税务登记证|String|
-|/|法定代表人（负责人）|String|
-|/|姓名|String|
-|/|法定代表人（负责人|String|
-|/|证件类型|String|
-|/|法定代表人（负责人|String|
-|/|证件号码|String|
-|/|受益所有人姓名|String|
-|/|受益所有人证件类型|String|
-|/|受益所有人证件号码|String|
-|/|实控人姓名|String|
-|/|实控人证件类型|String|
-|/|实控人证件号码|String|
-|/|银行结算账号（支付账户）|String|
-|/|开户行（支付账户开立 机构）|String|
-|/|交易金额|String|
-|/|交易币种|String|
-|/|网址|String|
-|/|服务器 IP|String|
-|/|ICP 备案编 号|String|
-|/|法定代表人（负责人）|String|
-|/|手机号、商户实际办公地|String|
-|/|风险信息等级|String|
-|/|风险事件发现时间|String|
-|/|风险事件发生时间、|String|
-|/|风险事件发生渠道、|String|
-|/|风险事件发生地域、|String|
-|/|风险事件描述|String|
-|/|风险信息来源|String|
-|/|有效期|String|
-|/|有效性|String|
-|/|状态|String|
-|/|操作人|String|
-|/|操作时间|String|
+|sourceChannelIdentify|来源渠道标识|String|
+|riskInfoCode|风险信息编码|String|
+|cusType|商户类型|String|
+|cusCode|机构代码|String|
+|msgType|信息类型|String|
+|riskType|风险类型|String|
+|cusNature|商户属性|String|
+|cusName|商户简称|String|
+|regName|商户名称|String|
+|cusCode|商户代码|String|
+|legDocType|法人证件类型|String|
+|legDocCode|法人证件号码|String|
+|taxRegCer|税务登记证|String|
+|legRepName|法定代表人姓名（负责人）|String|
+|legDocType|法定代表人证件类型（负责人|String|
+|legDocCode|法定代表人证件号码（负责人|String|
+|legBenName|受益所有人姓名|String|
+|legBenCardType|受益所有人证件类型|String|
+|legBenCardCode|受益所有人证件号码|String|
+|legControlName|实控人姓名|String|
+|legControlCardType|实控人证件类型|String|
+|legControlCardCode|实控人证件号码|String|
+|bankNo|银行结算账号（支付账户）|String|
+|openBank|开户行（支付账户开立 机构）|String|
+|amount|交易金额|String|
+|currency|交易币种|String|
+|url|网址|String|
+|serverIp|服务器 IP|String|
+|icp|ICP 备案编 号|String|
+|mobileNo|法定代表人（负责人）手机号|String|手
+/address/商户实际办公地|String|
+|level|风险信息等级|String|
+|riskFindTime|风险事件发现时间|String|
+|occurtimeb|风险事件发生开始时间|String|
+|occurtimee|风险事件发生结束时间|String|
+|occurchan|风险事件发生渠道|String|
+|occurarea|风险事件发生地域|String|
+|note|风险事件描述|String|
+|sourceChannel|风险信息来源|String|
+|validDate|有效期|String|
+|validStatus|有效性|String|
+|status|状态|String|
+|operator|操作人|String|
+|operateTime|操作时间|String|
 
 ### 4.2协会风险商户共享
 
