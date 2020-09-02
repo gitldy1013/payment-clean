@@ -64,16 +64,16 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|商户类型|String|
-|/|商户属性|String|
-|/|商户编号|String|
-|/|商户名称|String|
-|/|风险类型|String|
-|/|有效期|String|
-|/|风险信息等级|String|
-|/|风险事件发生时间|String|
-|/|风险事件结束时间|String|
-|/|报送类型（新增/修改）|String|
+|cusType|商户类型|String|
+|cusNature|商户属性|String|
+|cusNumber|商户编号|String|
+|cusName|商户名称|String|
+|riskType|风险类型|String|
+|validDate|有效期|String|
+|level|风险信息等级|String|
+|occurtimeb|风险事件发生时间|String|
+|occurtimee|风险事件结束时间|String|
+|submitType|报送类型（新增/修改）|String|
 
 #### 4.1.2风险商户查询请求接口
 
@@ -81,12 +81,13 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|商户编号|String|
-|/|商户名称|String|
-|/|营业执照编号|String|
-|/|法人身份证|String|
-|/|报送起止时间|String|
-|/|状态|String|
+|cusNumber|商户编号|String|
+|cusName|商户名称|String|
+|busLicenseNumber|营业执照编号|String|
+|docCode|法人身份证|String|
+|submitStartTime|报送开始时间|String|
+|submitEndTime|报送结束时间|String|
+|status|状态|String|
 
 ### 4.2协会风险商户共享
 
