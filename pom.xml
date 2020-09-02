@@ -43,7 +43,15 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--清算协会加解密依赖-->
+        <dependency>
+            <groupId>cn.paca</groupId>
+            <artifactId>paca-SADK</artifactId>
+            <version>3.2.0.8</version>
+        </dependency>
     </dependencies>
+
+
 
     <build>
         <plugins>
