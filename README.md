@@ -20,6 +20,10 @@
 
 >*   4.商户系统
 
+### 2.2项目架构图
+
+![](doc\架构图.jpg)
+
 ### 2.2涉及技术栈：
 
 >*   后台语言为Java，springboot整合mybatis-plus架构开发。
@@ -249,7 +253,7 @@
 |serverIp|服务器 IP|String|
 |icp|ICP 备案编 号|String|
 |mobileNo|法定代表人（负责人）手机号|String|手
-/address/商户实际办公地|String|
+|address|商户实际办公地|String|
 |level|风险信息等级|String|
 |riskFindTime|风险事件发现时间|String|
 |occurtimeb|风险事件发生开始时间|String|
@@ -295,7 +299,7 @@
 |-------|------|-----|
 |pushListType推送名单类型|String|
 |pushTime|推送时间|String|
-|level/风险信息等级|String|
+|level|风险信息等级|String|
 |riskType|风险类型|String|
 |cusName|商户简称|String|
 |regName|商户名称|String|
@@ -303,6 +307,7 @@
 |legDocCode|法人证件号码|String|
 |legRepName|法人（负责人）代表姓名|String|
 |legDocType|法人（负责人）证件类型|String|
+|legDocCode|法人（负责人）证件号码|String|
 |validDate|有效期|String|
 |validStatus|有效性|String|
 |cusType|商户类型|String|
@@ -386,9 +391,9 @@
 |explain|说明|String|
 |cusType|商户类型|String|
 |regName|商户名称|String|
-|/|处理方式|String|
-|/|证件类型|String|
-|/|证件号码|String|
+|prodmode|处理方式|String|
+|docType|证件类型|String|
+|docCode|证件号码|String|
 
 * 响应报文字段
 
@@ -407,13 +412,13 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|商户反馈主键编码|String|
-|/|商户类型|String|
-|/|反馈情况|String|
-|/|处理时间|String|
-|/|涉及结算金额（参考查询时间，近90天内结算总金额）|String|
-|/|币种|String|
-|/|说明|String|
+|RegBackCode|商户反馈主键编码|String|
+|cusType|商户类型|String|
+|feedback|反馈情况|String|
+|proTime|处理时间|String|
+|amount|涉及结算金额（参考查询时间，近90天内结算总金额）|String|
+|currency|币种|String|
+|explain|说明|String|
 
 * 响应报文字段
 
@@ -430,20 +435,20 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|商户名称|String|
-|/|营业执照编号|String|
-|/|法人身份证|String|
+|RegName|商户名称|String|
+|busLicenseNumber|营业执照编号|String|
+|docCode|法人身份证|String|
 
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|商户名称|String|
-|/|营业执照编号|String|
-|/|法人身份证|String|
-|/|涉及机构数|String|
-|/|商户个数|String|
-|/|涉及结算金额（参考查询时间，近90天内结算总金额）|String|
+|RegName|商户名称|String|
+|busLicenseNumber|营业执照编号|String|
+|docCode|法人身份证|String|
+|invOrgNum|涉及机构数|String|
+|RegNum|商户个数|String|
+|amount|涉及结算金额（参考查询时间，近90天内结算总金额）|String|
 
 ### 4.5特约商户信息报送
 
@@ -453,7 +458,7 @@
 
 * 请求报文字段
 
-待确认
+(待找陶惠确认，文档里没有提供。)
 
 * 响应报文字段
 
@@ -462,9 +467,16 @@
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
 
-## 5.项目架构图
+## 5.服务对接方式
 
-![](doc\架构图.jpg)
+#### 5.1网络方面
+
+>* 对接风控平台和商户系统：内网互通访问方式，大数据平台提供http协议接口，同步响应json数据。
+>* 对接支付清算协会：需要申请外网IP端口映射内网服务IP端口，通过https协议方式提供推送数据接口服务。证书(沟通)
+
+#### 5.2安全方面
+
+>* 由于大数据平台需要对风控平台，商户系统和清算协会分别提供查询数据和上报数据，需要考虑安全问题，提交安全审批确认。(沟通)
 
 ## 6.接口异常处理
 
