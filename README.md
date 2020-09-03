@@ -161,6 +161,7 @@
 |occurtimee|风险事件发生结束时间|String|
 |occurchan|风险事件发生渠道|String|
 |occurarea|风险事件发生地域|String|
+|submitType|报送类型（新增/修改）|String|
 |validDate|有效期|String|
 |validStatus|有效性|String|
 |note|风险事件描述|String|
@@ -206,7 +207,22 @@
 
 #### 4.1.5风险企业同步请求接口
 
->* 接口类型：同步  请求类型：GET 请求路径：/localRisk/localRiskCom/sync
+>* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskCom/sync
+
+* 请求报文字段
+
+|字段名称|字段说明|参数类型|
+|-------|------|-----|
+|comType|企业类型|String|
+|comNature|企业属性|String|
+|comNumber|企业编号|String|
+|comName|企业名称|String|
+|riskType|风险类型|String|
+|validDate|有效期|String|
+|level|风险信息等级|String|
+|occurtimeb|风险事件发生时间|String|
+|occurtimee|风险事件结束时间|String|
+|submitType|报送类型（新增/修改）|String|
 
 * 响应报文字段
 
@@ -250,8 +266,8 @@
 |amount|交易金额|String|
 |currency|交易币种|String|
 |url|网址|String|
-|serverIp|服务器 IP|String|
-|icp|ICP 备案编 号|String|
+|serverIp|服务器IP|String|
+|icp|ICP 备案编号|String|
 |mobileNo|法定代表人（负责人）手机号|String|手
 |address|商户实际办公地|String|
 |level|风险信息等级|String|
