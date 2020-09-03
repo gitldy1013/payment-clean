@@ -282,32 +282,31 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|推送开始时间|String|
-|/|推送结束时间|String|
-|/|商户名称|String|
-|/|营业执照编号|String|
-|/|法人身份证|String|
-|/|风险类型|String|
+|pushStartTime|推送开始时间|String|
+|pushEndTime|推送结束时间|String|
+|regName|商户名称|String|
+|busLicenseNumber|营业执照编号|String|
+|docCode|法人身份证|String|
+|riskType|风险类型|String|
 
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|推送名单类型|String|
-|/|推送时间|String|
-|/|风险信息等级|String|
-|/|风险类型|String|
-|/|商户简称|String|
-|/|商户名称|String|
-|/|法人证件类型|String|
-|/|法人证件号码|String|
-|/|法人（负责人）代表姓名|String|
-|/|法人（负责人）证件类型|String|
-|/|法人（负责人）证件号码|String|
-|/|有效期|String|
-|/|有效性|String|
-|/|商户类型|String|
-|/|风险事件发生地域|String|
+|pushListType推送名单类型|String|
+|pushTime|推送时间|String|
+|level/风险信息等级|String|
+|riskType|风险类型|String|
+|cusName|商户简称|String|
+|regName|商户名称|String|
+|legDocType|法人证件类型|String|
+|legDocCode|法人证件号码|String|
+|legRepName|法人（负责人）代表姓名|String|
+|legDocType|法人（负责人）证件类型|String|
+|validDate|有效期|String|
+|validStatus|有效性|String|
+|cusType|商户类型|String|
+|occurarea|风险事件发生地域|String|
 
 #### 4.2.3风险信息补发
 
@@ -337,39 +336,40 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|推送起止时间|String|
-|/|商户编号|String|
-|/|商户名称|String|
-|/|营业执照编号|String|
-|/|法人身份证|String|
-|/|风险类型|String|
-|/|反馈状态|String|
+|pushStartTime|推送开始时间|String|
+|pushEndTime|推送结束时间|String|
+|cusNumber|商户编号|String|
+|regName|商户名称|String|
+|busLicenseNumber|营业执照编号|String|
+|docCode|法人身份证|String|
+|riskType|风险类型|String|
+|status|反馈状态|String|
 
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|推送名单类型|String|
-|/|推送时间|String|
-|/|风险信息等级|String|
-|/|风险类型|String|
-|/|商户简称|String|
-|/|商户名称|String|
-|/|法人证件类型|String|
-|/|法人证件号码|String|
-|/|法人（负责人）代表姓名|String|
-|/|法人（负责人）证件类型|String|
-|/|法人（负责人）证件号码|String|
-|/|有效期|String|
-|/|有效性|String|
-|/|商户类型|String|
-|/|风险事件发生地域|String|
-|/|关联商户编号|String|
-|/|商户状态|String|
-|/|是否加黑|String|
-|/|关联字段个数|String|
-|/|关联字段名称|String|
-|/|反馈情况|String|
+|pushListType|推送名单类型|String|
+|pushTime|推送时间|String|
+|level|风险信息等级|String|
+|riskType|风险类型|String|
+|cusName|商户简称|String|
+|regName|商户名称|String|
+|legDocType|法人证件类型|String|
+|legDocCode|法人证件号码|String|
+|legRepName|法人（负责人）代表姓名|String|
+|legDocType|法人（负责人）证件类型|String|
+|legDocCode|法人（负责人）证件号码|String|
+|validDate|有效期|String|
+|validStatus|有效性|String|
+|cusType|商户类型|String|
+|occurarea|风险事件发生地域|String|
+|assMerNumber|关联商户编号|String|
+|status|商户状态|String|
+|isBlack|是否加黑|String|
+|assFieldCnt|关联字段个数|String|
+|assFieldName|关联字段名称|String|
+|feedback|反馈情况|String|
 
 #### 4.3.2本地关联风险商户反馈
 
@@ -379,13 +379,13 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|/|反馈情况|String|
-|/|处理时间|String|
-|/|涉及结算金额(后台计算)|String|
-|/|币种|String|
-|/|说明|String|
-|/|商户类型|String|
-|/|商户名称|String|
+|feedback|反馈情况|String|
+|dealTime|处理时间|String|
+|Amount|涉及结算金额(后台计算)|String|
+|currency|币种|String|
+|explain|说明|String|
+|cusType|商户类型|String|
+|regName|商户名称|String|
 |/|处理方式|String|
 |/|证件类型|String|
 |/|证件号码|String|
