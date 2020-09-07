@@ -230,54 +230,51 @@
 >* 请求类型：GET
 >* 请求路径：/localRisk/localRiskCom/query
 
+* 请求报文字段
+
+|字段名称|字段说明|参数类型|
+|-------|------|-----|
+|cusCode|机构代码|String|
+|regName|企业名称|String|
+|docCode|法人证件号码|String|
+|docType|法人证件类型|String|
+|submitStartTime|上报开始时间|String|
+|submitEndTime|上报结束时间|String|
+|submitStatus|报送状态|String|
+|legDocCode|法定代表人证件类型|String|
+|legDocType|法定代表人证件号码|String|
+|operateStartTime|操作开始时间|String|
+|operateEndTime|操作结束时间|String|
+|operator|操作人|String|
+
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|sourceChannelIdentify|来源渠道标识|String|
-|riskInfoCode|风险信息编码|String|
-|cusType|商户类型|String|
 |cusCode|机构代码|String|
+|cusName|企业简称|String|
+|regName|企业简称|String|
 |msgType|信息类型|String|
 |riskType|风险类型|String|
-|cusNature|商户属性|String|
-|cusName|商户简称|String|
-|regName|商户名称|String|
-|cusCode|商户代码|String|
-|legDocType|法人证件类型|String|
-|legDocCode|法人证件号码|String|
-|taxRegCer|税务登记证|String|
+|docType|法人证件类型|String|
+|docCode|法人证件号码|String|
 |legRepName|法定代表人姓名（负责人）|String|
-|legDocType|法定代表人证件类型（负责人|String|
-|legDocCode|法定代表人证件号码（负责人|String|
-|legBenName|受益所有人姓名|String|
-|legBenCardType|受益所有人证件类型|String|
-|legBenCardCode|受益所有人证件号码|String|
-|legControlName|实控人姓名|String|
-|legControlCardType|实控人证件类型|String|
-|legControlCardCode|实控人证件号码|String|
-|bankNo|银行结算账号（支付账户）|String|
-|openBank|开户行（支付账户开立 机构）|String|
-|amount|交易金额|String|
-|currency|交易币种|String|
-|url|网址|String|
-|serverIp|服务器IP|String|
-|icp|ICP 备案编号|String|
-|mobileNo|法定代表人（负责人）手机号|String|手
-|address|商户实际办公地|String|
-|level|风险信息等级|String|
-|riskFindTime|风险事件发现时间|String|
-|occurtimeb|风险事件发生开始时间|String|
-|occurtimee|风险事件发生结束时间|String|
-|occurchan|风险事件发生渠道|String|
+|legDocType|法定代表人证件类型（负责人）|String|
+|legDocCode|法定代表人证件号码（负责人）|String|
+|regAddress|企业注册地址|String|
+|validDate|有效期|String|
+|validStatus|有效性|String|
+|occurtimeb|风险事件发生时间|String|
 |occurarea|风险事件发生地域|String|
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String|
-|validDate|有效期|String|
-|validStatus|有效性|String|
-|status|状态|String|
 |operator|操作人|String|
 |operateTime|操作时间|String|
+|submitTime|上报时间|String|
+|submitStatus|报送状态|String|
+|failureReason|失败原因|String|
+
+
 
 ### 4.2协会风险商户共享
 
@@ -300,25 +297,27 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
+|regName|商户名称|String|
+|legDocCode|法定代表人证件号码|String|
+|docCode|法人证件号码|String|
 |pushStartTime|推送开始时间|String|
 |pushEndTime|推送结束时间|String|
-|regName|商户名称|String|
-|busLicenseNumber|营业执照编号|String|
-|docCode|法人身份证|String|
-|riskType|风险类型|String|
+|docType|法人证件类型|String|
+|legDocType|法定代表人证件类型（负责人）|String|
+
 
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |pushListType推送名单类型|String|
-|pushTime|推送时间|String|
+|pushDate|推送日期|String|
 |level|风险信息等级|String|
 |riskType|风险类型|String|
 |cusName|商户简称|String|
 |regName|商户名称|String|
-|legDocType|法人证件类型|String|
-|legDocCode|法人证件号码|String|
+|docType|法人证件类型|String|
+|docCode|法人证件号码|String|
 |legRepName|法人（负责人）代表姓名|String|
 |legDocType|法人（负责人）证件类型|String|
 |legDocCode|法人（负责人）证件号码|String|
@@ -358,30 +357,43 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|pushStartTime|推送开始时间|String|
-|pushEndTime|推送结束时间|String|
 |cusNumber|商户编号|String|
 |regName|商户名称|String|
-|busLicenseNumber|营业执照编号|String|
-|docCode|法人身份证|String|
+|docCode|法人证件号码|String|
+|docType|法人证件类型|String|
+|legDocType|法人（负责人）证件类型|String|
+|legDocCode|法人（负责人）证件号码|String|
 |riskType|风险类型|String|
 |status|反馈状态|String|
+|pushListType|推送名单类型|String|
+|feedbackStartDate|反馈开始日期|String|
+|feedbackEndDate|反馈结束日期|String|
+|pushStartDate|推送开始日期|String|
+|pushEndDate|推送结束日期|String|
+
+
+
 
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
+|cusNumber|商户编号|String|
 |pushListType|推送名单类型|String|
-|pushTime|推送时间|String|
+|pushDate|推送日期|String|
 |level|风险信息等级|String|
 |riskType|风险类型|String|
 |cusName|商户简称|String|
 |regName|商户名称|String|
-|legDocType|法人证件类型|String|
-|legDocCode|法人证件号码|String|
+|handleResult|处理结果|String|
+|feedbackStatus|反馈状态|
+|feedbackDate|反馈日期|String|
+|pushDate|推送日期|String|
+|docType|法人证件类型|String|
+|docCode|法人证件号码|String|
 |legRepName|法人（负责人）代表姓名|String|
-|legDocType|法人（负责人）证件类型|String|
-|legDocCode|法人（负责人）证件号码|String|
+|legDocType|法定代表人证件类型|String|
+|legDocCode|法定代表人证件号码|String|
 |validDate|有效期|String|
 |validStatus|有效性|String|
 |cusType|商户类型|String|
@@ -391,7 +403,11 @@
 |isBlack|是否加黑|String|
 |assFieldCnt|关联字段个数|String|
 |assFieldName|关联字段名称|String|
-|feedback|反馈情况|String|
+|operator|操作人|String|
+|failureReason|失败原因|String|
+|Amount|涉及结算金额(后台计算)|String|
+
+
 
 #### 4.3.2本地关联风险商户反馈
 
@@ -402,16 +418,14 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|feedback|反馈情况|String|
-|dealTime|处理时间|String|
+|docType|法人证件类型|String|
+|docCode|法人证件号码|String|
+|legDocType|法人（负责人）证件类型|String|
+|legDocCode|法人（负责人）证件号码|String|
 |Amount|涉及结算金额(后台计算)|String|
-|currency|币种|String|
-|explain|说明|String|
-|cusType|商户类型|String|
-|regName|商户名称|String|
-|prodmode|处理方式|String|
-|docType|证件类型|String|
-|docCode|证件号码|String|
+|handleResult|处理结果|String|
+|feedbackDate|反馈日期|String|
+
 
 * 响应报文字段
 
@@ -431,9 +445,9 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|RegName|商户名称|String|
-|busLicenseNumber|营业执照编号|String|
-|docCode|法人身份证|String|
+|cusProperty|客户属性|String|
+|keyWord|关键字|String|
+|infos|查询条件信息（多条数据以逗号分隔）|String|
 
 * 响应报文字段
 
@@ -446,6 +460,27 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
+|id|风险反馈主键编码|String|
+|cusType|商户类型|String|
+|cusProperty|客户属性|String|
+|riskType|风险类型|String|
+|cusNature|商户属性|String|
+|RegName|商户名称|String|
+|cusCode|商户编码|String|
+|Amount|涉及结算金额(后台计算)|String|
+|docType|法人证件类型|String|
+|docCode|法人证件号码|String|
+|legDocType|法人（负责人）证件类型|String|
+|legDocCode|法人（负责人）证件号码|String|
+|legRepName|法定代表人姓名（负责人）|String|
+|count|返回数量|String|
+|isTransfer|是否中转账户|String|
+|bankNo|银行账号|String|
+|openBank|开户行|String|
+|url|网址|String|
+|serverIp|服务器 IP|String|
+
+
 |RegName|商户名称|String|
 |busLicenseNumber|营业执照编号|String|
 |docCode|法人身份证|String|
