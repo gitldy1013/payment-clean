@@ -20,28 +20,40 @@ public class ResultBean<T> implements Serializable {
 
 
     // 处理成功的状态码
-    public static final String SUCCESS_CODE = "1";
+    public static final String SUCCESS_CODE = "000";
     // 发生未知错误的状态码
     public static final String UNSPECIFIED_CODE = "500";
+    // 服务暂不可用
+    public static final String SERVICE_OUT = "002";
+    // 未知的方法
+    public static final String UNKNOWE_MED = "003";
+    // 请求参数无效
+    public static final String PARAM_ERR = "100";
+    // 无效的IP参数
+    public static final String IP_ERR = "114";
+    // 无效的操作方法
+    public static final String OPT_ERR = "801";
+    // 数据库操作出错，请重试
+    public static final String DATABASE_TIMEOUT = "805";
 
     public static final String BIND_CODE = "4005";
 
-    private String message = "success";
-    private String code = ResultBean.SUCCESS_CODE;
+    private String resMsg = "success";
+    private String resCode = ResultBean.SUCCESS_CODE;
 
     private T data;
 
-    public ResultBean(String msg, String code) {
-        this.message = msg;
-        this.code = code;
+    public ResultBean(String msg, String resCode) {
+        this.resMsg = msg;
+        this.resCode = resCode;
     }
 
     public ResultBean(T data) {
         this.data = data;
     }
 
-    public ResultBean(String code, T data) {
-        this.code = code;
+    public ResultBean(String resCode, T data) {
+        this.resCode = resCode;
         this.data = data;
     }
 
@@ -49,19 +61,18 @@ public class ResultBean<T> implements Serializable {
      * @Description : 此时系统发生未知异常
      * @Param : [e]
      * @Return :
-     * @Author : SheldonPeng
      * @Date : 2019-10-11
      */
     public ResultBean(Throwable e) {
         super();
-        this.message = "发生未知错误，请稍后重试!";
-        this.code = ResultBean.UNSPECIFIED_CODE;
+        this.resMsg = "发生未知错误，请稍后重试!";
+        this.resCode = ResultBean.UNSPECIFIED_CODE;
     }
 
     public ResultBean(BizException e) {
         super();
-        this.message = e.getMessage();
-        this.code = e.getCode();
+        this.resMsg = e.getMessage();
+        this.resCode = e.getCode();
     }
 
 
