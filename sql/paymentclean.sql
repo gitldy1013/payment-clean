@@ -48,3 +48,19 @@ create table pcac_risk_info
     registered_code      varchar(256) comment '商户注册号',
     primary key (pcac_risk_info_id)
 ) comment '商户黑名单提示信息表';
+
+create table pcac_local_risk_reg
+(
+    pcac_local_risk_reg_id                   int(64) not null comment 'id序号',
+    cus_type              varchar(2) comment '商户类型',
+    risk_type             varchar(2) comment '风险类型',
+    cus_nature            varchar(64) comment '商户属性',
+    cus_number            varchar(128) comment '商户编号',
+    level                 varchar(2) comment '风险信息等级',
+    valid_date            varchar(10) comment '有效期',
+    occurtime_b           varchar(10) comment '风险事件发生时间',
+    occurtime_e           varchar(10) comment '风险事件结束时间',
+    note                  varchar(128) comment '风险事件描述',
+    source_channel        varchar(128) comment '风险信息来源',
+    primary key (pcac_local_risk_reg_id)
+) comment '本地风险商户信息上报表';
