@@ -67,7 +67,7 @@
 
 * 请求报文字段
 
-*商户类型 风险类型 商户属性 商户编号 风险信息等级 有效期 风险事件发生时间 风险事件结束时间 风险事件描述 风险信息来源 上报人*
+*商户类型 风险类型 商户属性 商户编号 风险信息等级 有效期 风险事件发生时间 风险事件结束时间 风险事件描述 风险信息来源   操作人 操作时间*
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
@@ -81,7 +81,8 @@
 |occurtimee|风险事件结束时间|String|
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String|
-|submitPerson|上报人|String|
+|operator|操作人|String|
+|operateTime|操作时间|String|
 
 * 响应报文字段
 
@@ -95,7 +96,7 @@
 >* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskReg/query
 
 * 请求报文字段
-*商户编号、商户名称（模糊查询）、法人证件类型、法人证件号码、法定代表人证件类型、法定代表人证件号码，上报起止日期、操作起止日期、报送状态，上报人*
+*商户编号、商户名称（模糊查询）、法人证件类型、法人证件号码、法定代表人证件类型、法定代表人证件号码，上报起止日期、操作起止日期、报送状态，操作人*
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
@@ -110,12 +111,14 @@
 |operateStartTime|操作开始时间|String|
 |operateEndTime|操作结束时间|String|
 |submitStatus|报送状态|String|
-|submitPerson|上报人|String|
+|operator|操作人|String|
 
 
 * 响应报文字段
 *商户代码	商户简称	商户名称	商户类型	信息类型	风险类型	风险信息等级	商户属性	法人证件类型	法人证件号码	法定代表人（负责人） 姓名	
-法定代表人（负责人） 证件类型	法定代表人（负责人） 证件号码	受益所有人姓名	受益所有人证件类型	受益所有人证件号码	银行结算账号（支付账户）	开户行（支付账户开立机构）	有效期	有效性	风险事件发生时间	风险事件发生地域	风险事件描述	风险信息来源	操作人	操作时间	上报时间	上报状态	失败原因*
+法定代表人（负责人） 证件类型	法定代表人（负责人） 证件号码	受益所有人姓名	受益所有人证件类型	受益所有人证件号码	银行结算账号（支付账户）	开户行（支付账户开立机构）	
+有效期	有效性	风险事件发生时间	风险事件发生地域	风险事件描述	风险信息来源	操作人	操作时间	上报时间	上报状态	失败原因*
+*注意：法定代表人和受益人字段一样*
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
@@ -130,34 +133,28 @@
 |docType|法人证件类型|String|
 |docCode|法人证件号码|String|
 |legRepName|法定代表人（负责人）姓名|String|
-|cusProperty|客户属性|String|
 |legDocType|法定代表人（负责人）证件类型|String|
 |legDocCode|法定代表人（负责人）证件号码|String|
-|cusNumber|商户编号|String|
-
-
 |bankNo|银行结算账号（支付账户）|String|
 |openBank|开户行|String|
-|sourceChannel|风险信息来源渠道|String|
 |validDate|有效期|String|
-
+|validStatus|有效性|String|
 |occurtimeb|风险事件发生时间|String|
-|occurtimee|风险事件结束时间|String|
-|occurchan|风险事件发生渠道|String|
 |occurarea|风险事件发生地域|String|
 |note|风险事件描述|String|
-|createTime|录入时间|String|
-|unvalidTime|失效时间|String|
-|status|状态|String|
+|sourceChannel|风险信息来源|String|
 |operator|操作人|String|
 |operateTime|操作时间|String|
+|submitTime|上报时间|String|
+|submitStatus|报送状态|String|
+|failureReason|失败原因|String|
 
 
 #### 4.1.3风险个人同步请求接口
 
 >* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskPer/sync
 
-*风险类型	内部用户号 有效期 风险事件发生时间 风险事件结束时间 风险事件发生渠道 风险事件描述 风险信息来源 风险事件发生地域*
+*风险类型	内部用户号 有效期 风险事件发生时间 风险事件结束时间 风险事件发生渠道 风险事件描述 风险信息来源 风险事件发生地域 操作人 操作时间*
 
 * 请求报文字段
 
@@ -172,7 +169,8 @@
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String(枚举)|
 |occurarea|风险事件发生地域|String|
-
+|operator|操作人|String|
+|operateTime|操作时间|String|
 
 
 * 响应报文字段
@@ -188,44 +186,58 @@
 
 * 请求报文字段
 
-*内部用户号 ，手机号，证件类型，证件号码 ，操作起/止日期，报送起/止日期，上报状态(枚举) ，操作人*?
-
-* 响应报文字段
+*内部用户号 ，手机号，证件类型，证件号码 ，操作起/止日期，报送起/止日期，上报状态(枚举) ，操作人*
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|riskType|风险类型|String|
-|sourceChannel|风险信息来源渠道|String|
+|usrNo|内部用户号|String|
 |mobileNo|手机号|String|
-|bankNo|付款账户/付款银行卡号（支付账户）|String|
-|openBank|开户机构|String|
-|collectAccount|收款账户/收款银行卡号（支付账户）|String|
-|amount|交易金额|String|
-|currency|交易币种|String|
 |docType|证件类型|String|
 |docCode|证件号码|String|
+|operateStartTime|操作开始时间|String|
+|operateEndTime|操作结束时间|String|
+|submitStartTime|上报开始时间|String|
+|submitEndTime|上报结束时间|String|
+|submitStatus|报送状态|String|
+|operator|操作人|String|
+
+* 响应报文字段
+
+*内部用户号	手机号 	个人姓名 	客户属性	风险类型	证件类型	证件号码	付款银行账户/卡号	付款银行账户/卡号开户行	
+有效期	有效性	风险事件发生时间	风险事件发生地域	风险事件描述	风险事件来源渠道	操作人	操作时间	上报时间	上报状态	失败原因
+*
+
+|字段名称|字段说明|参数类型|
+|-------|------|-----|
+|usrNo|内部用户号|String|
+|mobileNo|手机号|String|
 |cusName|个人姓名|String|
-|riskFindTime|风险事件发现时间|String|
-|occurtimeb|风险事件发生开始时间|String|
-|occurtimee|风险事件发生结束时间|String|
-|occurchan|风险事件发生渠道|String|
-|occurarea|风险事件发生地域|String|
+|cusProperty|客户属性|String|
+|riskType|风险类型|String|
+|docType|证件类型|String|
+|docCode|证件号码|String|
+|bankNo|付款账户/付款银行卡号（支付账户）|String|
+|openBank|开户机构|String|
 |validDate|有效期|String|
 |validStatus|有效性|String|
+|occurtimeb|风险事件发生时间|String|
+|occurarea|风险事件发生地域|String|
 |note|风险事件描述|String|
-|status|状态|String|
+|sourceChannel|风险信息来源渠道|String|
 |operator|操作人|String|
 |operateTime|操作时间|String|
-|remark|备注（当状态为失败时，备注为失败原因）|String|
+|submitTime|上报时间|String|
+|submitStatus|报送状态|String|
+|failureReason|失败原因|String|
 
-*内部用户号，客户姓名 ，手机号 ，证件号码，风险信息来源，上报状态，有效期，有效性，操作时间，上报时间，操作人，失败原因，风险类型，MAC地址，Imei，付款账户/付款银行卡号（支付账户），开户机构 ，证件类型，IP地址，收货地址，固定电话，收款人所在国家或地区，邮箱，风险事件发生时间，风险事件结束时间，风险事件发生渠道，风险事件发生地域，风险事件描述。*?
+
 
 #### 4.1.5风险企业同步请求接口
 
 >* 接口类型：同步  请求类型：POST 请求路径：/localRisk/localRiskCom/sync
 
 * 请求报文字段
-*风险类型	单位支付账户编号	风险事件发生时间	风险事件结束时间	风险事件描述	风险信息来源	有效期*
+*风险类型	单位支付账户编号	风险事件发生时间	风险事件结束时间	风险事件描述	风险信息来源	有效期  操作人 操作时间*
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
@@ -236,6 +248,8 @@
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String(枚举)|
 |validDate|有效期|String|
+|operator|操作人|String|
+|operateTime|操作时间|String|
 
 
 * 响应报文字段
@@ -248,6 +262,14 @@
 #### 4.1.6风险企业查询请求接口
 
 >* 接口类型：同步  请求类型：GET 请求路径：/localRisk/localRiskCom/query
+
+* 请求报文字段
+
+*单位支付账户编号（对应接口字段机构代码）、单位名称（模糊查询）、法人证件号码、法人证件类型、报送起止日期、报送状态。法定代表人证件类型、法定代表人证件号码，操作起止日期，操作人*
+
+|字段名称|字段说明|参数类型|
+|-------|------|-----|
+
 
 * 响应报文字段
 
