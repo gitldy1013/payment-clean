@@ -4,31 +4,31 @@ drop table if exists pcac_assistance_info;
 
 create table pcac_assistance_info
 (
-    pcacassistanceinfo_id                   int(64) not null comment 'id序号',
+    pcac_assistance_info_id                   int(64) not null comment 'id序号',
     up_date              varchar(10) comment '推送日期',
     cus_code             varchar(64) comment '商户代码',
     reg_name             varchar(64) comment '商户名称',
     leg_doc_name         varchar(128) comment '法定代表人（负责人）姓名',
-    primary key (pcacassistanceinfo_id)
+    primary key (pcac_assistance_info_id)
 ) comment '商户信息比对协查信息表';
 
 drop table if exists pcac_opt_log;
 create table pcac_opt_log
 (
-    pcacoptlog_id            int(64) not null comment 'id序号',
+    pcac_opt_log_id            int(64) not null comment 'id序号',
     created_by    varchar(32)    comment '操作人' ,
     opt_content   varchar(128)    comment '操作内容' ,
     created_time  datetime    comment '操作时间' ,
     updated_by    varchar(32)    comment '更新人' ,
     updated_time  datetime    comment '更新时间',
-    primary key (pcacoptlog_id)
+    primary key (pcac_opt_log_id)
 ) comment = '操作日志表 ';
 
 drop table if exists pcac_risk_info;
 
 create table pcac_risk_info
 (
-    pcacriskinfo_id                   int(64) not null comment 'id序号',
+    pcac_risk_info_id                   int(64) not null comment 'id序号',
     up_date              varchar(10) comment '推送日期',
     reg_name             varbinary(128) comment '商户名称',
     cus_name             varchar(128) comment '商户简称',
@@ -46,5 +46,5 @@ create table pcac_risk_info
     bank_no              varchar(128) comment '银行结算账户',
     url                  varchar(512) comment '网址',
     registered_code      varchar(256) comment '商户注册号',
-    primary key (pcacriskinfo_id)
+    primary key (pcac_risk_info_id)
 ) comment '商户黑名单提示信息表';

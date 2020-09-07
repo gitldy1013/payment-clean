@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.paymentclean.mapper.PcacAssistanceInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.PcacAssistanceInfo">
+        <id column="pcac_assistance_info_id" property="pcacAssistanceInfoId" />
+        <result column="up_date" property="upDate" />
+        <result column="cus_code" property="cusCode" />
+        <result column="reg_name" property="regName" />
+        <result column="leg_doc_name" property="legDocName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        pcac_assistance_info_id, up_date, cus_code, reg_name, leg_doc_name
+    </sql>
+
+</mapper>

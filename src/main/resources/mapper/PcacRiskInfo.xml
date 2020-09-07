@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.paymentclean.mapper.PcacRiskInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.PcacRiskInfo">
+        <id column="pcac_risk_info_id" property="pcacRiskInfoId" />
+        <result column="up_date" property="upDate" />
+        <result column="reg_name" property="regName" />
+        <result column="cus_name" property="cusName" />
+        <result column="doc_type" property="docType" />
+        <result column="doc_code" property="docCode" />
+        <result column="leg_doc_name" property="legDocName" />
+        <result column="leg_doc_type" property="legDocType" />
+        <result column="leg_doc_code" property="legDocCode" />
+        <result column="level" property="level" />
+        <result column="risk_type" property="riskType" />
+        <result column="valid_date" property="validDate" />
+        <result column="valid_status" property="validStatus" />
+        <result column="cus_type" property="cusType" />
+        <result column="occurarea" property="occurarea" />
+        <result column="bank_no" property="bankNo" />
+        <result column="url" property="url" />
+        <result column="registered_code" property="registeredCode" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        pcac_risk_info_id, up_date, reg_name, cus_name, doc_type, doc_code, leg_doc_name, leg_doc_type, leg_doc_code, level, risk_type, valid_date, valid_status, cus_type, occurarea, bank_no, url, registered_code
+    </sql>
+
+</mapper>

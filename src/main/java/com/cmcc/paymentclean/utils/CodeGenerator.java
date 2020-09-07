@@ -1,10 +1,10 @@
 package com.cmcc.paymentclean.utils;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -16,38 +16,50 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+/**
+ * 代码生成器
+ */
 @Data
 public class CodeGenerator {
 
     /**
      * 配置文件名
      */
-    private final static String APP_PROPERTY = "database.properties";
-    private static String projectPath = System.getProperty("user.dir");
+    private static final String APP_PROPERTY = "database.properties";
+    /**
+     * 项目根路径
+     */
+    private static final String PROJECT_PATH = System.getProperty("user.dir");
     /**
      * 公共包路径
      */
-    private static String parentPackage = "com.cmcc";
+    private static final String PARENT_PACKAGE = "com.cmcc";
     /**
      * 模块名
      */
-    private static String module = "paymentclean";
+    private static final String MODULE = "paymentclean";
+    /**
+     * 生成java根路径
+     */
+    private static final String BASE_SRC_ROOT = "/src/main/java/";
+    /**
+     * 生成xml根路径
+     */
+    private static final String BASE_MAPPER_ROOT = "/src/main/resources/";
+    /**
+     * 模板类型
+     */
+    private static final int TEMPLATE_TYPE = 1;
 
     /**
-     * 自定义模板位置
+     * 数据源配置
+     *
+     * @return 数据源配置信息
      */
-    private String templatePath = "templates/mp/";
-    private String xmlTemplate = templatePath + "mapper.xml.ftl";
-    private String controllerTemplate = templatePath + "controller.java";
-    private String serviceTemplate = templatePath + "service.java";
-    private String serviceImplTemplate = templatePath + "serviceImpl.java";
-    private String mapperTemplate = templatePath + "mapper.java";
-
-
     private static DataSourceConfig dataSourceConfig() {
         DataSourceConfig dsc = new DataSourceConfig();
 
-        String resourcePath = System.getProperty("user.dir") + "/src/main/resources/" + APP_PROPERTY;
+        String resourcePath = PROJECT_PATH + BASE_MAPPER_ROOT + APP_PROPERTY;
         try {
             InputStream inStream = new FileInputStream(new File(resourcePath));
             Properties prop = new Properties();
@@ -66,138 +78,105 @@ public class CodeGenerator {
     }
 
     /**
+     * 自定义模板位置
+     */
+    private String templatePath = "templates/mp/";
+    private String controllerTemplate = templatePath + "controller.java";
+    private String serviceTemplate = templatePath + "service.java";
+    private String serviceImplTemplate = templatePath + "serviceImpl.java";
+    private String mapperTemplate = templatePath + "mapper.java";
+
+    /**
      * <p>
      * 读取控制台内容
      * </p>
      */
-    public static int scanner() {
+    public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
         StringBuilder help = new StringBuilder();
-        help.append("==代码生成, 输入 0 表示使用 Velocity 引擎==");
-        help.append("\n对照表：");
-        help.append("\n0 = Velocity 引擎");
-        help.append("\n1 = Freemarker 引擎");
-        help.append("\n请输入：");
+        help.append("请输入" + tip + "：");
         System.out.println(help.toString());
-        int slt = 0;
-        // 现在有输入数据
         if (scanner.hasNext()) {
             String ipt = scanner.next();
-            if ("1".equals(ipt)) {
-                slt = 1;
+            if (ipt != null && !ipt.trim().isEmpty()) {
+                return ipt;
             }
         }
-        return slt;
+        throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
 
-    /**
-     * <p>
-     * MySQL 生成演示
-     * </p>
-     */
-    public static void main(String[] args) {
-        int result = scanner();
-        // 自定义需要填充的字段
-        List<TableFill> tableFillList = new ArrayList<>();
-        tableFillList.add(new TableFill("ASDD_SS", FieldFill.INSERT_UPDATE));
 
+    public void codeGenerate() {
         // 代码生成器
-        AutoGenerator mpg = new AutoGenerator().setGlobalConfig(
-                // 全局配置
-                new GlobalConfig()
-                        .setOutputDir(projectPath + "/src/main/java")//输出目录
-                        .setFileOverride(true)// 是否覆盖文件
-                        .setActiveRecord(true)// 开启 activeRecord 模式
-                        .setEnableCache(false)// XML 二级缓存
-                        .setBaseResultMap(true)// XML ResultMap
-                        .setBaseColumnList(true)// XML columList
-                        //.setKotlin(true) 是否生成 kotlin 代码
-                        .setAuthor("ldy")
-                        .setSwagger2(true)
-                // 自定义文件命名，注意 %s 会自动填充表实体属性！
-                // .setEntityName("%sEntity");
-                // .setMapperName("%sDao")
-                // .setXmlName("%sDao")
-                // .setServiceName("MP%sService")
-                // .setServiceImplName("%sServiceDiy")
-                // .setControllerName("%sAction")
-        ).setDataSource(dataSourceConfig()).setStrategy(
-                // 策略配置
-                new StrategyConfig()
-                        // .setCapitalMode(true)// 全局大写命名
-                        // .setDbColumnUnderline(true)//全局下划线命名
-                        .setTablePrefix(new String[]{"pcac"})// 此处可以修改为您的表前缀
-                        .setNaming(NamingStrategy.underline_to_camel)// 表名生成策略
-                        // .setInclude(new String[] { "user" }) // 需要生成的表
-                        // .setExclude(new String[]{"test"}) // 排除生成的表
-                        // 自定义实体父类
-                        // .setSuperEntityClass("com.baomidou.demo.TestEntity")
-                        // 自定义实体，公共字段
-                        .setSuperEntityColumns(new String[]{"id"})
-                        .setTableFillList(tableFillList)
-                // 自定义 mapper 父类
-                // .setSuperMapperClass("com.baomidou.demo.TestMapper")
-                // 自定义 service 父类
-                // .setSuperServiceClass("com.baomidou.demo.TestService")
-                // 自定义 service 实现类父类
-                // .setSuperServiceImplClass("com.baomidou.demo.TestServiceImpl")
-                // 自定义 controller 父类
-                // .setSuperControllerClass("com.baomidou.demo.TestController")
-                // 【实体】是否生成字段常量（默认 false）
-                // public static final String ID = "test_id";
-                // .setEntityColumnConstant(true)
-                // 【实体】是否为构建者模型（默认 false）
-                // public User setName(String name) {this.name = name; return this;}
-                // .setEntityBuilderModel(true)
-                // 【实体】是否为lombok模型（默认 false）<a href="https://projectlombok.org/">document</a>
-                // .setEntityLombokModel(true)
-                // Boolean类型字段是否移除is前缀处理
-                // .setEntityBooleanColumnRemoveIsPrefix(true)
-                // .setRestControllerStyle(true)
-                // .setControllerMappingHyphenStyle(true)
-        ).setPackageInfo(
-                // 包配置
-                new PackageConfig()
-                        .setModuleName(module)
-                        .setParent(parentPackage)// 自定义包路径
-                        .setController("controller")// 这里是控制器包名，默认 web
-        ).setCfg(
-                // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
-                new InjectionConfig() {
-                    @Override
-                    public void initMap() {
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("cmcc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
-                        this.setMap(map);
-                    }
-                }.setFileOutConfigList(Collections.<FileOutConfig>singletonList(new FileOutConfig(
-                        "/templates/mapper.xml" + ((1 == result) ? ".ftl" : ".vm")) {
-                    // 自定义输出文件目录
-                    @Override
-                    public String outputFile(TableInfo tableInfo) {
-                        return "D:/develop/code/xml/" + tableInfo.getEntityName() + ".xml";
-                    }
-                }))
-        ).setTemplate(
-                // 关闭默认xml生成，调整生成至根目录
-                new TemplateConfig().setXml(null)
-                // 自定义模板配置，模板可以参考源码 /mybatis-plus/src/main/resources/template 使用 copy
-                // 至您项目 src/main/resources/template 目录下，模板名称也可自定义如下配置：
-                // .setController("...");
-                // .setEntity("...");
-                // .setMapper("...");
-                // .setXml("...");
-                // .setService("...");
-                // .setServiceImpl("...");
-        );
-        // 执行生成
-        if (1 == result) {
-            mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        }
+        AutoGenerator mpg = new AutoGenerator();
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
+        gc.setOutputDir(PROJECT_PATH + BASE_SRC_ROOT);
+        gc.setAuthor(scanner("制作者"));
+        gc.setOpen(false);
+        gc.setActiveRecord(true);
+        gc.setIdType(IdType.AUTO);
+        gc.setServiceName("%sService");
+        gc.setBaseResultMap(true);
+        gc.setBaseColumnList(true);
+        gc.setFileOverride(true);
+        // 实体属性 Swagger2 注解
+        gc.setSwagger2(true);
+        mpg.setGlobalConfig(gc);
+        // 数据源配置
+        mpg.setDataSource(dataSourceConfig());
+        // 包配置
+        PackageConfig pc = new PackageConfig();
+        pc.setParent(PARENT_PACKAGE);
+        pc.setModuleName(MODULE);
+        mpg.setPackageInfo(pc);
+        // 自定义配置
+        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                Map<String, Object> map = new HashMap<>();
+                map.put("cmcc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
+                this.setMap(map);
+            }
+        }.setFileOutConfigList(Collections.<FileOutConfig>singletonList(new FileOutConfig(
+                "/templates/mapper.xml" + ((1 == TEMPLATE_TYPE) ? ".ftl" : ".vm")) {
+            // 自定义输出文件目录
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return PROJECT_PATH + BASE_MAPPER_ROOT + "mapper/" + tableInfo.getEntityName() + ".xml";
+            }
+        }));
+        mpg.setCfg(cfg);
+        // 配置模板
+        TemplateConfig templateConfig = new TemplateConfig();
+        // 配置自定义输出模板
+        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
+        templateConfig.setXml(null);
+        templateConfig.setService(serviceTemplate);
+        templateConfig.setServiceImpl(serviceImplTemplate);
+        templateConfig.setMapper(mapperTemplate);
+        templateConfig.setController(controllerTemplate);
+        mpg.setTemplate(templateConfig);
+        // 策略配置
+        StrategyConfig strategy = new StrategyConfig();
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        // strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
+        strategy.setEntityLombokModel(true);
+        strategy.setRestControllerStyle(true);
+        // 公共父类
+        // strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
+        // 写于父类中的公共字段
+        strategy.setSuperEntityColumns("id");
+        // strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+        strategy.setControllerMappingHyphenStyle(true);
+        // strategy.setTablePrefix(pc.getModuleName() + "_");
+        mpg.setStrategy(strategy);
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
-
-        // 打印注入设置，这里演示模板里面怎么获取注入内容【可无】
-        System.err.println(mpg.getCfg().getMap().get("cmcc"));
     }
 
+    public static void main(String[] args) {
+        new CodeGenerator().codeGenerate();
+    }
 }
