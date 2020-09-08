@@ -55,13 +55,13 @@
 |cusNature|商户属性|String|
 |cusNumber|商户编号|String|
 |level|风险信息等级|String|
-|validDate|有效期|String|
-|occurtimeb|风险事件发生时间|String|
-|occurtimee|风险事件结束时间|String|
+|validDate|有效期|Date|
+|occurtimeb|风险事件发生时间|Date|
+|occurtimee|风险事件结束时间|Date|
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String|
 |operator|操作人|String|
-|operateTime|操作时间|String|
+|operateTime|操作时间|Date|
 
 * 响应报文字段
 
@@ -85,10 +85,10 @@
 |docCode|法人证件号码|String|
 |legDocType|法定代表人证件类型|String|
 |legDocCode|法定代表人证件号码|String|
-|submitStartTime|上报开始时间|String|
-|submitEndTime|上报结束时间|String|
-|operateStartTime|操作开始时间|String|
-|operateEndTime|操作结束时间|String|
+|submitStartTime|上报开始时间|Date|
+|submitEndTime|上报结束时间|Date|
+|operateStartTime|操作开始时间|Date|
+|operateEndTime|操作结束时间|Date|
 |submitStatus|报送状态|String|
 |operator|操作人|String|
 
@@ -113,15 +113,15 @@
 |legDocCode|法定代表人（负责人）证件号码|String|
 |bankNo|银行结算账号（支付账户）|String|
 |openBank|开户行|String|
-|validDate|有效期|String|
+|validDate|有效期|Date|
 |validStatus|有效性|String|
-|occurtimeb|风险事件发生时间|String|
+|occurtimeb|风险事件发生时间|Date|
 |occurarea|风险事件发生地域|String|
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String|
 |operator|操作人|String|
-|operateTime|操作时间|String|
-|submitTime|上报时间|String|
+|operateTime|操作时间|Date|
+|submitTime|上报时间|Date|
 |submitStatus|报送状态|String|
 |failureReason|失败原因|String|
 
@@ -137,15 +137,15 @@
 |-------|------|-----|
 |riskType|风险类型|String(枚举)|
 |usrNo|内部用户号|String|
-|validDate|有效期|String|
-|occurtimeb|风险事件发生时间|String|
-|occurtimee|风险事件结束时间|String|
+|validDate|有效期|Date|
+|occurtimeb|风险事件发生时间|Date|
+|occurtimee|风险事件结束时间|Date|
 |occurchan|风险事件发生渠道|String|
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String(枚举)|
 |occurarea|风险事件发生地域|String|
 |operator|操作人|String|
-|operateTime|操作时间|String|
+|operateTime|操作时间|Date|
 
 
 * 响应报文字段
@@ -168,10 +168,10 @@
 |mobileNo|手机号|String|
 |docType|证件类型|String|
 |docCode|证件号码|String|
-|operateStartTime|操作开始时间|String|
-|operateEndTime|操作结束时间|String|
-|submitStartTime|上报开始时间|String|
-|submitEndTime|上报结束时间|String|
+|operateStartTime|操作开始时间|Date|
+|operateEndTime|操作结束时间|Date|
+|submitStartTime|上报开始时间|Date|
+|submitEndTime|上报结束时间|Date|
 |submitStatus|报送状态|String|
 |operator|操作人|String|
 
@@ -188,15 +188,15 @@
 |docCode|证件号码|String|
 |bankNo|付款账户/付款银行卡号（支付账户）|String|
 |openBank|开户机构|String|
-|validDate|有效期|String|
+|validDate|有效期|Date|
 |validStatus|有效性|String|
-|occurtimeb|风险事件发生时间|String|
-|occurarea|风险事件发生地域|String|
+|occurtimeb|风险事件发生时间|Date|
+|occurarea|风险事件发生地域|Date|
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源渠道|String|
 |operator|操作人|String|
-|operateTime|操作时间|String|
-|submitTime|上报时间|String|
+|operateTime|操作时间|Date|
+|submitTime|上报时间|Date|
 |submitStatus|报送状态|String|
 |failureReason|失败原因|String|
 
@@ -210,14 +210,14 @@
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |riskType|风险类型|String|
-|paymentAccountNo|单位支付账户编号|String|
-|occurtimeb|风险事件发生时间|String|
-|occurtimee|风险事件结束时间|String|
+|payAccountNo|单位支付账户编号|String|
+|occurtimeb|风险事件发生时间|Date|
+|occurtimee|风险事件结束时间|Date|
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String(枚举)|
-|validDate|有效期|String|
+|validDate|有效期|Date|
 |operator|操作人|String|
-|operateTime|操作时间|String|
+|operateTime|操作时间|Date|
 
 
 * 响应报文字段
@@ -240,13 +240,13 @@
 |regName|企业名称|String|
 |docCode|法人证件号码|String|
 |docType|法人证件类型|String|
-|submitStartTime|上报开始时间|String|
-|submitEndTime|上报结束时间|String|
+|submitStartTime|上报开始时间|Date|
+|submitEndTime|上报结束时间|Date|
 |submitStatus|报送状态|String|
 |legDocCode|法定代表人证件类型|String|
 |legDocType|法定代表人证件号码|String|
-|operateStartTime|操作开始时间|String|
-|operateEndTime|操作结束时间|String|
+|operateStartTime|操作开始时间|Date|
+|operateEndTime|操作结束时间|Date|
 |operator|操作人|String|
 
 * 响应报文字段
@@ -264,15 +264,15 @@
 |legDocType|法定代表人证件类型（负责人）|String|
 |legDocCode|法定代表人证件号码（负责人）|String|
 |regAddress|企业注册地址|String|
-|validDate|有效期|String|
+|validDate|有效期|Date|
 |validStatus|有效性|String|
-|occurtimeb|风险事件发生时间|String|
+|occurtimeb|风险事件发生时间|Date|
 |occurarea|风险事件发生地域|String|
 |note|风险事件描述|String|
 |sourceChannel|风险信息来源|String|
 |operator|操作人|String|
-|operateTime|操作时间|String|
-|submitTime|上报时间|String|
+|operateTime|操作时间|Date|
+|submitTime|上报时间|Date|
 |submitStatus|报送状态|String|
 |failureReason|失败原因|String|
 
@@ -302,8 +302,8 @@
 |regName|商户名称|String|
 |legDocCode|法定代表人证件号码|String|
 |docCode|法人证件号码|String|
-|pushStartTime|推送开始时间|String|
-|pushEndTime|推送结束时间|String|
+|pushStartTime|推送开始时间|Date|
+|pushEndTime|推送结束时间|Date|
 |docType|法人证件类型|String|
 |legDocType|法定代表人证件类型（负责人）|String|
 
@@ -313,7 +313,7 @@
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |pushListType|推送名单类型|String|
-|pushDate|推送日期|String|
+|pushDate|推送日期|Date|
 |level|风险信息等级|String|
 |riskType|风险类型|String|
 |cusName|商户简称|String|
@@ -323,7 +323,7 @@
 |legRepName|法人（负责人）代表姓名|String|
 |legDocType|法人（负责人）证件类型|String|
 |legDocCode|法人（负责人）证件号码|String|
-|validDate|有效期|String|
+|validDate|有效期|Date|
 |validStatus|有效性|String|
 |cusType|商户类型|String|
 |occurarea|风险事件发生地域|String|
@@ -337,8 +337,8 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|occurtimeb|风险事件发生时间|String|
-|occurtimee|风险事件结束时间|String|
+|occurtimeb|风险事件发生时间|Date|
+|occurtimee|风险事件结束时间|Date|
 |riskType|补发信息类型|String|
 
 * 响应报文字段
@@ -368,10 +368,10 @@
 |riskType|风险类型|String|
 |status|反馈状态|String|
 |pushListType|推送名单类型|String|
-|feedbackStartDate|反馈开始日期|String|
-|feedbackEndDate|反馈结束日期|String|
-|pushStartDate|推送开始日期|String|
-|pushEndDate|推送结束日期|String|
+|feedbackStartDate|反馈开始日期|Date|
+|feedbackEndDate|反馈结束日期|Date|
+|pushStartDate|推送开始日期|Date|
+|pushEndDate|推送结束日期|Date|
 
 
 
@@ -382,21 +382,21 @@
 |-------|------|-----|
 |cusNumber|商户编号|String|
 |pushListType|推送名单类型|String|
-|pushDate|推送日期|String|
+|pushDate|推送日期|Date|
 |level|风险信息等级|String|
 |riskType|风险类型|String|
 |cusName|商户简称|String|
 |regName|商户名称|String|
 |handleResult|处理结果|String|
 |feedbackStatus|反馈状态|
-|feedbackDate|反馈日期|String|
-|pushDate|推送日期|String|
+|feedbackDate|反馈日期|Date|
+|pushDate|推送日期|Date|
 |docType|法人证件类型|String|
 |docCode|法人证件号码|String|
 |legRepName|法人（负责人）代表姓名|String|
 |legDocType|法定代表人证件类型|String|
 |legDocCode|法定代表人证件号码|String|
-|validDate|有效期|String|
+|validDate|有效期|Date|
 |validStatus|有效性|String|
 |cusType|商户类型|String|
 |occurarea|风险事件发生地域|String|
@@ -426,7 +426,7 @@
 |legDocCode|法人（负责人）证件号码|String|
 |Amount|涉及结算金额(后台计算)|String|
 |handleResult|处理结果|String|
-|feedbackDate|反馈日期|String|
+|feedbackDate|反馈日期|Date|
 
 
 * 响应报文字段
@@ -487,12 +487,12 @@
 |address|商户实际办公地|String|
 |icp|ICP 备案编号|String|
 |level|信息级别|String|
-|occurtimeb|风险事件发生时间|String|
-|occurtimee|风险事件结束时间|String|
+|occurtimeb|风险事件发生时间|Date|
+|occurtimee|风险事件结束时间|Date|
 |occurchan|风险事件发生渠道|String|
 |occurarea|风险事件发生地域|String|
 |note|风险事件描述|String|
-|validDate|有效期|String|
+|validDate|有效期|Date|
 |validStatus|有效性|String|
 |stopNum|终止合作的机构数量|String|
 |refuseNum|拒绝拓展的机构数量|String|
@@ -510,7 +510,7 @@
 |registeredCode|商户注册号码|String|
 |sourceChannel|风险信息来源|String|
 |amount|交易金额|String|
-|riskFindTime|风险事件发现时间|String|
+|riskFindTime|风险事件发现时间|Date|
 |legControlName|实控人姓名|String|
 |legControlCardType|实控人证件类型|String|
 |legControlCardCode|实控人证件号|String|
@@ -520,8 +520,8 @@
 |legBenCardType|受益人证件类型|String|
 |legBenCardCode|受益人证件号|String|
 |handleResult|处理结果|String|
-|feedbackStatus|反馈状态|
-|feedbackDate|反馈日期|String|
+|feedbackStatus|反馈状态|String|
+|feedbackDate|反馈日期|Date|
 |operator|操作人|String|
 
 
@@ -542,7 +542,7 @@
 |cusType|商户类型|String|
 |amount|涉及结算金额（参考查询时间，近90天内结算总金额）|String|
 |handleResult|处理结果|String|
-|handleTime|处理时间|String|
+|handleTime|处理时间|Date|
 |currency|交易币种|String|
 
 
