@@ -4,7 +4,7 @@ drop table if exists pcac_assistance_info;
 
 create table pcac_assistance_info
 (
-    pcac_assistance_info_id                   int(64) not null comment 'id序号',
+    pcac_assistance_info_id                   int(64) not null auto_increment comment 'id序号',
     up_date              varchar(10) comment '推送日期',
     cus_code             varchar(64) comment '商户代码',
     reg_name             varchar(64) comment '商户名称',
@@ -28,7 +28,7 @@ drop table if exists pcac_risk_info;
 
 create table pcac_risk_info
 (
-    pcac_risk_info_id                   int(64) not null comment 'id序号',
+    pcac_risk_info_id                   int(64) not null auto_increment comment 'id序号',
     up_date              varchar(10) comment '推送日期',
     reg_name             varbinary(128) comment '商户名称',
     cus_name             varchar(128) comment '商户简称',
@@ -49,9 +49,11 @@ create table pcac_risk_info
     primary key (pcac_risk_info_id)
 ) comment '商户黑名单提示信息表';
 
+drop table if exists pcac_local_risk_reg;
+
 create table pcac_local_risk_reg
 (
-    pcac_local_risk_reg_id                   int(64) not null comment 'id序号',
+    pcac_local_risk_reg_id                   int(64) not null auto_increment comment 'id序号',
     cus_type              varchar(2) comment '商户类型',
     risk_type             varchar(2) comment '风险类型',
     cus_nature            varchar(64) comment '商户属性',

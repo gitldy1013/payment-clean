@@ -63,12 +63,57 @@
 |operator|操作人|String|
 |operateTime|操作时间|Date|
 
+* 请求报文示例：
+```json
+[
+    {
+        "cusType": "",
+        "riskType": "",
+        "cusNature": "",
+        "cusNumber": "",
+        "level": "",
+        "validDate": "",
+        "occurtimeb": "",
+        "occurtimee": "",
+        "note": "",
+        "sourceChannel": "",
+        "operator": "",
+        "operateTime": ""
+    },
+    {
+        "cusType": "",
+        "riskType": "",
+        "cusNature": "",
+        "cusNumber": "",
+        "level": "",
+        "validDate": "",
+        "occurtimeb": "",
+        "occurtimee": "",
+        "note": "",
+        "sourceChannel": "",
+        "operator": "",
+        "operateTime": ""
+    },
+    ...
+]
+```
+
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
+
+* 响应报文示例：
+
+```json
+{
+  "data": {},
+  "resCode": "string",
+  "resMsg": "string"
+}
+```
 
 #### 4.1.2风险商户查询请求接口
 
@@ -92,38 +137,108 @@
 |submitStatus|报送状态|String|
 |operator|操作人|String|
 
+* 请求报文示例：
+
+```json
+{
+    "cusNumber": "",
+    "regName": "",
+    "docType": "",
+    "docCode": "",
+    "legDocType": "",
+    "legDocCode": "",
+    "submitStartTime": "",
+    "submitEndTime": "",
+    "operateStartTime": "",
+    "operateEndTime": "",
+    "submitStatus": "",
+    "operator": ""
+}
+```
 
 * 响应报文字段
+
 *注意：法定代表人和受益人字段一样*
 
-|字段名称|字段说明|参数类型|
-|-------|------|-----|
-|cusCode|商户代码|String|
-|cusName|商户简称|String|
-|RegName|商户名称|String|
-|cusType|商户类型|String|
-|msgType|信息类型|String|
-|riskType|风险类型|String|
-|level|风险信息等级|String|
-|cusNature|商户属性|String|
-|docType|法人证件类型|String|
-|docCode|法人证件号码|String|
-|legRepName|法定代表人（负责人）姓名|String|
-|legDocType|法定代表人（负责人）证件类型|String|
-|legDocCode|法定代表人（负责人）证件号码|String|
-|bankNo|银行结算账号（支付账户）|String|
-|openBank|开户行|String|
-|validDate|有效期|Date|
-|validStatus|有效性|String|
-|occurtimeb|风险事件发生时间|Date|
-|occurarea|风险事件发生地域|String|
-|note|风险事件描述|String|
-|sourceChannel|风险信息来源|String|
-|operator|操作人|String|
-|operateTime|操作时间|Date|
-|submitTime|上报时间|Date|
-|submitStatus|报送状态|String|
-|failureReason|失败原因|String|
+|字段名称|字段说明|参数类型|枚举|
+|-------|------|-----|---|
+|cusCode|商户代码|String||
+|cusName|商户简称|String||
+|RegName|商户名称|String||
+|cusType|商户类型|String|02:企业商户 03:个体工商户|
+|msgType|信息类型|String||
+|riskType|风险类型|String||
+|level|风险信息等级|String||
+|cusNature|商户属性|String||
+|docType|法人证件类型|String||
+|docCode|法人证件号码|String||
+|legRepName|法定代表人（负责人）姓名|String||
+|legDocType|法定代表人（负责人）证件类型|String||
+|legDocCode|法定代表人（负责人）证件号码|String||
+|bankNo|银行结算账号（支付账户）|String||
+|openBank|开户行|String||
+|validDate|有效期|Date||
+|validStatus|有效性|String||
+|occurtimeb|风险事件发生时间|Date||
+|occurarea|风险事件发生地域|String||
+|note|风险事件描述|String||
+|sourceChannel|风险信息来源|String||
+|operator|操作人|String||
+|operateTime|操作时间|Date||
+|submitTime|上报时间|Date||
+|submitStatus|报送状态|String||
+|failureReason|失败原因|String||
+
+* 响应报文示例：
+
+```json
+{
+  "resMsg": "success",
+  "resCode": "000",
+  "data": {
+    "records": [
+      {
+        "cusCode":"",
+        "cusName":"",
+        "RegName":"",
+        "cusType":"",
+        "msgType":"",
+        "riskType":"",
+        "level":"",
+        "cusNature":"",
+        "docType":"",
+        "docCode":"",
+        "legRepName":"",
+        "legDocType":"",
+        "legDocCode":"",
+        "bankNo":"",
+        "openBank":"",
+        "validDate":"",
+        "validStatus":"",
+        "occurtimeb":"",
+        "occurarea":"",
+        "note":"",
+        "sourceChannel":"",
+        "operator":"",
+        "operateTime":"",
+        "submitTime":"",
+        "submitStatus":"",
+        "failureReason":""
+      }
+    ],
+    "total": 1,
+    "size": 10,
+    "current": 1,
+    "orders": [],
+    "optimizeCountSql": true,
+    "hitCount": false,
+    "countId": null,
+    "maxLimit": null,
+    "searchCount": true,
+    "pages": 0
+  }
+}
+```
 
 
 #### 4.1.3风险个人上报请求接口
@@ -147,6 +262,39 @@
 |operator|操作人|String|
 |operateTime|操作时间|Date|
 
+* 请求报文示例：
+
+```json
+[
+    {
+      "riskType":"",
+      "usrNo":"",
+      "validDate":"",
+      "occurtimeb":"",
+      "occurtimee":"",
+      "occurchan":"",
+      "note":"",
+      "sourceChannel":"",
+      "occurarea":"",
+      "operator":"",
+      "operateTime":""
+    },
+    {
+      "riskType":"",
+      "usrNo":"",
+      "validDate":"",
+      "occurtimeb":"",
+      "occurtimee":"",
+      "occurchan":"",
+      "note":"",
+      "sourceChannel":"",
+      "occurarea":"",
+      "operator":"",
+      "operateTime":""
+    },
+    ...
+]
+```
 
 * 响应报文字段
 
@@ -155,9 +303,19 @@
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
 
+* 响应报文示例：
+
+```json
+{
+  "data": {},
+  "resCode": "string",
+  "resMsg": "string"
+}
+```
+
 #### 4.1.4风险个人查询请求接口
 
->* 请求类型：GET
+>* 请求类型：POST
 >* 请求路径：/localRisk/localRiskPer/query
 
 * 请求报文字段
@@ -174,6 +332,23 @@
 |submitEndTime|上报结束时间|Date|
 |submitStatus|报送状态|String|
 |operator|操作人|String|
+
+* 请求报文示例：
+
+```json
+{
+    "usrNo":"",
+    "mobileNo":"",
+    "docType":"",
+    "docCode":"",
+    "operateStartTime":"",
+    "operateEndTime":"",
+    "submitStartTime":"",
+    "submitEndTime":"",
+    "submitStatus":"",
+    "operator":""
+}
+```
 
 * 响应报文字段
 
@@ -200,6 +375,51 @@
 |submitStatus|报送状态|String|
 |failureReason|失败原因|String|
 
+* 响应报文示例：
+
+```json
+{
+  "resMsg": "success",
+  "resCode": "000",
+  "data": {
+    "records": [
+      {
+        "usrNo": "",
+        "mobileNo": "",
+        "cusName": "",
+        "cusProperty": "",
+        "riskType": "",
+        "docType": "",
+        "docCode": "",
+        "bankNo": "",
+        "openBank": "",
+        "validDate": "",
+        "validStatus": "",
+        "occurtimeb": "",
+        "occurarea": "",
+        "note": "",
+        "sourceChannel": "",
+        "operator": "",
+        "operateTime": "",
+        "submitTime": "",
+        "submitStatus": "",
+        "failureReason": ""
+      }
+    ],
+    "total": 1,
+    "size": 10,
+    "current": 1,
+    "orders": [],
+    "optimizeCountSql": true,
+    "hitCount": false,
+    "countId": null,
+    "maxLimit": null,
+    "searchCount": true,
+    "pages": 0
+  }
+}
+```
+
 #### 4.1.5风险企业上报请求接口
 
 >* 请求类型：POST
@@ -219,6 +439,35 @@
 |operator|操作人|String|
 |operateTime|操作时间|Date|
 
+* 请求报文示例：
+
+```json
+[
+    {
+        "riskType": "",
+        "paymentAccountNo": "",
+        "occurtimeb": "",
+        "occurtimee": "",
+        "note|风险事件描述": "",
+        "sourceChannel": "",
+        "validDate": "",
+        "operator": "",
+        "operateTime": ""
+    },
+    {
+        "riskType": "",
+        "paymentAccountNo": "",
+        "occurtimeb": "",
+        "occurtimee": "",
+        "note|风险事件描述": "",
+        "sourceChannel": "",
+        "validDate": "",
+        "operator": "",
+        "operateTime": ""
+    },
+    ...
+]
+```
 
 * 响应报文字段
 
@@ -227,9 +476,19 @@
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
 
+* 响应报文示例：
+
+```json
+{
+  "data": {},
+  "resCode": "string",
+  "resMsg": "string"
+}
+```
+
 #### 4.1.6风险企业查询请求接口
 
->* 请求类型：GET
+>* 请求类型：POST
 >* 请求路径：/localRisk/localRiskCom/query
 
 * 请求报文字段
@@ -248,6 +507,25 @@
 |operateStartTime|操作开始时间|Date|
 |operateEndTime|操作结束时间|Date|
 |operator|操作人|String|
+
+* 请求报文示例：
+
+```json
+{
+    "cusCode":"",
+    "regName":"",
+    "docCode":"",
+    "docType":"",
+    "submitStartTime":"",
+    "submitEndTime":"",
+    "submitStatus":"",
+    "legDocCode":"",
+    "legDocType":"",
+    "operateStartTime":"",
+    "operateEndTime":"",
+    "operator":""
+}
+```
 
 * 响应报文字段
 
@@ -276,7 +554,52 @@
 |submitStatus|报送状态|String|
 |failureReason|失败原因|String|
 
+* 响应报文示例：
 
+```json
+{
+  "resMsg": "success",
+  "resCode": "000",
+  "data": {
+    "records": [
+      {
+        "cusCode":"",
+        "cusName":"",
+        "regName":"",
+        "msgType":"",
+        "riskType":"",
+        "docType":"",
+        "docCode":"",
+        "legRepName":"",
+        "legDocType":"",
+        "legDocCode":"",
+        "regAddress":"",
+        "validDate":"",
+        "validStatus":"",
+        "occurtimeb":"",
+        "occurarea":"",
+        "note":"",
+        "sourceChannel":"",
+        "operator":"",
+        "operateTime":"",
+        "submitTime":"",
+        "submitStatus":"",
+        "failureReason":""
+      }
+    ],
+    "total": 1,
+    "size": 10,
+    "current": 1,
+    "orders": [],
+    "optimizeCountSql": true,
+    "hitCount": false,
+    "countId": null,
+    "maxLimit": null,
+    "searchCount": true,
+    "pages": 0
+  }
+}
+```
 
 ### 4.2协会风险商户共享
 
@@ -307,6 +630,19 @@
 |docType|法人证件类型|String|
 |legDocType|法定代表人证件类型（负责人）|String|
 
+* 请求报文示例：
+
+```json
+{
+    "regName":"",
+    "legDocCode":"",
+    "docCode":"",
+    "pushStartTime":"",
+    "pushEndTime":"",
+    "docType":"",
+    "legDocType":""
+}
+```
 
 * 响应报文字段
 
@@ -328,6 +664,46 @@
 |cusType|商户类型|String|
 |occurarea|风险事件发生地域|String|
 
+* 响应报文示例：
+
+```json
+{
+  "resMsg": "success",
+  "resCode": "000",
+  "data": {
+    "records": [
+      {
+        "pushListType":"",
+        "pushDate":"",
+        "level":"",
+        "riskType":"",
+        "cusName":"",
+        "regName":"",
+        "docType":"",
+        "docCode":"",
+        "legRepName":"",
+        "legDocType":"",
+        "legDocCode":"",
+        "validDate":"",
+        "validStatus":"",
+        "cusType":"",
+        "occurarea":""
+      }
+    ],
+    "total": 1,
+    "size": 10,
+    "current": 1,
+    "orders": [],
+    "optimizeCountSql": true,
+    "hitCount": false,
+    "countId": null,
+    "maxLimit": null,
+    "searchCount": true,
+    "pages": 0
+  }
+}
+```
+
 #### 4.2.3风险信息补发
 
 >* 请求类型：POST
@@ -341,12 +717,32 @@
 |occurtimee|风险事件结束时间|Date|
 |riskType|补发信息类型|String|
 
+* 请求报文示例：
+
+```json
+{
+    "occurtimeb":"",
+    "occurtimee":"",
+    "riskType":""
+}
+```
+
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
+
+* 响应报文示例：
+
+```json
+{
+  "data": {},
+  "resCode": "string",
+  "resMsg": "string"
+}
+```
 
 ### 4.3本地商户关联反馈
 
@@ -373,8 +769,25 @@
 |pushStartDate|推送开始日期|Date|
 |pushEndDate|推送结束日期|Date|
 
+* 请求报文示例：
 
-
+```json
+{
+    "cusNumber":"",
+    "regName":"",
+    "docCode":"",
+    "docType":"",
+    "legDocType":"",
+    "legDocCode":"",
+    "riskType":"",
+    "status":"",
+    "pushListType":"",
+    "feedbackStartDate":"",
+    "feedbackEndDate":"",
+    "pushStartDate":"",
+    "pushEndDate":""
+}
+```
 
 * 响应报文字段
 
@@ -408,7 +821,58 @@
 |failureReason|失败原因|String|
 |Amount|涉及结算金额(后台计算)|String|
 
+* 响应报文示例：
 
+```json
+{
+  "resMsg": "success",
+  "resCode": "000",
+  "data": {
+    "records": [
+      {
+        "cusNumber":"",
+        "pushListType":"",
+        "pushDate":"",
+        "level":"",
+        "riskType":"",
+        "cusName":"",
+        "regName":"",
+        "handleResult":"",
+        "feedbackStatus":"",
+        "feedbackDate":"",
+        "pushDate":"",
+        "docType":"",
+        "docCode":"",
+        "legRepName":"",
+        "legDocType":"",
+        "legDocCode":"",
+        "validDate":"",
+        "validStatus":"",
+        "cusType":"",
+        "occurarea":"",
+        "assMerNumber":"",
+        "status":"",
+        "isBlack":"",
+        "assFieldCnt":"",
+        "assFieldName":"",
+        "operator":"",
+        "failureReason":"",
+        "Amount":""
+      }
+    ],
+    "total": 1,
+    "size": 10,
+    "current": 1,
+    "orders": [],
+    "optimizeCountSql": true,
+    "hitCount": false,
+    "countId": null,
+    "maxLimit": null,
+    "searchCount": true,
+    "pages": 0
+  }
+}
+```
 
 #### 4.3.2本地关联风险商户反馈
 
@@ -427,6 +891,19 @@
 |handleResult|处理结果|String|
 |feedbackDate|反馈日期|Date|
 
+* 请求报文示例：
+
+```json
+{
+    "docType":"",
+    "docCode":"",
+    "legDocType":"",
+    "legDocCode":"",
+    "Amount":"",
+    "handleResult":"",
+    "feedbackDate":""
+}
+```
 
 * 响应报文字段
 
@@ -434,6 +911,16 @@
 |-------|------|-----|
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
+
+* 响应报文示例：
+
+```json
+{
+  "data": {},
+  "resCode": "string",
+  "resMsg": "string"
+}
+```
 
 ### 4.4查询商户风险信息及反馈
 
@@ -450,6 +937,16 @@
 |keyWord|关键字|String|
 |infos|查询条件信息（多条数据以逗号分隔）|String|
 
+* 请求报文示例：
+
+```json
+{
+    "cusProperty":"",
+    "keyWord":"",
+    "infos":""
+}
+```
+
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
@@ -457,9 +954,32 @@
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
 
->* ftp
+* 响应报文示例：
 
-*注意涉及结算金额是大数据方计算近90天的交易金额，查询的时候需要自己从库里获取值*
+```json
+{
+  "data": {},
+  "resCode": "string",
+  "resMsg": "string"
+}
+```
+
+>* 此接口获取数据先异步异步存储在数据库表中，然后推送到ftp服务器供给风控平台获取，Risk_时间戳命名.txt。
+>* 注意涉及结算金额是大数据方计算近90天的交易金额，查询的时候需要自己从库里获取值。
+
+#### 4.4.2商户风险信息查询使用情况查询
+
+>* 请求报文字段
+
+|字段名称|字段说明|参数类型|
+|---|---|---|
+|风险反馈主键编码|
+|商户类型|
+|商户编号（模糊查询）|
+|反馈起止日期 反馈状态|
+
+
+>* 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
@@ -523,17 +1043,12 @@
 |feedbackDate|反馈日期|Date|
 |operator|操作人|String|
 
-
-#### 4.4.2商户风险信息查询使用情况反馈
-
->* 导入查询
+#### 4.4.3商户风险信息查询使用情况反馈
 
 >* 请求类型：POST
 >* 请求路径：/isocRisk/isocRegRisk/back
 
 * 请求报文字段
-
-*风险反馈主键编码，商户类型，涉及结算金额，处理结果 处理时间YYYY-MM-DD*
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
@@ -541,9 +1056,8 @@
 |cusType|商户类型|String|
 |amount|涉及结算金额（参考查询时间，近90天内结算总金额）|String|
 |handleResult|处理结果|String|
-|handleTime|处理时间|Date|
+|handleTime|处理时间 YYYY-MM-DD|Date|
 |currency|交易币种|String|
-
 
 * 响应报文字段
 
