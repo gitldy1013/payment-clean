@@ -968,6 +968,9 @@
 
 #### 4.4.2商户风险信息查询使用情况查询
 
+>* 请求类型：POST
+>* 请求路径：/isocRisk/isocRegRisk/query
+
 >* 请求报文字段
 
 |字段名称|字段说明|参数类型|
@@ -979,6 +982,18 @@
 |feedbackEndDate|反馈结束日期|Date|
 |feedbackStatus|反馈状态|String|
 
+>* 请求报文示例：
+
+```json
+{
+    "id": "",
+    "cusType": "",
+    "cusNumber": "",
+    "feedbackStartDate": "",
+    "feedbackEndDate": "",
+    "feedbackStatus": ""
+}
+```
 
 >* 响应报文字段
 
@@ -1045,6 +1060,91 @@
 |operator|操作人|String|
 |errInfo|失败原因|String|
 
+* 响应报文示例：
+
+```json
+{
+  "resMsg": "success",
+  "resCode": "000",
+  "data": {
+    "records": [
+      {
+        "id":"",
+        "cusType":"",
+        "cusProperty":"",
+        "riskType":"",
+        "cusNature":"",
+        "RegName":"",
+        "cusCode":"",
+        "submitAmount":"",
+        "docType":"",
+        "docCode":"",
+        "legDocType":"",
+        "legDocCode":"",
+        "legRepName":"",
+        "count":"",
+        "isTransfer":"",
+        "bankNo":"",
+        "openBank":"",
+        "url":"",
+        "serverIp":"",
+        "mobileNo":"",
+        "address":"",
+        "icp":"",
+        "level":"",
+        "occurtimeb":"",
+        "occurtimee":"",
+        "occurchan":"",
+        "occurarea":"",
+        "note":"",
+        "validDate":"",
+        "validStatus":"",
+        "stopNum":"",
+        "refuseNum":"",
+        "useRiseNum":"",
+        "frozenNum":"",
+        "adjustmentCycleNum":"",
+        "delayNum":"",
+        "quotaNum":"",
+        "suspendNum":"",
+        "closeNum":"",
+        "followNum":"",
+        "antiMoneyNum":"",
+        "otherNum":"",
+        "registeredArea":"",
+        "registeredCode":"",
+        "sourceChannel":"",
+        "amount":"",
+        "riskFindTime":"",
+        "legControlName":"",
+        "legControlCardType":"",
+        "legControlCardCode":"",
+        "remarks":"",
+        "count":"",
+        "legBenName":"",
+        "legBenCardType":"",
+        "legBenCardCode":"",
+        "handleResult":"",
+        "feedbackStatus":"",
+        "feedbackDate":"",
+        "operator":"",
+        "errInfo":""
+      }
+    ],
+    "total": 1,
+    "size": 10,
+    "current": 1,
+    "orders": [],
+    "optimizeCountSql": true,
+    "hitCount": false,
+    "countId": null,
+    "maxLimit": null,
+    "searchCount": true,
+    "pages": 0
+  }
+}
+```
+
 #### 4.4.3商户风险信息查询使用情况反馈
 
 >* 请求类型：POST
@@ -1061,12 +1161,35 @@
 |handleTime|处理时间 YYYY-MM-DD|Date|
 |currency|交易币种|String|
 
+>* 请求报文示例：
+
+```json
+{
+    "id":"",
+    "cusType":"",
+    "amount":"",
+    "handleResult":"",
+    "handleTime":"",
+    "currency":""
+}
+```
+
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
+
+* 响应报文示例：
+
+```json
+{
+  "data": {},
+  "resCode": "string",
+  "resMsg": "string"
+}
+```
 
 ### 4.5特约商户信息报送
 
@@ -1089,12 +1212,33 @@
 |legDocName|法人（负责人）代表姓名|String|
 |legDocCode|法人（负责人）证件号码|String|
 
+>* 请求报文示例：
+
+```json
+{
+    "regName":"",
+    "docCode":"",
+    "legDocName":"",
+    "legDocCode":""
+}
+```
+
 * 响应报文字段
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |resCode|同步状态码(详见附录)|String|
 |resMsg|同步状态码说明|String|
+
+* 响应报文示例：
+
+```json
+{
+  "data": {},
+  "resCode": "string",
+  "resMsg": "string"
+}
+```
 
 ## 5.服务对接方式
 
