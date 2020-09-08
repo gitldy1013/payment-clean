@@ -973,10 +973,12 @@
 
 |字段名称|字段说明|参数类型|
 |---|---|---|
-|风险反馈主键编码|
-|商户类型|
-|商户编号（模糊查询）|
-|反馈起止日期 反馈状态|
+|id|风险反馈主键编码|String|
+|cusType|商户类型|String|
+|cusNumber|商户编号（模糊查询）|String|
+|feedbackStartDate|反馈开始日期|Date|
+|feedbackEndDate|反馈结束日期|Date|
+|feedbackStatus|反馈状态|String|
 
 
 >* 响应报文字段
