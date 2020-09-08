@@ -313,7 +313,7 @@
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |pushListType|推送名单类型|String|
-|pushDate|推送日期|Date|
+|upDate|推送日期|Date|
 |level|风险信息等级|String|
 |riskType|风险类型|String|
 |cusName|商户简称|String|
@@ -382,7 +382,7 @@
 |-------|------|-----|
 |cusNumber|商户编号|String|
 |pushListType|推送名单类型|String|
-|pushDate|推送日期|Date|
+|upDate|推送日期|Date|
 |level|风险信息等级|String|
 |riskType|风险类型|String|
 |cusName|商户简称|String|
@@ -390,7 +390,6 @@
 |handleResult|处理结果|String|
 |feedbackStatus|反馈状态|
 |feedbackDate|反馈日期|Date|
-|pushDate|推送日期|Date|
 |docType|法人证件类型|String|
 |docCode|法人证件号码|String|
 |legRepName|法人（负责人）代表姓名|String|
