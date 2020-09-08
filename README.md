@@ -310,7 +310,7 @@
 
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|pushListType推送名单类型|String|
+|pushListType|推送名单类型|String|
 |pushDate|推送日期|String|
 |level|风险信息等级|String|
 |riskType|风险类型|String|
@@ -458,6 +458,8 @@
 
 /ftp/
 
+*注意涉及结算金额是大数据方计算近90天的交易金额，查询的时候需要自己从库里获取值*
+
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
 |id|风险反馈主键编码|String|
@@ -467,7 +469,7 @@
 |cusNature|商户属性|String|
 |RegName|商户名称|String|
 |cusCode|商户编码|String|
-|Amount|涉及结算金额(后台计算)|String|
+|submitAmount|涉及结算金额(后台计算)|String|
 |docType|法人证件类型|String|
 |docCode|法人证件号码|String|
 |legDocType|法人（负责人）证件类型|String|
@@ -479,14 +481,47 @@
 |openBank|开户行|String|
 |url|网址|String|
 |serverIp|服务器 IP|String|
+|mobileNo|法定代表人（负责人）手机号|String|
+|address|商户实际办公地|String|
+|icp|ICP 备案编号|String|
+|level|信息级别|String|
+|occurtimeb|风险事件发生时间|String|
+|occurtimee|风险事件结束时间|String|
+|occurchan|风险事件发生渠道|String|
+|occurarea|风险事件发生地域|String|
+|note|风险事件描述|String|
+|validDate|有效期|String|
+|validStatus|有效性|String|
+|stopNum|终止合作的机构数量|String|
+|refuseNum|拒绝拓展的机构数量|String|
+|useRiseNum|暂停办理资金结算的机构数量|String|
+|frozenNum|冻结账户的机构数量|String|
+|adjustmentCycleNum|调整结算周期的机构数量|String|
+|delayNum|延迟资金结算的机构数量|String|
+|quotaNum|设置收款限额的机构数量|String|
+|suspendNum|暂停银行卡交易的机构数量|String|
+|closeNum|收回受理终端 (关闭网络支付接口) 的机构数量 |String|
+|followNum|暂未采取控制措施,持续关注客户的机构数量|String|
+|antiMoneyNum|报送反洗钱可疑交易的机构数量|String|
+|otherNum|其他的机构数量|String|
+|registeredArea|商户注册国家或地区|String|
+|registeredCode|商户注册号码|String|
+|sourceChannel|风险信息来源|String|
+|amount|交易金额|String|
+|riskFindTime|风险事件发现时间|String|
+|legControlName|实控人姓名|String|
+|legControlCardType|实控人证件类型|String|
+|legControlCardCode|实控人证件号|String|
+|remarks|备注|String|
+|count|返回总数量|String|
+|legBenName|受益人姓名|String|
+|legBenCardType|受益人证件类型|String|
+|legBenCardCode|受益人证件号|String|
+|handleResult|处理结果|String|
+|feedbackStatus|反馈状态|
+|feedbackDate|反馈日期|String|
+|operator|操作人|String|
 
-
-|RegName|商户名称|String|
-|busLicenseNumber|营业执照编号|String|
-|docCode|法人身份证|String|
-|invOrgNum|涉及机构数|String|
-|RegNum|商户个数|String|
-|amount|涉及结算金额（参考查询时间，近90天内结算总金额）|String|
 
 #### 4.4.2商户风险信息查询使用情况反馈
 
@@ -497,15 +532,17 @@
 
 * 请求报文字段
 
+*风险反馈主键编码，商户类型，涉及结算金额，处理结果 处理时间YYYY-MM-DD*
+
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|RegBackCode|商户反馈主键编码|String|
+|id|风险反馈主键编码|String|
 |cusType|商户类型|String|
-|feedback|反馈情况|String|
-|proTime|处理时间|String|
 |amount|涉及结算金额（参考查询时间，近90天内结算总金额）|String|
-|currency|币种|String|
-|explain|说明|String|
+|handleResult|处理结果|String|
+|handleTime|处理时间|String|
+|currency|交易币种|String|
+
 
 * 响应报文字段
 
@@ -523,9 +560,14 @@
 
 * 请求报文字段
 
+*收单机构组装单个查询请求时，必须在以下查询条件组合中选择一种进行查询：
+ ⚫ 企业商户法人名称
+ ⚫ 法人证件号码
+ ⚫ 法定代表人（负责人）证件号码+法定代表人姓名*
+
 |字段名称|字段说明|参数类型|
 |-------|------|-----|
-|RegName|企业商户法人名称|String|
+|regName|企业商户法人名称|String|
 |docCode|法人证件号码|String|
 |legDocName|法人（负责人）代表姓名|String|
 |legDocCode|法人（负责人）证件号码|String|
