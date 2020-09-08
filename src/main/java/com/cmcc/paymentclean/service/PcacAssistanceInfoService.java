@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 * </p>
 *
 * @author cmcc
-* @since 2020-09-07
+* @since 2020-09-08
 */
 public interface PcacAssistanceInfoService {
 
@@ -22,7 +22,7 @@ public interface PcacAssistanceInfoService {
     * @param factor  搜索关键词
     * @return 返回mybatis-plus的Page对象,其中records字段为符合条件的查询结果
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     Page<PcacAssistanceInfo> listPcacAssistanceInfosByPage(int page, int pageSize, String factor);
 
@@ -32,7 +32,7 @@ public interface PcacAssistanceInfoService {
     * @param id 需要查询的PcacAssistanceInfo的id
     * @return 返回对应id的PcacAssistanceInfo对象
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     PcacAssistanceInfo getPcacAssistanceInfoById(int id);
 
@@ -42,7 +42,7 @@ public interface PcacAssistanceInfoService {
     * @param pcacAssistanceInfo 需要插入的PcacAssistanceInfo对象
     * @return 返回插入成功之后PcacAssistanceInfo对象的id
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     int insertPcacAssistanceInfo(PcacAssistanceInfo pcacAssistanceInfo);
 
@@ -52,7 +52,7 @@ public interface PcacAssistanceInfoService {
     * @param id 需要删除的PcacAssistanceInfo对象的id
     * @return 返回被删除的PcacAssistanceInfo对象的id
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     int deletePcacAssistanceInfoById(int id);
 
@@ -62,7 +62,7 @@ public interface PcacAssistanceInfoService {
     * @param pcacAssistanceInfo 需要更新的PcacAssistanceInfo对象
     * @return 返回被更新的PcacAssistanceInfo对象的id
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     int updatePcacAssistanceInfo(PcacAssistanceInfo pcacAssistanceInfo);
 

@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 * </p>
 *
 * @author cmcc
-* @since 2020-09-07
+* @since 2020-09-08
 */
 public interface PcacRiskInfoService {
 
@@ -22,7 +22,7 @@ public interface PcacRiskInfoService {
     * @param factor  搜索关键词
     * @return 返回mybatis-plus的Page对象,其中records字段为符合条件的查询结果
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     Page<PcacRiskInfo> listPcacRiskInfosByPage(int page, int pageSize, String factor);
 
@@ -32,7 +32,7 @@ public interface PcacRiskInfoService {
     * @param id 需要查询的PcacRiskInfo的id
     * @return 返回对应id的PcacRiskInfo对象
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     PcacRiskInfo getPcacRiskInfoById(int id);
 
@@ -42,7 +42,7 @@ public interface PcacRiskInfoService {
     * @param pcacRiskInfo 需要插入的PcacRiskInfo对象
     * @return 返回插入成功之后PcacRiskInfo对象的id
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     int insertPcacRiskInfo(PcacRiskInfo pcacRiskInfo);
 
@@ -52,7 +52,7 @@ public interface PcacRiskInfoService {
     * @param id 需要删除的PcacRiskInfo对象的id
     * @return 返回被删除的PcacRiskInfo对象的id
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     int deletePcacRiskInfoById(int id);
 
@@ -62,7 +62,7 @@ public interface PcacRiskInfoService {
     * @param pcacRiskInfo 需要更新的PcacRiskInfo对象
     * @return 返回被更新的PcacRiskInfo对象的id
     * @author cmcc
-    * @since 2020-09-07
+    * @since 2020-09-08
     */
     int updatePcacRiskInfo(PcacRiskInfo pcacRiskInfo);
 

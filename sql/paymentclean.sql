@@ -4,7 +4,7 @@ drop table if exists pcac_assistance_info;
 
 create table pcac_assistance_info
 (
-    pcac_assistance_info_id                   int(64) not null comment 'id序号',
+    pcac_assistance_info_id                   int(64) not null auto_increment comment 'id序号',
     up_date              date comment '推送日期',
     cus_code             varchar(64) comment '商户代码',
     reg_name             varchar(64) comment '商户名称',
@@ -50,6 +50,3 @@ create table pcac_risk_info
    registered_code      varchar(256) comment '商户注册号',
    primary key (pcac_risk_info_id)
 )comment = '清算协会推送黑名单和风险提示信息表 ';
-
-
-

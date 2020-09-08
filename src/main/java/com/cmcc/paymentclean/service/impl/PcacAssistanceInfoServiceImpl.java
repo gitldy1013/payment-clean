@@ -16,7 +16,7 @@ import com.cmcc.paymentclean.exception.bizException.BizException;
 * </p>
 *
 * @author cmcc
-* @since 2020-09-07
+* @since 2020-09-08
 */
 @Slf4j
 @Service
@@ -27,7 +27,8 @@ public class PcacAssistanceInfoServiceImpl extends ServiceImpl<PcacAssistanceInf
         log.info("正在执行分页查询pcacAssistanceInfo: page = {} pageSize = {} factor = {}",page,pageSize,factor);
         QueryWrapper<PcacAssistanceInfo> queryWrapper =  new QueryWrapper<PcacAssistanceInfo>().like("", factor);
         //TODO 这里需要自定义用于匹配的字段,并把wrapper传入下面的page方法
-        Page<PcacAssistanceInfo> result = super.page(new Page<PcacAssistanceInfo>(page, pageSize));
+        Page<PcacAssistanceInfo> result = super.page(new Page<PcacAssistanceInfo>(page, pageSize),queryWrapper);
+        result.setTotal(result.getRecords().size());
         log.info("分页查询pcacAssistanceInfo完毕: 结果数 = {} ",result.getRecords().size());
         return result;
     }
