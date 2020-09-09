@@ -97,7 +97,7 @@ drop table if exists risk_enterprise_risk_sync_info;
 
 create table risk_enterprise_risk_sync_info
 (
-   risk_enterprise_risk_sync_info    int(64) not null auto_increment comment 'id序号',
+   risk_enterprise_risk_sync_info_id    int(64) not null auto_increment comment 'id序号',
    risk_type            varchar(2) comment '风险类型',
    payAccountNo         varchar(30) comment '单位支付账户编号',
    occurtimeb           date comment '风险事件发生时间',
