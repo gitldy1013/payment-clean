@@ -170,7 +170,7 @@ create table pcac_merchant_risk_submit_info
    result_code          varchar(6) comment '交易返回码',
    msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_merchant_risk_submit_info_id)
-);
+)comment = '协会商户风险信息上报表 ';
 
 
 
@@ -186,8 +186,7 @@ create table pcac_person_risk_submit_info
    risk_type            varchar(2) comment '风险类型',
    mobile_no            varchar(20) comment '手机号',
    mac                  varchar(17) comment 'MAC 地址',
-   imei                 varchar(32) comment 'Imei（Imei 必须为小于或等于 32 位数
-            字组成）',
+   imei                 varchar(32) comment 'Imei（Imei 必须为小于或等于 32 位数字组成）',
    bank_no              varchar(64) comment '付款账户/付款银行卡号（支付账户）',
    open_bank            varchar(64) comment '开户机构',
    cus_name             varchar(64) comment '个人姓名',
@@ -200,8 +199,7 @@ create table pcac_person_risk_submit_info
    rec_name             varchar(128) comment '中转或收款人姓名',
    rec_doc_type         varchar(2) comment '中转或收款人证件类型',
    rec_doc_code         varchar(64) comment '中转或收款人证件号',
-   rec_bank_no          varchar(64) comment '中转或收款银行卡号（支付账户） ， 不
-            校验格式',
+   rec_bank_no          varchar(64) comment '中转或收款银行卡号（支付账户） ， 不校验格式',
    rec_open_bank        varchar(64) comment '中转或收款开户机构',
    rec_host_area        varchar(2) comment '收款人所在国家或地区',
    email                varchar(64) comment '邮箱',
@@ -229,7 +227,7 @@ create table pcac_person_risk_submit_info
    result_code          varchar(6) comment '交易返回码',
    msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_person_risk_submit_info_id)
-);
+)comment = '协会个人风险信息上报表 ';
 
 
 
@@ -247,8 +245,7 @@ create table pcac_enterprise_risk_submit_info
    doc_type             varchar(2) comment '法人证件类型',
    doc_code             varchar(64) comment '法人证件号码',
    leg_rep_name         varchar(64) comment '法定代表人姓名',
-   tax_regcer           varchar(20) comment '税务登记证（必须为 15 或 20 位数字组
-            税务登记证（必须为 15 或 20 位数字组成）',
+   tax_regcer           varchar(20) comment '税务登记证（必须为 15 或 20 位数字组税务登记证（必须为 15 或 20 位数字组成）',
    leg_doc_type         varchar(2) comment '法定代表人（负责人） 证件类型',
    leg_doc_code         varchar(64) comment '法定代表人（负责人）证件号码',
    leg_control_card_type varchar(2) comment '实控人证件类型',
@@ -282,11 +279,48 @@ create table pcac_enterprise_risk_submit_info
    result_code          varchar(0) comment '交易返回码',
    msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_enterprise_risk_submit_info_id)
-);
+)comment = '协会企业风险信息上报表 ';
 
 
 
 
+drop table if exists local_associated_risk_merchant_info;
+
+/*==============================================================*/
+/* Table: local_associated_risk_merchant_info                   */
+/*==============================================================*/
+create table local_associated_risk_merchant_info
+(
+   local_associated_risk_merchant_info_id int(64) not null auto_increment comment 'id序号',
+   cus_number           varchar(30) comment '商户编号',
+   push_list_type       varchar(2) comment '推送名单类型',
+   up_date              varchar(10) comment '推送日期',
+   level                varchar(2) comment '风险信息等级',
+   risk_type            varchar(2) comment '风险类型',
+   cus_name             varchar(128) comment '商户简称',
+   reg_name             varchar(128) comment '商户名称',
+   handle_result        varchar(2) comment '处理结果',
+   feedback_status      varchar(2) comment '反馈状态',
+   feedback_date        date comment '反馈日期',
+   doc_type             varchar(2) comment '法人证件类型',
+   doc_code             varchar(64) comment '法人证件号码',
+   leg_rep_name         varchar(64) comment '法人（负责人）代表姓名',
+   leg_doc_type         varchar(2) comment '法定代表人证件类型',
+   leg_doc_code         varchar(64) comment '法定代表人证件号码',
+   valid_date           date comment '有效期',
+   valid_status         varchar(2) comment '有效性',
+   cus_type             varchar(2) comment '商户类型',
+   occurarea            varchar(512) comment '风险事件发生地域',
+   ass_mer_number       varchar(30) comment '关联商户编号',
+   status               varchar(2) comment '商户状态',
+   is_black             varchar(2) comment '是否加黑',
+   ass_field_cnt        varchar(10) comment '关联字段个数',
+   ass_field_name       varchar(20) comment '关联字段名称',
+   operator             varchar(10) comment '操作人',
+   msg_detail           varchar(256) comment '失败原因',
+   amount               varchar(11) comment '涉及结算金额',
+   primary key (local_associated_risk_merchant_info_id)
+)comment = '本地关联风险商户信息表 ';
 
 
 
