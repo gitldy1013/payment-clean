@@ -881,11 +881,9 @@
 |-------|------|-----|----|
 |docType|法人证件类型|String|01:营业执照编码 02:统一社会信息代码 03:组织机构代码证 04:经营许可证 05：税务登记证 99:其他|
 |docCode|法人证件号码|String||
-|legDocType|法人（负责人）证件类型|String||
-|legDocCode|法人（负责人）证件号码|String||
 |Amount|涉及结算金额(后台计算)|String||
 |handleResult|处理结果|String|01. 终止合作 02. 拒绝拓展 03. 暂停办理资金结算 04. 冻结账户 05. 调整结算周期 06. 延迟资金结算 07. 设置收款限额 08. 暂停银行卡交易 09. 收回受理终端 (关闭网络支付接口) 10. 暂未采取控制措施,持续关注客户 11. 报送反洗钱可疑交易 99. 其他|
-|feedbackDate|反馈日期|Date||
+|operator|操作人|String||
 
 * 请求报文示例：
 
@@ -893,11 +891,9 @@
 {
     "docType":"",
     "docCode":"",
-    "legDocType":"",
-    "legDocCode":"",
     "Amount":"",
     "handleResult":"",
-    "feedbackDate":""
+    "operator":""
 }
 ```
 
