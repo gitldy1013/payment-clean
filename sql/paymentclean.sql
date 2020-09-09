@@ -161,6 +161,9 @@ create table pcac_merchant_risk_submit_info
    leg_ben_card_code    varchar(64) comment '受益人证件号',
    operator             varchar(10) comment '操作人',
    operate_time         date comment '操作时间',
+   submitTime           date comment '上报时间',
+   submitStatus         varchar(2) comment '报送状态',
+   failureReason        varchar(256) comment '失败原因',
    primary key (pcac_merchant_risk_submit_info_id)
 );
 
@@ -212,6 +215,9 @@ create table pcac_person_risk_submit_info
    usrNo                varchar(20) comment '内部用户号',
    operator             varchar(10) comment '操作人',
    operate_time         date comment '操作时间',
+   submitTime           date comment '上报时间',
+   submitStatus         varchar(2) comment '报送状态',
+   failureReason        varchar(256) comment '失败原因',
    primary key (pcac_person_risk_submit_info_id)
 );
 
@@ -255,6 +261,9 @@ create table pcac_enterprise_risk_submit_info
    rep_person           varchar(32) comment '上传人',
    operator             varchar(10) comment '操作人',
    operate_time         date comment '操作时间',
+   submitTime           date comment '上报时间',
+   submitStatus         varchar(2) comment '报送状态',
+   failureReason        varchar(256) comment '失败原因',
    primary key (pcac_enterprise_risk_submit_info_id)
 );
 
