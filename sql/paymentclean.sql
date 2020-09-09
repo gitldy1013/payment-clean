@@ -110,9 +110,12 @@ create table risk_enterprise_risk_sync_info
    primary key (risk_enterprise_risk_sync_info)
 )comment = '风控企业风险信息同步表 ';
 
+
 drop table if exists pcac_merchant_risk_submit_info;
 
-
+/*==============================================================*/
+/* Table: pcac_merchant_risk_submit_info                        */
+/*==============================================================*/
 create table pcac_merchant_risk_submit_info
 (
    pcac_merchant_risk_submit_info_id int(64) not null auto_increment comment 'id序号',
@@ -161,11 +164,14 @@ create table pcac_merchant_risk_submit_info
    leg_ben_card_code    varchar(64) comment '受益人证件号',
    operator             varchar(10) comment '操作人',
    operate_time         date comment '操作时间',
-   submitTime           date comment '上报时间',
-   submitStatus         varchar(2) comment '报送状态',
-   failureReason        varchar(256) comment '失败原因',
+   submit_time          date comment '上报时间',
+   submit_status        varchar(2) default '0' comment '报送状态',
+   result_status        varchar(2) comment '交易结果',
+   result_code          varchar(6) comment '交易返回码',
+   msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_merchant_risk_submit_info_id)
 );
+
 
 
 drop table if exists pcac_person_risk_submit_info;
@@ -180,7 +186,8 @@ create table pcac_person_risk_submit_info
    risk_type            varchar(2) comment '风险类型',
    mobile_no            varchar(20) comment '手机号',
    mac                  varchar(17) comment 'MAC 地址',
-   imei                 varchar(32) comment 'Imei（Imei 必须为小于或等于 32 位数字组成）',
+   imei                 varchar(32) comment 'Imei（Imei 必须为小于或等于 32 位数
+            字组成）',
    bank_no              varchar(64) comment '付款账户/付款银行卡号（支付账户）',
    open_bank            varchar(64) comment '开户机构',
    cus_name             varchar(64) comment '个人姓名',
@@ -193,7 +200,8 @@ create table pcac_person_risk_submit_info
    rec_name             varchar(128) comment '中转或收款人姓名',
    rec_doc_type         varchar(2) comment '中转或收款人证件类型',
    rec_doc_code         varchar(64) comment '中转或收款人证件号',
-   rec_bank_no          varchar(64) comment '中转或收款银行卡号（支付账户） ， 不校验格式',
+   rec_bank_no          varchar(64) comment '中转或收款银行卡号（支付账户） ， 不
+            校验格式',
    rec_open_bank        varchar(64) comment '中转或收款开户机构',
    rec_host_area        varchar(2) comment '收款人所在国家或地区',
    email                varchar(64) comment '邮箱',
@@ -215,15 +223,21 @@ create table pcac_person_risk_submit_info
    usrNo                varchar(20) comment '内部用户号',
    operator             varchar(10) comment '操作人',
    operate_time         date comment '操作时间',
-   submitTime           date comment '上报时间',
-   submitStatus         varchar(2) comment '报送状态',
-   failureReason        varchar(256) comment '失败原因',
+   submit_time          date comment '上报时间',
+   submit_status        varchar(2) default '0' comment '报送状态',
+   result_status        varchar(2) comment '交易结果',
+   result_code          varchar(6) comment '交易返回码',
+   msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_person_risk_submit_info_id)
 );
 
 
+
 drop table if exists pcac_enterprise_risk_submit_info;
 
+/*==============================================================*/
+/* Table: pcac_enterprise_risk_submit_info                      */
+/*==============================================================*/
 create table pcac_enterprise_risk_submit_info
 (
    pcac_enterprise_risk_submit_info_id int(64) not null auto_increment comment 'id序号',
@@ -233,7 +247,8 @@ create table pcac_enterprise_risk_submit_info
    doc_type             varchar(2) comment '法人证件类型',
    doc_code             varchar(64) comment '法人证件号码',
    leg_rep_name         varchar(64) comment '法定代表人姓名',
-   tax_regcer           varchar(20) comment '税务登记证（必须为 15 或 20 位数字组税务登记证（必须为 15 或 20 位数字组成）',
+   tax_regcer           varchar(20) comment '税务登记证（必须为 15 或 20 位数字组
+            税务登记证（必须为 15 或 20 位数字组成）',
    leg_doc_type         varchar(2) comment '法定代表人（负责人） 证件类型',
    leg_doc_code         varchar(64) comment '法定代表人（负责人）证件号码',
    leg_control_card_type varchar(2) comment '实控人证件类型',
@@ -261,9 +276,11 @@ create table pcac_enterprise_risk_submit_info
    rep_person           varchar(32) comment '上传人',
    operator             varchar(10) comment '操作人',
    operate_time         date comment '操作时间',
-   submitTime           date comment '上报时间',
-   submitStatus         varchar(2) comment '报送状态',
-   failureReason        varchar(256) comment '失败原因',
+   submit_time          date comment '上报时间',
+   submit_status        varchar(2) default '0' comment '报送状态',
+   result_status        varchar(0) comment '交易结果',
+   result_code          varchar(0) comment '交易返回码',
+   msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_enterprise_risk_submit_info_id)
 );
 
