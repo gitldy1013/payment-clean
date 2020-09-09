@@ -41,7 +41,7 @@ public class LocalRiskEnterpriseInfoController {
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
     public ResultBean<Boolean> sync(@RequestBody List<RiskEnterprise> riskEnterprises) {
 
-        return new ResultBean<>(riskEnterpriseService.addRiskPerson(riskEnterprises));
+        return riskEnterpriseService.addRiskPerson(riskEnterprises);
     }
 
     @RequestMapping(value = "/query",method = RequestMethod.POST)

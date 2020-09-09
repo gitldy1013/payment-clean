@@ -1,6 +1,7 @@
 package com.cmcc.paymentclean.service;
 
 import com.cmcc.paymentclean.entity.RiskMerchant;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
  */
 
 public interface RiskMerchantService {
-    boolean addRiskPerson(List<RiskMerchant> riskMerchantList);
+    ResultBean<Boolean> addRiskPerson(List<RiskMerchant> riskMerchantList);
 }

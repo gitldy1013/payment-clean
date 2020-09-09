@@ -1,7 +1,9 @@
 package com.cmcc.paymentclean.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.RiskEnterprise;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.mapper.RiskEnterpriseMapper;
 import com.cmcc.paymentclean.service.RiskEnterpriseService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +20,24 @@ import java.util.List;
 @Service
 public class RiskEnterpriseServiceImpl extends ServiceImpl<RiskEnterpriseMapper, RiskEnterprise> implements RiskEnterpriseService {
     @Override
-    public boolean addRiskPerson(List<RiskEnterprise> riskEnterpriseList) {
+    public ResultBean<Boolean> addRiskPerson(List<RiskEnterprise> riskEnterpriseList) {
+        ResultBean resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+        resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
         if(!CollectionUtils.isEmpty(riskEnterpriseList)){
             for(RiskEnterprise riskEnterprise:riskEnterpriseList){
                 riskEnterprise.setOperateTime(new Date());
             }
-            return this.saveBatch(riskEnterpriseList);
+            Boolean result = this.saveBatch(riskEnterpriseList);
+            if(result){
+                resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+                resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+                resultBean.setData(result);
+                return resultBean;
+            }
+
         }
 
-        return false;
+        return resultBean;
     }
 }
