@@ -107,7 +107,7 @@ create table risk_enterprise_risk_sync_info
    valid_date           date comment '有效期',
    operator             varchar(10) comment '操作人',
    operate_time         date comment '操作时间',
-   primary key (risk_enterprise_risk_sync_info)
+   primary key (risk_enterprise_risk_sync_info_id)
 )comment = '风控企业风险信息同步表 ';
 
 
