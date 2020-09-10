@@ -15,7 +15,7 @@
     <description>支付清算综合服务平台系统</description>
 
     <properties>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.21</version>
+            <version>1.1.20</version>
         </dependency>
 
         <dependency>
@@ -130,6 +130,17 @@
             <id>maven-net-cn</id>
             <name>MavenChinaMirror</name>
             <url>http://mvnrepository.com/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>maven-aliyun</id>
+            <name>aliyunMirror</name>
+            <url>http://maven.aliyun.com/nexus/content/repositories/central</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

@@ -53,7 +53,50 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        pcac_person_risk_submit_info_id, cus_property, risk_type, mobile_no, mac, imei, bank_no, open_bank, cus_name, doc_type, doc_code, ip, address, telephone, is_transfer, rec_name, rec_doc_type, rec_doc_code, rec_bank_no, rec_open_bank, rec_host_area, email, valid_date, occurtimeb, occurtimee, occurchan, occurarea, note, org_id, rep_date, rep_type, rep_person, source_channel, disk_number, currency, amount, risk_find_time, usrNo, operator, operate_time, submit_time, submit_status, result_status, result_code, msg_detail
+        pcac_person_risk_submit_info_id, cus_property, risk_type, mobile_no, mac, imei, bank_no, open_bank, cus_name, doc_type, doc_code, ip,
+        address, telephone, is_transfer, rec_name, rec_doc_type, rec_doc_code, rec_bank_no, rec_open_bank, rec_host_area, email, valid_date, occurtimeb,
+        occurtimee, occurchan, occurarea, note, org_id, rep_date, rep_type, rep_person, source_channel, disk_number, currency, amount, risk_find_time, usrNo,
+        operator, operate_time, submit_time, submit_status, result_status, result_code, msg_detail
     </sql>
+
+    <select id="pagePcacPersonRiskSubmitInfo" resultType="com.cmcc.paymentclean.entity.dto.response.RiskPersonResp"
+            parameterType="com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq">
+        SELECT
+        t.*
+        FROM
+        pcac_person_risk_submit_info t
+        WHERE
+        1=1
+        <if test="req.usrNo !=null and req.usrNo !=''">
+            and t.usrNo=#{req.usrNo}
+        </if>
+        <if test="req.mobileNo !=null and req.mobileNo !=''">
+            and t.mobile_No=#{req.mobileNo}
+        </if>
+        <if test="req.docType !=null and req.docType !=''">
+            and t.doc_Type=#{req.docType}
+        </if>
+        <if test="req.docCode !=null and req.docCode !=''">
+            and t.doc_Code=#{req.docCode}
+        </if>
+        <if test="req.submitStatus !=null and req.submitStatus !=''">
+            and t.submit_Status=#{req.submitStatus}
+        </if>
+        <if test="req.operator !=null and req.operator !=''">
+            and t.operator=#{req.operator}
+        </if>
+        <if test="req.operateStartTime!=null ">
+            <![CDATA[  and DATE_FORMAT(t.operate_time, '%Y-%m-%d') >= DATE_FORMAT(#{req.operateStartTime}, '%Y-%m-%d')    ]]>
+        </if>
+        <if test="req.operateEndTime!=null ">
+            <![CDATA[  and DATE_FORMAT(t.operate_time, '%Y-%m-%d') <= DATE_FORMAT(#{req.operateEndTime}, '%Y-%m-%d')    ]]>
+        </if>
+        <if test="req.submitStartTime!=null ">
+            <![CDATA[  and DATE_FORMAT(t.submit_time, '%Y-%m-%d') >= DATE_FORMAT(#{req.submitStartTime}, '%Y-%m-%d')    ]]>
+        </if>
+        <if test="req.submitEndTime!=null ">
+            <![CDATA[  and DATE_FORMAT(t.submit_time, '%Y-%m-%d') <= DATE_FORMAT(#{req.submitEndTime}, '%Y-%m-%d')    ]]>
+        </if>
+    </select>
 
 </mapper>
