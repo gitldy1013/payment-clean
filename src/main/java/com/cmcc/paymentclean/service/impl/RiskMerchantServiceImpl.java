@@ -30,7 +30,7 @@ public class RiskMerchantServiceImpl extends ServiceImpl<RiskMerchantMapper, Ris
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         List<RiskMerchant> newRiskMerchantList = new ArrayList<>();
-        if(!CollectionUtils.isEmpty(riskMerchantList)){
+        if(CollectionUtils.isEmpty(riskMerchantList)){
             return resultBean;
         }
         for(RiskMerchant riskMerchant:riskMerchantList){
