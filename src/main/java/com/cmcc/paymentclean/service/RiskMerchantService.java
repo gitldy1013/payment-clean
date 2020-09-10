@@ -10,5 +10,11 @@ import java.util.List;
  */
 
 public interface RiskMerchantService {
-    ResultBean<Boolean> addRiskPerson(List<RiskMerchant> riskMerchantList);
+
+    /**
+     * 风险商户同步请求接口
+     * @param riskMerchantList
+     * @return Page<Boolean>
+     */
+    ResultBean<Boolean> addMerchant(List<RiskMerchant> riskMerchantList);
 }

@@ -9,5 +9,11 @@ import java.util.List;
  * Created by lumma on 2020/9/9.
  */
 public interface RiskEnterpriseService {
-    ResultBean<Boolean> addRiskPerson(List<RiskEnterprise> riskEnterpriseList);
+
+    /**
+     * 风险企业同步请求接口
+     * @param riskEnterpriseList
+     * @return Page<Boolean>
+     */
+    ResultBean<Boolean> addEnterprise(List<RiskEnterprise> riskEnterpriseList);
 }

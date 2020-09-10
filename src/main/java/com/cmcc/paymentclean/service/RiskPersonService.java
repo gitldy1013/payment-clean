@@ -11,6 +11,11 @@ import java.util.List;
  */
 public interface RiskPersonService {
 
+    /**
+     * 风险个人同步请求接口
+     * @param riskPersonList
+     * @return Page<Boolean>
+     */
     ResultBean<Boolean> addRiskPerson(List<RiskPerson> riskPersonList);
 
 }

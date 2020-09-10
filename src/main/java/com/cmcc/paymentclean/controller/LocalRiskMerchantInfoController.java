@@ -3,9 +3,9 @@ package com.cmcc.paymentclean.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.RiskMerchant;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.response.RiskPersonResp;
-import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq;
-import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
+import com.cmcc.paymentclean.entity.dto.response.RiskMerchantReqResp;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
+import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.RiskMerchantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * <p>
- * 风险个人 前端控制器
+ * 风险商户 前端控制器
  * </p>
  *
  * @author lumma
@@ -33,15 +33,23 @@ public class LocalRiskMerchantInfoController {
     private RiskMerchantService riskMerchantService;
 
     @Autowired
-    private PcacPersonRiskSubmitInfoService pcacPersonRiskSubmitInfoService;
+    private PcacMerchantRiskSubmitInfoService pcacMerchantRiskSubmitInfoService;
 
     /**
-     * 风险个人查询请求接口
+     * 风险商户同步请求接口
      */
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
     public ResultBean<Boolean> sync(@RequestBody List<RiskMerchant> riskMerchants) {
 
-        return riskMerchantService.addRiskPerson(riskMerchants);
+        return riskMerchantService.addMerchant(riskMerchants);
     }
-    
+
+    /**
+     * 风险商户查询请求接口
+     */
+    @RequestMapping(value = "/query",method = RequestMethod.POST)
+    public ResultBean<Page<RiskMerchantReqResp>> query(@RequestBody RiskMerchantReq riskMerchantReq){
+        return pcacMerchantRiskSubmitInfoService.pageRiskMerchant(riskMerchantReq);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.RiskEnterprise;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,24 +22,31 @@ import java.util.List;
 @Slf4j
 @Service
 public class RiskEnterpriseServiceImpl extends ServiceImpl<RiskEnterpriseMapper, RiskEnterprise> implements RiskEnterpriseService {
-    @Override
-    public ResultBean<Boolean> addRiskPerson(List<RiskEnterprise> riskEnterpriseList) {
-        ResultBean resultBean = new ResultBean();
-        resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-        resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-        if(!CollectionUtils.isEmpty(riskEnterpriseList)){
-            for(RiskEnterprise riskEnterprise:riskEnterpriseList){
-                riskEnterprise.setOperateTime(new Date());
-            }
-            Boolean result = this.saveBatch(riskEnterpriseList);
-            if(result){
-                resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
-                resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
-                resultBean.setData(result);
-                return resultBean;
-            }
 
+
+    @Override
+    public ResultBean<Boolean> addEnterprise(List<RiskEnterprise> riskEnterpriseList) {
+        ResultBean resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+        if(CollectionUtils.isEmpty(riskEnterpriseList)){
+            return resultBean;
         }
+        List<RiskEnterprise> newEnterpriseList = new ArrayList<>();
+        for(RiskEnterprise riskEnterprise:riskEnterpriseList){
+            riskEnterprise.setOperateTime(new Date());
+            QueryWrapper<RiskEnterprise> queryWrapper = new QueryWrapper();
+            queryWrapper.eq("payAccountNo",riskEnterprise.getPayaccountno());
+            RiskEnterprise riskEnterprise1 = super.getOne(queryWrapper);
+            if(null!=riskEnterprise1){
+                UpdateWrapper<RiskEnterprise> updateWrapper = new UpdateWrapper<>();
+                updateWrapper.eq("risk_enterprise_risk_sync_info_id",riskEnterprise1.getRiskEnterpriseRiskSyncInfoId());
+                super.update(riskEnterprise,updateWrapper);
+            }else{
+                newEnterpriseList.add(riskEnterprise);
+            }
+        }
+        this.saveBatch(newEnterpriseList);
 
         return resultBean;
     }

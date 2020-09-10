@@ -10,5 +10,10 @@ import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq;
  */
 public interface PcacPersonRiskSubmitInfoService {
 
+    /**
+     * 风险个人查询请求接口
+     * @param riskPersonReq
+     * @return Page<RiskPersonResp>
+     */
     ResultBean<Page<RiskPersonResp>> pageRiskPerson(RiskPersonReq riskPersonReq);
 }
