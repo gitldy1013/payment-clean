@@ -51,4 +51,49 @@
         pcac_enterprise_risk_submit_info_id, cus_property, risk_type, cus_name, doc_type, doc_code, leg_rep_name, tax_regcer, leg_doc_type, leg_doc_code, leg_control_card_type, leg_control_card_code, remarks, reg_address, address, tele_phone, business_scope, leg_control_name, occurtimee, source_channel, risk_find_time, valid_date, occurarea, reg_name, cus_code, bank_no, mobile_no, note, occurtimeb, org_id, rep_date, rep_type, rep_person, operator, operate_time, submit_time, submit_status, result_status, result_code, msg_detail
     </sql>
 
+    <select id="pagePcacEnterpriseRiskSubmitInfo" resultType="com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp"
+            parameterType="com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq">
+        SELECT
+        t.*
+        FROM
+        pcac_enterprise_risk_submit_info t
+        WHERE
+        1=1
+        <if test="req.cusCode !=null and req.cusCode !=''">
+            and t.cus_Code=#{req.cusCode}
+        </if>
+        <if test="req.regName !=null and req.regName !=''">
+            and t.reg_Name like concat('%',#{req.regName},'%')
+        </if>
+        <if test="req.docType !=null and req.docType !=''">
+            and t.doc_Type=#{req.docType}
+        </if>
+        <if test="req.docCode !=null and req.docCode !=''">
+            and t.doc_Code=#{req.docCode}
+        </if>
+        <if test="req.operateStartTime!=null ">
+            <![CDATA[  and DATE_FORMAT(t.operate_time, '%Y-%m-%d') >= DATE_FORMAT(#{req.operateStartTime}, '%Y-%m-%d')    ]]>
+        </if>
+        <if test="req.operateEndTime!=null ">
+            <![CDATA[  and DATE_FORMAT(t.operate_time, '%Y-%m-%d') <= DATE_FORMAT(#{req.operateEndTime}, '%Y-%m-%d')    ]]>
+        </if>
+        <if test="req.legDocType !=null and req.legDocType !=''">
+            and t.leg_Doc_Type=#{req.legDocType}
+        </if>
+        <if test="req.legDocCode !=null and req.legDocCode !=''">
+            and t.leg_Doc_Code=#{req.legDocCode}
+        </if>
+        <if test="req.submitStartTime!=null ">
+            <![CDATA[  and DATE_FORMAT(t.submit_time, '%Y-%m-%d') >= DATE_FORMAT(#{req.submitStartTime}, '%Y-%m-%d')    ]]>
+        </if>
+        <if test="req.submitEndTime!=null ">
+            <![CDATA[  and DATE_FORMAT(t.submit_time, '%Y-%m-%d') <= DATE_FORMAT(#{req.submitEndTime}, '%Y-%m-%d')    ]]>
+        </if>
+        <if test="req.submitStatus !=null and req.submitStatus !=''">
+            and t.submit_Status=#{req.submitStatus}
+        </if>
+        <if test="req.operator !=null and req.operator !=''">
+            and t.operator=#{req.operator}
+        </if>
+    </select>
 </mapper>

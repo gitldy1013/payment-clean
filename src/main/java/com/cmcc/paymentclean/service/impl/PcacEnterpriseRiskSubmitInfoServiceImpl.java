@@ -3,11 +3,16 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacEnterpriseRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -75,6 +80,21 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             log.error("更新id为{}的pcacEnterpriseRiskSubmitInfo失败",pcacEnterpriseRiskSubmitInfo.getPcacEnterpriseRiskSubmitInfoId());
             throw new BizException("更新失败[id=" + pcacEnterpriseRiskSubmitInfo.getPcacEnterpriseRiskSubmitInfoId() + "]");
         }
+    }
+
+    @Autowired
+    private PcacEnterpriseRiskSubmitInfoMapper pcacEnterpriseRiskSubmitInfoMapper;
+
+    @Override
+    public ResultBean<Page<RiskEnterpriseResp>> pageRiskEnterprise(RiskEnterpriseReq riskEnterpriseReq) {
+        ResultBean<Page<RiskEnterpriseResp>> resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+
+        Page<RiskEnterpriseResp> page = new Page<>(riskEnterpriseReq.getPageNo(), riskEnterpriseReq.getPageSize());
+        Page<RiskEnterpriseResp> pagePcacEnterpriseRiskSubmitInfo =  pcacEnterpriseRiskSubmitInfoMapper.pagePcacEnterpriseRiskSubmitInfo(page, riskEnterpriseReq);
+        resultBean.setData(pagePcacEnterpriseRiskSubmitInfo);
+        return resultBean;
     }
 
 }

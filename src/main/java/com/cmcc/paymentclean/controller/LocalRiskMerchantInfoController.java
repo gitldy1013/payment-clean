@@ -3,10 +3,11 @@ package com.cmcc.paymentclean.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.RiskMerchant;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.response.RiskMerchantReqResp;
+import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.RiskMerchantService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +39,7 @@ public class LocalRiskMerchantInfoController {
     /**
      * 风险商户同步请求接口
      */
+    @ApiOperation(value = "风险商户同步", notes = "风险商户同步")
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
     public ResultBean<Boolean> sync(@RequestBody List<RiskMerchant> riskMerchants) {
 
@@ -47,8 +49,9 @@ public class LocalRiskMerchantInfoController {
     /**
      * 风险商户查询请求接口
      */
+    @ApiOperation(value = "风险商户查询", notes = "风险商户查询")
     @RequestMapping(value = "/query",method = RequestMethod.POST)
-    public ResultBean<Page<RiskMerchantReqResp>> query(@RequestBody RiskMerchantReq riskMerchantReq){
+    public ResultBean<Page<RiskMerchantResp>> query(@RequestBody RiskMerchantReq riskMerchantReq){
         return pcacMerchantRiskSubmitInfoService.pageRiskMerchant(riskMerchantReq);
     }
 
