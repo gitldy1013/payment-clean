@@ -1,7 +1,6 @@
 package com.cmcc.paymentclean.utils;
 
 import cfca.sadk.algorithm.common.Mechanism;
-import cfca.sadk.algorithm.common.PKIException;
 import cfca.sadk.lib.crypto.JCrypto;
 import cfca.sadk.lib.crypto.Session;
 import cfca.sadk.util.Base64;
@@ -11,18 +10,15 @@ import cfca.sadk.util.Signature;
 import cfca.sadk.x509.certificate.X509Cert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -31,10 +27,10 @@ import java.util.Set;
  * @author zhaolei
  * @date 2020-09-02 08:49
  */
-public class CFCACipherUtil {
+public class CFCACipherUtils {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(CFCACipherUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(CFCACipherUtils.class);
     // 签名证书（带私钥）
     //private static String pfxFilePath = "E:/cert/协会证书私钥证书.pfx";
     // 签名证书保护密码

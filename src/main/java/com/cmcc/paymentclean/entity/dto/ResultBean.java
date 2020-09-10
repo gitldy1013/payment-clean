@@ -38,7 +38,9 @@ public class ResultBean<T> implements Serializable {
 
     public static final String BIND_CODE = "4005";
 
+    @Builder.Default
     private String resMsg = "success";
+    @Builder.Default
     private String resCode = ResultBean.SUCCESS_CODE;
 
     private T data;
