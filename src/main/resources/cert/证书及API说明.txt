@@ -1,0 +1,22 @@
+1、会员单位私钥密码：cfca1234。
+2、会员单位测试证书有效期为1年。
+3、会员单位测试证书的公钥已存至协会相应系统中。
+4、若会员单位使用非CFCA证书，请提供相应公钥、证书链（根证书和中级证书）给协会。
+5、测试证书API的有效期至2015.12.15。
+   API中在SADKV3Test.rar\SADKV3Test\src\cfca\sadk\test路径下的文件IntegrationTest.java为Demo，请按实际情况修改代码。
+   重点关注该Demo中如下代码中：
+   	        
+  // 签名结果已经做过Base64编码
+	  encodedSignature = new String(signature);
+	        
+	 签名结果已经是Base64编码，不需要再做一次Base64编码
+6、证书存放路径为：SADKV3Test.rar\SADKV3Test\TestData。包括会员单位公、私钥及协会公钥。
+
+7、修改AES密钥加密、解密方法。重点关注Demo中如下代码：
+  // 加密去掉外层Base64编码，在方法体内部已经做过Base64编码
+	        encryptedKey = new String(EncryptUtil.encryptMessageByRSA(symmetricKeyEncoded, cert, session));
+
+ // 解密去掉外层Base64解码，在方法体内部已经做过Base64解码
+	        byte[] keyData = EncryptUtil.decryptMessageByRSA(encryptedKey.getBytes(), priKey, session);
+8、测试证书仅供会员单位内部测试使用，联调测试证书会在联调测试前一周下发。
+9、此版本为API版本的更新。
