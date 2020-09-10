@@ -8,7 +8,7 @@
         <result column="cus_type" property="cusType" />
         <result column="risk_type" property="riskType" />
         <result column="cus_nature" property="cusNature" />
-        <result column="cus_number" property="cusNumber" />
+        <result column="cus_code" property="cusCode" />
         <result column="level" property="level" />
         <result column="valid_date" property="validDate" />
         <result column="occurtimeb" property="occurtimeb" />
@@ -21,7 +21,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        risk_merchant_risk_sync_info_id, cus_type, risk_type, cus_nature, cus_number, level, valid_date, occurtimeb, occurtimee, note, source_channel, operator, operate_time
+        risk_merchant_risk_sync_info_id, cus_type, risk_type, cus_nature, cus_code, level, valid_date, occurtimeb, occurtimee, note, source_channel, operator, operate_time
     </sql>
 
 </mapper>

@@ -1,19 +1,18 @@
 package com.cmcc.paymentclean.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDate;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-
 /**
  * <p>
- * 风控商户风险信息同步表
+ * 风控商户风险信息同步表 
  * </p>
  *
  * @author cmcc
@@ -40,7 +39,7 @@ public class RiskMerchantRiskSyncInfo extends Model<RiskMerchantRiskSyncInfo> {
     private String cusNature;
 
     @ApiModelProperty(value = "商户编号")
-    private String cusNumber;
+    private String cusCode;
 
     @ApiModelProperty(value = "风险信息等级")
     private String level;

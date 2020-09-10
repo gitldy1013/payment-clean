@@ -1,7 +1,7 @@
 package com.cmcc.paymentclean.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cmcc.paymentclean.entity.RiskMerchantRiskSyncInfo;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
