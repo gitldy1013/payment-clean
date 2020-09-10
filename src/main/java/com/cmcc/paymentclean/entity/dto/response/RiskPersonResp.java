@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.entity.dto.response;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.util.Date;
  * @author lumma
  */
 @Data
+@ApiModel(value = "风险个人查询结果参数")
 public class RiskPersonResp implements Serializable {
     private static final long serialVersionUID = 1L;
 

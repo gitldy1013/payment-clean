@@ -1,6 +1,8 @@
 package com.cmcc.paymentclean.entity.dto.resquest;
 
 import com.cmcc.paymentclean.utils.PageVO;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,6 +14,7 @@ import java.util.Date;
  * @author lumma
  */
 @Data
+@ApiModel(value = "风险个人查询请求参数")
 public class RiskPersonReq extends PageVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -27,15 +30,19 @@ public class RiskPersonReq extends PageVO implements Serializable {
     @ApiModelProperty(value = "证件号码")
     private String docCode;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "操作开始时间")
     private Date operateStartTime;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "操作结束时间")
     private Date operateEndTime;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "上报开始时间")
     private Date submitStartTime;
 
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "上报结束时间")
     private Date submitEndTime;
 

@@ -2,6 +2,9 @@ package com.cmcc.paymentclean.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
 
 /**
 * <p>
@@ -65,4 +68,10 @@ public interface PcacEnterpriseRiskSubmitInfoService {
     */
     int updatePcacEnterpriseRiskSubmitInfo(PcacEnterpriseRiskSubmitInfo pcacEnterpriseRiskSubmitInfo);
 
+    /**
+     * 风险企业查询请求接口
+     * @param riskEnterpriseReq
+     * @return Page<RiskEnterpriseResp>
+     */
+    ResultBean<Page<RiskEnterpriseResp>> pageRiskEnterprise(RiskEnterpriseReq riskEnterpriseReq);
 }

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.response.RiskMerchantReqResp;
+import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
@@ -86,13 +86,13 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
     private PcacMerchantRiskSubmitInfoMapper pcacMerchantRiskSubmitInfoMapper;
 
     @Override
-    public ResultBean<Page<RiskMerchantReqResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
-        ResultBean<Page<RiskMerchantReqResp>> resultBean = new ResultBean();
+    public ResultBean<Page<RiskMerchantResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
+        ResultBean<Page<RiskMerchantResp>> resultBean = new ResultBean();
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
 
         Page<PcacMerchantRiskSubmitInfo> page = new Page<>(riskMerchantReq.getPageNo(), riskMerchantReq.getPageSize());
-        Page<RiskMerchantReqResp> pagePcacMerchantRiskSubmitInfo =  pcacMerchantRiskSubmitInfoMapper.pagePcacMerchantRiskSubmitInfo(page, riskMerchantReq);
+        Page<RiskMerchantResp> pagePcacMerchantRiskSubmitInfo =  pcacMerchantRiskSubmitInfoMapper.pagePcacMerchantRiskSubmitInfo(page, riskMerchantReq);
         resultBean.setData(pagePcacMerchantRiskSubmitInfo);
         return resultBean;
     }

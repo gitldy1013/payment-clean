@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.entity.dto.response;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,7 +11,8 @@ import java.util.Date;
  * Created by lumma on 2020/9/10.
  */
 @Data
-public class RiskMerchantReqResp implements Serializable {
+@ApiModel(value = "风险商户查询结果参数")
+public class RiskMerchantResp implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商户代码")
