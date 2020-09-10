@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 被2012 () 使用XMLSpy v编辑的 (http://www.altova.com) by -->
+<!--被XMLSpy vW3C Schema产生的2012 (http://www.altova.com)-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Version">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32"/>
+				<xs:minLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ValidNum">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{0,10}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TrnxTime">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{4}\d{2}\d{2}\d{2}\d{2}\d{2}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TrnxCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="6"/>
+				<xs:minLength value="1"/>
+				<xs:pattern value="[0-9A-Za-z]{6}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="StartTime">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="(\\s)||(\d{4}-\d{2}-\d{2})"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="EndTime">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="(\\s)||(\d{4}-\d{2}-\d{2})"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Signature" type="xs:string"/>
+	<xs:element name="SecretKey">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="512"/>
+				<xs:minLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RiskType">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="2"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RiskInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Element"/>
+				<xs:element ref="Info"/>
+				<xs:element ref="ValidNum"/>
+				<xs:element ref="InvOrgNum"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ResultStatus">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="01|02|03"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ResultCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="6"/>
+				<xs:pattern value="[0-9A-Za-z]{6}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Respone">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Head"/>
+				<xs:element ref="Body"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RespInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ResultStatus"/>
+				<xs:element ref="ResultCode"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RecSystemId">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32"/>
+				<xs:minLength value="1"/>
+				<xs:pattern value="R0001"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="QueryInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CusProperty"/>
+				<xs:element ref="KeyWord"/>
+				<xs:element ref="Info"/>
+				<xs:element ref="RiskType"/>
+				<xs:element ref="StartTime"/>
+				<xs:element ref="EndTime"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PcacList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Count"/>
+				<xs:element ref="RiskInfo" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrigSenderSID">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32"/>
+				<xs:minLength value="1"/>
+				<xs:pattern value="[0-9A-Za-z_]{1,32}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="OrigSender">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32"/>
+				<xs:minLength value="1"/>
+				<xs:pattern value="[0-9A-Za-z_]{1,32}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Element">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32"/>
+				<xs:minLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="KeyWord">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="10"/>
+				<xs:minLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="InvOrgNum">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{0,10}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Info">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="1"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Identification">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="18"/>
+				<xs:minLength value="1"/>
+				<xs:pattern value="\d{18}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Head">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Version"/>
+				<xs:element ref="Identification"/>
+				<xs:element ref="OrigSender"/>
+				<xs:element ref="OrigSenderSID"/>
+				<xs:element ref="RecSystemId"/>
+				<xs:element ref="TrnxCode"/>
+				<xs:element ref="TrnxTime"/>
+				<xs:element ref="SecretKey"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Document">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Respone"/>
+				<xs:element ref="Signature"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CusProperty">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="2"/>
+				<xs:minLength value="2"/>
+				<xs:pattern value="(01)||(02)"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Count" type="xs:int"/>
+	<xs:element name="Body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RespInfo"/>
+				<xs:element ref="QueryInfo"/>
+				<xs:element ref="PcacList"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

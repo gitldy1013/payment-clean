@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Document">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Request" />
+				<xs:element ref="Signature" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Request">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Head" />
+				<xs:element ref="Body" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Head">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Version" />
+				<xs:element ref="Identification" />
+				<xs:element ref="OrigSender" />
+				<xs:element ref="OrigSenderSID" />
+				<xs:element ref="RecSystemId" />
+				<xs:element ref="TrnxCode" />
+				<xs:element ref="TrnxTime" />
+				<xs:element name="UserToken" type="xs:string" />
+				<xs:element name="SecretKey" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RiskType" />
+				<xs:element ref="CusNature" />
+				<xs:element ref="CusName" />
+				<xs:element ref="RegName" />
+				<xs:element ref="CusCode" />
+				<xs:element ref="DocType" />
+				<xs:element ref="DocCode" />
+				<xs:element ref="LegRepName" />
+				<xs:element ref="LegDocCode" />
+				<xs:element ref="BankNo" />
+				<xs:element ref="OpenBank" />
+				<xs:element ref="Url" />
+				<xs:element ref="ServerIp" />
+				<xs:element ref="MobileNo" />
+				<xs:element ref="Address" />
+				<xs:element ref="Icp" />
+				<xs:element ref="Level" />
+				<xs:element ref="Occurtimeb" />
+				<xs:element ref="Occurtimee" />
+				<xs:element ref="Occurchan" />
+				<xs:element ref="Occurarea" />
+				<xs:element ref="Scope" />
+				<xs:element ref="ValidStatus" />
+				<xs:element ref="RegisteredArea" />
+				<xs:element ref="RegisteredCode" />
+				
+				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RiskType">
+		<xs:simpleType>
+			<xs:restriction base="xs:string" />
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CusNature">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CusName">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RegName">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="CusCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DocType">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="DocCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="LegRepName">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="LegDocCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="BankNo">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="OpenBank">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Url">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ServerIp">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="MobileNo">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Address">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Icp">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Level">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Occurtimeb">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Occurtimee">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Occurchan">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Occurarea">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:minLength value="0" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Scope">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ValidStatus">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RegisteredArea">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="RegisteredCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="Version">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32" />
+				<xs:minLength value="1" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+
+	<xs:element name="TrnxTime">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{4}\d{2}\d{2}\d{2}\d{2}\d{2}" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="TrnxCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="6" />
+				<xs:pattern value="[0-9A-Za-z]{6}" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Signature" type="xs:string" />
+	<xs:element name="RecSystemId">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32" />
+				<xs:minLength value="1" />
+				<xs:pattern value="R0001" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="OrigSenderSID">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32" />
+				<xs:minLength value="1" />
+				<xs:pattern value="[0-9A-Za-z_]{1,32}" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="OrigSender">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="32" />
+				<xs:minLength value="1" />
+				<xs:pattern value="[0-9A-Za-z_]{1,32}" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="OrgCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="10" />
+				<xs:minLength value="0" />
+				<xs:pattern value="(\\s)||([0-9]{8}[\-][0-9A-Za-z])" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Identification">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="18" />
+				<xs:minLength value="1" />
+				<xs:pattern value="\d{18}" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>

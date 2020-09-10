@@ -60,7 +60,7 @@ create table risk_merchant_risk_sync_info
    cus_type             varchar(2) comment '商户类型',
    risk_type            varchar(2) comment '风险类型',
    cus_nature           varchar(2) comment '商户属性',
-   cus_number           varchar(20) comment '商户编号',
+   cus_code           varchar(20) comment '商户编号',
    level                varchar(2) comment '风险信息等级',
    valid_date           date comment '有效期',
    occurtimeb           date comment '风险事件发生时间',
