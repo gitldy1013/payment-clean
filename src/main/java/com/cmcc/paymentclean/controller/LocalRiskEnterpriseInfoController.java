@@ -44,8 +44,4 @@ public class LocalRiskEnterpriseInfoController {
         return riskEnterpriseService.addRiskPerson(riskEnterprises);
     }
 
-    @RequestMapping(value = "/query",method = RequestMethod.POST)
-    public ResultBean<Page<RiskPersonResp>> query(@RequestBody RiskPersonReq riskPersonReq){
-        return new ResultBean<>(pcacPersonRiskSubmitInfoService.pageRiskPerson(riskPersonReq));
-    }
 }

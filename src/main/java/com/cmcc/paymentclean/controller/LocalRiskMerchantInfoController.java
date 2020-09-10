@@ -41,12 +41,7 @@ public class LocalRiskMerchantInfoController {
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
     public ResultBean<Boolean> sync(@RequestBody List<RiskMerchant> riskMerchants) {
 
-        return new ResultBean<>(riskMerchantService.addRiskPerson(riskMerchants));
+        return riskMerchantService.addRiskPerson(riskMerchants);
     }
-
-    @RequestMapping(value = "/query",method = RequestMethod.POST)
-    public ResultBean<Page<RiskPersonResp>> query(@RequestBody RiskPersonReq riskPersonReq){
-        System.out.println("11");
-        return new ResultBean<>(pcacPersonRiskSubmitInfoService.pageRiskPerson(riskPersonReq));
-    }
+    
 }

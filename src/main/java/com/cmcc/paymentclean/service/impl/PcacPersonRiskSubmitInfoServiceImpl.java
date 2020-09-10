@@ -2,7 +2,9 @@ package com.cmcc.paymentclean.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskPersonResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
@@ -21,9 +23,13 @@ public class PcacPersonRiskSubmitInfoServiceImpl extends ServiceImpl<PcacPersonR
     @Autowired
     private PcacPersonRiskSubmitInfoMapper pcacPersonRiskSubmitInfoMapper;
     @Override
-    public Page<RiskPersonResp> pageRiskPerson(RiskPersonReq riskPersonReq) {
+    public ResultBean<Page<RiskPersonResp>> pageRiskPerson(RiskPersonReq riskPersonReq) {
+        ResultBean<Page<RiskPersonResp>> resultBean = new ResultBean();
         Page<PcacPersonRiskSubmitInfo> page = new Page<>(riskPersonReq.getPageNo(), riskPersonReq.getPageSize());
         Page<RiskPersonResp> pcacPersonRiskSubmitInfoPage =  pcacPersonRiskSubmitInfoMapper.pagePcacPersonRiskSubmitInfo(page, riskPersonReq);
-        return pcacPersonRiskSubmitInfoPage;
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+        resultBean.setData(pcacPersonRiskSubmitInfoPage);
+        return resultBean;
     }
 }

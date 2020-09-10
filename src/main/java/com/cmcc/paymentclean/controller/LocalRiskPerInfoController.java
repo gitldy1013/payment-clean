@@ -41,11 +41,11 @@ public class LocalRiskPerInfoController {
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
     public ResultBean<Boolean> sync(@RequestBody List<RiskPerson> riskPersonList) {
 
-        return new ResultBean<>(riskPersonService.addRiskPerson(riskPersonList));
+        return riskPersonService.addRiskPerson(riskPersonList);
     }
 
     @RequestMapping(value = "/query",method = RequestMethod.POST)
     public ResultBean<Page<RiskPersonResp>> query(@RequestBody RiskPersonReq riskPersonReq){
-        return new ResultBean<>(pcacPersonRiskSubmitInfoService.pageRiskPerson(riskPersonReq));
+        return pcacPersonRiskSubmitInfoService.pageRiskPerson(riskPersonReq);
     }
 }
