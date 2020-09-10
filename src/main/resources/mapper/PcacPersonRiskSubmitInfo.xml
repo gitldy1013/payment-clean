@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo">
+        <id column="pcac_person_risk_submit_info_id" property="pcacPersonRiskSubmitInfoId" />
+        <result column="cus_property" property="cusProperty" />
+        <result column="risk_type" property="riskType" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="mac" property="mac" />
+        <result column="imei" property="imei" />
+        <result column="bank_no" property="bankNo" />
+        <result column="open_bank" property="openBank" />
+        <result column="cus_name" property="cusName" />
+        <result column="doc_type" property="docType" />
+        <result column="doc_code" property="docCode" />
+        <result column="ip" property="ip" />
+        <result column="address" property="address" />
+        <result column="telephone" property="telephone" />
+        <result column="is_transfer" property="isTransfer" />
+        <result column="rec_name" property="recName" />
+        <result column="rec_doc_type" property="recDocType" />
+        <result column="rec_doc_code" property="recDocCode" />
+        <result column="rec_bank_no" property="recBankNo" />
+        <result column="rec_open_bank" property="recOpenBank" />
+        <result column="rec_host_area" property="recHostArea" />
+        <result column="email" property="email" />
+        <result column="valid_date" property="validDate" />
+        <result column="occurtimeb" property="occurtimeb" />
+        <result column="occurtimee" property="occurtimee" />
+        <result column="occurchan" property="occurchan" />
+        <result column="occurarea" property="occurarea" />
+        <result column="note" property="note" />
+        <result column="org_id" property="orgId" />
+        <result column="rep_date" property="repDate" />
+        <result column="rep_type" property="repType" />
+        <result column="rep_person" property="repPerson" />
+        <result column="source_channel" property="sourceChannel" />
+        <result column="disk_number" property="diskNumber" />
+        <result column="currency" property="currency" />
+        <result column="amount" property="amount" />
+        <result column="risk_find_time" property="riskFindTime" />
+        <result column="usrNo" property="usrNo" />
+        <result column="operator" property="operator" />
+        <result column="operate_time" property="operateTime" />
+        <result column="submit_time" property="submitTime" />
+        <result column="submit_status" property="submitStatus" />
+        <result column="result_status" property="resultStatus" />
+        <result column="result_code" property="resultCode" />
+        <result column="msg_detail" property="msgDetail" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        pcac_person_risk_submit_info_id, cus_property, risk_type, mobile_no, mac, imei, bank_no, open_bank, cus_name, doc_type, doc_code, ip, address, telephone, is_transfer, rec_name, rec_doc_type, rec_doc_code, rec_bank_no, rec_open_bank, rec_host_area, email, valid_date, occurtimeb, occurtimee, occurchan, occurarea, note, org_id, rep_date, rep_type, rep_person, source_channel, disk_number, currency, amount, risk_find_time, usrNo, operator, operate_time, submit_time, submit_status, result_status, result_code, msg_detail
+    </sql>
+
+</mapper>

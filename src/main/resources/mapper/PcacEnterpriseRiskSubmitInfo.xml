@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.paymentclean.mapper.PcacEnterpriseRiskSubmitInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo">
+        <id column="pcac_enterprise_risk_submit_info_id" property="pcacEnterpriseRiskSubmitInfoId" />
+        <result column="cus_property" property="cusProperty" />
+        <result column="risk_type" property="riskType" />
+        <result column="cus_name" property="cusName" />
+        <result column="doc_type" property="docType" />
+        <result column="doc_code" property="docCode" />
+        <result column="leg_rep_name" property="legRepName" />
+        <result column="tax_regcer" property="taxRegcer" />
+        <result column="leg_doc_type" property="legDocType" />
+        <result column="leg_doc_code" property="legDocCode" />
+        <result column="leg_control_card_type" property="legControlCardType" />
+        <result column="leg_control_card_code" property="legControlCardCode" />
+        <result column="remarks" property="remarks" />
+        <result column="reg_address" property="regAddress" />
+        <result column="address" property="address" />
+        <result column="tele_phone" property="telePhone" />
+        <result column="business_scope" property="businessScope" />
+        <result column="leg_control_name" property="legControlName" />
+        <result column="occurtimee" property="occurtimee" />
+        <result column="source_channel" property="sourceChannel" />
+        <result column="risk_find_time" property="riskFindTime" />
+        <result column="valid_date" property="validDate" />
+        <result column="occurarea" property="occurarea" />
+        <result column="reg_name" property="regName" />
+        <result column="cus_code" property="cusCode" />
+        <result column="bank_no" property="bankNo" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="note" property="note" />
+        <result column="occurtimeb" property="occurtimeb" />
+        <result column="org_id" property="orgId" />
+        <result column="rep_date" property="repDate" />
+        <result column="rep_type" property="repType" />
+        <result column="rep_person" property="repPerson" />
+        <result column="operator" property="operator" />
+        <result column="operate_time" property="operateTime" />
+        <result column="submit_time" property="submitTime" />
+        <result column="submit_status" property="submitStatus" />
+        <result column="result_status" property="resultStatus" />
+        <result column="result_code" property="resultCode" />
+        <result column="msg_detail" property="msgDetail" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        pcac_enterprise_risk_submit_info_id, cus_property, risk_type, cus_name, doc_type, doc_code, leg_rep_name, tax_regcer, leg_doc_type, leg_doc_code, leg_control_card_type, leg_control_card_code, remarks, reg_address, address, tele_phone, business_scope, leg_control_name, occurtimee, source_channel, risk_find_time, valid_date, occurarea, reg_name, cus_code, bank_no, mobile_no, note, occurtimeb, org_id, rep_date, rep_type, rep_person, operator, operate_time, submit_time, submit_status, result_status, result_code, msg_detail
+    </sql>
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.paymentclean.mapper.RiskEnterpriseRiskSyncInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo">
+        <id column="risk_enterprise_risk_sync_info_id" property="riskEnterpriseRiskSyncInfoId" />
+        <result column="risk_type" property="riskType" />
+        <result column="payAccountNo" property="payAccountNo" />
+        <result column="occurtimeb" property="occurtimeb" />
+        <result column="occurtimee" property="occurtimee" />
+        <result column="note" property="note" />
+        <result column="source_channel" property="sourceChannel" />
+        <result column="valid_date" property="validDate" />
+        <result column="operator" property="operator" />
+        <result column="operate_time" property="operateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        risk_enterprise_risk_sync_info_id, risk_type, payAccountNo, occurtimeb, occurtimee, note, source_channel, valid_date, operator, operate_time
+    </sql>
+
+</mapper>

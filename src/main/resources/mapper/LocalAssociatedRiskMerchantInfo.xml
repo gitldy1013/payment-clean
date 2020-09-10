@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo">
+        <id column="local_associated_risk_merchant_info_id" property="localAssociatedRiskMerchantInfoId" />
+        <result column="cus_number" property="cusNumber" />
+        <result column="push_list_type" property="pushListType" />
+        <result column="up_date" property="upDate" />
+        <result column="level" property="level" />
+        <result column="risk_type" property="riskType" />
+        <result column="cus_name" property="cusName" />
+        <result column="reg_name" property="regName" />
+        <result column="handle_result" property="handleResult" />
+        <result column="feedback_status" property="feedbackStatus" />
+        <result column="feedback_date" property="feedbackDate" />
+        <result column="doc_type" property="docType" />
+        <result column="doc_code" property="docCode" />
+        <result column="leg_rep_name" property="legRepName" />
+        <result column="leg_doc_type" property="legDocType" />
+        <result column="leg_doc_code" property="legDocCode" />
+        <result column="valid_date" property="validDate" />
+        <result column="valid_status" property="validStatus" />
+        <result column="cus_type" property="cusType" />
+        <result column="occurarea" property="occurarea" />
+        <result column="ass_mer_number" property="assMerNumber" />
+        <result column="status" property="status" />
+        <result column="is_black" property="isBlack" />
+        <result column="ass_field_cnt" property="assFieldCnt" />
+        <result column="ass_field_name" property="assFieldName" />
+        <result column="operator" property="operator" />
+        <result column="msg_detail" property="msgDetail" />
+        <result column="amount" property="amount" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        local_associated_risk_merchant_info_id, cus_number, push_list_type, up_date, level, risk_type, cus_name, reg_name, handle_result, feedback_status, feedback_date, doc_type, doc_code, leg_rep_name, leg_doc_type, leg_doc_code, valid_date, valid_status, cus_type, occurarea, ass_mer_number, status, is_black, ass_field_cnt, ass_field_name, operator, msg_detail, amount
+    </sql>
+
+</mapper>

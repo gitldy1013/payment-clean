@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo">
+        <id column="pcac_merchant_risk_submit_info_id" property="pcacMerchantRiskSubmitInfoId" />
+        <result column="cus_type" property="cusType" />
+        <result column="cus_property" property="cusProperty" />
+        <result column="risk_type" property="riskType" />
+        <result column="cus_nature" property="cusNature" />
+        <result column="cus_name" property="cusName" />
+        <result column="reg_name" property="regName" />
+        <result column="cus_code" property="cusCode" />
+        <result column="doc_type" property="docType" />
+        <result column="doc_code" property="docCode" />
+        <result column="leg_rep_name" property="legRepName" />
+        <result column="leg_doc_type" property="legDocType" />
+        <result column="leg_doc_code" property="legDocCode" />
+        <result column="is_transfer" property="isTransfer" />
+        <result column="bank_no" property="bankNo" />
+        <result column="open_bank" property="openBank" />
+        <result column="server_ip" property="serverIp" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="address" property="address" />
+        <result column="icp" property="icp" />
+        <result column="level" property="level" />
+        <result column="occurtimeb" property="occurtimeb" />
+        <result column="occurtimee" property="occurtimee" />
+        <result column="occurchan" property="occurchan" />
+        <result column="occurarea" property="occurarea" />
+        <result column="note" property="note" />
+        <result column="valid_date" property="validDate" />
+        <result column="org_id" property="orgId" />
+        <result column="rep_date" property="repDate" />
+        <result column="rep_type" property="repType" />
+        <result column="rep_person" property="repPerson" />
+        <result column="registered_area" property="registeredArea" />
+        <result column="registered_code" property="registeredCode" />
+        <result column="source_channel" property="sourceChannel" />
+        <result column="currency" property="currency" />
+        <result column="amount" property="amount" />
+        <result column="risk_find_time" property="riskFindTime" />
+        <result column="leg_control_name" property="legControlName" />
+        <result column="leg_control_card_type" property="legControlCardType" />
+        <result column="leg_control_card_code" property="legControlCardCode" />
+        <result column="remarks" property="remarks" />
+        <result column="leg_ben_name" property="legBenName" />
+        <result column="leg_ben_card_type" property="legBenCardType" />
+        <result column="leg_ben_card_code" property="legBenCardCode" />
+        <result column="operator" property="operator" />
+        <result column="operate_time" property="operateTime" />
+        <result column="submit_time" property="submitTime" />
+        <result column="submit_status" property="submitStatus" />
+        <result column="result_status" property="resultStatus" />
+        <result column="result_code" property="resultCode" />
+        <result column="msg_detail" property="msgDetail" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        pcac_merchant_risk_submit_info_id, cus_type, cus_property, risk_type, cus_nature, cus_name, reg_name, cus_code, doc_type, doc_code, leg_rep_name, leg_doc_type, leg_doc_code, is_transfer, bank_no, open_bank, server_ip, mobile_no, address, icp, level, occurtimeb, occurtimee, occurchan, occurarea, note, valid_date, org_id, rep_date, rep_type, rep_person, registered_area, registered_code, source_channel, currency, amount, risk_find_time, leg_control_name, leg_control_card_type, leg_control_card_code, remarks, leg_ben_name, leg_ben_card_type, leg_ben_card_code, operator, operate_time, submit_time, submit_status, result_status, result_code, msg_detail
+    </sql>
+
+</mapper>
