@@ -1,8 +1,7 @@
 package com.cmcc.paymentclean.service;
 
-import com.cmcc.paymentclean.entity.RiskMerchantRiskSyncInfo;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cmcc.paymentclean.entity.RiskMerchantRiskSyncInfo;
 
 /**
 * <p>

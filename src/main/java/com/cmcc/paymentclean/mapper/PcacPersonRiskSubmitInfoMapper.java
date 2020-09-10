@@ -10,7 +10,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by lumma on 2020/9/9.
+ * <p>
+ * 协会个人风险信息上报表  Mapper 接口
+ * </p>
+ *
+ * @author cmcc
+ * @since 2020-09-10
  */
 @Mapper
 @Repository

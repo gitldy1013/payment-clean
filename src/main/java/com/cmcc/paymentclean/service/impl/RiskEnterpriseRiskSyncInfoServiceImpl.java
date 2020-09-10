@@ -1,14 +1,14 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
+import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.RiskEnterpriseRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskEnterpriseRiskSyncInfoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
-import com.cmcc.paymentclean.exception.bizException.BizException;
+import org.springframework.stereotype.Service;
 
 /**
 * <p>

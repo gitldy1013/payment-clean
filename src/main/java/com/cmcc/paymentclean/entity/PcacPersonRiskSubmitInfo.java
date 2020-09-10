@@ -1,28 +1,34 @@
 package com.cmcc.paymentclean.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
- * Created by lumma on 2020/9/9.
+ * <p>
+ * 协会个人风险信息上报表
+ * </p>
+ *
+ * @author cmcc
+ * @since 2020-09-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="PcacPersonRiskSubmitInfo对象", description="协会个人风险信息上报表")
-@TableName("pcac_person_risk_submit_info")
-public class PcacPersonRiskSubmitInfo  extends Model<PcacPersonRiskSubmitInfo> {
+@ApiModel(value="PcacPersonRiskSubmitInfo对象", description="协会个人风险信息上报表 ")
+public class PcacPersonRiskSubmitInfo extends Model<PcacPersonRiskSubmitInfo> {
+
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "id序号")
-    @TableId(value = "risk_person_risk_sync_info_id", type = IdType.AUTO)
+    @TableId(value = "pcac_person_risk_submit_info_id", type = IdType.AUTO)
     private Integer pcacPersonRiskSubmitInfoId;
 
     @ApiModelProperty(value = "客户属性")
@@ -37,10 +43,10 @@ public class PcacPersonRiskSubmitInfo  extends Model<PcacPersonRiskSubmitInfo> {
     @ApiModelProperty(value = "MAC 地址")
     private String mac;
 
-    @ApiModelProperty(value = "imei")
+    @ApiModelProperty(value = "Imei（Imei 必须为小于或等于 32 位数字组成）")
     private String imei;
 
-    @ApiModelProperty(value = "付款账户")
+    @ApiModelProperty(value = "付款账户/付款银行卡号（支付账户）")
     private String bankNo;
 
     @ApiModelProperty(value = "开户机构")
@@ -64,7 +70,7 @@ public class PcacPersonRiskSubmitInfo  extends Model<PcacPersonRiskSubmitInfo> {
     @ApiModelProperty(value = "固定电话")
     private String telephone;
 
-    @ApiModelProperty(value = "中转或收款")
+    @ApiModelProperty(value = "中转或收款 0 收款 1 中转")
     private String isTransfer;
 
     @ApiModelProperty(value = "中转或收款人姓名")
@@ -76,8 +82,11 @@ public class PcacPersonRiskSubmitInfo  extends Model<PcacPersonRiskSubmitInfo> {
     @ApiModelProperty(value = "中转或收款人证件号")
     private String recDocCode;
 
-    @ApiModelProperty(value = "中转或收款银行卡号（支付账户）")
+    @ApiModelProperty(value = "中转或收款银行卡号（支付账户） ， 不校验格式")
     private String recBankNo;
+
+    @ApiModelProperty(value = "中转或收款开户机构")
+    private String recOpenBank;
 
     @ApiModelProperty(value = "收款人所在国家或地区")
     private String recHostArea;
@@ -86,13 +95,13 @@ public class PcacPersonRiskSubmitInfo  extends Model<PcacPersonRiskSubmitInfo> {
     private String email;
 
     @ApiModelProperty(value = "有效期")
-    private Date validDate;
+    private LocalDate validDate;
 
     @ApiModelProperty(value = "风险事件发生时间")
-    private Date occurtimeb          ;
+    private LocalDate occurtimeb;
 
     @ApiModelProperty(value = "风险事件结束时间")
-    private Date occurtimee          ;
+    private LocalDate occurtimee;
 
     @ApiModelProperty(value = "风险事件发生渠道")
     private String occurchan;
@@ -107,9 +116,9 @@ public class PcacPersonRiskSubmitInfo  extends Model<PcacPersonRiskSubmitInfo> {
     private String orgId;
 
     @ApiModelProperty(value = "上报日期")
-    private Date repDate;
+    private LocalDate repDate;
 
-    @ApiModelProperty(value = "上传方式")
+    @ApiModelProperty(value = "上传方式（值： 03）")
     private String repType;
 
     @ApiModelProperty(value = "上传人")
@@ -128,19 +137,20 @@ public class PcacPersonRiskSubmitInfo  extends Model<PcacPersonRiskSubmitInfo> {
     private String amount;
 
     @ApiModelProperty(value = "风险事件发现时间")
-    private Date riskFindTime;
+    private LocalDate riskFindTime;
 
     @ApiModelProperty(value = "内部用户号")
+    @TableField("usrNo")
     private String usrNo;
 
     @ApiModelProperty(value = "操作人")
     private String operator;
 
     @ApiModelProperty(value = "操作时间")
-    private Date operateTime;
+    private LocalDate operateTime;
 
     @ApiModelProperty(value = "上报时间")
-    private Date submitTime;
+    private LocalDate submitTime;
 
     @ApiModelProperty(value = "报送状态")
     private String submitStatus;
@@ -153,4 +163,11 @@ public class PcacPersonRiskSubmitInfo  extends Model<PcacPersonRiskSubmitInfo> {
 
     @ApiModelProperty(value = "错误详情")
     private String msgDetail;
+
+
+    @Override
+    protected Serializable pkVal() {
+        return this.pcacPersonRiskSubmitInfoId;
+    }
+
 }
