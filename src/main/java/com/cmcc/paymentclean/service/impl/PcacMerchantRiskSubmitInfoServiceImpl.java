@@ -14,6 +14,10 @@ import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Date;
+import java.util.List;
 
 /**
 * <p>
@@ -93,6 +97,13 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
 
         Page<PcacMerchantRiskSubmitInfo> page = new Page<>(riskMerchantReq.getPageNo(), riskMerchantReq.getPageSize());
         Page<RiskMerchantResp> pagePcacMerchantRiskSubmitInfo =  pcacMerchantRiskSubmitInfoMapper.pagePcacMerchantRiskSubmitInfo(page, riskMerchantReq);
+        List<RiskMerchantResp> riskMerchantResps = pagePcacMerchantRiskSubmitInfo.getRecords();
+        if(!CollectionUtils.isEmpty(riskMerchantResps)){
+            for(RiskMerchantResp riskPersonResp:riskMerchantResps){
+                String validStatus = (new Date().before(riskPersonResp.getValidDate()))? "01":"02";
+                riskPersonResp.setValidStatus(validStatus);
+            }
+        }
         resultBean.setData(pagePcacMerchantRiskSubmitInfo);
         return resultBean;
     }

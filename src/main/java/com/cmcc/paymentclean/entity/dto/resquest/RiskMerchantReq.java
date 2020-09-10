@@ -22,8 +22,8 @@ import java.util.Date;
 public class RiskMerchantReq extends PageVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "商户编号")
-    private String cusNumber;
+    @ApiModelProperty(value = "商户代码，最长不能超过 32 个字符")
+    private String cusCode;
 
     @ApiModelProperty(value = "商户名称")
     private String regName;

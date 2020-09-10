@@ -62,7 +62,7 @@
     <select id="pagePcacPersonRiskSubmitInfo" resultType="com.cmcc.paymentclean.entity.dto.response.RiskPersonResp"
             parameterType="com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq">
         SELECT
-        t.*
+        <include refid="Base_Column_List"/>,t.msg_detail as failureReason
         FROM
         pcac_person_risk_submit_info t
         WHERE

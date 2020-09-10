@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by lumma on 2020/9/10.
@@ -48,13 +49,13 @@ public class RiskEnterpriseResp implements Serializable {
     private String regAddress;
 
     @ApiModelProperty(value = "有效期")
-    private String validDate;
+    private Date validDate;
 
     @ApiModelProperty(value = "有效性")
     private String validStatus;
 
     @ApiModelProperty(value = "风险事件发生时间")
-    private String occurtimeb;
+    private Date occurtimeb;
 
     @ApiModelProperty(value = "风险事件发生地域")
     private String occurarea;
@@ -69,15 +70,15 @@ public class RiskEnterpriseResp implements Serializable {
     private String operator;
 
     @ApiModelProperty(value = "操作时间")
-    private String operateTime;
+    private Date operateTime;
 
     @ApiModelProperty(value = "上报时间")
-    private String submitTime;
+    private Date submitTime;
 
     @ApiModelProperty(value = "报送状态")
     private String submitStatus;
 
     @ApiModelProperty(value = "失败原因")
-    private String msgDetail;
+    private String failureReason;
 
 }

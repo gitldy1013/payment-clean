@@ -46,7 +46,9 @@ public class RiskMerchantServiceImpl extends ServiceImpl<RiskMerchantMapper, Ris
                 newRiskMerchantList.add(riskMerchant);
             }
         }
-        this.saveBatch(newRiskMerchantList);
+        if(!CollectionUtils.isEmpty(newRiskMerchantList)){
+            this.saveBatch(newRiskMerchantList);
+        }
         return resultBean;
     }
 }

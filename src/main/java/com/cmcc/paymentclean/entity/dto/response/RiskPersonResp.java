@@ -81,5 +81,5 @@ public class RiskPersonResp implements Serializable {
     private String submitStatus;
 
     @ApiModelProperty(value = "失败原因")
-    private String msgDetail;
+    private String failureReason;
 }

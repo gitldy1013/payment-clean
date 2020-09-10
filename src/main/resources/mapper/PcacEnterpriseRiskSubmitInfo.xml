@@ -54,7 +54,7 @@
     <select id="pagePcacEnterpriseRiskSubmitInfo" resultType="com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp"
             parameterType="com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq">
         SELECT
-        t.*
+        <include refid="Base_Column_List"/>,t.msg_detail as failureReason
         FROM
         pcac_enterprise_risk_submit_info t
         WHERE

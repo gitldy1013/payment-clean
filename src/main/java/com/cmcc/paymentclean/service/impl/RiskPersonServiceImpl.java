@@ -44,7 +44,9 @@ public class RiskPersonServiceImpl extends ServiceImpl<RiskPersonMapper, RiskPer
                     newRiskPersonList.add(riskPerson);
                 }
             }
-            this.saveBatch(newRiskPersonList);
+            if(!CollectionUtils.isEmpty(newRiskPersonList)){
+                this.saveBatch(newRiskPersonList);
+            }
             return resultBean;
         }
 

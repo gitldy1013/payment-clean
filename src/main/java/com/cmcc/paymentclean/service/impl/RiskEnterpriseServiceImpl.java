@@ -46,7 +46,9 @@ public class RiskEnterpriseServiceImpl extends ServiceImpl<RiskEnterpriseMapper,
                 newEnterpriseList.add(riskEnterprise);
             }
         }
-        this.saveBatch(newEnterpriseList);
+        if(!CollectionUtils.isEmpty(newEnterpriseList)){
+            this.saveBatch(newEnterpriseList);
+        }
 
         return resultBean;
     }

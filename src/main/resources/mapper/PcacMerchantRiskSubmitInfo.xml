@@ -62,20 +62,20 @@
         pcac_merchant_risk_submit_info_id,cus_type,cus_property,risk_type,cus_nature,cus_name,reg_name,cus_code,doc_type,doc_code,leg_rep_name,leg_doc_type,
         leg_doc_code,is_transfer,bank_no,open_bank,server_ip,mobile_no,address,icp,level,occurtimeb,occurtimee,occurchan,occurarea,note,valid_date,org_id,rep_date,
         rep_type,rep_person,registered_area,registered_code,source_channel,currency,amount,risk_find_time,leg_control_name,leg_control_card_type,leg_control_card_code,
-        remarks,leg_ben_name,leg_ben_card_type,leg_ben_card_code,operator,operate_time,submit_time,submit_status,result_status,result_code,msg_detail,
+        remarks,leg_ben_name,leg_ben_card_type,leg_ben_card_code,operator,operate_time,submit_time,submit_status,result_status,result_code,msg_detail
 
     </sql>
 
     <select id="pagePcacMerchantRiskSubmitInfo" resultType="com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp"
             parameterType="com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq">
         SELECT
-        t.*
+        <include refid="Base_Column_List"/> ,t.msg_detail as failureReason
         FROM
         pcac_merchant_risk_submit_info t
         WHERE
         1=1
-        <if test="req.cusNumber !=null and req.cusNumber !=''">
-            and t.cus_Number=#{req.cusNumber}
+        <if test="req.cusCode !=null and req.cusCode !=''">
+            and t.cus_Code=#{req.cusCode}
         </if>
         <if test="req.regName !=null and req.regName !=''">
             and t.reg_Name like concat('%',#{req.regName},'%')
