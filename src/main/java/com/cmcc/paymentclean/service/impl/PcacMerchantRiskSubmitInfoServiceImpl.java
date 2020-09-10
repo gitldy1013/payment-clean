@@ -1,10 +1,15 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.response.RiskMerchantReqResp;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -75,6 +80,21 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             log.error("更新id为{}的pcacMerchantRiskSubmitInfo失败",pcacMerchantRiskSubmitInfo.getPcacMerchantRiskSubmitInfoId());
             throw new BizException("更新失败[id=" + pcacMerchantRiskSubmitInfo.getPcacMerchantRiskSubmitInfoId() + "]");
         }
+    }
+
+    @Autowired
+    private PcacMerchantRiskSubmitInfoMapper pcacMerchantRiskSubmitInfoMapper;
+
+    @Override
+    public ResultBean<Page<RiskMerchantReqResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
+        ResultBean<Page<RiskMerchantReqResp>> resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+
+        Page<PcacMerchantRiskSubmitInfo> page = new Page<>(riskMerchantReq.getPageNo(), riskMerchantReq.getPageSize());
+        Page<RiskMerchantReqResp> pagePcacMerchantRiskSubmitInfo =  pcacMerchantRiskSubmitInfoMapper.pagePcacMerchantRiskSubmitInfo(page, riskMerchantReq);
+        resultBean.setData(pagePcacMerchantRiskSubmitInfo);
+        return resultBean;
     }
 
 }

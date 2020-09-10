@@ -2,9 +2,10 @@ package com.cmcc.paymentclean.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.Date;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 协会商户风险信息上报表 
+ * 协会商户风险信息上报表
  * </p>
  *
  * @author cmcc
@@ -90,10 +91,10 @@ public class PcacMerchantRiskSubmitInfo extends Model<PcacMerchantRiskSubmitInfo
     private String level;
 
     @ApiModelProperty(value = "风险事件发生时间")
-    private LocalDate occurtimeb;
+    private Date occurtimeb;
 
     @ApiModelProperty(value = "风险事件结束时间")
-    private LocalDate occurtimee;
+    private Date occurtimee;
 
     @ApiModelProperty(value = "风险事件发生渠道")
     private String occurchan;
@@ -105,13 +106,13 @@ public class PcacMerchantRiskSubmitInfo extends Model<PcacMerchantRiskSubmitInfo
     private String note;
 
     @ApiModelProperty(value = "有效期")
-    private LocalDate validDate;
+    private Date validDate;
 
     @ApiModelProperty(value = "上报机构")
     private String orgId;
 
     @ApiModelProperty(value = "上报日期")
-    private LocalDate repDate;
+    private Date repDate;
 
     @ApiModelProperty(value = "上传方式（值： 03）")
     private String repType;
@@ -135,7 +136,7 @@ public class PcacMerchantRiskSubmitInfo extends Model<PcacMerchantRiskSubmitInfo
     private String amount;
 
     @ApiModelProperty(value = "风险事件发现时间")
-    private LocalDate riskFindTime;
+    private Date riskFindTime;
 
     @ApiModelProperty(value = "实控人姓名")
     private String legControlName;
@@ -162,10 +163,10 @@ public class PcacMerchantRiskSubmitInfo extends Model<PcacMerchantRiskSubmitInfo
     private String operator;
 
     @ApiModelProperty(value = "操作时间")
-    private LocalDate operateTime;
+    private Date operateTime;
 
     @ApiModelProperty(value = "上报时间")
-    private LocalDate submitTime;
+    private Date submitTime;
 
     @ApiModelProperty(value = "报送状态")
     private String submitStatus;

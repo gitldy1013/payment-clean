@@ -3,6 +3,9 @@ package com.cmcc.paymentclean.service;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.response.RiskMerchantReqResp;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 
 /**
 * <p>
@@ -65,5 +68,12 @@ public interface PcacMerchantRiskSubmitInfoService {
     * @since 2020-09-10
     */
     int updatePcacMerchantRiskSubmitInfo(PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo);
+
+    /**
+     * 风险商户查询请求接口
+     * @param riskMerchantReq
+     * @return Page<RiskMerchantReqResp>
+     */
+    ResultBean<Page<RiskMerchantReqResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq);
 
 }

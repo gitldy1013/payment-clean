@@ -1,10 +1,7 @@
 package com.cmcc.paymentclean.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.RiskEnterprise;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.response.RiskPersonResp;
-import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq;
 import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.RiskEnterpriseService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- * 风险个人 前端控制器
+ * 风险企业 前端控制器
  * </p>
  *
  * @author lumma
@@ -36,12 +33,12 @@ public class LocalRiskEnterpriseInfoController {
     private PcacPersonRiskSubmitInfoService pcacPersonRiskSubmitInfoService;
 
     /**
-     * 风险个人查询请求接口
+     * 风险企业同步请求接口
      */
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
     public ResultBean<Boolean> sync(@RequestBody List<RiskEnterprise> riskEnterprises) {
 
-        return riskEnterpriseService.addRiskPerson(riskEnterprises);
+        return riskEnterpriseService.addEnterprise(riskEnterprises);
     }
 
 }

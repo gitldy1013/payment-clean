@@ -22,6 +22,8 @@ public class PcacPersonRiskSubmitInfoServiceImpl extends ServiceImpl<PcacPersonR
 
     @Autowired
     private PcacPersonRiskSubmitInfoMapper pcacPersonRiskSubmitInfoMapper;
+
+
     @Override
     public ResultBean<Page<RiskPersonResp>> pageRiskPerson(RiskPersonReq riskPersonReq) {
         ResultBean<Page<RiskPersonResp>> resultBean = new ResultBean();

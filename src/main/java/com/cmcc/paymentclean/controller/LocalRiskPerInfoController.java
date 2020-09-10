@@ -36,7 +36,7 @@ public class LocalRiskPerInfoController {
     private PcacPersonRiskSubmitInfoService pcacPersonRiskSubmitInfoService;
 
     /**
-     * 风险个人查询请求接口
+     * 风险个人同步请求接口
      */
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
     public ResultBean<Boolean> sync(@RequestBody List<RiskPerson> riskPersonList) {
@@ -44,6 +44,9 @@ public class LocalRiskPerInfoController {
         return riskPersonService.addRiskPerson(riskPersonList);
     }
 
+    /**
+     * 风险个人查询请求接口
+     */
     @RequestMapping(value = "/query",method = RequestMethod.POST)
     public ResultBean<Page<RiskPersonResp>> query(@RequestBody RiskPersonReq riskPersonReq){
         return pcacPersonRiskSubmitInfoService.pageRiskPerson(riskPersonReq);

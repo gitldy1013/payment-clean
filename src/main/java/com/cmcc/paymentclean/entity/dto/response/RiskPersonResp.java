@@ -14,12 +14,6 @@ import java.util.Date;
 public class RiskPersonResp implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "同步状态码")
-    private String resCode;
-
-    @ApiModelProperty(value = "同步状态码说明")
-    private String resMsg;
-
     @ApiModelProperty(value = "内部用户号")
     private String usrNo;
 
