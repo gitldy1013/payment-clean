@@ -99,7 +99,7 @@ create table risk_enterprise_risk_sync_info
 (
    risk_enterprise_risk_sync_info_id    int(64) not null auto_increment comment 'id序号',
    risk_type            varchar(2) comment '风险类型',
-   payAccountNo         varchar(30) comment '单位支付账户编号',
+   cus_code             varchar(30) comment '机构代码',
    occurtimeb           date comment '风险事件发生时间',
    occurtimee           date comment '风险事件结束时间',
    note                 varchar(2048) comment '风险事件描述',
