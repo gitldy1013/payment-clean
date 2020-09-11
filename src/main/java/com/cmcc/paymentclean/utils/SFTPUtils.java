@@ -1,5 +1,14 @@
 package com.cmcc.paymentclean.utils;
 
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpATTRS;
+import com.jcraft.jsch.SftpException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,25 +16,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelSftp;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
-import com.jcraft.jsch.SftpATTRS;
-import com.jcraft.jsch.SftpException;
+import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_MAPPER_ROOT;
+import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
 
 /**
  * 文件上传到ftp服务器工具类
  */
 public class SFTPUtils {
 
+    private static final String SFTP_PROPERTY = "sftp.properties";
     private static Logger logger = LoggerFactory.getLogger(SFTPUtils.class);
 
     public static String OPERATE_UPLOAD = "upload";
     public static String OPERATE_DOWNLOAD = "download";
+
+    public static String REMOTE_PATH_UPLOAD;
+    public static String REMOTE_PATH_DOWNLOAD;
 
     private String host;// 服务器连接ip
     private int port;// 端口号
@@ -35,11 +41,15 @@ public class SFTPUtils {
     private ChannelSftp sftp = null;
     private Session sshSession = null;
 
-    public SFTPUtils(String host, int port, String username, String password) {
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password;
+    public SFTPUtils() {
+        String resourcePath = PROJECT_PATH + BASE_MAPPER_ROOT + SFTP_PROPERTY;
+        Properties properties = CodeGenerator.getProperties(resourcePath);
+        this.host = properties.getProperty("host");
+        this.port = Integer.parseInt(properties.getProperty("port"));
+        this.username = properties.getProperty("username");
+        this.password = properties.getProperty("password");
+        REMOTE_PATH_UPLOAD = properties.getProperty("remote_path_upload");
+        REMOTE_PATH_DOWNLOAD = properties.getProperty("remote_path_download");
     }
 
     /**
@@ -100,11 +110,11 @@ public class SFTPUtils {
     /**
      * 下载单个文件
      *
-     * @param remotPath：远程下载目录(以路径符号结束)
+     * @param remotePath：远程下载目录(以路径符号结束)
      * @param remoteFileName：下载文件名
      * @param localPath：本地保存目录(以路径符号结束)
      * @param localFileName：保存文件名
-     * @return
+     * @return 是否成功
      */
     public boolean downloadFile(String remotePath, String remoteFileName, String localPath, String localFileName) {
         FileOutputStream fieloutput = null;
@@ -116,9 +126,7 @@ public class SFTPUtils {
                 logger.info("===DownloadFile:" + remoteFileName + " success from sftp.");
             }
             return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (SftpException e) {
+        } catch (FileNotFoundException | SftpException e) {
             e.printStackTrace();
         } finally {
             if (null != fieloutput) {
@@ -139,11 +147,11 @@ public class SFTPUtils {
      * @param remoteFileName：保存文件名
      * @param localPath：本地上传目录(以路径符号结束)
      * @param localFileName：上传的文件名
-     * @return
+     * @return 是否成功
      */
     public boolean uploadFile(String remotePath, String remoteFileName, String localPath, String localFileName) {
         FileInputStream in = null;
-        String tempRemoteFileName = remoteFileName + ".temp" ;
+        String tempRemoteFileName = remoteFileName + ".temp";
         try {
             createDir(remotePath);
             File file = new File(localPath + localFileName);
@@ -151,9 +159,7 @@ public class SFTPUtils {
             sftp.put(in, tempRemoteFileName);
             sftp.rename(remotePath + tempRemoteFileName, remotePath + remoteFileName);
             return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (SftpException e) {
+        } catch (FileNotFoundException | SftpException e) {
             e.printStackTrace();
         } finally {
             if (in != null) {
@@ -170,22 +176,21 @@ public class SFTPUtils {
     /**
      * 创建目录
      *
-     * @param createpath
-     * @return
+     * @param createpath 目录
      */
-    public boolean createDir(String createpath) {
+    public void createDir(String createpath) {
         try {
             if (isDirExist(createpath)) {
                 this.sftp.cd(createpath);
-                return true;
+                return;
             }
-            String pathArry[] = createpath.split("/");
-            StringBuffer filePath = new StringBuffer("/");
+            String[] pathArry = createpath.split("/");
+            StringBuilder filePath = new StringBuilder("/");
             for (String path : pathArry) {
                 if (path.equals("")) {
                     continue;
                 }
-                filePath.append(path + "/");
+                filePath.append(path).append("/");
                 if (isDirExist(filePath.toString())) {
                     sftp.cd(filePath.toString());
                 } else {
@@ -197,18 +202,16 @@ public class SFTPUtils {
 
             }
             this.sftp.cd(createpath);
-            return true;
         } catch (SftpException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     /**
      * 判断目录是否存在
      *
-     * @param directory
-     * @return
+     * @param directory 文件夹
+     * @return 是否存在
      */
     public boolean isDirExist(String directory) {
         boolean isDirExistFlag = false;
@@ -224,21 +227,30 @@ public class SFTPUtils {
         return isDirExistFlag;
     }
 
-    public boolean operateSFTP(String remotePath, String remoteFileName, String localPath, String localFileName, String operateType){
+    /**
+     * @param remotePath     远程路径
+     * @param remoteFileName 远程文件名
+     * @param localPath      本地路径
+     * @param localFileName  本地文件名
+     * @param operateType    操作类型
+     * @return 是否成功
+     */
+    public boolean operateSFTP(String remotePath, String remoteFileName, String localPath, String localFileName, String operateType) {
         SFTPUtils sftp = null;
         try {
-            sftp = new SFTPUtils(this.host, this.port, this.username, this.password);
+            sftp = new SFTPUtils();
             sftp.connect();
-            if(OPERATE_UPLOAD.equals(operateType)){
+            if (OPERATE_UPLOAD.equals(operateType)) {
                 return sftp.uploadFile(remotePath, remoteFileName, localPath, localFileName);
-            }else if(OPERATE_DOWNLOAD.equals(operateType)){
+            } else if (OPERATE_DOWNLOAD.equals(operateType)) {
                 return sftp.downloadFile(remotePath, remoteFileName, localPath, localFileName);
-            }else{
+            } else {
                 logger.info("操作类型不在已知的范围内");
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            assert sftp != null;
             sftp.disconnect();
         }
         return false;

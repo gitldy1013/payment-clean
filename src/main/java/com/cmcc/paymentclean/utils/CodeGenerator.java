@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import lombok.Data;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,37 +27,36 @@ import java.util.Scanner;
 /**
  * 代码生成器
  */
-@Data
 public class CodeGenerator {
 
     /**
      * 配置文件名
      */
-    private static final String APP_PROPERTY = "database.properties";
+    public static final String APP_PROPERTY = "database.properties";
     /**
      * 项目根路径
      */
-    private static final String PROJECT_PATH = System.getProperty("user.dir");
+    public static final String PROJECT_PATH = System.getProperty("user.dir");
     /**
      * 公共包路径
      */
-    private static final String PARENT_PACKAGE = "com.cmcc";
+    public static final String PARENT_PACKAGE = "com.cmcc";
     /**
      * 模块名
      */
-    private static final String MODULE = "paymentclean";
+    public static final String MODULE = "paymentclean";
     /**
      * 生成java根路径
      */
-    private static final String BASE_SRC_ROOT = "/src/main/java/";
+    public static final String BASE_SRC_ROOT = "/src/main/java/";
     /**
      * 生成xml根路径
      */
-    private static final String BASE_MAPPER_ROOT = "/src/main/resources/";
+    public static final String BASE_MAPPER_ROOT = "/src/main/resources/";
     /**
      * 模板类型
      */
-    private static final int TEMPLATE_TYPE = 1;
+    public static final int TEMPLATE_TYPE = 1;
 
     /**
      * 数据源配置
@@ -67,23 +65,32 @@ public class CodeGenerator {
      */
     private static DataSourceConfig dataSourceConfig() {
         DataSourceConfig dsc = new DataSourceConfig();
-
         String resourcePath = PROJECT_PATH + BASE_MAPPER_ROOT + APP_PROPERTY;
+        Properties prop = getProperties(resourcePath);
+        dsc.setUrl(prop.getProperty("spring.datasource.url"));
+        dsc.setDriverName(prop.getProperty("spring.datasource.driver-class-name"));
+        dsc.setUsername(prop.getProperty("spring.datasource.username"));
+        dsc.setPassword(prop.getProperty("spring.datasource.password"));
+        return dsc;
+    }
+
+    /**
+     * 获取配置文件信息
+     *
+     * @param resourcePath 配置文件路径
+     * @return 属性值对象
+     * @throws IOException 异常信息
+     */
+    public static Properties getProperties(String resourcePath) {
+        InputStream inStream = null;
+        Properties prop = new Properties();
         try {
-            InputStream inStream = new FileInputStream(new File(resourcePath));
-            Properties prop = new Properties();
+            inStream = new FileInputStream(new File(resourcePath));
             prop.load(inStream);
-
-            dsc.setUrl(prop.getProperty("spring.datasource.url"));
-            dsc.setDriverName(prop.getProperty("spring.datasource.driver-class-name"));
-            dsc.setUsername(prop.getProperty("spring.datasource.username"));
-            dsc.setPassword(prop.getProperty("spring.datasource.password"));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return dsc;
+        return prop;
     }
 
     /**
@@ -102,9 +109,7 @@ public class CodeGenerator {
      */
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
+        System.out.println("请输入" + tip + "：");
         if (scanner.hasNext()) {
             String ipt = scanner.next();
             if (ipt != null && !ipt.trim().isEmpty()) {
