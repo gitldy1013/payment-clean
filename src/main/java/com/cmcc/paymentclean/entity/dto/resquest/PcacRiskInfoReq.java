@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.Date;
 /**
  * Created by lumma on 2020/9/11.
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(value = "协会风险商户查询请求参数")
 public class PcacRiskInfoReq extends PageVO implements Serializable {
