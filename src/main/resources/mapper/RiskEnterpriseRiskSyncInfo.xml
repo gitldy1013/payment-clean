@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo">
         <id column="risk_enterprise_risk_sync_info_id" property="riskEnterpriseRiskSyncInfoId" />
         <result column="risk_type" property="riskType" />
-        <result column="payAccountNo" property="payAccountNo" />
+        <result column="cus_code" property="cusCode" />
         <result column="occurtimeb" property="occurtimeb" />
         <result column="occurtimee" property="occurtimee" />
         <result column="note" property="note" />
@@ -18,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        risk_enterprise_risk_sync_info_id, risk_type, payAccountNo, occurtimeb, occurtimee, note, source_channel, valid_date, operator, operate_time
+        risk_enterprise_risk_sync_info_id, risk_type, cus_code, occurtimeb, occurtimee, note, source_channel, valid_date, operator, operate_time
     </sql>
 
 </mapper>

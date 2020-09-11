@@ -1,22 +1,22 @@
 package com.cmcc.paymentclean.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
-import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.RiskEnterpriseRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskEnterpriseRiskSyncInfoService;
-import lombok.extern.slf4j.Slf4j;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
+import com.cmcc.paymentclean.exception.bizException.BizException;
 
 /**
 * <p>
 * 风控企业风险信息同步表  服务实现类
 * </p>
 *
-* @author cmcc
-* @since 2020-09-10
+* @author zhaolei
+* @since 2020-09-11
 */
 @Slf4j
 @Service

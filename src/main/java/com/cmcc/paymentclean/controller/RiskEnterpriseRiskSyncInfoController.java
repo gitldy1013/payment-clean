@@ -1,15 +1,11 @@
 package com.cmcc.paymentclean.controller;
 
 
-import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.service.RiskEnterpriseRiskSyncInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  * 风控企业风险信息同步表  前端控制器
  * </p>
  *
- * @author cmcc
- * @since 2020-09-10
+ * @author zhaolei
+ * @since 2020-09-11
  * @version v1.0
  */
 @RestController
