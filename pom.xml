@@ -15,7 +15,9 @@
     <description>支付清算综合服务平台系统</description>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <poi.version>3.17</poi.version>
     </properties>
 
     <dependencies>
@@ -89,23 +91,20 @@
             <artifactId>druid</artifactId>
             <version>1.1.20</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
             <version>3.4.2</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
-
+        <!-- 热部署 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -113,17 +112,37 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- 工具类相关 -->
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
             <version>0.1.53</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
+        <!-- 定时任务以来 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
@@ -212,9 +231,9 @@
 
     <repositories>
         <repository>
-            <id>maven-net-cn</id>
-            <name>MavenChinaMirror</name>
-            <url>http://mvnrepository.com/</url>
+            <id>maven-aliyun</id>
+            <name>aliyunMirror</name>
+            <url>http://maven.aliyun.com/nexus/content/repositories/central</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -223,9 +242,9 @@
             </snapshots>
         </repository>
         <repository>
-            <id>maven-aliyun</id>
-            <name>aliyunMirror</name>
-            <url>http://maven.aliyun.com/nexus/content/repositories/central</url>
+            <id>maven-net-cn</id>
+            <name>MavenChinaMirror</name>
+            <url>http://mvnrepository.com/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
