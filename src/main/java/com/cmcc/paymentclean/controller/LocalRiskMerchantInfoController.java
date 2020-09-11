@@ -1,12 +1,13 @@
 package com.cmcc.paymentclean.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cmcc.paymentclean.entity.RiskMerchant;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
+import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantRiskSyncInfoReq;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
-import com.cmcc.paymentclean.service.RiskMerchantService;
+import com.cmcc.paymentclean.service.RiskMerchantRiskSyncInfoService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import java.util.List;
 public class LocalRiskMerchantInfoController {
 
     @Autowired
-    private RiskMerchantService riskMerchantService;
+    private RiskMerchantRiskSyncInfoService riskMerchantRiskSyncInfoService;
 
     @Autowired
     private PcacMerchantRiskSubmitInfoService pcacMerchantRiskSubmitInfoService;
@@ -41,9 +42,9 @@ public class LocalRiskMerchantInfoController {
      */
     @ApiOperation(value = "风险商户同步", notes = "风险商户同步")
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
-    public ResultBean<Boolean> sync(@RequestBody List<RiskMerchant> riskMerchants) {
+    public ResultBean<Boolean> sync(@RequestBody List<RiskMerchantRiskSyncInfoReq> riskMerchants) {
 
-        return riskMerchantService.addMerchant(riskMerchants);
+        return riskMerchantRiskSyncInfoService.addMerchant(riskMerchants);
     }
 
     /**

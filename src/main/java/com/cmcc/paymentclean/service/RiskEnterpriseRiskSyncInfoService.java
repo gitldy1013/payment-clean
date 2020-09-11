@@ -1,8 +1,11 @@
 package com.cmcc.paymentclean.service;
 
+import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseRiskSyncInfoReq;
 import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+
+import java.util.List;
 
 /**
 * <p>
@@ -66,4 +69,10 @@ public interface RiskEnterpriseRiskSyncInfoService {
     */
     int updateRiskEnterpriseRiskSyncInfo(RiskEnterpriseRiskSyncInfo riskEnterpriseRiskSyncInfo);
 
+    /**
+     * 风险企业同步请求接口
+     * @param riskEnterpriseList
+     * @return Page<Boolean>
+     */
+    ResultBean<Boolean> addEnterprise(List<RiskEnterpriseRiskSyncInfoReq> riskEnterpriseList);
 }

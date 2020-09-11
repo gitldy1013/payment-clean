@@ -1,12 +1,12 @@
 package com.cmcc.paymentclean.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cmcc.paymentclean.entity.RiskPerson;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonRiskSyncInfoReq;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskPersonResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq;
 import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
-import com.cmcc.paymentclean.service.RiskPersonService;
+import com.cmcc.paymentclean.service.RiskPersonRiskSyncInfoService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ import java.util.List;
 public class LocalRiskPerInfoController {
 
     @Autowired
-    private RiskPersonService riskPersonService;
+    private RiskPersonRiskSyncInfoService riskPersonRiskSyncInfoService;
 
     @Autowired
     private PcacPersonRiskSubmitInfoService pcacPersonRiskSubmitInfoService;
@@ -41,9 +41,9 @@ public class LocalRiskPerInfoController {
      */
     @ApiOperation(value = "风险个人同步", notes = "风险个人同步")
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
-    public ResultBean<Boolean> sync(@RequestBody List<RiskPerson> riskPersonList) {
+    public ResultBean<Boolean> sync(@RequestBody List<RiskPersonRiskSyncInfoReq> riskPersonList) {
 
-        return riskPersonService.addRiskPerson(riskPersonList);
+        return riskPersonRiskSyncInfoService.addRiskPerson(riskPersonList);
     }
 
     /**

@@ -1,13 +1,12 @@
 package com.cmcc.paymentclean.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cmcc.paymentclean.entity.RiskEnterprise;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseRiskSyncInfoReq;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
-import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
-import com.cmcc.paymentclean.service.RiskEnterpriseService;
+import com.cmcc.paymentclean.service.RiskEnterpriseRiskSyncInfoService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ import java.util.List;
 public class LocalRiskEnterpriseInfoController {
 
     @Autowired
-    private RiskEnterpriseService riskEnterpriseService;
+    private RiskEnterpriseRiskSyncInfoService riskEnterpriseRiskSyncInfoService;
 
     @Autowired
     private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
@@ -42,9 +41,9 @@ public class LocalRiskEnterpriseInfoController {
      */
     @ApiOperation(value = "风险企业同步", notes = "风险企业同步")
     @RequestMapping(value = "/sync",method = RequestMethod.POST)
-    public ResultBean<Boolean> sync(@RequestBody List<RiskEnterprise> riskEnterprises) {
+    public ResultBean<Boolean> sync(@RequestBody List<RiskEnterpriseRiskSyncInfoReq> riskEnterprises) {
 
-        return riskEnterpriseService.addEnterprise(riskEnterprises);
+        return riskEnterpriseRiskSyncInfoService.addEnterprise(riskEnterprises);
     }
 
     /**

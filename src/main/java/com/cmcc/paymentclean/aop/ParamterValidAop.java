@@ -52,19 +52,25 @@ public class ParamterValidAop {
             }
 
             Validator validator = factory.getValidator();
-            Set<ConstraintViolation<Object>> constraintViolations = new LinkedHashSet<>();
             if(obj instanceof Collection){
                 for(int i=0;i<((List) obj).size();i++){
-                    constraintViolations = validator.validate(((List) obj).get(i));
+                    Set<ConstraintViolation<Object>> constraintViolations = validator.validate(((List) obj).get(i));
+                    this.addError(errors,constraintViolations);
                 }
             }else{
-                constraintViolations = validator.validate(obj);
+                Set<ConstraintViolation<Object>> constraintViolations = validator.validate(obj);
+                this.addError(errors,constraintViolations);
             }
 
-            for (ConstraintViolation<Object> constraintViolation : constraintViolations) {
+        }
+        return errors;
+    }
+
+    private void addError(List<String> errors,Set<ConstraintViolation<Object>> constraintViolations){
+        for (ConstraintViolation<Object> constraintViolation : constraintViolations) {
+            if(!errors.contains(constraintViolation.getMessage())){
                 errors.add(constraintViolation.getMessage());
             }
         }
-        return errors;
     }
 }

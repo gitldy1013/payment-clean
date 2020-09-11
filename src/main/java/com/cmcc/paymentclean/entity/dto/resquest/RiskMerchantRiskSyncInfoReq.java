@@ -1,4 +1,4 @@
-package com.cmcc.paymentclean.entity;
+package com.cmcc.paymentclean.entity.dto.resquest;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -10,7 +10,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by lumma on 2020/9/9.
@@ -18,12 +18,8 @@ import java.util.Date;
 @Data
 @ApiModel(value="RiskMerchant对象", description="风控商户风险信息同步表")
 @TableName("risk_merchant_risk_sync_info")
-public class RiskMerchant implements Serializable {
+public class RiskMerchantRiskSyncInfoReq implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "id序号")
-    @TableId(value = "risk_merchant_risk_sync_info_id", type = IdType.AUTO)
-    private Integer riskMerchantRiskSyncInfoId;
 
     @NotNull(message = "商户类型不能为空")
     @ApiModelProperty(value = "商户类型")
@@ -48,17 +44,17 @@ public class RiskMerchant implements Serializable {
     @NotNull(message = "有效期不能为空")
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "有效期")
-    private Date validDate;
+    private LocalDate validDate;
 
     @NotNull(message = "风险事件发生时间不能为空")
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "风险事件发生时间")
-    private Date occurtimeb;
+    private LocalDate occurtimeb;
 
     @NotNull(message = "风险事件结束时间不能为空")
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     @ApiModelProperty(value = "风险事件结束时间")
-    private Date occurtimee;
+    private LocalDate occurtimee;
 
     @ApiModelProperty(value = "风险事件描述")
     private String note;
@@ -70,8 +66,4 @@ public class RiskMerchant implements Serializable {
     @NotNull(message = "操作人不能为空")
     @ApiModelProperty(value = "操作人")
     private String operator;
-
-    @ApiModelProperty(value = "操作时间")
-    private Date operateTime;
-
 }

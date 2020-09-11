@@ -1,14 +1,25 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseRiskSyncInfoReq;
 import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.mapper.RiskEnterpriseRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskEnterpriseRiskSyncInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import com.cmcc.paymentclean.exception.bizException.BizException;
+import org.springframework.util.CollectionUtils;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
 * <p>
@@ -77,4 +88,34 @@ public class RiskEnterpriseRiskSyncInfoServiceImpl extends ServiceImpl<RiskEnter
         }
     }
 
+    @Override
+    public ResultBean<Boolean> addEnterprise(List<RiskEnterpriseRiskSyncInfoReq> riskEnterpriseList) {
+        ResultBean resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+        if(CollectionUtils.isEmpty(riskEnterpriseList)){
+            return resultBean;
+        }
+        List<RiskEnterpriseRiskSyncInfo> newEnterpriseList = new ArrayList<>();
+        for(RiskEnterpriseRiskSyncInfoReq riskEnterprise:riskEnterpriseList){
+            RiskEnterpriseRiskSyncInfo riskEnterpriseRiskSyncInfo = new RiskEnterpriseRiskSyncInfo();
+            BeanUtils.copyProperties(riskEnterprise, riskEnterpriseRiskSyncInfo);
+            riskEnterpriseRiskSyncInfo.setOperateTime(LocalDate.now());
+            QueryWrapper<RiskEnterpriseRiskSyncInfo> queryWrapper = new QueryWrapper();
+            queryWrapper.eq("cus_code",riskEnterprise.getCusCode());
+            RiskEnterpriseRiskSyncInfo riskEnterprise1 = super.getOne(queryWrapper);
+            if(null!=riskEnterprise1){
+                UpdateWrapper<RiskEnterpriseRiskSyncInfo> updateWrapper = new UpdateWrapper<>();
+                updateWrapper.eq("risk_enterprise_risk_sync_info_id",riskEnterprise1.getRiskEnterpriseRiskSyncInfoId());
+                super.update(riskEnterpriseRiskSyncInfo,updateWrapper);
+            }else{
+                newEnterpriseList.add(riskEnterpriseRiskSyncInfo);
+            }
+        }
+        if(!CollectionUtils.isEmpty(newEnterpriseList)){
+            this.saveBatch(newEnterpriseList);
+        }
+
+        return resultBean;
+    }
 }

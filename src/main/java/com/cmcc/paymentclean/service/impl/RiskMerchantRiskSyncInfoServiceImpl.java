@@ -1,14 +1,26 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.RiskMerchantRiskSyncInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantRiskSyncInfoReq;
 import com.cmcc.paymentclean.mapper.RiskMerchantRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskMerchantRiskSyncInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import com.cmcc.paymentclean.exception.bizException.BizException;
+import org.springframework.util.CollectionUtils;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
 * <p>
@@ -77,4 +89,33 @@ public class RiskMerchantRiskSyncInfoServiceImpl extends ServiceImpl<RiskMerchan
         }
     }
 
+    @Override
+    public ResultBean<Boolean> addMerchant(List<RiskMerchantRiskSyncInfoReq> riskMerchantList) {
+        ResultBean resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+        List<RiskMerchantRiskSyncInfo> newRiskMerchantList = new ArrayList<>();
+        if(CollectionUtils.isEmpty(riskMerchantList)){
+            return resultBean;
+        }
+        for(RiskMerchantRiskSyncInfoReq riskMerchant:riskMerchantList){
+            RiskMerchantRiskSyncInfo riskMerchantRiskSyncInfo = new RiskMerchantRiskSyncInfo();
+            BeanUtils.copyProperties(riskMerchant, riskMerchantRiskSyncInfo);
+            riskMerchantRiskSyncInfo.setOperateTime(LocalDate.now());
+            QueryWrapper<RiskMerchantRiskSyncInfo> queryWrapper = new QueryWrapper();
+            queryWrapper.eq("cus_code",riskMerchant.getCusCode());
+            RiskMerchantRiskSyncInfo riskMerchant1 = super.getOne(queryWrapper);
+            if(null!=riskMerchant1){
+                UpdateWrapper<RiskMerchantRiskSyncInfo> updateWrapper = new UpdateWrapper<>();
+                updateWrapper.eq("risk_merchant_risk_sync_info_id",riskMerchant1.getRiskMerchantRiskSyncInfoId());
+                super.update(riskMerchantRiskSyncInfo,updateWrapper);
+            }else{
+                newRiskMerchantList.add(riskMerchantRiskSyncInfo);
+            }
+        }
+        if(!CollectionUtils.isEmpty(newRiskMerchantList)){
+            this.saveBatch(newRiskMerchantList);
+        }
+        return resultBean;
+    }
 }
