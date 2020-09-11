@@ -36,7 +36,7 @@ public class RiskMerchantServiceImpl extends ServiceImpl<RiskMerchantMapper, Ris
         for(RiskMerchant riskMerchant:riskMerchantList){
             riskMerchant.setOperateTime(new Date());
             QueryWrapper<RiskMerchant> queryWrapper = new QueryWrapper();
-            queryWrapper.eq("cus_number",riskMerchant.getCusNumber());
+            queryWrapper.eq("cus_code",riskMerchant.getCusCode());
             RiskMerchant riskMerchant1 = super.getOne(queryWrapper);
             if(null!=riskMerchant1){
                 UpdateWrapper<RiskMerchant> updateWrapper = new UpdateWrapper<>();

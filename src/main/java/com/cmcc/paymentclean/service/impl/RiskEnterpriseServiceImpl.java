@@ -36,7 +36,7 @@ public class RiskEnterpriseServiceImpl extends ServiceImpl<RiskEnterpriseMapper,
         for(RiskEnterprise riskEnterprise:riskEnterpriseList){
             riskEnterprise.setOperateTime(new Date());
             QueryWrapper<RiskEnterprise> queryWrapper = new QueryWrapper();
-            queryWrapper.eq("payAccountNo",riskEnterprise.getPayaccountno());
+            queryWrapper.eq("cus_code",riskEnterprise.getCusCode());
             RiskEnterprise riskEnterprise1 = super.getOne(queryWrapper);
             if(null!=riskEnterprise1){
                 UpdateWrapper<RiskEnterprise> updateWrapper = new UpdateWrapper<>();
