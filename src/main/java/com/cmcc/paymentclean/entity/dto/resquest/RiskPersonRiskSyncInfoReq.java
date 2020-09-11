@@ -30,17 +30,14 @@ public class RiskPersonRiskSyncInfoReq implements Serializable {
      private String usrNo;
 
      @NotNull(message = "有效期不能为空")
-     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
      @ApiModelProperty(value = "有效期")
      private LocalDate validDate ;
 
      @NotNull(message = "风险事件发生时间不能为空")
-     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
      @ApiModelProperty(value = "风险事件发生时间")
      private LocalDate occurtimeb ;
 
      @NotNull(message = "风险事件结束时间不能为空")
-     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
      @ApiModelProperty(value = "风险事件结束时间")
      private LocalDate occurtimee ;
 
