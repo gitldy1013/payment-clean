@@ -3,12 +3,21 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
+import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Date;
+import java.util.List;
 
 /**
 * <p>
@@ -75,6 +84,27 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
             log.error("更新id为{}的localAssociatedRiskMerchantInfo失败",localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId());
             throw new BizException("更新失败[id=" + localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId() + "]");
         }
+    }
+
+    @Autowired
+    private LocalAssociatedRiskMerchantInfoMapper localAssociatedRiskMerchantInfoMapper;
+
+    @Override
+    public ResultBean<Page<AssociatedRiskMerchantInfoResp>> pageLocalAssociatedRiskMerchantInfo(AssociatedRiskMerchantInfoReq associatedRiskMerchantInfoReq) {
+        ResultBean<Page<AssociatedRiskMerchantInfoResp>> resultBean = new ResultBean();
+        Page<AssociatedRiskMerchantInfoResp> page = new Page<>(associatedRiskMerchantInfoReq.getPageNo(), associatedRiskMerchantInfoReq.getPageSize());
+        Page<AssociatedRiskMerchantInfoResp> pageLocalAssociatedRiskMerchantInfo =  localAssociatedRiskMerchantInfoMapper.pageLocalAssociatedRiskMerchantInfo(page, associatedRiskMerchantInfoReq);
+        List<AssociatedRiskMerchantInfoResp> associatedRiskMerchantInfoResps = pageLocalAssociatedRiskMerchantInfo.getRecords();
+        if(!CollectionUtils.isEmpty(associatedRiskMerchantInfoResps)){
+            for(AssociatedRiskMerchantInfoResp associatedRiskMerchantInfoResp:associatedRiskMerchantInfoResps){
+                String validStatus = (new Date().before(associatedRiskMerchantInfoResp.getValidDate()))? "01":"02";
+                associatedRiskMerchantInfoResp.setValidStatus(validStatus);
+            }
+        }
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+        resultBean.setData(pageLocalAssociatedRiskMerchantInfo);
+        return resultBean;
     }
 
 }

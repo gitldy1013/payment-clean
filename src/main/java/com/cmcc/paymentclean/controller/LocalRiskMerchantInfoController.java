@@ -3,7 +3,6 @@ package com.cmcc.paymentclean.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
-import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantRiskSyncInfoReq;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;

@@ -3,12 +3,21 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
+import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Date;
+import java.util.List;
 
 /**
 * <p>
@@ -75,6 +84,27 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
             log.error("更新id为{}的pcacRiskInfo失败",pcacRiskInfo.getPcacRiskInfoId());
             throw new BizException("更新失败[id=" + pcacRiskInfo.getPcacRiskInfoId() + "]");
         }
+    }
+
+    @Autowired
+    private PcacRiskInfoMapper pcacRiskInfoMapper;
+
+    @Override
+    public ResultBean<Page<PcacRiskInfoResp>> pagePcacRiskInfo(PcacRiskInfoReq riskInfoReq) {
+        ResultBean<Page<PcacRiskInfoResp>> resultBean = new ResultBean();
+        Page<PcacRiskInfoResp> page = new Page<>(riskInfoReq.getPageNo(), riskInfoReq.getPageSize());
+        Page<PcacRiskInfoResp> pcacPersonRiskSubmitInfoPage =  pcacRiskInfoMapper.pagePcacRiskInfo(page, riskInfoReq);
+        List<PcacRiskInfoResp> riskPersonResps = pcacPersonRiskSubmitInfoPage.getRecords();
+        if(!CollectionUtils.isEmpty(riskPersonResps)){
+            for(PcacRiskInfoResp riskPersonResp:riskPersonResps){
+                String validStatus = (new Date().before(riskPersonResp.getValidDate()))? "01":"02";
+                riskPersonResp.setValidStatus(validStatus);
+            }
+        }
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+        resultBean.setData(pcacPersonRiskSubmitInfoPage);
+        return resultBean;
     }
 
 }

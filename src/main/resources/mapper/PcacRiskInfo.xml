@@ -29,4 +29,37 @@
         pcac_risk_info_id, up_date, reg_name, cus_name, doc_type, doc_code, leg_doc_name, leg_doc_type, leg_doc_code, level, risk_type, valid_date, valid_status, cus_type, occurarea, bank_no, url, registered_code
     </sql>
 
+    <select id="pagePcacRiskInfo" resultType="com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp"
+            parameterType="com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        pcac_risk_info t
+        WHERE
+        1=1
+        <if test="req.regName !=null and req.regName !=''">
+            and t.reg_Name like concat('%',#{req.regName},'%')
+        </if>
+        <if test="req.legDocCode !=null and req.legDocCode !=''">
+            and t.leg_Doc_Code=#{req.legDocCode}
+        </if>
+        <if test="req.docCode !=null and req.docCode !=''">
+            and t.doc_Code=#{req.docCode}
+        </if>
+        <if test="req.docType !=null and req.docType !=''">
+            and t.doc_Type=#{req.docType}
+        </if>
+        <if test="req.legDocType !=null and req.legDocType !=''">
+            and t.leg_Doc_Type=#{req.legDocType}
+        </if>
+        <if test="req.pushStartTime!=null ">
+            <!--<![CDATA[  and DATE_FORMAT(t.up_date, '%Y-%m-%d') >= DATE_FORMAT(#{req.pushStartTime}, '%Y-%m-%d')   -->
+            <![CDATA[ AND  STR_TO_DATE(t.up_date,'%Y-%m-%d') >= #{req.pushStartTime} ]]>
+        </if>
+        <if test="req.pushEndTime!=null ">
+            <!--<![CDATA[  and DATE_FORMAT(t.up_date, '%Y-%m-%d') <= DATE_FORMAT(#{req.pushEndTime}, '%Y-%m-%d')    ]]>-->
+            <![CDATA[ AND #{req.pushEndTime} >= STR_TO_DATE(t.up_date,'%Y-%m-%d')]]>
+        </if>
+    </select>
+
 </mapper>

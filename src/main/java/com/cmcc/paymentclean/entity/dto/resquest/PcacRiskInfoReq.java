@@ -30,9 +30,11 @@ public class PcacRiskInfoReq extends PageVO implements Serializable {
     @ApiModelProperty(value = "法人证件号码")
     private String docCode;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
     @ApiModelProperty(value = "推送开始时间")
     private Date pushStartTime;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
     @ApiModelProperty(value = "推送结束时间")
     private Date pushEndTime;
 

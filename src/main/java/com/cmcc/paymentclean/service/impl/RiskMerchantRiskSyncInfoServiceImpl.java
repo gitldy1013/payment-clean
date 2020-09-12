@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.RiskMerchantRiskSyncInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantRiskSyncInfoReq;
 import com.cmcc.paymentclean.mapper.RiskMerchantRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskMerchantRiskSyncInfoService;

@@ -2,6 +2,9 @@ package com.cmcc.paymentclean.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
+import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
 
 /**
 * <p>
@@ -64,5 +67,12 @@ public interface LocalAssociatedRiskMerchantInfoService {
     * @since 2020-09-10
     */
     int updateLocalAssociatedRiskMerchantInfo(LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo);
+
+    /**
+     * 协会风险商户查询请求接口
+     * @param associatedRiskMerchantInfoReq
+     * @return Page<RiskPersonResp>
+     */
+    ResultBean<Page<AssociatedRiskMerchantInfoResp>> pageLocalAssociatedRiskMerchantInfo(AssociatedRiskMerchantInfoReq associatedRiskMerchantInfoReq);
 
 }

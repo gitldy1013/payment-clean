@@ -5,12 +5,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by lumma on 2020/9/11.
  */
 @Data
-@ApiModel(value = "协会风险商户结果出参参数")
+@ApiModel(value = "协会风险商户结果参数")
 public class PcacRiskInfoResp implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -18,7 +19,7 @@ public class PcacRiskInfoResp implements Serializable {
     private String pushListType;
 
     @ApiModelProperty(value = "推送日期")
-    private String upDate;
+    private Date upDate;
 
     @ApiModelProperty(value = "风险信息等级")
     private String level;
@@ -53,7 +54,7 @@ public class PcacRiskInfoResp implements Serializable {
     private String legDocCode;
 
     @ApiModelProperty(value = "有效期")
-    private String validDate;
+    private Date validDate;
 
     @ApiModelProperty(value = "有效性")
     private String validStatus;
