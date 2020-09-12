@@ -9,6 +9,6 @@ public class Pcac implements Serializable {
 
     private int Count;
 
-    private RiskInfo riskInfo;
+    private RiskInfo RiskInfo;
 
 }

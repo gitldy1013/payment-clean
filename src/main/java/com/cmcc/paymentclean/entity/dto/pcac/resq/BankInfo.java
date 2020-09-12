@@ -9,4 +9,14 @@ public class BankInfo {
     private String BankNo;
 
     private String OpenBank;
+
+    private String RecName;
+
+    private String RecDocType;
+
+    private String RecDocCode;
+
+    private String RecBankNo;
+
+    private String RecOpenBank;
 }

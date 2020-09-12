@@ -84,4 +84,23 @@ public class RiskInfo {
     private String Remarks;
 
     private BenList BenList;
+
+    private String Mac;
+
+    private String Imei;
+
+    private String BankNo;
+
+    private String OpenBank;
+
+    private String Ip;
+
+    private String Telephone;
+
+    private String RecHostArea;
+
+    private String Email;
+
+    private String DiskNumber;
+
 }
