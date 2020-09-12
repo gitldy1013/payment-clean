@@ -104,18 +104,6 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 String validStatus = (new Date().before(riskPersonResp.getValidDate()))? CommonConst.VALIDSTATUS_01:CommonConst.VALIDSTATUS_02;
                 riskPersonResp.setValidStatus(validStatus);
                 riskPersonResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getLegDocType()));
-                //需要解密的字段:身份证号和银行卡号
-                try {
-                    String docCode = InnerCipherUtils.decrypt(riskPersonResp.getDocCode());
-                    String legDocCode = InnerCipherUtils.decrypt(riskPersonResp.getLegDocCode());
-                    riskPersonResp.setDocCode(docCode);
-                    riskPersonResp.setLegDocCode(legDocCode);
-                } catch (InnerCipherException e) {
-                    e.printStackTrace();
-                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-                    return resultBean;
-                }
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

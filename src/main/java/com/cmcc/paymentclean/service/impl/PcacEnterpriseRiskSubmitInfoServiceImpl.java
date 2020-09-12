@@ -109,18 +109,6 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
                 riskEnterpriseResp.setValidStatus(validStatus);
                 riskEnterpriseResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskEnterpriseResp.getLegDocType()));
                 riskEnterpriseResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskEnterpriseResp.getSubmitStatus()));
-                //需要解密的字段:身份证号和银行卡号
-                try {
-                    String docCode = InnerCipherUtils.decrypt(riskEnterpriseResp.getDocCode());
-                    String legDocCode = InnerCipherUtils.decrypt(riskEnterpriseResp.getLegDocCode());
-                    riskEnterpriseResp.setDocCode(docCode);
-                    riskEnterpriseReq.setLegDocCode(legDocCode);
-                } catch (InnerCipherException e) {
-                    e.printStackTrace();
-                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-                    return resultBean;
-                }
             }
         }
         resultBean.setData(pagePcacEnterpriseRiskSubmitInfo);

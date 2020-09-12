@@ -109,20 +109,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                 riskMerchantResp.setValidStatus(validStatus);
                 riskMerchantResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskMerchantResp.getLegDocType()));
                 riskMerchantResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskMerchantResp.getSubmitStatus()));
-                //需要解密的字段:身份证号和银行卡号
-                try {
-                    String docCode = InnerCipherUtils.decrypt(riskMerchantResp.getDocCode());
-                    String legDocCode = InnerCipherUtils.decrypt(riskMerchantResp.getLegDocCode());
-                    String bankNo = InnerCipherUtils.decrypt(riskMerchantResp.getBankNo());
-                    riskMerchantResp.setDocCode(docCode);
-                    riskMerchantResp.setLegDocCode(legDocCode);
-                    riskMerchantResp.setBankNo(bankNo);
-                } catch (InnerCipherException e) {
-                    e.printStackTrace();
-                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-                    return resultBean;
-                }
             }
         }
         resultBean.setData(pagePcacMerchantRiskSubmitInfo);
