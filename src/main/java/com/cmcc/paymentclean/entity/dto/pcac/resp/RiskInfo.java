@@ -1,4 +1,4 @@
-package com.cmcc.paymentclean.entity.dto.pcac.resq;
+package com.cmcc.paymentclean.entity.dto.pcac.resp;
 
 import lombok.Data;
 
@@ -123,5 +123,38 @@ public class RiskInfo {
 
     private String Id;
 
-    private String HandleNote;
+    private String Count;
+
+    private BankInfo BankInfo;
+
+    private String StopNum;
+
+    private String RefuseNum;
+
+    private String UseRiseNum;
+
+    private String CloseNum;
+
+    private String StopPayNum;
+
+    private String DownNum;
+
+    private String FrozenNum;
+
+    private String DelayNum;
+
+    private String QuotaNum;
+
+    private String AdjustmentCardNum;
+
+    private String AdjustmentCycleNum;
+
+    private String SuspendNum;
+
+    private String FollowNum;
+
+    private String AntiMoneyNum;
+
+    private String OtherNum;
+
 }

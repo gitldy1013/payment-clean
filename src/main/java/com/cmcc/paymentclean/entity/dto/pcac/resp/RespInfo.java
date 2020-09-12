@@ -9,4 +9,6 @@ public class RespInfo {
     private String ResultCode;
 
     private String MsgDetail;
+
+    private String ResultSequence;
 }

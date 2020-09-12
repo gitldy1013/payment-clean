@@ -5,10 +5,16 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class Pcac implements Serializable {
+public class PcacList implements Serializable {
 
     private int Count;
 
+    private String UpDate;
+
     private RiskInfo RiskInfo;
+
+    private BaseInfo BaseInfo;
+
+    private EntInfo EntInfo;
 
 }
