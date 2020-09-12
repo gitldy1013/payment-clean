@@ -11,11 +11,9 @@ import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
-import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
-import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -109,20 +107,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                 riskMerchantResp.setValidStatus(validStatus);
                 riskMerchantResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskMerchantResp.getLegDocType()));
                 riskMerchantResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskMerchantResp.getSubmitStatus()));
-                //需要解密的字段:身份证号和银行卡号
-                try {
-                    String docCode = InnerCipherUtils.decrypt(riskMerchantResp.getDocCode());
-                    String legDocCode = InnerCipherUtils.decrypt(riskMerchantResp.getLegDocCode());
-                    String bankNo = InnerCipherUtils.decrypt(riskMerchantResp.getBankNo());
-                    riskMerchantResp.setDocCode(docCode);
-                    riskMerchantResp.setLegDocCode(legDocCode);
-                    riskMerchantResp.setBankNo(bankNo);
-                } catch (InnerCipherException e) {
-                    e.printStackTrace();
-                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-                    return resultBean;
-                }
             }
         }
         resultBean.setData(pagePcacMerchantRiskSubmitInfo);

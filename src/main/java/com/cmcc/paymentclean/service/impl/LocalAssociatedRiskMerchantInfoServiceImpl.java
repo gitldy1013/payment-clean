@@ -8,11 +8,9 @@ import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
-import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
-import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,18 +104,6 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
                 associatedRiskMerchantInfoResp.setFeedbackStatus(FeedbackStatusEnum.getFeedbackStatusDesc(associatedRiskMerchantInfoResp.getFeedbackStatus()));
                 associatedRiskMerchantInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(associatedRiskMerchantInfoResp.getLegDocType()));
                 associatedRiskMerchantInfoResp.setIsBlack(IsBlackEnum.getIsBlackEnumDesc(associatedRiskMerchantInfoResp.getIsBlack()));
-                //需要解密的字段:身份证号和银行卡号
-                try {
-                    String docCode = InnerCipherUtils.decrypt(associatedRiskMerchantInfoResp.getDocCode());
-                    String legDocCode = InnerCipherUtils.decrypt(associatedRiskMerchantInfoResp.getLegDocCode());
-                    associatedRiskMerchantInfoResp.setDocCode(docCode);
-                    associatedRiskMerchantInfoResp.setLegDocCode(legDocCode);
-                } catch (InnerCipherException e) {
-                    e.printStackTrace();
-                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-                    return resultBean;
-                }
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

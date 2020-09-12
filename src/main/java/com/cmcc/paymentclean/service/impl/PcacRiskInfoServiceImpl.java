@@ -10,11 +10,9 @@ import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
-import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
-import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,18 +102,6 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 String validStatus = (new Date().before(riskPersonResp.getValidDate()))? CommonConst.VALIDSTATUS_01:CommonConst.VALIDSTATUS_02;
                 riskPersonResp.setValidStatus(validStatus);
                 riskPersonResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getLegDocType()));
-                //需要解密的字段:身份证号和银行卡号
-                try {
-                    String docCode = InnerCipherUtils.decrypt(riskPersonResp.getDocCode());
-                    String legDocCode = InnerCipherUtils.decrypt(riskPersonResp.getLegDocCode());
-                    riskPersonResp.setDocCode(docCode);
-                    riskPersonResp.setLegDocCode(legDocCode);
-                } catch (InnerCipherException e) {
-                    e.printStackTrace();
-                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-                    return resultBean;
-                }
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
