@@ -3,14 +3,18 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskPersonResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq;
+import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
+import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,8 +102,21 @@ public class PcacPersonRiskSubmitInfoServiceImpl extends ServiceImpl<PcacPersonR
         List<RiskPersonResp> riskPersonResps = pcacPersonRiskSubmitInfoPage.getRecords();
         if(!CollectionUtils.isEmpty(riskPersonResps)){
             for(RiskPersonResp riskPersonResp:riskPersonResps){
-                String validStatus = (new Date().before(riskPersonResp.getValidDate()))? "01":"02";
+                String validStatus = (new Date().before(riskPersonResp.getValidDate()))? CommonConst.VALIDSTATUS_01:CommonConst.VALIDSTATUS_02;
                 riskPersonResp.setValidStatus(validStatus);
+                riskPersonResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskPersonResp.getSubmitStatus()));
+                //需要解密的字段:身份证号和银行卡号
+                try {
+                    String docCode = InnerCipherUtils.decrypt(riskPersonResp.getDocCode());
+                    String bankNo = InnerCipherUtils.decrypt(riskPersonResp.getBankNo());
+                    riskPersonResp.setDocCode(docCode);
+                    riskPersonResp.setBankNo(bankNo);
+                } catch (InnerCipherException e) {
+                    e.printStackTrace();
+                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+                    return resultBean;
+                }
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

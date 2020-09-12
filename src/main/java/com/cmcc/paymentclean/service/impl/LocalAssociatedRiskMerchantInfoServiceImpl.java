@@ -3,14 +3,16 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
+import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
+import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,8 +99,25 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         List<AssociatedRiskMerchantInfoResp> associatedRiskMerchantInfoResps = pageLocalAssociatedRiskMerchantInfo.getRecords();
         if(!CollectionUtils.isEmpty(associatedRiskMerchantInfoResps)){
             for(AssociatedRiskMerchantInfoResp associatedRiskMerchantInfoResp:associatedRiskMerchantInfoResps){
-                String validStatus = (new Date().before(associatedRiskMerchantInfoResp.getValidDate()))? "01":"02";
+                String validStatus = (new Date().before(associatedRiskMerchantInfoResp.getValidDate()))? CommonConst.VALIDSTATUS_01:CommonConst.VALIDSTATUS_02;
                 associatedRiskMerchantInfoResp.setValidStatus(validStatus);
+                associatedRiskMerchantInfoResp.setLevel(LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
+                associatedRiskMerchantInfoResp.setPushListType(PushListTypeEnum.getPushListTypeDesc(associatedRiskMerchantInfoResp.getPushListType()));
+                associatedRiskMerchantInfoResp.setFeedbackStatus(FeedbackStatusEnum.getFeedbackStatusDesc(associatedRiskMerchantInfoResp.getFeedbackStatus()));
+                associatedRiskMerchantInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(associatedRiskMerchantInfoResp.getLegDocType()));
+                associatedRiskMerchantInfoResp.setIsBlack(IsBlackEnum.getIsBlackEnumDesc(associatedRiskMerchantInfoResp.getIsBlack()));
+                //需要解密的字段:身份证号和银行卡号
+                try {
+                    String docCode = InnerCipherUtils.decrypt(associatedRiskMerchantInfoResp.getDocCode());
+                    String legDocCode = InnerCipherUtils.decrypt(associatedRiskMerchantInfoResp.getLegDocCode());
+                    associatedRiskMerchantInfoResp.setDocCode(docCode);
+                    associatedRiskMerchantInfoResp.setLegDocCode(legDocCode);
+                } catch (InnerCipherException e) {
+                    e.printStackTrace();
+                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+                    return resultBean;
+                }
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

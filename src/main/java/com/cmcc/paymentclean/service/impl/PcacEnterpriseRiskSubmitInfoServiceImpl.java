@@ -3,14 +3,19 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cmcc.paymentclean.consts.CommonConst;
+import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
+import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacEnterpriseRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
+import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,8 +105,22 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         List<RiskEnterpriseResp> riskEnterpriseResps = pagePcacEnterpriseRiskSubmitInfo.getRecords();
         if(!CollectionUtils.isEmpty(riskEnterpriseResps)){
             for(RiskEnterpriseResp riskEnterpriseResp:riskEnterpriseResps){
-                String validStatus = (new Date().before(riskEnterpriseResp.getValidDate()))? "01":"02";
+                String validStatus = (new Date().before(riskEnterpriseResp.getValidDate()))? CommonConst.VALIDSTATUS_01:CommonConst.VALIDSTATUS_02;
                 riskEnterpriseResp.setValidStatus(validStatus);
+                riskEnterpriseResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskEnterpriseResp.getLegDocType()));
+                riskEnterpriseResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskEnterpriseResp.getSubmitStatus()));
+                //需要解密的字段:身份证号和银行卡号
+                try {
+                    String docCode = InnerCipherUtils.decrypt(riskEnterpriseResp.getDocCode());
+                    String legDocCode = InnerCipherUtils.decrypt(riskEnterpriseResp.getLegDocCode());
+                    riskEnterpriseResp.setDocCode(docCode);
+                    riskEnterpriseReq.setLegDocCode(legDocCode);
+                } catch (InnerCipherException e) {
+                    e.printStackTrace();
+                    resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+                    resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+                    return resultBean;
+                }
             }
         }
         resultBean.setData(pagePcacEnterpriseRiskSubmitInfo);
