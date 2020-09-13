@@ -1,3 +1,4 @@
+/*
 package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
@@ -22,10 +23,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * @author zhaolei
  * @date 2020-09-11 12:16
- */
+ *//*
+
 @Slf4j
 @Component
 public class SubmitPcacPersonRiskInfo implements Job {
@@ -34,10 +37,12 @@ public class SubmitPcacPersonRiskInfo implements Job {
     @Value("pcacVersion")
     private String pcacVersion;
 
-    /**
+    */
+/**
      * 个人风险信息需要加密字段：个人风险信息关键字：手机号、银行帐/卡号、客户姓名、身份证件号码、 固定电话、收款银
      * 行帐/卡号
-     * */
+     * *//*
+
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
        List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
@@ -108,3 +113,4 @@ public class SubmitPcacPersonRiskInfo implements Job {
         new Document();
     }
 }
+*/
