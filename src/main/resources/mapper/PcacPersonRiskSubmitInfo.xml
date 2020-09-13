@@ -99,4 +99,11 @@
         </if>
     </select>
 
+
+    <select id="selectPcacPersonRiskSubmitInfoList" resultMap="BaseResultMap">
+
+        select <include refid="Base_Column_List"/>  from  pcac_person_risk_submit_info
+        <where> submit_status = '0'</where>
+    </select>
+
 </mapper>

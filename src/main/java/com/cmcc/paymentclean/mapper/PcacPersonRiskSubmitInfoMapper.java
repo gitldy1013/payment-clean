@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  * 协会个人风险信息上报表  Mapper 接口
@@ -22,4 +24,6 @@ import org.springframework.stereotype.Repository;
 public interface PcacPersonRiskSubmitInfoMapper extends BaseMapper<PcacPersonRiskSubmitInfo> {
 
     Page<RiskPersonResp> pagePcacPersonRiskSubmitInfo(Page page, @Param("req") RiskPersonReq req);
+
+    List<PcacPersonRiskSubmitInfo> selectPcacPersonRiskSubmitInfoList();
 }
