@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Respone
 {
-    private String Head;
+    private Head Head;
 
-    private String Body;
+    private Body Body;
 }
