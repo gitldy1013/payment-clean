@@ -26,8 +26,8 @@ import java.util.List;
 * 协会个人风险信息上报表  服务实现类
 * </p>
 *
-* @author cmcc
-* @since 2020-09-10
+* @author zhaolei
+* @since 2020-09-13
 */
 @Slf4j
 @Service
