@@ -148,7 +148,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
                 if (isSign){
                     Respone respone = documentResp.getRespone();
                     RespInfo respInfo = respone.getBody().getRespInfo();
-                    if(respInfo.getResultCode().equals("S00000")){
+                    if("S00000".equals(respInfo.getResultCode())&&"01".equals(respInfo.getResultStatus())){
                         //上报成功，修改数据库状态
                         PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
                         BeanUtils.copyProperties(respInfo,pcacPersonRiskSubmitInfo);
