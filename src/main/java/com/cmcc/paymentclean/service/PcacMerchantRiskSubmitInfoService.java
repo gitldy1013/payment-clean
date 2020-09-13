@@ -75,4 +75,10 @@ public interface PcacMerchantRiskSubmitInfoService {
      */
     ResultBean<Page<RiskMerchantResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq);
 
+    /**
+     * 风险商户查询本地数据库推送至协会
+     * @return Page<RiskMerchantReqResp>
+     */
+    void queryRiskMerchantAndPushPcac();
+
 }

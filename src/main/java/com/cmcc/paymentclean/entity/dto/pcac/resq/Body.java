@@ -17,6 +17,6 @@ public class Body {
     private String KeyWord;
     private String Infos;
 
-    private ConditionList ConditionList;
+    private List<ConditionList> ConditionList;
 
 }
