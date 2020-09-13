@@ -11,3 +11,6 @@ spring:
     multipart:
       max-file-size: 50MB
 pcacVersion: V1.3.0
+
+pcac:
+  url: https://localhost:8080/pcac
