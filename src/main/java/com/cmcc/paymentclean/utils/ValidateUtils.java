@@ -1,168 +1,74 @@
 package com.cmcc.paymentclean.utils;
 
-import org.xml.sax.SAXException;
+import lombok.extern.slf4j.Slf4j;
+import org.dom4j.Document;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.SAXValidator;
+import org.dom4j.io.XMLWriter;
+import org.dom4j.util.XMLErrorHandler;
 
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
+
+import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_MAPPER_ROOT;
+import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
 
 /**
- * @ jaxb/Jaxp工具类  schema验证
+ * xml校验工具类  schema验证
  */
+@Slf4j
 public class ValidateUtils {
-    //validate xml using xsd file
-    public static boolean validate(InputStream isXml, InputStream isXsd) throws SAXException, IOException {
-        boolean flag = false;
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+    public static final String XSD_DIR = PROJECT_PATH + BASE_MAPPER_ROOT + "xsds/";
+
+
+    /**
+     * 通过XSD(XML Schema)校验XML
+     */
+    public static boolean validateXMLByXSD(String xml, String xsd) {
         try {
-            //System.out.println("xml:"+IOUtil.Stream2String(isXml));
-            //System.out.println("xsd:"+IOUtil.Stream2String(isXsd));
-            Source xsd = new StreamSource(isXsd);
-            Schema schema = sf.newSchema(xsd);
-            Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(isXml));
-            flag = true;
-
-        } catch (SAXException e) {
-            flag = false;
-            throw new SAXException(e.getMessage());
-
-        } catch (IOException e) {
-            flag = false;
-            throw new IOException(e.getMessage());
-        } finally {
-            //释放流
-            if (isXml != null) {
-                isXml.close();
-            }
-            if (isXsd != null) {
-                isXsd.close();
-            }
-        }
-        return flag;
-    }
-
-    //	validate xml using xsd file
-    public static boolean validate(InputStream isXml, File isXsd) throws SAXException, IOException {
-        boolean flag = false;
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        try {
-            //System.out.println("xml:"+IOUtil.Stream2String(isXml));
-            //System.out.println("xsd:"+IOUtil.Stream2String(isXsd));
-            Source xsd = new StreamSource(isXsd);
-            Schema schema = sf.newSchema(xsd);
-            Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(isXml));
-            flag = true;
-        } catch (SAXException e) {
-            //e.printStackTrace();
-            throw new SAXException(e.getMessage());
-        } catch (IOException e) {
-            //e.printStackTrace();
-            throw new IOException(e.getMessage());
-        } finally {
-            //释放流
-            if (isXml != null) {
-                isXml.close();
-            }
-        }
-        return flag;
-    }
-
-    //validate xml using xsd file
-    public static boolean validate(InputStream isXml, URL xsd) throws SAXException, IOException {
-        boolean flag = false;
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        try {
-            Source g = new StreamSource();
-            Schema schema = sf.newSchema(xsd);
-            Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(isXml));
-            flag = true;
-        } catch (SAXException e) {
-            //e.printStackTrace();
-            throw new SAXException(e.getMessage());
-        } catch (IOException e) {
-            // e.printStackTrace();
-            throw new IOException(e.getMessage());
-        } finally {
-            //释放流
-            if (isXml != null) {
-                isXml.close();
-            }
-        }
-        return flag;
-    }
-
-    //	validate xml using xsd file
-    public static boolean validate(File xml, File xsd) throws SAXException, IOException {
-        boolean flag = false;
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        try {
-            Schema schema = sf.newSchema(xsd);
-            Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(xml));
-            flag = true;
-        } catch (SAXException e) {
-            //e.printStackTrace();
-            throw new SAXException(e.getMessage());
-        } catch (IOException e) {
-            //e.printStackTrace();
-            throw new IOException(e.getMessage());
-        }
-        return flag;
-    }
-
-    public static boolean validateXml(InputStream inXml, InputStream inXsd) throws ParserConfigurationException, SAXException, IOException {
-        boolean flag = false;
-        try {//xml   dom     builder
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            //创建默认的XML错误处理器
+            XMLErrorHandler errorHandler = new XMLErrorHandler();
+            //获取基于 SAX 的解析器的实例
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            //解析器在解析时验证 XML 内容。
             factory.setValidating(true);
+            //指定由此代码生成的解析器将提供对 XML 名称空间的支持。
             factory.setNamespaceAware(true);
-
-            //w3c  dom
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            org.w3c.dom.Document doc = builder.parse(inXml);//读取inputstream
-
-            //handle  schema  validation
-            SchemaFactory constraintFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Source constraints = new StreamSource(inXsd);
-            Schema schema = constraintFactory.newSchema(constraints);
-            Validator validator = schema.newValidator();
-            // validator.setErrorHandler();
-            // validate  the  dom  tree
-            validator.validate(new DOMSource(doc));
-            flag = true;
-
-        } finally {
-            inXml.close();
-            inXsd.close();
-        }
-        ;
-        return flag;
-    }
-
-    public static void main(String[] args) throws IOException, SAXException {
-        // InputStream is = new ByteArrayInputStream("".getBytes());
-        boolean isPassed = false;
-        isPassed = validate(new FileInputStream("C:\\GG.XML"), new FileInputStream("/xsds/pcac.ries.001.xsd"));//validate(new File("C:\\GG.XML"), new File(xsd));
-        if (isPassed) {
-            System.out.println("通过");
-        } else {
-            System.out.println("没有通过");
+            //使用当前配置的工厂参数创建 SAXParser 的一个新实例。
+            SAXParser parser = factory.newSAXParser();
+            //创建一个读取工具
+            SAXReader xmlReader = new SAXReader();
+            //获取要校验xml文档实例
+            Document xmlDocument = xmlReader.read(new ByteArrayInputStream(xml.getBytes()));
+            parser.setProperty(
+                    "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+                    "http://www.w3.org/2001/XMLSchema");
+            parser.setProperty(
+                    "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                    "file:" + xsd + ".xsd");
+            //创建一个SAXValidator校验工具，并设置校验工具的属性
+            SAXValidator validator = new SAXValidator(parser.getXMLReader());
+            //设置校验工具的错误处理器，当发生错误时，可以从处理器对象中得到错误信息。
+            validator.setErrorHandler(errorHandler);
+            //校验
+            validator.validate(xmlDocument);
+            XMLWriter writer = new XMLWriter(OutputFormat.createPrettyPrint());
+            //如果错误信息不为空，说明校验失败，打印错误信息
+            if (errorHandler.getErrors().hasContent()) {
+                log.info("XML文件通过XSD文件校验失败！");
+                writer.write(errorHandler.getErrors());
+                return false;
+            } else {
+                log.info("Good! XML文件通过XSD文件校验成功！");
+            }
+            return true;
+        } catch (Exception ex) {
+            log.info("XML通过XSD文件:" + xsd + "检验失败： " + ex.getMessage());
+            ex.printStackTrace();
+            return false;
         }
     }
 

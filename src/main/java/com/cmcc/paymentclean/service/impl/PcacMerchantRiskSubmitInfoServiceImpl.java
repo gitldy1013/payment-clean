@@ -29,6 +29,7 @@ import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
 import com.cmcc.paymentclean.utils.LocalDateTimeUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.cmcc.paymentclean.utils.ValidateUtils.XSD_DIR;
 
 /**
  * <p>
@@ -152,6 +155,12 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         log.info("获取到的json数据:{}", json);
         String xml = XmlJsonUtils.json2xml4pcac(json);
         log.info("获取到的xml数据:{}", xml);
+        //校验xml报文
+        boolean validate = ValidateUtils.validateXMLByXSD(xml, XSD_DIR + "pcac.ries.013");
+        if (!validate) {
+            log.info("XML校验失败");
+            return;
+        }
         pushToPcac(pcacMerchantRiskSubmitInfos, gson, xml);
     }
 
@@ -185,6 +194,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
     private Document getDocument(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos) {
         //拼装报文
         Document document = new Document();
+        document.setSignature("");
         Request request = new Request();
         Head head = new Head();
         head.setVersion("V1.3.0");
@@ -221,8 +231,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             pcacList.add(pcac);
         }
         body.setPcacList(pcacList);
-        request.setBody(body);
         request.setHead(head);
+        request.setBody(body);
         document.setRequest(request);
         return document;
     }

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="Document">
 		<xs:complexType>
@@ -54,10 +53,10 @@
 				<xs:element ref="RiskType"/>
 				<xs:element ref="CusName"/>
 				<xs:element ref="DocType"/>
-				<xs:element ref="DocCode"/>					
-				<xs:element ref="BankNo"/>				
-				<xs:element ref="Level"/>		
-				<xs:element name="Occurarea"  type="xs:string"/>				
+				<xs:element ref="DocCode"/>
+				<xs:element ref="BankNo"/>
+				<xs:element ref="Level"/>
+				<xs:element name="Occurarea"  type="xs:string"/>
 				<xs:element ref="ValidDate"/>
 				<xs:element ref="ValidStatus"/>
 			</xs:sequence>
@@ -125,7 +124,7 @@
 				<xs:minLength value="1"/>
 			</xs:restriction>
 		</xs:simpleType>
-	</xs:element>	
+	</xs:element>
 	<xs:element name="CusProperty">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">

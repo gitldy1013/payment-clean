@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="Document">
 		<xs:complexType>
@@ -66,7 +65,7 @@
 				<xs:element name="Occurtimeb" type="xs:string"/>
 				<xs:element name="Occurtimee" type="xs:string"/>
 				<xs:element name="Occurarea" type="xs:string"/>
-				<xs:element name="Scope" type="xs:string"/>				
+				<xs:element name="Scope" type="xs:string"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -115,9 +114,9 @@
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	
+
 	<xs:element name="Signature" type="xs:string"/>
-	
+
 	<xs:element name="Version">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
@@ -186,7 +185,7 @@
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
-	
+
 	<xs:element name="ResultStatus">
 		<xs:simpleType>
 			<xs:restriction base="xs:string">
