@@ -1,24 +1,24 @@
 package com.cmcc.paymentclean.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  * <p>
  * 协会个人风险信息上报表
  * </p>
  *
- * @author cmcc
- * @since 2020-09-10
+ * @author zhaolei
+ * @since 2020-09-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -116,7 +116,7 @@ public class PcacPersonRiskSubmitInfo extends Model<PcacPersonRiskSubmitInfo> {
     private String orgId;
 
     @ApiModelProperty(value = "上报日期")
-    private LocalDate repDate;
+    private LocalDateTime repDate;
 
     @ApiModelProperty(value = "上传方式（值： 03）")
     private String repType;
@@ -152,7 +152,7 @@ public class PcacPersonRiskSubmitInfo extends Model<PcacPersonRiskSubmitInfo> {
     @ApiModelProperty(value = "上报时间")
     private LocalDate submitTime;
 
-    @ApiModelProperty(value = "报送状态")
+    @ApiModelProperty(value = "报送状态0为未报送，1为已报送")
     private String submitStatus;
 
     @ApiModelProperty(value = "交易结果")
