@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONSerializer;
 import net.sf.json.xml.XMLSerializer;
 import org.dom4j.Document;
@@ -13,13 +14,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+@Slf4j
 public class XmlJsonUtils {
 
     /**
      * JSON(数组)字符串转换成XML字符串
      */
     public static String json2xml4pcac(String jsonString) {
-        String enter = System.getProperty("line.separator");//换行
         XMLSerializer xmlSerializer = new XMLSerializer();
         xmlSerializer.setTypeHintsEnabled(false);
         xmlSerializer.isTrimSpaces();
@@ -30,15 +31,15 @@ public class XmlJsonUtils {
                 .replaceAll("<e>", "")
                 .replaceAll("</e>", "")
                 .replaceAll("<a>", "")
-                .replaceAll("</a>", "")
-                .replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>\r\n", "");
-        return formatXml(resXml);
+                .replaceAll("</a>", "");
+        return formatXml(resXml).replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>\r\n", "");
     }
 
     /**
      * XML字符串转换成JSON(数组)字符串
      */
     public static String xml2pcac4pcac(String xmlString) {
+        log.info("格式化之前的XML:{}", xmlString);
         //创建 XMLSerializer对象
         XMLSerializer xmlSerializer = new XMLSerializer();
         xmlSerializer.setRootName("Body");
