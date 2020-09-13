@@ -15,3 +15,4 @@ spring:
 
 server:
   port: 8081
+pcacVersion: V1.3.0
