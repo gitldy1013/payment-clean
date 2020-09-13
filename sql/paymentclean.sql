@@ -186,7 +186,8 @@ create table pcac_person_risk_submit_info
    risk_type            varchar(2) comment '风险类型',
    mobile_no            varchar(20) comment '手机号',
    mac                  varchar(17) comment 'MAC 地址',
-   imei                 varchar(32) comment 'Imei（Imei 必须为小于或等于 32 位数字组成）',
+   imei                 varchar(32) comment 'Imei（Imei 必须为小于或等于 32 位数
+            字组成）',
    bank_no              varchar(64) comment '付款账户/付款银行卡号（支付账户）',
    open_bank            varchar(64) comment '开户机构',
    cus_name             varchar(64) comment '个人姓名',
@@ -199,7 +200,8 @@ create table pcac_person_risk_submit_info
    rec_name             varchar(128) comment '中转或收款人姓名',
    rec_doc_type         varchar(2) comment '中转或收款人证件类型',
    rec_doc_code         varchar(64) comment '中转或收款人证件号',
-   rec_bank_no          varchar(64) comment '中转或收款银行卡号（支付账户） ， 不校验格式',
+   rec_bank_no          varchar(64) comment '中转或收款银行卡号（支付账户） ， 不
+            校验格式',
    rec_open_bank        varchar(64) comment '中转或收款开户机构',
    rec_host_area        varchar(2) comment '收款人所在国家或地区',
    email                varchar(64) comment '邮箱',
@@ -210,7 +212,7 @@ create table pcac_person_risk_submit_info
    occurarea            varchar(256) comment '风险事件发生地域',
    note                 varchar(2048) comment '风险事件描述',
    org_id               varchar(32) comment '上报机构',
-   rep_date             date comment '上报日期',
+   rep_date             datetime comment '上报日期',
    rep_type             varchar(2) comment '上传方式（值： 03）',
    rep_person           varchar(32) comment '上传人',
    source_channel       varchar(4) comment '风险信息来源',
@@ -222,12 +224,12 @@ create table pcac_person_risk_submit_info
    operator             varchar(10) comment '操作人',
    operate_time         date comment '操作时间',
    submit_time          date comment '上报时间',
-   submit_status        varchar(2) default '0' comment '报送状态',
+   submit_status        varchar(2) default '0' comment '报送状态0为未报送，1为已报送',
    result_status        varchar(2) comment '交易结果',
    result_code          varchar(6) comment '交易返回码',
    msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_person_risk_submit_info_id)
-)comment = '协会个人风险信息上报表 ';
+);
 
 
 
