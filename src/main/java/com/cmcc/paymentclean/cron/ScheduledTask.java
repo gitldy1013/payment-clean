@@ -1,9 +1,13 @@
 package com.cmcc.paymentclean.cron;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import sun.rmi.runtime.Log;
 
 /**
  * 使用quartz框架
@@ -12,7 +16,11 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableScheduling
 @Async//启动多线程
+@Slf4j
 public class ScheduledTask {
+
+    @Autowired
+    private SubmitPcacPersonRiskInfo submitPcacPersonRiskInfo;
 
     /**
      * cron：通过表达式来配置任务执行时间
@@ -68,6 +76,12 @@ public class ScheduledTask {
     public void run3() {
         System.out.println("run3方法：第一次延迟2秒后执行，之后按fixedDelay的规则每5秒执行一次");
         System.out.println(Thread.currentThread().getName() + "=====>>>>>使用initialDelay  {}" + (System.currentTimeMillis() / 1000));
+    }
+
+    @Scheduled(cron = "0/5 * * * * *")
+    public void  submitPcacPersonRiskInfoJob(){
+        log.info("---------执行上报个人风险信息到清算协会任务--------");
+        submitPcacPersonRiskInfo.submit();
     }
 
 }

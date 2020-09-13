@@ -1,20 +1,31 @@
-/*
+
 package com.cmcc.paymentclean.cron;
 
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.*;
+import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.HttpClientUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import lombok.extern.slf4j.Slf4j;
-import org.quartz.Job;
+/*import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.quartz.JobExecutionException;*/
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.xml.sax.SAXException;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,28 +34,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-*/
+
 /**
  * @author zhaolei
  * @date 2020-09-11 12:16
- *//*
+ */
 
 @Slf4j
 @Component
-public class SubmitPcacPersonRiskInfo implements Job {
+public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     @Autowired
     private PcacPersonRiskSubmitInfoMapper pcacPersonRiskSubmitInfoMapper;
     @Value("pcacVersion")
     private String pcacVersion;
 
-    */
+
 /**
      * 个人风险信息需要加密字段：个人风险信息关键字：手机号、银行帐/卡号、客户姓名、身份证件号码、 固定电话、收款银
      * 行帐/卡号
-     * *//*
+     * */
 
-    @Override
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+   /* @Override
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {*/
+    public void submit(){
        List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
        log.debug("查询个人风险信息结果：{}",pcacPersonRiskList);
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
@@ -109,8 +121,65 @@ public class SubmitPcacPersonRiskInfo implements Job {
         head.setSecretKey(secretKey);
 
         Request request = new Request();
+        request.setHead(head);
         request.setBody(body);
-        new Document();
+        Document document = new Document();
+        document.setRequest(request);
+
+        String noSignXml = com.cmcc.paymentclean.utils.BeanUtils.convertToXml(document);
+        String signature = CFCACipherUtils.doSignature(noSignXml);
+        document.setSignature(signature);
+        String doXml = com.cmcc.paymentclean.utils.BeanUtils.convertToXml(document);
+        log.info("个人风险信息上报支付清算协会请求xml报文：",doXml);
+        ByteArrayInputStream doXmlStream = new ByteArrayInputStream(doXml.getBytes());
+        try {
+            boolean validate = ValidateUtils.validate(doXmlStream, new File("/xsds/pcac.ries.001.xsd"));
+            if (validate){
+                String result = HttpClientUtils.sendHttpsPost("接口地址", doXml);
+                log.info("个人风险信息上报支付清算协会响应xml报文：",result);
+                com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp=
+                        (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.BeanUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+                String signatureResp = documentResp.getSignature();
+                log.info("响应报文的签名串signature：{}",signatureResp);
+                documentResp.setSignature(null);
+                String noSignXmlResp = com.cmcc.paymentclean.utils.BeanUtils.convertToXml(documentResp);
+                log.info("不加签名信息的响应报文xml串：{}",noSignXmlResp);
+                boolean isSign = CFCACipherUtils.verifySignature(noSignXmlResp, signatureResp);
+                if (isSign){
+                    Respone respone = documentResp.getRespone();
+                    RespInfo respInfo = respone.getBody().getRespInfo();
+                    if(respInfo.getResultCode().equals("S00000")){
+                        //上报成功，修改数据库状态
+                        PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
+                        BeanUtils.copyProperties(respInfo,pcacPersonRiskSubmitInfo);
+                        pcacPersonRiskSubmitInfo.setSubmitTime(LocalDate.now());
+                        pcacPersonRiskSubmitInfo.setSubmitStatus("1");
+                        pcacPersonRiskSubmitInfo.setMsgDetail("已上报");
+                        log.info("更新数据库表时间和状态信息：{}",pcacPersonRiskSubmitInfo);
+                        pcacPersonRiskSubmitInfoMapper.updateByPcacPersonRiskSubmitInfo(pcacPersonRiskSubmitInfo);
+
+                    }
+
+                }else {
+                    log.info("------响应报文验签失败-------");
+                    throw new SubmitPCACException(ResultCodeEnum.SIGNATURE_FALSE.getCode(),ResultCodeEnum.SIGNATURE_FALSE.getDesc());
+
+                }
+
+            }else {
+                log.info("----------xsd文件校验xml格式失败-------");
+                throw new SubmitPCACException(ResultCodeEnum.XSD_FILE_VALID_FALSE.getCode(),ResultCodeEnum.XSD_FILE_VALID_FALSE.getDesc());
+            }
+
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+         catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
-*/
+

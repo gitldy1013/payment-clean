@@ -58,7 +58,7 @@ public class CFCACipherUtils {
         }
     }
 
-    /*
+    /**
      * 数据加签
      * 发送方使用会员单位私钥对原文信息进行签名
      * */
@@ -161,7 +161,7 @@ public class CFCACipherUtils {
     }
 
 
-    /*
+    /**
      * 数据加密，AES密钥加密字符串数据
      * */
     public static String encrypt(byte[] symmetricKeyEncoded, String toBeEncData) {
@@ -281,7 +281,7 @@ public class CFCACipherUtils {
     }
 
 
-    /*
+    /**
      * 数据解密
      * secretKey为加密后的AES密钥
      * toBeDecMap为需要加密的字段map集合

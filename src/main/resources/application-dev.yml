@@ -9,12 +9,13 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: pcac_cmcc
+    password: root
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://101.200.86.90/paymentclean?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost/paymentclean?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&serverTimezone=Asia/Shanghai
 
 server:
   port: 8081
+pcacVersion: V1.3.0
 
 pcac:
   url: https://localhost:8081/pcac

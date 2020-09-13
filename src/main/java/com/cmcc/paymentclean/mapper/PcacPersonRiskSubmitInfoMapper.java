@@ -26,4 +26,6 @@ public interface PcacPersonRiskSubmitInfoMapper extends BaseMapper<PcacPersonRis
     Page<RiskPersonResp> pagePcacPersonRiskSubmitInfo(Page page, @Param("req") RiskPersonReq req);
 
     List<PcacPersonRiskSubmitInfo> selectPcacPersonRiskSubmitInfoList();
+
+    void updateByPcacPersonRiskSubmitInfo(PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo);
 }
