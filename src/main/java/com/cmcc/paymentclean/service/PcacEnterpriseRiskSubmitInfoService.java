@@ -74,4 +74,9 @@ public interface PcacEnterpriseRiskSubmitInfoService {
      * @return Page<RiskEnterpriseResp>
      */
     ResultBean<Page<RiskEnterpriseResp>> pageRiskEnterprise(RiskEnterpriseReq riskEnterpriseReq);
+
+    /**
+     * 风险个人查询本地数据库推送至协会
+     */
+    void queryRiskEnterpriseAndPushPcac();
 }

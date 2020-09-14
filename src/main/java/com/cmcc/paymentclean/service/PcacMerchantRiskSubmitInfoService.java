@@ -77,7 +77,6 @@ public interface PcacMerchantRiskSubmitInfoService {
 
     /**
      * 风险商户查询本地数据库推送至协会
-     * @return Page<RiskMerchantReqResp>
      */
     void queryRiskMerchantAndPushPcac();
 
