@@ -34,13 +34,13 @@ public class ValidateUtils {
     /**
      * 通过XSD(XML Schema)校验XML PCAC
      */
-    public static boolean validateXMLByXSD(String xml, String xsdpath) {
+    public static boolean validateXMLByXSD(String xml, String xsdFIleName) {
         try {
             //建立schema工厂
             SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
             //建立验证文档文件对象，利用此文件对象所封装的文件进行schema验证
-            log.info("文件路径：{}", xsdpath + ".xsd");
-            File schemaFile = new File(xsdpath + ".xsd");
+            log.info("文件路径：{}", xsdFIleName + ".xsd");
+            File schemaFile = new File(xsdFIleName + ".xsd");
             //利用schema工厂，接收验证文档文件对象生成Schema对象
             Schema schema = schemaFactory.newSchema(schemaFile);
             //通过Schema产生针对于此Schema的验证器，利用schenaFile进行验证
@@ -59,7 +59,7 @@ public class ValidateUtils {
     /**
      * 通过XSD(XML Schema)校验XML
      */
-    public static boolean validateXML(String xml, String xsd) {
+    public static boolean validateXML(String xml, String xsdFileName) {
         try {
             //创建默认的XML错误处理器
             XMLErrorHandler errorHandler = new XMLErrorHandler();
@@ -80,7 +80,7 @@ public class ValidateUtils {
                     "http://www.w3.org/2001/XMLSchema");
             parser.setProperty(
                     "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                    "file:" + xsd + ".xsd");
+                    "file:" + xsdFileName + ".xsd");
             //创建一个SAXValidator校验工具，并设置校验工具的属性
             SAXValidator validator = new SAXValidator(parser.getXMLReader());
             //设置校验工具的错误处理器，当发生错误时，可以从处理器对象中得到错误信息。
@@ -98,7 +98,7 @@ public class ValidateUtils {
             }
             return true;
         } catch (Exception ex) {
-            log.info("XML通过XSD文件:" + xsd + "检验失败： " + ex.getMessage());
+            log.info("XML通过XSD文件:" + xsdFileName + "检验失败： " + ex.getMessage());
             ex.printStackTrace();
             return false;
         }
