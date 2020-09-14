@@ -39,8 +39,8 @@ public class ValidateUtils {
             //建立schema工厂
             SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
             //建立验证文档文件对象，利用此文件对象所封装的文件进行schema验证
-            log.info("文件路径：{}", xsdFIleName + ".xsd");
-            File schemaFile = new File(xsdFIleName + ".xsd");
+            log.info("文件路径：{}", XSD_DIR + xsdFIleName + ".xsd");
+            File schemaFile = new File(XSD_DIR + xsdFIleName + ".xsd");
             //利用schema工厂，接收验证文档文件对象生成Schema对象
             Schema schema = schemaFactory.newSchema(schemaFile);
             //通过Schema产生针对于此Schema的验证器，利用schenaFile进行验证
@@ -80,7 +80,7 @@ public class ValidateUtils {
                     "http://www.w3.org/2001/XMLSchema");
             parser.setProperty(
                     "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                    "file:" + xsdFileName + ".xsd");
+                    "file:" + XSD_DIR + xsdFileName + ".xsd");
             //创建一个SAXValidator校验工具，并设置校验工具的属性
             SAXValidator validator = new SAXValidator(parser.getXMLReader());
             //设置校验工具的错误处理器，当发生错误时，可以从处理器对象中得到错误信息。
