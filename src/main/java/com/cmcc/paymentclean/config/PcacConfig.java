@@ -10,5 +10,11 @@ import org.springframework.stereotype.Component;
 public class PcacConfig {
 
     private String url;
+
+    private String version;
+
+    private String origSender;
+
+    private String origSenderSid;
 }
 

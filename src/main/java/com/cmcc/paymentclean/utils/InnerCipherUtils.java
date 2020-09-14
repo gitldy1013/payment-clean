@@ -17,12 +17,12 @@ public class InnerCipherUtils {
 
     private static UnionCSSP cssp = new UnionCSSP();
 
-    public static String encrypt(String message) throws InnerCipherException {
+    public static String encrypt(String message) {
         /*
          * keyname为：HX.Userdata.zek，UAT测试环境访问地址与端口，172.16.50.233，22200。
          * 需要配置到jar包里面的servicerList.conf文件CSSP栏。
          * */
-        log.debug("需加密数据：{}",message);
+        log.debug("需加密数据：{}", message);
         String mode = "1";
         //String keyName = "EWM.test.zek";
         String keyName = "HX.USERDATA.zek";
@@ -39,15 +39,26 @@ public class InnerCipherUtils {
                 log.info("数据加密成功！！");
                 return new String(recv.getData());
             } else {
-                    throw  new InnerCipherException(recv.getResponseCode(),recv.getResponseRemark());
+                try {
+                    throw new InnerCipherException(recv.getResponseCode(), recv.getResponseRemark());
+                } catch (InnerCipherException e) {
+                    e.printStackTrace();
+                    return null;
+                }
             }
-        }else {
-            throw  new InnerCipherException("内部加密服务异常");
+        } else {
+            try {
+                throw new InnerCipherException("内部加密服务异常");
+            } catch (InnerCipherException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
+
     }
 
-    public static String  decrypt(String message) throws InnerCipherException {
-        log.debug("需解密数据：{}",message);
+    public static String decrypt(String message) {
+        log.debug("需解密数据：{}", message);
         String mode = "1";
         String keyName = "HX.USERDATA.zek";
         String keyValue = "";
@@ -64,20 +75,26 @@ public class InnerCipherUtils {
                 return new String(recv.getData());
 
             } else {
-                throw  new InnerCipherException(recv.getResponseCode(),recv.getResponseRemark());
+                try {
+                    throw new InnerCipherException(recv.getResponseCode(), recv.getResponseRemark());
+                } catch (InnerCipherException e) {
+                    e.printStackTrace();
+                    return null;
+                }
             }
-        }else {
-            throw  new InnerCipherException("内部加密服务异常");
+        } else {
+            try {
+                throw new InnerCipherException("内部加密服务异常");
+            } catch (InnerCipherException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
     public static void main(String[] args) {
-        try {
-            String encrypt = encrypt("110225199111182217");
-            String decrypt = decrypt(encrypt);
-        } catch (InnerCipherException e) {
-            e.printStackTrace();
-        }
+        String encrypt = encrypt("110225199111182217");
+        String decrypt = decrypt(encrypt);
 
     }
 }

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @Data
 public class BenList {
-    private String Count;
+    private String Count = "1";
 
     private BenInfo BenInfo;
 }

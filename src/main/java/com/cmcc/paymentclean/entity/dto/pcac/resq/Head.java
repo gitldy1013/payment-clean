@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.entity.dto.pcac.resq;
 
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -40,5 +41,5 @@ public class Head {
 
     private String UserToken;
 
-    private String SecretKey;
+    private String SecretKey = CFCACipherUtils.getSecretKey(CFCACipherUtils.getSymmetricKeyEncoded());;
 }
