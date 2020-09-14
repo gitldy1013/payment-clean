@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * <p>
@@ -58,7 +58,7 @@ public class LocalAssociatedRiskMerchantInfo extends Model<LocalAssociatedRiskMe
     private String feedbackStatus;
 
     @ApiModelProperty(value = "反馈日期")
-    private LocalDate feedbackDate;
+    private Date feedbackDate;
 
     @ApiModelProperty(value = "法人证件类型")
     private String docType;
@@ -76,7 +76,7 @@ public class LocalAssociatedRiskMerchantInfo extends Model<LocalAssociatedRiskMe
     private String legDocCode;
 
     @ApiModelProperty(value = "有效期")
-    private LocalDate validDate;
+    private Date validDate;
 
     @ApiModelProperty(value = "有效性")
     private String validStatus;

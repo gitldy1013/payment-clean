@@ -1304,10 +1304,10 @@
 |-------| ------------ | ------------ | ------------ |
 |主键id| id | 主键id | int |  |  |
 |操作人| created_by | 操作人 | varchar(32) |
-|操作时间| created_time | 操作时间 | datetime |
+|操作时间| created_time | 操作时间 | Date |
 |操作内容| opt_content  | 操作内容 | varchar(128) |
 |更新人| updated_by | 更新人 | varchar(32) |
-|更新时间| updated_time | 更新时间 | datetime |
+|更新时间| updated_time | 更新时间 | Date |
 
 ## 8.附录
 

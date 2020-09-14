@@ -1,38 +1,26 @@
 
 package com.cmcc.paymentclean.cron;
 
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.*;
-import com.cmcc.paymentclean.exception.SubmitPCACException;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.fasterxml.jackson.databind.util.BeanUtil;
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+import com.cmcc.paymentclean.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
-/*import org.quartz.Job;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;*/
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.xml.sax.SAXException;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+/*import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;*/
 
 
 /**
@@ -49,16 +37,16 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     private String pcacVersion;
 
 
-/**
+    /**
      * 个人风险信息需要加密字段：个人风险信息关键字：手机号、银行帐/卡号、客户姓名、身份证件号码、 固定电话、收款银
      * 行帐/卡号
-     * */
+     */
 
    /* @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {*/
-    public void submit(){
-       List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
-       log.debug("查询个人风险信息结果：{}",pcacPersonRiskList);
+    public void submit() {
+        List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
+        log.debug("查询个人风险信息结果：{}", pcacPersonRiskList);
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);
 
@@ -67,29 +55,28 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         for (PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo : pcacPersonRiskList) {
             //Map<String, String> toBeEncMap = new HashMap<>();
             //非必填数据本次不加密不上报
-           // toBeEncMap.put("mobileNo",pcacPersonRiskSubmitInfo.getMobileNo());
+            // toBeEncMap.put("mobileNo",pcacPersonRiskSubmitInfo.getMobileNo());
             //toBeEncMap.put("bankNo",pcacPersonRiskSubmitInfo.getBankNo());
             //toBeEncMap.put("cusName",pcacPersonRiskSubmitInfo.getCusName());
             //toBeEncMap.put("docCode",pcacPersonRiskSubmitInfo.getDocCode());
             //toBeEncMap.put("telephone",pcacPersonRiskSubmitInfo.getTelephone());
             //获取随机加密密码
 
-            String encryptDocCode= CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getDocCode());
+            String encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getDocCode());
             pcacPersonRiskSubmitInfo.setDocCode(encryptDocCode);
             PcacList pcacList = new PcacList();
 
             pcacList.setCount(pcacPersonRiskList.size());
             RiskInfo riskInfo = new RiskInfo();
-            BeanUtils.copyProperties(pcacPersonRiskSubmitInfo,riskInfo);
+            BeanUtils.copyProperties(pcacPersonRiskSubmitInfo, riskInfo);
             //validDate、repDate在两个对象中类型不同，所以无法复制属性，需要自己set
-            LocalDate validDate = pcacPersonRiskSubmitInfo.getValidDate();
+            Date validDate = pcacPersonRiskSubmitInfo.getValidDate();
             riskInfo.setValidDate(validDate.toString());
 
-            LocalDateTime repDate = LocalDateTime.now();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm:ss");
-            String repDateStr = dateTimeFormatter.format(repDate);
+            Date repDate = new Date(System.currentTimeMillis());
+            String repDateStr = DateUtils.formatTime(repDate, "yyyy-MM-DD HH:mm:ss");
             riskInfo.setRepDate(repDateStr);
-            log.info("riskInfo复制的对象属性包括：{}",riskInfo);
+            log.info("riskInfo复制的对象属性包括：{}", riskInfo);
 
             BankList bankList = new BankList();
             bankList.setCount("0");
@@ -113,9 +100,9 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         head.setRecSystemId("R0001");
         //交易码，见 5.1 报文分类列表（数字、字母）
         head.setTrnxCode("PR0001");
-        LocalDateTime trnxTime = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMDDHH:mm:ss");
-        String trnxTimeStr = dateTimeFormatter.format(trnxTime);
+        Date trnxTime = new Date(System.currentTimeMillis());
+        DateFormatter DateFormatter = DateFormatter.ofPattern("yyyyMMDDHH:mm:ss");
+        String trnxTimeStr = DateFormatter.format(trnxTime);
         head.setTrnxTime(trnxTimeStr);
         head.setUserToken("");
         head.setSecretKey(secretKey);
@@ -152,7 +139,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
                         //上报成功，修改数据库状态
                         PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
                         BeanUtils.copyProperties(respInfo,pcacPersonRiskSubmitInfo);
-                        pcacPersonRiskSubmitInfo.setSubmitTime(LocalDate.now());
+                        pcacPersonRiskSubmitInfo.setSubmitTime(new Date(System.currentTimeMillis()));
                         pcacPersonRiskSubmitInfo.setSubmitStatus("1");
                         pcacPersonRiskSubmitInfo.setMsgDetail("已上报");
                         log.info("更新数据库表时间和状态信息：{}",pcacPersonRiskSubmitInfo);

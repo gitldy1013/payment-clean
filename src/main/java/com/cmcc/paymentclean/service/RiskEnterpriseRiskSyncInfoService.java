@@ -1,9 +1,9 @@
 package com.cmcc.paymentclean.service;
 
-import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseRiskSyncInfoReq;
-import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseRiskSyncInfoReq;
 
 import java.util.List;
 

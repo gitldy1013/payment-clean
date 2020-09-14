@@ -1,18 +1,19 @@
 package com.cmcc.paymentclean.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.time.LocalDate;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+import java.sql.Date;
+
 /**
  * <p>
- * 风控企业风险信息同步表 
+ * 风控企业风险信息同步表
  * </p>
  *
  * @author zhaolei
@@ -36,10 +37,10 @@ public class RiskEnterpriseRiskSyncInfo extends Model<RiskEnterpriseRiskSyncInfo
     private String cusCode;
 
     @ApiModelProperty(value = "风险事件发生时间")
-    private LocalDate occurtimeb;
+    private Date occurtimeb;
 
     @ApiModelProperty(value = "风险事件结束时间")
-    private LocalDate occurtimee;
+    private Date occurtimee;
 
     @ApiModelProperty(value = "风险事件描述")
     private String note;
@@ -48,13 +49,13 @@ public class RiskEnterpriseRiskSyncInfo extends Model<RiskEnterpriseRiskSyncInfo
     private String sourceChannel;
 
     @ApiModelProperty(value = "有效期")
-    private LocalDate validDate;
+    private Date validDate;
 
     @ApiModelProperty(value = "操作人")
     private String operator;
 
     @ApiModelProperty(value = "操作时间")
-    private LocalDate operateTime;
+    private Date operateTime;
 
 
     @Override

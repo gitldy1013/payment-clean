@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 /**
  * <p>
@@ -37,13 +37,13 @@ public class PcacOptLog extends Model<PcacOptLog> {
     private String optContent;
 
     @ApiModelProperty(value = "操作时间")
-    private LocalDateTime createdTime;
+    private Date createdTime;
 
     @ApiModelProperty(value = "更新人")
     private String updatedBy;
 
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updatedTime;
+    private Date updatedTime;
 
 
     @Override
