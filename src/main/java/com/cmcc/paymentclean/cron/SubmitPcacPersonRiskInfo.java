@@ -45,9 +45,14 @@ import java.util.Map;
 public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     @Autowired
     private PcacPersonRiskSubmitInfoMapper pcacPersonRiskSubmitInfoMapper;
-    @Value("pcacVersion")
+    @Value("pcac.version")
     private String pcacVersion;
 
+    @Value("orig-sender")
+    private  String OrigSender;
+
+    @Value("orig-sender-sid")
+    private String OrigSenderSID;
 
 /**
      * 个人风险信息需要加密字段：个人风险信息关键字：手机号、银行帐/卡号、客户姓名、身份证件号码、 固定电话、收款银
@@ -76,8 +81,14 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
             String encryptDocCode= CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getDocCode());
             pcacPersonRiskSubmitInfo.setDocCode(encryptDocCode);
-            PcacList pcacList = new PcacList();
 
+            //对象转xml工具类又问题，先用最笨的方法拼装报文
+
+
+
+
+
+   /*         PcacList pcacList = new PcacList();
             pcacList.setCount(pcacPersonRiskList.size());
             RiskInfo riskInfo = new RiskInfo();
             BeanUtils.copyProperties(pcacPersonRiskSubmitInfo,riskInfo);
@@ -95,7 +106,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             bankList.setCount("0");
             riskInfo.setBankList(bankList);
             pcacList.setRiskInfo(riskInfo);
-            pcacLists.add(pcacList);
+            pcacLists.add(pcacList);*/
 
         }
         /*Body body = new Body();
@@ -183,53 +194,84 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     }
 
 
-    private String getXmlInfo() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<?xml version='1.0' encoding='UTF-8'?>");
-        sb.append("<Document>");
-        sb.append("<Request>");
-        sb.append("    <Head>");
-        sb.append("             <Version></Version>");
-        sb.append("             <Identification></Identification>");
-        sb.append("             <OrigSender></OrigSender>");
-        sb.append("             <OrigSenderSID></OrigSenderSID>");
-        sb.append("             <RecSystemId></RecSystemId>");
-        sb.append("             <TrnxCode></TrnxCode>");
-        sb.append("             <TrnxTime></TrnxTime>");
-        sb.append("             <UserToken></UserToken>");
-        sb.append("             <SecretKey></SecretKey>");
-        sb.append("    </Head>");
-        sb.append("    <Body>");
-        sb.append("     <PcacList>");
-        sb.append("         <Count></Count>");
-        sb.append("         <RiskInfo>");
-        sb.append("             <CusProperty></CusProperty>");
-        sb.append("             <RiskType></RiskType>");
-        sb.append("             <DocType></DocType>");
-        sb.append("             <DocCode></DocCode>");
-        sb.append("             <BankList>");
-        sb.append("                 <Count></Count>");
-        sb.append("             </BankList>");
-        sb.append("             <ValidDate></ValidDate>");
-        sb.append("             <Note></Note>");
-        sb.append("             <OrgId></OrgId>");
-        sb.append("             <type></type>");
-        sb.append("             </RiskInfo>");
-        sb.append("             <RepDate></RepDate>");
-        sb.append("             <RepType></RepType>");
-        sb.append("             <RepPerson></RepPerson>");
-        sb.append("             <SourceChannel></SourceChannel>");
-        sb.append("         </RiskInfo>");
-        sb.append("     </PcacList>");
-        sb.append("    </Body>");
-        sb.append("</Request>");
-        sb.append("<Signature></Signature>");
-        sb.append("</Document>");
+  static   private String getXmlInfo() {
 
+      StringBuilder sb = new StringBuilder();
+      sb.append("<?xml version='1.0' encoding='UTF-8'?>");
+      sb.append("<Document>");
+      sb.append("<Request>");
+      sb.append("    <Head>");
+      sb.append("             <Version></Version>");
+      sb.append("             <Identification></Identification>");
+      sb.append("             <OrigSender></OrigSender>");
+      sb.append("             <OrigSenderSID></OrigSenderSID>");
+      sb.append("             <RecSystemId>R0001</RecSystemId>");
+      sb.append("             <TrnxCode></TrnxCode>");
+      sb.append("             <TrnxTime></TrnxTime>");
+      sb.append("             <UserToken></UserToken>");
+      sb.append("             <SecretKey></SecretKey>");
+      sb.append("    </Head>");
+      sb.append("    <Body>");
+      sb.append("        <PcacList>");
+      sb.append("            <Count></Count>");
+
+          sb.append("            <RiskInfo>");
+          sb.append("                <CusProperty></CusProperty>");
+          sb.append("                <RiskType></RiskType>");
+          sb.append("                <MobileNo></MobileNo>");
+          sb.append("                <Mac></Mac>");
+          sb.append("                <Imei></Imei>");
+          sb.append("                <BankNo></BankNo>");
+          sb.append("                <OpenBank></OpenBank>");
+          sb.append("                <CusName></CusName>");
+          sb.append("                <DocType></DocType>");
+          sb.append("                <DocCode></DocCode>");
+          sb.append("                <Ip></Ip>");
+          sb.append("                <Address></Address>");
+          sb.append("                <Telephone></Telephone>");
+          sb.append("                <BankList>");
+          sb.append("                    <Count></Count>");
+          sb.append("                    <BankInfo>");
+          sb.append("                    <IsTransfer></IsTransfer>");
+          sb.append("                    <RecName></RecName>");
+          sb.append("                    <RecDocType></RecDocType>");
+          sb.append("                    <RecDocCode></RecDocCode>");
+          sb.append("                    <RecBankNo></RecBankNo>");
+          sb.append("                    <RecOpenBank></RecOpenBank>");
+          sb.append("                    </BankInfo>");
+          sb.append("                </BankList>");
+          sb.append("                <RecHostArea></RecHostArea>");
+          sb.append("                <Email></Email>");
+          sb.append("                <ValidDate></ValidDate>");
+          sb.append("                <Occurtimeb></Occurtimeb>");
+          sb.append("                <Occurtimee></Occurtimee>");
+          sb.append("                <Occurchan></Occurchan>");
+          sb.append("                <Occurarea></Occurarea>");
+          sb.append("                <Note></Note>");
+          sb.append("                <OrgId></OrgId>");
+          sb.append("                <RepDate></RepDate>");
+          sb.append("                <RepType></RepType>");
+          sb.append("                <RepPerson></RepPerson>");
+          sb.append("                <SourceChannel></SourceChannel>");
+          sb.append("                <DiskNumber></DiskNumber>");
+          sb.append("                <Currency></Currency>");
+          sb.append("                <Amount></Amount>");
+          sb.append("                <RiskFindTime></RiskFindTime>");
+          sb.append("            </RiskInfo>");
+      sb.append("        </PcacList>");
+      sb.append("    </Body>");
+      sb.append("</Request>");
+      sb.append("<Signature></Signature>");
+      sb.append("</Document>");
         return sb.toString();
     }
 
     public static void main(String[] args) {
+        String xmlInfo = getXmlInfo();
+        System.out.println(xmlInfo);
+        boolean b = ValidateUtils.validateXMLByXSD(xmlInfo, "pcac.ries.001");
+        System.out.println(b);
+
 
     }
 }
