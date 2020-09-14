@@ -10,7 +10,14 @@ import org.dom4j.util.XMLErrorHandler;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_MAPPER_ROOT;
 import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
@@ -25,9 +32,34 @@ public class ValidateUtils {
 
 
     /**
+     * 通过XSD(XML Schema)校验XML PCAC
+     */
+    public static boolean validateXMLByXSD(String xml, String xsdpath) {
+        try {
+            //建立schema工厂
+            SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+            //建立验证文档文件对象，利用此文件对象所封装的文件进行schema验证
+            log.info("文件路径：{}", xsdpath + ".xsd");
+            File schemaFile = new File(xsdpath + ".xsd");
+            //利用schema工厂，接收验证文档文件对象生成Schema对象
+            Schema schema = schemaFactory.newSchema(schemaFile);
+            //通过Schema产生针对于此Schema的验证器，利用schenaFile进行验证
+            Validator validator = schema.newValidator();
+            //得到验证的数据源
+            Source source = new StreamSource(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
+            //开始验证，成功输出success!!!，失败输出fail
+            validator.validate(source);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * 通过XSD(XML Schema)校验XML
      */
-    public static boolean validateXMLByXSD(String xml, String xsd) {
+    public static boolean validateXML(String xml, String xsd) {
         try {
             //创建默认的XML错误处理器
             XMLErrorHandler errorHandler = new XMLErrorHandler();
@@ -71,5 +103,6 @@ public class ValidateUtils {
             return false;
         }
     }
+
 
 }
