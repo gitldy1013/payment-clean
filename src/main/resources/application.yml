@@ -10,7 +10,10 @@ spring:
   servlet:
     multipart:
       max-file-size: 50MB
-pcacVersion: V1.3.0
+
 
 pcac:
   url: https://localhost:8080/pcac
+  version: V1.3.0
+  orig-sender: 收单机构号
+  orig-sender-sid: 收单机构收单机构发送系统号
