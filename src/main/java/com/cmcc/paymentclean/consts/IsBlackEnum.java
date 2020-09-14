@@ -6,8 +6,8 @@ import org.springframework.util.StringUtils;
  * Created by lumma on 2020/9/12.
  */
 public enum IsBlackEnum {
-    ISBLACKENUM_0("0", "是"),
-    ISBLACKENUM_1("1", "否");
+    ISBLACKE_02("02", "风险提示信息"),
+    ISBLACKE_01("01", "黑名单");
 
 
     private final String code;

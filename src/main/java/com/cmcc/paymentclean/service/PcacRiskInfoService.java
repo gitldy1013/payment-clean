@@ -6,6 +6,8 @@ import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 
+import java.util.List;
+
 /**
 * <p>
 * 商户黑名单提示信息表 服务类
@@ -74,5 +76,12 @@ public interface PcacRiskInfoService {
      * @return Page<RiskPersonResp>
      */
     ResultBean<Page<PcacRiskInfoResp>> pagePcacRiskInfo(PcacRiskInfoReq riskInfoReq);
+
+    /**
+     * 协会风险商户根据推送名单类型 查询
+     * @param pushListType
+     * @return List<PcacRiskInfo>
+     */
+    List<PcacRiskInfo> listByIsBlack(String pushListType);
 
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.consts.CommonConst;
+import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
@@ -14,6 +15,7 @@ import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -108,6 +110,17 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         resultBean.setData(pcacPersonRiskSubmitInfoPage);
         return resultBean;
+    }
+
+    @Override
+    public List<PcacRiskInfo> listByIsBlack(String pushListType) {
+        if(StringUtils.isEmpty(pushListType)){
+            pushListType = IsBlackEnum.ISBLACKE_01.getCode();
+        }
+        QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("pushListType",pushListType);
+
+        return this.list(queryWrapper);
     }
 
 }

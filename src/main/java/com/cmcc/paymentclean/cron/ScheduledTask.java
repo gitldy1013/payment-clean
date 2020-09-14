@@ -24,6 +24,9 @@ public class ScheduledTask {
     @Autowired
     private PcacMerchantRiskSubmitInfoService pcacMerchantRiskSubmitInfoService;
 
+    @Autowired
+    private SftpPcacRiskInfo sftpPcacRiskInfo;
+
     /**
      * 上报个人风险信息
      */
@@ -42,6 +45,13 @@ public class ScheduledTask {
         log.info("每天23:00上报商户风险信息==START==");
         pcacMerchantRiskSubmitInfoService.queryRiskMerchantAndPushPcac();
         log.info("每天23:00上报商户风险信息==END==");
+    }
+
+    @Scheduled(cron = "0 0 8 ? * *")
+    public void  SftpPcacRiskInfoJob(){
+        log.info("执行协会风险商户黑名单推送SFTP任务==START==");
+        sftpPcacRiskInfo.run();
+        log.info("执行协会风险商户黑名单推送SFTP任务==END==");
     }
 
 }
