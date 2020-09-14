@@ -2,6 +2,52 @@ package com.cmcc.paymentclean.entity.dto.pcac.resp;
 
 import lombok.Data;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+// XML文件中的根标识
+@XmlRootElement(name = "QueryInfo")
+// 控制JAXB 绑定类中属性和字段的排序
+@XmlType(propOrder = {
+        "RiskType",
+        "ReqDate",
+        "ReqDateEnd",
+        "MobileNo",
+        "Mac",
+        "Imei",
+        "BankNo",
+        "OpenBank",
+        "CusName",
+        "DocType",
+        "DocCode",
+        "Ip",
+        "Address",
+        "Telephone",
+        "RecBankNo",
+        "RecOpenBank",
+        "Email",
+        "Occurtimeb",
+        "Occurtimee",
+        "Occurchan",
+        "Occurarea",
+        "RecHostArea",
+        "Scope",
+        "ValidStatus",
+        "CusNature",
+        "RegName",
+        "CusCode",
+        "LegRepName",
+        "LegDocCode",
+        "Url",
+        "ServerIp",
+        "Icp",
+        "Level",
+        "RegisteredArea",
+        "RegisteredCode"
+})
 @Data
 public class QueryInfo {
     private String RiskType;
