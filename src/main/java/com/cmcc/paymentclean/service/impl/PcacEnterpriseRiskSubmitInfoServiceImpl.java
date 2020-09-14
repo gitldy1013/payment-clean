@@ -1,7 +1,6 @@
 package com.cmcc.paymentclean.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
@@ -11,34 +10,16 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BenInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BenList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacEnterpriseRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
-import com.cmcc.paymentclean.utils.BeanUtilsEx;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -138,104 +119,6 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
 
     @Override
     public void queryRiskEnterpriseAndPushPcac() {
-        //获取未上报的数据
-        QueryWrapper<PcacEnterpriseRiskSubmitInfo> queryWrapper = new QueryWrapper<PcacEnterpriseRiskSubmitInfo>().like("msg_detail", "未上报");
-        List<PcacEnterpriseRiskSubmitInfo> PcacEnterpriseRiskSubmitInfos = pcacEnterpriseRiskSubmitInfoMapper.selectList(queryWrapper);
-        if (PcacEnterpriseRiskSubmitInfos.size() == 0) {
-            log.info("当前没有可上报的风险商户信息");
-            return;
-        }
-        Document document = getDocument(PcacEnterpriseRiskSubmitInfos);
-        //报文转换
-        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("获取到的xml数据:{}", xml);
-        if (StringUtils.isEmpty(xml)) {
-            log.info("xml报文转换失败");
-            return;
-        }
-        //校验xml报文
-        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
-        // boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
-        if (!validate) {
-            log.info("XML校验失败");
-            return;
-        }
-        pushToPcac(PcacEnterpriseRiskSubmitInfos, xml);
-    }
-
-    private void pushToPcac(List<PcacEnterpriseRiskSubmitInfo> PcacEnterpriseRiskSubmitInfos, String xml) {
-        //上报数据
-        try {
-            String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
-            log.info("url:{}", pcacConfig.getUrl());
-            /*String post = "<Body>\n" +
-                    "    <RespInfo>\n" +
-                    "        <ResultStatus>已上报</ResultStatus>\n" +
-                    "        <ResultCode>01</ResultCode>\n" +
-                    "    </RespInfo>\n" +
-                    "</Body>";*/
-            com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
-            log.info("协会返回数据对象:{}", resBody);
-            for (PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo : PcacEnterpriseRiskSubmitInfos) {
-                UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", resBody.getRespInfo().getResultStatus());
-                pcacEnterpriseRiskSubmitInfoMapper.update(PcacEnterpriseRiskSubmitInfo, updateWrapper);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.info("上报商户数据异常：{}", e.getMessage());
-        }
-    }
-
-    private Document getDocument(List<PcacEnterpriseRiskSubmitInfo> PcacEnterpriseRiskSubmitInfos) {
-        //拼装报文
-        Document document = new Document();
-        document.setSignature("");
-        Request request = new Request();
-        Head head = new Head();
-        head.setVersion(pcacConfig.getVersion());
-        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "10"));
-        head.setOrigSender("");
-        head.setOrigSenderSID("");
-        head.setRecSystemId("R0001");
-        head.setTrnxCode("");
-        head.setTrnxTime(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_TIME_PCAC));
-        head.setUserToken("");
-        head.setSecretKey("");
-        Body body = new Body();
-        ArrayList<PcacList> pcacList = new ArrayList<PcacList>();
-        for (int i = 0; i < PcacEnterpriseRiskSubmitInfos.size(); i++) {
-            PcacList pcac = new PcacList();
-            pcac.setCount(PcacEnterpriseRiskSubmitInfos.size());
-            RiskInfo riskInfo = new RiskInfo();
-            PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo = PcacEnterpriseRiskSubmitInfos.get(i);
-            BeanUtilsEx.copyProperties(riskInfo, PcacEnterpriseRiskSubmitInfo);
-            BankList bankList = new BankList();
-            BankInfo bankInfo = new BankInfo();
-            BeanUtilsEx.copyProperties(bankInfo, PcacEnterpriseRiskSubmitInfo);
-            bankList.setBankInfo(bankInfo);
-            riskInfo.setBankList(bankList);
-            riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
-            BenList benList = new BenList();
-            BenInfo benInfo = new BenInfo();
-            BeanUtilsEx.copyProperties(benInfo, PcacEnterpriseRiskSubmitInfo);
-            benList.setBenInfo(benInfo);
-            riskInfo.setBankNo(null);
-            riskInfo.setOpenBank(null);
-            riskInfo.setUrl("");
-            //解密风控加密协会
-            String docType = PcacEnterpriseRiskSubmitInfo.getDocType();
-            String docCode = PcacEnterpriseRiskSubmitInfo.getDocCode();
-            String encryptDocCode = CFCACipherUtils.getInnerToCFCA(docType, docCode);
-            riskInfo.setDocCode(encryptDocCode);
-            riskInfo.setBenList(benList);
-            pcac.setRiskInfo(riskInfo);
-            pcacList.add(pcac);
-        }
-        body.setPcacList(pcacList);
-        request.setHead(head);
-        request.setBody(body);
-        document.setRequest(request);
-        return document;
     }
 
 }

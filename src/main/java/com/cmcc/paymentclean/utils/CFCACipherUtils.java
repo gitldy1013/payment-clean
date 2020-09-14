@@ -321,15 +321,13 @@ public class CFCACipherUtils {
         return toBeDecMap;
     }
 
-    public static String getInnerToCFCA(String docType, String docCode) {
+    public static String getInnerToCFCA(String docType, String docCode, byte[] symmetrickeyencoded) {
         if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {
             //内部解密
-            String docCodeDec = InnerCipherUtils.decrypt(docCode);
-            //协会加密
-            return CFCACipherUtils.encrypt(CFCACipherUtils.getSymmetricKeyEncoded(), docCodeDec);
-        } else {
-            //TODO
-            return "";
+            docCode = InnerCipherUtils.decrypt(docCode);
         }
+        //协会加密
+        return CFCACipherUtils.encrypt(symmetrickeyencoded, docCode);
     }
+
 }

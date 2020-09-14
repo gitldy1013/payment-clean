@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 
 /*
  * @author ldy
- * @Description DateUtils is used to Java8中的时间类
+ * @Description DateUtils
  */
 public class DateUtils {
 

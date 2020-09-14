@@ -41,5 +41,5 @@ public class Head {
 
     private String UserToken;
 
-    private String SecretKey = CFCACipherUtils.getSecretKey(CFCACipherUtils.getSymmetricKeyEncoded());;
+    private String SecretKey;;
 }

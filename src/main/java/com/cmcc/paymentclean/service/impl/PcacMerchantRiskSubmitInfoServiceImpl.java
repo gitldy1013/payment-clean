@@ -200,7 +200,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         head.setTrnxCode("");
         head.setTrnxTime(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_TIME_PCAC));
         head.setUserToken("");
-        head.setSecretKey("");
+        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+        head.setSecretKey(CFCACipherUtils.getSecretKey(symmetricKeyEncoded));
         Body body = new Body();
         ArrayList<PcacList> pcacList = new ArrayList<PcacList>();
         for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
@@ -212,6 +213,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             BankList bankList = new BankList();
             BankInfo bankInfo = new BankInfo();
             BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
+            //银行结算账号
+            bankInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, bankInfo.getBankNo()));
             bankList.setBankInfo(bankInfo);
             riskInfo.setBankList(bankList);
             riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
@@ -221,12 +224,28 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             benList.setBenInfo(benInfo);
             riskInfo.setBankNo(null);
             riskInfo.setOpenBank(null);
-            riskInfo.setUrl("");
             //解密风控加密协会 商户上报：
-            //商户名称、商户简称、商户代码、法人证件号码、
-            //法定代表人姓名/负责人姓名、法定代表人（负责人）证件号码、
-            //银行结算账号、法定代表人（负责人）手机号、网址、服务器 ip、ICP 备案编号
-            riskInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(pcacMerchantRiskSubmitInfo.getDocType(), pcacMerchantRiskSubmitInfo.getDocCode()));
+            //商户名称
+            riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
+            //商户简称
+            riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusName()));
+            //商户代码
+            riskInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusCode()));
+            //法人证件号码
+            riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getDocCode()));
+            //法定代表人姓名/负责人姓名
+            riskInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocName()));
+            //法定代表人（负责人）证件号码
+            riskInfo.setLegDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocCode()));
+            //法定代表人（负责人）手机号
+            riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getMobileNo()));
+            //网址
+            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()));
+            //服务器 ip
+            riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
+            //ICP 备案编号
+            riskInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacMerchantRiskSubmitInfo.getRegName()));
+            riskInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(pcacMerchantRiskSubmitInfo.getDocType(), pcacMerchantRiskSubmitInfo.getDocCode(), symmetricKeyEncoded));
             riskInfo.setBenList(benList);
             pcac.setRiskInfo(riskInfo);
             pcacList.add(pcac);
