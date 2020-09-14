@@ -17,7 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 @Data
 public class BankList {
-    private String Count;
+
+    private String Count = "1";
 
     private BankInfo BankInfo;
 }

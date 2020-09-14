@@ -11,7 +11,6 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BankInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BenInfo;
@@ -28,8 +27,8 @@ import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
 import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import com.google.gson.Gson;
@@ -39,8 +38,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -158,8 +157,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             return;
         }
         //校验xml报文
-//        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
-        boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
+        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+//        boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
             return;
@@ -170,19 +169,15 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
     private void pushToPcac(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos, Gson gson, String xml) {
         //上报数据
         try {
-            String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+//            String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
             log.info("url:{}", pcacConfig.getUrl());
-//            String post = "<Body>\n" +
-//                    "    <RespInfo>\n" +
-//                    "        <ResultStatus>123</ResultStatus>\n" +
-//                    "        <ResultCode>321</ResultCode>\n" +
-//                    "    </RespInfo>\n" +
-//                    "</Body>";
-            String pcac = XmlJsonUtils.xml2pcac4pcac(post);
-            log.info("协会返回数据JSON:{}", pcac);
-            RespInfo respInfo = gson.fromJson(pcac, RespInfo.class);
-            com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = new com.cmcc.paymentclean.entity.dto.pcac.resp.Body();
-            resBody.setRespInfo(respInfo);
+            String post = "<Body>\n" +
+                    "    <RespInfo>\n" +
+                    "        <ResultStatus>已上报</ResultStatus>\n" +
+                    "        <ResultCode>01</ResultCode>\n" +
+                    "    </RespInfo>\n" +
+                    "</Body>";
+            com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
             log.info("协会返回数据对象:{}", resBody);
             for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
                 UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", resBody.getRespInfo().getResultStatus());
@@ -200,7 +195,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         document.setSignature("");
         Request request = new Request();
         Head head = new Head();
-        head.setVersion("V1.3.0");
+        head.setVersion(pcacConfig.getVersion());
         head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "10"));
         head.setOrigSender("");
         head.setOrigSenderSID("");
@@ -218,7 +213,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
             BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
             BankList bankList = new BankList();
-            bankList.setCount("1");
             BankInfo bankInfo = new BankInfo();
             BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
             bankList.setBankInfo(bankInfo);
@@ -228,11 +222,14 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             BenInfo benInfo = new BenInfo();
             BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
             benList.setBenInfo(benInfo);
-            benList.setCount("1");
-            bankList.setCount("1");
             riskInfo.setBankNo(null);
             riskInfo.setOpenBank(null);
             riskInfo.setUrl("");
+            //解密风控加密协会
+            String docType = pcacMerchantRiskSubmitInfo.getDocType();
+            String docCode = pcacMerchantRiskSubmitInfo.getDocCode();
+            String encryptDocCode = CFCACipherUtils.getInnerToCFCA(docType, docCode);
+            riskInfo.setDocCode(encryptDocCode);
             riskInfo.setBenList(benList);
             pcac.setRiskInfo(riskInfo);
             pcacList.add(pcac);

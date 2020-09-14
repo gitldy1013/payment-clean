@@ -8,6 +8,7 @@ import cfca.sadk.util.EncryptUtil;
 import cfca.sadk.util.KeyUtil;
 import cfca.sadk.util.Signature;
 import cfca.sadk.x509.certificate.X509Cert;
+import com.cmcc.paymentclean.consts.DocTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +62,7 @@ public class CFCACipherUtils {
     /**
      * 数据加签
      * 发送方使用会员单位私钥对原文信息进行签名
-     * */
+     */
     public static String doSignature(String srcData) {
         String encodedSignature = null;
         // 初始化加密会话
@@ -163,7 +164,7 @@ public class CFCACipherUtils {
 
     /**
      * 数据加密，AES密钥加密字符串数据
-     * */
+     */
     public static String encrypt(byte[] symmetricKeyEncoded, String toBeEncData) {
         //AES加密后数据
         String encrytedData = null;
@@ -320,5 +321,15 @@ public class CFCACipherUtils {
         return toBeDecMap;
     }
 
-
+    public static String getInnerToCFCA(String docType, String docCode) {
+        if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {
+            //内部解密
+            String docCodeDec = InnerCipherUtils.decrypt(docCode);
+            //协会加密
+            return CFCACipherUtils.encrypt(CFCACipherUtils.getSymmetricKeyEncoded(), docCodeDec);
+        } else {
+            //TODO
+            return "";
+        }
+    }
 }
