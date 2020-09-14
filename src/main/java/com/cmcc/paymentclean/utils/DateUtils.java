@@ -1,6 +1,6 @@
 package com.cmcc.paymentclean.utils;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 
 /*

@@ -27,20 +27,19 @@ import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
 import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -213,34 +212,30 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         Body body = new Body();
         ArrayList<PcacList> pcacList = new ArrayList<PcacList>();
         for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
-            try {
-                PcacList pcac = new PcacList();
-                pcac.setCount(pcacMerchantRiskSubmitInfos.size());
-                RiskInfo riskInfo = new RiskInfo();
-                PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
-                BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, riskInfo);
-                BankList bankList = new BankList();
-                bankList.setCount("1");
-                BankInfo bankInfo = new BankInfo();
-                BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, bankInfo);
-                bankList.setBankInfo(bankInfo);
-                riskInfo.setBankList(bankList);
-                riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
-                BenList benList = new BenList();
-                BenInfo benInfo = new BenInfo();
-                BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, benInfo);
-                benList.setBenInfo(benInfo);
-                benList.setCount("1");
-                bankList.setCount("1");
-                riskInfo.setUrl("");
-                riskInfo.setBenList(benList);
-                pcac.setRiskInfo(riskInfo);
-                pcacList.add(pcac);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-                log.info("获取报文数据对象失败：{}", e.getMessage());
-                return null;
-            }
+            PcacList pcac = new PcacList();
+            pcac.setCount(pcacMerchantRiskSubmitInfos.size());
+            RiskInfo riskInfo = new RiskInfo();
+            PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
+            BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
+            BankList bankList = new BankList();
+            bankList.setCount("1");
+            BankInfo bankInfo = new BankInfo();
+            BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
+            bankList.setBankInfo(bankInfo);
+            riskInfo.setBankList(bankList);
+            riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
+            BenList benList = new BenList();
+            BenInfo benInfo = new BenInfo();
+            BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
+            benList.setBenInfo(benInfo);
+            benList.setCount("1");
+            bankList.setCount("1");
+            riskInfo.setBankNo(null);
+            riskInfo.setOpenBank(null);
+            riskInfo.setUrl("");
+            riskInfo.setBenList(benList);
+            pcac.setRiskInfo(riskInfo);
+            pcacList.add(pcac);
         }
         body.setPcacList(pcacList);
         request.setHead(head);
