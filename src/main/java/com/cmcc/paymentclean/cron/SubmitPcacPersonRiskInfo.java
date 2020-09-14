@@ -98,7 +98,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             pcacLists.add(pcacList);
 
         }
-        Body body = new Body();
+        /*Body body = new Body();
         body.setPcacList(pcacLists);
         Head head = new Head();
         log.info("请求清算协会版本号：{}",pcacVersion);
@@ -179,7 +179,58 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
          catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+    }
+
+
+    private String getXmlInfo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<?xml version='1.0' encoding='UTF-8'?>");
+        sb.append("<Document>");
+        sb.append("<Request>");
+        sb.append("    <Head>");
+        sb.append("             <Version></Version>");
+        sb.append("             <Identification></Identification>");
+        sb.append("             <OrigSender></OrigSender>");
+        sb.append("             <OrigSenderSID></OrigSenderSID>");
+        sb.append("             <RecSystemId></RecSystemId>");
+        sb.append("             <TrnxCode></TrnxCode>");
+        sb.append("             <TrnxTime></TrnxTime>");
+        sb.append("             <UserToken></UserToken>");
+        sb.append("             <SecretKey></SecretKey>");
+        sb.append("    </Head>");
+        sb.append("    <Body>");
+        sb.append("     <PcacList>");
+        sb.append("         <Count></Count>");
+        sb.append("         <RiskInfo>");
+        sb.append("             <CusProperty></CusProperty>");
+        sb.append("             <RiskType></RiskType>");
+        sb.append("             <DocType></DocType>");
+        sb.append("             <DocCode></DocCode>");
+        sb.append("             <BankList>");
+        sb.append("                 <Count></Count>");
+        sb.append("             </BankList>");
+        sb.append("             <ValidDate></ValidDate>");
+        sb.append("             <Note></Note>");
+        sb.append("             <OrgId></OrgId>");
+        sb.append("             <type></type>");
+        sb.append("             </RiskInfo>");
+        sb.append("             <RepDate></RepDate>");
+        sb.append("             <RepType></RepType>");
+        sb.append("             <RepPerson></RepPerson>");
+        sb.append("             <SourceChannel></SourceChannel>");
+        sb.append("         </RiskInfo>");
+        sb.append("     </PcacList>");
+        sb.append("    </Body>");
+        sb.append("</Request>");
+        sb.append("<Signature></Signature>");
+        sb.append("</Document>");
+
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+
     }
 }
 
