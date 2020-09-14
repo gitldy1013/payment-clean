@@ -26,6 +26,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_MAPPER_ROOT;
+import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
+
 /**
  * @author zhaolei
  * @date 2020-09-02 08:49
@@ -149,7 +152,7 @@ public class CFCACipherUtils {
 
         try {
             // 获取接收方公钥
-            FileInputStream fin = new FileInputStream(encPublicCertFilePath);
+            FileInputStream fin = new FileInputStream(PROJECT_PATH + BASE_MAPPER_ROOT +encPublicCertFilePath);
             X509Cert cert = new X509Cert(fin);
             //*********************************************//*
             // 去掉外层Base64编码，在方法体内部已经做过Base64编码
