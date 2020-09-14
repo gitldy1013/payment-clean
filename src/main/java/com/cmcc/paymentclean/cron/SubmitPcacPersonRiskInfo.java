@@ -1,13 +1,17 @@
 
 package com.cmcc.paymentclean.cron;
 
+import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
+import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
+import com.cmcc.paymentclean.utils.InnerCipherUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +53,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
    /* @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {*/
-    public void submit() {
+    public void submit()  {
         List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
         log.debug("查询个人风险信息结果：{}", pcacPersonRiskList);
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
@@ -66,11 +70,22 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             //toBeEncMap.put("docCode",pcacPersonRiskSubmitInfo.getDocCode());
             //toBeEncMap.put("telephone",pcacPersonRiskSubmitInfo.getTelephone());
             //获取随机加密密码
+            //判断是身份证类型需要先进行内部解密，再进行清算协会加密
+            String encryptDocCode = null;
+            if(DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())){
+                try {
+                    //内部解密
+                    String docCode = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getDocCode());
+                    //协会加密
+                    encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded,docCode );
+                } catch (InnerCipherException e) {
+                    log.error("-------内部解密异常-------");
+                    e.printStackTrace();
+                }
 
-            String encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getDocCode());
+            }
             pcacPersonRiskSubmitInfo.setDocCode(encryptDocCode);
 
-            //对象转xml工具类又问题，先用最笨的方法拼装报文
 
 
 
@@ -257,6 +272,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         String xmlInfo = getXmlInfo();
         System.out.println(xmlInfo);
         boolean b = ValidateUtils.validateXMLByXSD(xmlInfo, "pcac.ries.001");
+
         System.out.println(b);
 
 
