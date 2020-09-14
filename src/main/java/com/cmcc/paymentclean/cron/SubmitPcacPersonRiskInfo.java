@@ -2,9 +2,13 @@
 package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.consts.DocTypeEnum;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.*;
 import com.cmcc.paymentclean.exception.InnerCipherException;
+import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +58,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         log.debug("查询个人风险信息结果：{}", pcacPersonRiskList);
         if (pcacPersonRiskList.size()==0){
             log.info("当前没有可上报的个人风险信息");
+            return;
         }
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);
@@ -72,23 +77,12 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             //判断是身份证类型需要先进行内部解密，再进行清算协会加密
             String encryptDocCode = null;
             if(DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())){
-                try {
                     //内部解密
                     String docCode = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getDocCode());
                     //协会加密
                     encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded,docCode );
-                } catch (InnerCipherException e) {
-                    log.error("-------内部解密异常-------");
-                    e.printStackTrace();
-                }
-
             }
             pcacPersonRiskSubmitInfo.setDocCode(encryptDocCode);
-
-
-
-
-
 
             PcacList pcacList = new PcacList();
             pcacList.setCount(pcacPersonRiskList.size());
@@ -125,10 +119,8 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         head.setRecSystemId("R0001");
         //交易码，见 5.1 报文分类列表（数字、字母）
         head.setTrnxCode("PR0001");
-        Date trnxTime = new Date(System.currentTimeMillis());
-        DateFormatter DateFormatter = DateFormatter.ofPattern("yyyyMMDDHH:mm:ss");
-        String trnxTimeStr = DateFormatter.format(trnxTime);
-        head.setTrnxTime(trnxTimeStr);
+        String trnxTime = DateUtils.formatTime(new Date(), "yyyyMMDDHH:mm:ss");
+        head.setTrnxTime(trnxTime);
         head.setUserToken("");
         head.setSecretKey(secretKey);
 
@@ -138,23 +130,22 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         Document document = new Document();
         document.setRequest(request);
 
-        String noSignXml = com.cmcc.paymentclean.utils.BeanUtils.convertToXml(document);
+        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
-        String doXml = com.cmcc.paymentclean.utils.BeanUtils.convertToXml(document);
+        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
         log.info("个人风险信息上报支付清算协会请求xml报文：",doXml);
-        ByteArrayInputStream doXmlStream = new ByteArrayInputStream(doXml.getBytes());
         try {
-            boolean validate = ValidateUtils.validate(doXmlStream, new File("/xsds/pcac.ries.001.xsd"));
+            boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.001");
             if (validate){
                 String result = HttpClientUtils.sendHttpsPost("接口地址", doXml);
                 log.info("个人风险信息上报支付清算协会响应xml报文：",result);
                 com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp=
-                        (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.BeanUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+                        (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
                 String signatureResp = documentResp.getSignature();
                 log.info("响应报文的签名串signature：{}",signatureResp);
                 documentResp.setSignature(null);
-                String noSignXmlResp = com.cmcc.paymentclean.utils.BeanUtils.convertToXml(documentResp);
+                String noSignXmlResp = XmlJsonUtils.convertObjectToXmlStr(documentResp);
                 log.info("不加签名信息的响应报文xml串：{}",noSignXmlResp);
                 boolean isSign = CFCACipherUtils.verifySignature(noSignXmlResp, signatureResp);
                 if (isSign){
@@ -164,7 +155,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
                         //上报成功，修改数据库状态
                         PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
                         BeanUtils.copyProperties(respInfo,pcacPersonRiskSubmitInfo);
-                        pcacPersonRiskSubmitInfo.setSubmitTime(new Date(System.currentTimeMillis()));
+                        pcacPersonRiskSubmitInfo.setSubmitTime(new Date());
                         pcacPersonRiskSubmitInfo.setSubmitStatus("1");
                         pcacPersonRiskSubmitInfo.setMsgDetail("已上报");
                         log.info("更新数据库表时间和状态信息：{}",pcacPersonRiskSubmitInfo);
@@ -183,10 +174,6 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
                 throw new SubmitPCACException(ResultCodeEnum.XSD_FILE_VALID_FALSE.getCode(),ResultCodeEnum.XSD_FILE_VALID_FALSE.getDesc());
             }
 
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
          catch (Exception e) {
@@ -195,86 +182,6 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     }
 
 
-  static   private String getXmlInfo() {
 
-      StringBuilder sb = new StringBuilder();
-      sb.append("<?xml version='1.0' encoding='UTF-8'?>");
-      sb.append("<Document>");
-      sb.append("<Request>");
-      sb.append("    <Head>");
-      sb.append("             <Version></Version>");
-      sb.append("             <Identification></Identification>");
-      sb.append("             <OrigSender></OrigSender>");
-      sb.append("             <OrigSenderSID></OrigSenderSID>");
-      sb.append("             <RecSystemId>R0001</RecSystemId>");
-      sb.append("             <TrnxCode></TrnxCode>");
-      sb.append("             <TrnxTime></TrnxTime>");
-      sb.append("             <UserToken></UserToken>");
-      sb.append("             <SecretKey></SecretKey>");
-      sb.append("    </Head>");
-      sb.append("    <Body>");
-      sb.append("        <PcacList>");
-      sb.append("            <Count></Count>");
-
-          sb.append("            <RiskInfo>");
-          sb.append("                <CusProperty></CusProperty>");
-          sb.append("                <RiskType></RiskType>");
-          sb.append("                <MobileNo></MobileNo>");
-          sb.append("                <Mac></Mac>");
-          sb.append("                <Imei></Imei>");
-          sb.append("                <BankNo></BankNo>");
-          sb.append("                <OpenBank></OpenBank>");
-          sb.append("                <CusName></CusName>");
-          sb.append("                <DocType></DocType>");
-          sb.append("                <DocCode></DocCode>");
-          sb.append("                <Ip></Ip>");
-          sb.append("                <Address></Address>");
-          sb.append("                <Telephone></Telephone>");
-          sb.append("                <BankList>");
-          sb.append("                    <Count></Count>");
-          sb.append("                    <BankInfo>");
-          sb.append("                    <IsTransfer></IsTransfer>");
-          sb.append("                    <RecName></RecName>");
-          sb.append("                    <RecDocType></RecDocType>");
-          sb.append("                    <RecDocCode></RecDocCode>");
-          sb.append("                    <RecBankNo></RecBankNo>");
-          sb.append("                    <RecOpenBank></RecOpenBank>");
-          sb.append("                    </BankInfo>");
-          sb.append("                </BankList>");
-          sb.append("                <RecHostArea></RecHostArea>");
-          sb.append("                <Email></Email>");
-          sb.append("                <ValidDate></ValidDate>");
-          sb.append("                <Occurtimeb></Occurtimeb>");
-          sb.append("                <Occurtimee></Occurtimee>");
-          sb.append("                <Occurchan></Occurchan>");
-          sb.append("                <Occurarea></Occurarea>");
-          sb.append("                <Note></Note>");
-          sb.append("                <OrgId></OrgId>");
-          sb.append("                <RepDate></RepDate>");
-          sb.append("                <RepType></RepType>");
-          sb.append("                <RepPerson></RepPerson>");
-          sb.append("                <SourceChannel></SourceChannel>");
-          sb.append("                <DiskNumber></DiskNumber>");
-          sb.append("                <Currency></Currency>");
-          sb.append("                <Amount></Amount>");
-          sb.append("                <RiskFindTime></RiskFindTime>");
-          sb.append("            </RiskInfo>");
-      sb.append("        </PcacList>");
-      sb.append("    </Body>");
-      sb.append("</Request>");
-      sb.append("<Signature></Signature>");
-      sb.append("</Document>");
-        return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        String xmlInfo = getXmlInfo();
-        System.out.println(xmlInfo);
-        boolean b = ValidateUtils.validateXMLByXSD(xmlInfo, "pcac.ries.001");
-
-        System.out.println(b);
-
-
-    }
 }
 
