@@ -3,21 +3,17 @@ package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.*;
 import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.InnerCipherUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +52,9 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     public void submit()  {
         List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
         log.debug("查询个人风险信息结果：{}", pcacPersonRiskList);
+        if (pcacPersonRiskList.size()==0){
+            log.info("当前没有可上报的个人风险信息");
+        }
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);
 
@@ -91,7 +90,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
 
 
-   /*         PcacList pcacList = new PcacList();
+            PcacList pcacList = new PcacList();
             pcacList.setCount(pcacPersonRiskList.size());
             RiskInfo riskInfo = new RiskInfo();
             BeanUtils.copyProperties(pcacPersonRiskSubmitInfo, riskInfo);
@@ -108,10 +107,10 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             bankList.setCount("0");
             riskInfo.setBankList(bankList);
             pcacList.setRiskInfo(riskInfo);
-            pcacLists.add(pcacList);*/
+            pcacLists.add(pcacList);
 
         }
-        /*Body body = new Body();
+        Body body = new Body();
         body.setPcacList(pcacLists);
         Head head = new Head();
         log.info("请求清算协会版本号：{}",pcacVersion);
@@ -192,7 +191,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
          catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 
