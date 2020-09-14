@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 // XML文件中的根标识
-@XmlRootElement(name = "Request")
+@XmlRootElement(name = "BankList")
 // 控制JAXB 绑定类中属性和字段的排序
 @XmlType(propOrder = {
         "Count",

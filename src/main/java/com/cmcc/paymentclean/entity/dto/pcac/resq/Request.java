@@ -17,8 +17,7 @@ import javax.xml.bind.annotation.XmlType;
         "Body",
 })
 @Data
-public class Request
-{
+public class Request {
     private Head Head;
 
     private Body Body;

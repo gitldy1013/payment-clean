@@ -1,10 +1,10 @@
 package com.cmcc.paymentclean.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonRiskSyncInfoReq;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.RiskPersonResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonReq;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonRiskSyncInfoReq;
 import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.RiskPersonRiskSyncInfoService;
 import io.swagger.annotations.ApiOperation;

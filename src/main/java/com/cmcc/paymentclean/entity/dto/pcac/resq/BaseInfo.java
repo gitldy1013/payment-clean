@@ -2,6 +2,67 @@ package com.cmcc.paymentclean.entity.dto.pcac.resq;
 
 import lombok.Data;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+// XML文件中的根标识
+@XmlRootElement(name = "BaseInfo")
+// 控制JAXB 绑定类中属性和字段的排序
+@XmlType(propOrder = {
+        "CusType",
+        "CusNature",
+        "RegName",
+        "CusName",
+        "CusNameEn",
+        "DocType",
+        "DocCode",
+        "LegDocName",
+        "LegDocCode",
+        "LegDocType",
+        "CusCode",
+        "InduType",
+        "BankNo",
+        "OpenBank",
+        "RegAddrProv",
+        "RegAddrDetail",
+        "AddrProv",
+        "AddrDetail",
+        "Url",
+        "ServerIp",
+        "Icp",
+        "ContName",
+        "ContPhone",
+        "CusEmail",
+        "Occurarea",
+        "NetworkType",
+        "Status",
+        "StartTime",
+        "EndTime",
+        "RiskStatus",
+        "ShareHolder",
+        "OpenType",
+        "ChageType",
+        "AccountType",
+        "ExpandType",
+        "OutServiceName",
+        "OutServiceCardType",
+        "OutServiceCardCode",
+        "OutServiceLegCardType",
+        "OutServiceLegCardCode",
+        "OrgId",
+        "RepDate",
+        "RepType",
+        "RepPerson",
+        "UnitProp",
+        "SignNum",
+        "SignCurrentNum",
+        "SignCurrentState",
+        "BlackNum",
+        "RiskNum",
+})
 @Data
 public class BaseInfo {
     private String CusType;

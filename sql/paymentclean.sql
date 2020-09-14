@@ -18,9 +18,9 @@ create table pcac_opt_log
     pcac_opt_log_id            int(64) not null comment 'id序号',
     created_by    varchar(32)    comment '操作人' ,
     opt_content   varchar(128)    comment '操作内容' ,
-    created_time  datetime    comment '操作时间' ,
+    created_time  Date    comment '操作时间' ,
     updated_by    varchar(32)    comment '更新人' ,
-    updated_time  datetime    comment '更新时间',
+    updated_time  Date    comment '更新时间',
     primary key (pcac_opt_log_id)
 ) comment = '操作日志表 ';
 
@@ -212,7 +212,7 @@ create table pcac_person_risk_submit_info
    occurarea            varchar(256) comment '风险事件发生地域',
    note                 varchar(2048) comment '风险事件描述',
    org_id               varchar(32) comment '上报机构',
-   rep_date             datetime comment '上报日期',
+   rep_date             Date comment '上报日期',
    rep_type             varchar(2) comment '上传方式（值： 03）',
    rep_person           varchar(32) comment '上传人',
    source_channel       varchar(4) comment '风险信息来源',

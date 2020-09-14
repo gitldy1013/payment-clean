@@ -1,24 +1,23 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
-import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseRiskSyncInfoReq;
 import com.cmcc.paymentclean.entity.RiskEnterpriseRiskSyncInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseRiskSyncInfoReq;
+import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.RiskEnterpriseRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskEnterpriseRiskSyncInfoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.extern.slf4j.Slf4j;
-import com.cmcc.paymentclean.exception.bizException.BizException;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
-
 import java.util.List;
 
 /**
@@ -100,7 +99,7 @@ public class RiskEnterpriseRiskSyncInfoServiceImpl extends ServiceImpl<RiskEnter
         for(RiskEnterpriseRiskSyncInfoReq riskEnterprise:riskEnterpriseList){
             RiskEnterpriseRiskSyncInfo riskEnterpriseRiskSyncInfo = new RiskEnterpriseRiskSyncInfo();
             BeanUtils.copyProperties(riskEnterprise, riskEnterpriseRiskSyncInfo);
-            riskEnterpriseRiskSyncInfo.setOperateTime(LocalDate.now());
+            riskEnterpriseRiskSyncInfo.setOperateTime(new Date(System.currentTimeMillis()));
             QueryWrapper<RiskEnterpriseRiskSyncInfo> queryWrapper = new QueryWrapper();
             queryWrapper.eq("cus_code",riskEnterprise.getCusCode());
             RiskEnterpriseRiskSyncInfo riskEnterprise1 = super.getOne(queryWrapper);

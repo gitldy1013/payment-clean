@@ -13,7 +13,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  * @date 2020-09-10 21:18
  *//*
 
-public class DateTimeJob  implements Job {
+public class DateJob  implements Job {
   */
 /*  @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {

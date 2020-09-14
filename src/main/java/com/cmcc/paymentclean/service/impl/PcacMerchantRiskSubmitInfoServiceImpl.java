@@ -27,23 +27,22 @@ import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
+import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.LocalDateTimeUtils;
 import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import static com.cmcc.paymentclean.utils.ValidateUtils.XSD_DIR;
 
 /**
  * <p>
@@ -129,7 +128,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         List<RiskMerchantResp> riskMerchantResps = pagePcacMerchantRiskSubmitInfo.getRecords();
         if (!CollectionUtils.isEmpty(riskMerchantResps)) {
             for (RiskMerchantResp riskMerchantResp : riskMerchantResps) {
-                String validStatus = (new Date().before(riskMerchantResp.getValidDate())) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
+                String validStatus = (new Date(System.currentTimeMillis()).before(riskMerchantResp.getValidDate())) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
                 riskMerchantResp.setValidStatus(validStatus);
                 riskMerchantResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskMerchantResp.getLegDocType()));
                 riskMerchantResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskMerchantResp.getSubmitStatus()));
@@ -153,10 +152,15 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         Gson gson = new Gson();
         String json = gson.toJson(document);
         log.info("获取到的json数据:{}", json);
-        String xml = XmlJsonUtils.json2xml4pcac(json);
+        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
         log.info("获取到的xml数据:{}", xml);
+        if (StringUtils.isEmpty(xml)) {
+            log.info("xml报文转换失败");
+            return;
+        }
         //校验xml报文
-        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+//        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+        boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
             return;
@@ -198,37 +202,45 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         Request request = new Request();
         Head head = new Head();
         head.setVersion("V1.3.0");
-        head.setIdentification(LocalDateTimeUtils.formatTime(LocalDateTime.now(), LocalDateTimeUtils.FORMAT_DATE_PCAC + "10"));
+        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "10"));
         head.setOrigSender("");
         head.setOrigSenderSID("");
         head.setRecSystemId("R0001");
         head.setTrnxCode("");
-        head.setTrnxTime(LocalDateTimeUtils.formatTime(LocalDateTime.now(), LocalDateTimeUtils.FORMAT_TIME_PCAC));
+        head.setTrnxTime(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_TIME_PCAC));
         head.setUserToken("");
         head.setSecretKey("");
         Body body = new Body();
         ArrayList<PcacList> pcacList = new ArrayList<PcacList>();
         for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
-            PcacList pcac = new PcacList();
-            pcac.setCount(pcacMerchantRiskSubmitInfos.size());
-            RiskInfo riskInfo = new RiskInfo();
-            PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
-            BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, riskInfo);
-            BankList bankList = new BankList();
-            bankList.setCount("1");
-            BankInfo bankInfo = new BankInfo();
-            BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, bankInfo);
-            bankList.setBankInfo(bankInfo);
-            riskInfo.setBankList(bankList);
-            riskInfo.setRepDate(LocalDateTimeUtils.formatTime(LocalDateTime.now(), null));
-            BenList benList = new BenList();
-            BenInfo benInfo = new BenInfo();
-            BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, benInfo);
-            benList.setBenInfo(benInfo);
-            bankList.setCount("1");
-            riskInfo.setBenList(benList);
-            pcac.setRiskInfo(riskInfo);
-            pcacList.add(pcac);
+            try {
+                PcacList pcac = new PcacList();
+                pcac.setCount(pcacMerchantRiskSubmitInfos.size());
+                RiskInfo riskInfo = new RiskInfo();
+                PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
+                BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, riskInfo);
+                BankList bankList = new BankList();
+                bankList.setCount("1");
+                BankInfo bankInfo = new BankInfo();
+                BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, bankInfo);
+                bankList.setBankInfo(bankInfo);
+                riskInfo.setBankList(bankList);
+                riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
+                BenList benList = new BenList();
+                BenInfo benInfo = new BenInfo();
+                BeanUtils.copyProperties(pcacMerchantRiskSubmitInfo, benInfo);
+                benList.setBenInfo(benInfo);
+                benList.setCount("1");
+                bankList.setCount("1");
+                riskInfo.setUrl("");
+                riskInfo.setBenList(benList);
+                pcac.setRiskInfo(riskInfo);
+                pcacList.add(pcac);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+                log.info("获取报文数据对象失败：{}", e.getMessage());
+                return null;
+            }
         }
         body.setPcacList(pcacList);
         request.setHead(head);

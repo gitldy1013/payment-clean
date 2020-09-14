@@ -16,7 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +97,7 @@ public class RiskPersonRiskSyncInfoServiceImpl extends ServiceImpl<RiskPersonRis
             for(RiskPersonRiskSyncInfoReq riskPerson:riskPersonList){
                 RiskPersonRiskSyncInfo riskPersonRiskSyncInfo = new RiskPersonRiskSyncInfo();
                 BeanUtils.copyProperties(riskPerson, riskPersonRiskSyncInfo);
-                riskPersonRiskSyncInfo.setOperateTime(LocalDate.now());
+                riskPersonRiskSyncInfo.setOperateTime(new Date(System.currentTimeMillis()));
                 QueryWrapper<RiskPersonRiskSyncInfo> queryWrapper = new QueryWrapper();
                 queryWrapper.eq("usrNo",riskPerson.getUsrNo());
                 RiskPersonRiskSyncInfo riskPerson1 = super.getOne(queryWrapper);

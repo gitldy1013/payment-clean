@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * <p>
@@ -39,13 +39,13 @@ public class RiskPersonRiskSyncInfo extends Model<RiskPersonRiskSyncInfo> {
     private String usrNo;
 
     @ApiModelProperty(value = "有效期")
-    private LocalDate validDate;
+    private Date validDate;
 
     @ApiModelProperty(value = "风险事件发生时间")
-    private LocalDate occurtimeb;
+    private Date occurtimeb;
 
     @ApiModelProperty(value = "风险事件结束时间")
-    private LocalDate occurtimee;
+    private Date occurtimee;
 
     @ApiModelProperty(value = "风险事件发生渠道")
     private String occurchan;
@@ -63,7 +63,7 @@ public class RiskPersonRiskSyncInfo extends Model<RiskPersonRiskSyncInfo> {
     private String operator;
 
     @ApiModelProperty(value = "操作时间")
-    private LocalDate operateTime;
+    private Date operateTime;
 
 
     @Override

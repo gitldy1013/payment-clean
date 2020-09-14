@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * <p>
@@ -82,16 +82,16 @@ public class PcacEnterpriseRiskSubmitInfo extends Model<PcacEnterpriseRiskSubmit
     private String legControlName;
 
     @ApiModelProperty(value = "风险事件结束时间")
-    private LocalDate occurtimee;
+    private Date occurtimee;
 
     @ApiModelProperty(value = "风险信息来源")
     private String sourceChannel;
 
     @ApiModelProperty(value = "风险事件发现时间")
-    private LocalDate riskFindTime;
+    private Date riskFindTime;
 
     @ApiModelProperty(value = "有效期")
-    private LocalDate validDate;
+    private Date validDate;
 
     @ApiModelProperty(value = "风险事件发生地域")
     private String occurarea;
@@ -112,13 +112,13 @@ public class PcacEnterpriseRiskSubmitInfo extends Model<PcacEnterpriseRiskSubmit
     private String note;
 
     @ApiModelProperty(value = "风险事件发生时间")
-    private LocalDate occurtimeb;
+    private Date occurtimeb;
 
     @ApiModelProperty(value = "上报机构")
     private String orgId;
 
     @ApiModelProperty(value = "上报日期")
-    private LocalDate repDate;
+    private Date repDate;
 
     @ApiModelProperty(value = "上传方式（值： 03）")
     private String repType;
@@ -130,10 +130,10 @@ public class PcacEnterpriseRiskSubmitInfo extends Model<PcacEnterpriseRiskSubmit
     private String operator;
 
     @ApiModelProperty(value = "操作时间")
-    private LocalDate operateTime;
+    private Date operateTime;
 
     @ApiModelProperty(value = "上报时间")
-    private LocalDate submitTime;
+    private Date submitTime;
 
     @ApiModelProperty(value = "报送状态")
     private String submitStatus;

@@ -2,7 +2,78 @@ package com.cmcc.paymentclean.entity.dto.pcac.resq;
 
 import lombok.Data;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+
+@XmlAccessorType(XmlAccessType.FIELD)
+// XML文件中的根标识
+@XmlRootElement(name = "RiskInfo")
+// 控制JAXB 绑定类中属性和字段的排序
+@XmlType(propOrder = {
+        "CusType",
+        "CusProperty",
+        "RiskType",
+        "CusNature",
+        "CusName",
+        "RegName",
+        "CusCode",
+        "DocType",
+        "DocCode",
+        "LegRepName",
+        "LegDocType",
+        "LegDocCode",
+        "BankList",
+        "Url",
+        "ServerIp",
+        "MobileNo",
+        "Address",
+        "Icp",
+        "Level",
+        "Occurtimeb",
+        "Occurtimee",
+        "Occurchan",
+        "Occurarea",
+        "Note",
+        "ValidDate",
+        "OrgId",
+        "RepDate",
+        "RepType",
+        "RepPerson",
+        "RegisteredArea",
+        "RegisteredCode",
+        "SourceChannel",
+        "Currency",
+        "Amount",
+        "RiskFindTime",
+        "LegControlName",
+        "LegControlCardType",
+        "LegControlCardCode",
+        "Remarks",
+        "BenList",
+        "Mac",
+        "Imei",
+        "BankNo",
+        "OpenBank",
+        "Ip",
+        "Telephone",
+        "RecHostArea",
+        "Email",
+        "DiskNumber",
+        "TaxRegCer",
+        "TelePhone",
+        "RegAddress",
+        "BusinessScope",
+        "LegDocName",
+        "ValidStatus",
+        "PushDate",
+        "HandleResult",
+        "HandleTime",
+        "Id",
+        "HandleNote",
+})
 @Data
 public class RiskInfo {
     private String CusType;
