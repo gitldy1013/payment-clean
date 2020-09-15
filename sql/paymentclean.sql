@@ -292,7 +292,7 @@ drop table if exists local_associated_risk_merchant_info;
 create table local_associated_risk_merchant_info
 (
    local_associated_risk_merchant_info_id int(64) not null auto_increment comment 'id序号',
-   cus_number           varchar(30) comment '商户编号',
+   cus_node           varchar(30) comment '商户编号',
    push_list_type       varchar(2) comment '推送名单类型',
    up_date              varchar(10) comment '推送日期',
    level                varchar(2) comment '风险信息等级',

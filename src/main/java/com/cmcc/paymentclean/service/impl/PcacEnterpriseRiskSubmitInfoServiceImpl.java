@@ -10,7 +10,6 @@ import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
-import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BankInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
@@ -18,7 +17,6 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.BenInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BenList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
@@ -166,43 +164,29 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
 
     private void pushToPcac(List<PcacEnterpriseRiskSubmitInfo> PcacEnterpriseRiskSubmitInfos, String xml) {
         //上报数据
-        try {
-            String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
-            log.info("url:{}", pcacConfig.getUrl());
-            /*String post = "<Body>\n" +
-                    "    <RespInfo>\n" +
-                    "        <ResultStatus>已上报</ResultStatus>\n" +
-                    "        <ResultCode>01</ResultCode>\n" +
-                    "    </RespInfo>\n" +
-                    "</Body>";*/
-            com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
-            log.info("协会返回数据对象:{}", resBody);
-            for (PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo : PcacEnterpriseRiskSubmitInfos) {
-                UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", resBody.getRespInfo().getResultStatus());
-                pcacEnterpriseRiskSubmitInfoMapper.update(PcacEnterpriseRiskSubmitInfo, updateWrapper);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.info("上报商户数据异常：{}", e.getMessage());
+        String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+        log.info("url:{}", pcacConfig.getUrl());
+        /*String post = "<Body>\n" +
+                "    <RespInfo>\n" +
+                "        <ResultStatus>已上报</ResultStatus>\n" +
+                "        <ResultCode>01</ResultCode>\n" +
+                "    </RespInfo>\n" +
+                "</Body>";*/
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
+        log.info("协会返回数据对象:{}", resBody);
+        for (PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo : PcacEnterpriseRiskSubmitInfos) {
+            UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", resBody.getRespInfo().getResultStatus());
+            pcacEnterpriseRiskSubmitInfoMapper.update(PcacEnterpriseRiskSubmitInfo, updateWrapper);
         }
     }
 
     private Document getDocument(List<PcacEnterpriseRiskSubmitInfo> PcacEnterpriseRiskSubmitInfos) {
         //拼装报文
-        Document document = new Document();
-        document.setSignature("");
-        Request request = new Request();
-        Head head = new Head();
-        head.setVersion(pcacConfig.getVersion());
-        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "10"));
-        head.setOrigSender("");
-        head.setOrigSenderSID("");
-        head.setRecSystemId("R0001");
-        head.setTrnxCode("");
-        head.setTrnxTime(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_TIME_PCAC));
-        head.setUserToken("");
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
-        head.setSecretKey(CFCACipherUtils.getSecretKey(symmetricKeyEncoded));
+        Document document = new Document();
+        //设置报文头
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig);
+        //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
         for (int i = 0; i < PcacEnterpriseRiskSubmitInfos.size(); i++) {
@@ -225,7 +209,6 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             benList.setBenInfo(benInfo);
             riskInfo.setBankNo(null);
             riskInfo.setOpenBank(null);
-            /*
             //解密风控加密协会 商户上报：
             //商户名称
             riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
@@ -248,13 +231,11 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             //ICP 备案编号
             riskInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, PcacEnterpriseRiskSubmitInfo.getRegName()));
             riskInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(PcacEnterpriseRiskSubmitInfo.getDocType(), PcacEnterpriseRiskSubmitInfo.getDocCode(), symmetricKeyEncoded));
-            */
             riskInfo.setBenList(benList);
             riskInfos.add(riskInfo);
             pcacList.setRiskInfo(riskInfos);
         }
         body.setPcacList(pcacList);
-        request.setHead(head);
         request.setBody(body);
         document.setRequest(request);
         return document;

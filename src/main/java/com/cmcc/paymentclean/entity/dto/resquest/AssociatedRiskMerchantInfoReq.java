@@ -20,7 +20,7 @@ public class AssociatedRiskMerchantInfoReq extends PageVO implements Serializabl
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商户编号")
-    private String cusNumber;
+    private String cusCode;
 
     @ApiModelProperty(value = "商户名称")
     private String regName;

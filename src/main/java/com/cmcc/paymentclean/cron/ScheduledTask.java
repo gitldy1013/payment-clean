@@ -1,5 +1,7 @@
 package com.cmcc.paymentclean.cron;
 
+import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
+import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ScheduledTask {
     private SubmitPcacPersonRiskInfo submitPcacPersonRiskInfo;
 
     @Autowired
+    private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
+
+    @Autowired
     private PcacMerchantRiskSubmitInfoService pcacMerchantRiskSubmitInfoService;
 
     @Autowired
@@ -35,6 +40,16 @@ public class ScheduledTask {
         log.info("每天23:00执行上报个人风险信息到清算协会任务==START==");
         submitPcacPersonRiskInfo.submit();
         log.info("每天23:00执行上报个人风险信息到清算协会任务==END==");
+    }
+
+    /**
+     * 上报企业风险信息
+     */
+    @Scheduled(cron = "0 0 23 ? * *")
+    public void  runRiskEnterpriseAndPush(){
+        log.info("每天23:00执行上报企业风险信息到清算协会任务==START==");
+        pcacEnterpriseRiskSubmitInfoService.queryRiskEnterpriseAndPushPcac();
+        log.info("每天23:00执行上报企业风险信息到清算协会任务==END==");
     }
 
     /**

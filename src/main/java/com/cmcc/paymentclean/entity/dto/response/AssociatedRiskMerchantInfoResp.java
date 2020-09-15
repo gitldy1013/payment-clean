@@ -16,7 +16,7 @@ public class AssociatedRiskMerchantInfoResp implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "关联商户编号")
-    private String cusNumber;
+    private String cusCode;
 
     @ApiModelProperty(value = "推送名单类型")
     private String pushListType;
