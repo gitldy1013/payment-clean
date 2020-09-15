@@ -19,6 +19,7 @@ import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
+import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -152,7 +153,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     }
 
     @Override
-    public void insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList) {
+    public String insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList) {
         pcacRiskInfoMapper.insertBatchPcacRiskInfo( pcacRiskInfoList);
         /*//获取随机加密密码
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
@@ -167,7 +168,6 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         Document document = new Document();
         Respone respone = new Respone();
         respone.setBody(body);
-        document.setRespone(respone);
         Head head = new Head();
 
         head.setVersion(pcacConfig.getVersion());
@@ -185,6 +185,13 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
         head.setSecretKey("");
+        respone.setHead(head);
+        document.setRespone(respone);
+        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        String signature = CFCACipherUtils.doSignature(noSignXml);
+        document.setSignature(signature);
+        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        return doXml;
 
     }
 
