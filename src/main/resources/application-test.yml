@@ -22,8 +22,10 @@ pcac:
   orig-sender: 收单机构号
   orig-sender-sid: 收单机构收单机构发送系统号
 
-sftp:
-  modDir: /tmp
-  remotePathUpload: /ftp_data/zfqs/input
-  remotePathDownload: /ftp_data/zfqs/output
-
+sftp.host: 172.16.48.89
+sftp.port: 22
+sftp.username: zfqs
+sftp.password: Root@123
+sftp.modDir: /tmp/
+sftp.remotePathUpload: /ftp_data/zfqs/input/
+sftp.remotePathDownload: /ftp_data/zfqs/output/
