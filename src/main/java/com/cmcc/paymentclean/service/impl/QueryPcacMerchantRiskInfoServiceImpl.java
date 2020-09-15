@@ -13,7 +13,6 @@ import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
 import com.cmcc.paymentclean.mapper.QueryPcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cmcc.paymentclean.utils.ExcelUtils;
 import com.cmcc.paymentclean.utils.SFTPUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -22,7 +21,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
-import com.cmcc.paymentclean.exception.bizException.BizException;
 import org.springframework.util.CollectionUtils;
 
 import java.io.FileOutputStream;
@@ -117,11 +115,16 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
             e1.printStackTrace();
         }
 
-        //上传文件
         SFTPUtils sftpUtils = new SFTPUtils();
-        sftpUtils.connect();
-        sftpUtils.uploadFile(remotePathUpload,fileName,modDir,fileName);
-        sftpUtils.disconnect();
+        //上传文件
+        try {
+            sftpUtils.connect();
+            sftpUtils.uploadFile(remotePathUpload,fileName,modDir,fileName);
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            sftpUtils.disconnect();
+        }
 
         //更新状态为推送
         queryPcacMerchantRiskInfoMapper.updatePushStatus(stringList);
