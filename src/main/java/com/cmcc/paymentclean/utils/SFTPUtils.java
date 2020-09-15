@@ -24,7 +24,7 @@ import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
  */
 public class SFTPUtils {
 
-    private static final String SFTP_PROPERTY = "application-dev.yml";
+    private static final String SFTP_PROPERTY = "sftp.properties";
     private static Logger logger = LoggerFactory.getLogger(SFTPUtils.class);
 
     public static String OPERATE_UPLOAD = "upload";
