@@ -17,7 +17,6 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.BenInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BenList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
@@ -165,43 +164,29 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
 
     private void pushToPcac(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos, String xml) {
         //上报数据
-        try {
-            String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
-            log.info("url:{}", pcacConfig.getUrl());
+        String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+        log.info("url:{}", pcacConfig.getUrl());
             /*String post = "<Body>\n" +
                     "    <RespInfo>\n" +
                     "        <ResultStatus>已上报</ResultStatus>\n" +
                     "        <ResultCode>01</ResultCode>\n" +
                     "    </RespInfo>\n" +
                     "</Body>";*/
-            com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
-            log.info("协会返回数据对象:{}", resBody);
-            for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
-                UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", resBody.getRespInfo().getResultStatus());
-                pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.info("上报商户数据异常：{}", e.getMessage());
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
+        log.info("协会返回数据对象:{}", resBody);
+        for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
+            UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", resBody.getRespInfo().getResultStatus());
+            pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
         }
     }
 
     private Document getDocument(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos) {
         //拼装报文
         Document document = new Document();
-        document.setSignature("");
-        Request request = new Request();
-        Head head = new Head();
-        head.setVersion(pcacConfig.getVersion());
-        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "10"));
-        head.setOrigSender("");
-        head.setOrigSenderSID("");
-        head.setRecSystemId("R0001");
-        head.setTrnxCode("");
-        head.setTrnxTime(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_TIME_PCAC));
-        head.setUserToken("");
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
-        head.setSecretKey(CFCACipherUtils.getSecretKey(symmetricKeyEncoded));
+        //设置报文头
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig);
+        //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
         for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
@@ -251,7 +236,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             pcacList.setRiskInfo(riskInfos);
         }
         body.setPcacList(pcacList);
-        request.setHead(head);
         request.setBody(body);
         document.setRequest(request);
         return document;

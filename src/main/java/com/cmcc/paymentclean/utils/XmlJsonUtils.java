@@ -1,5 +1,8 @@
 package com.cmcc.paymentclean.utils;
 
+import com.cmcc.paymentclean.config.PcacConfig;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONSerializer;
 import net.sf.json.xml.XMLSerializer;
@@ -17,6 +20,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Date;
 
 @Slf4j
 public class XmlJsonUtils {
@@ -116,6 +120,7 @@ public class XmlJsonUtils {
             marshaller.marshal(obj, sw);
         } catch (JAXBException e) {
             e.printStackTrace();
+            log.info("解析对象为xml报文出错");
         }
         return sw.toString();
     }
@@ -133,11 +138,29 @@ public class XmlJsonUtils {
             xmlObject = unmarshaller.unmarshal(sr);
         } catch (JAXBException e) {
             e.printStackTrace();
+            log.info("解析xml报文为对象出错");
         }
         return xmlObject;
     }
 
     public static void main(String[] args) {
 
+    }
+
+    public static Request getRequest(byte[] symmetricKeyEncoded, com.cmcc.paymentclean.entity.dto.pcac.resq.Document document, PcacConfig pcacConfig) {
+        document.setSignature("");
+        Request request = new Request();
+        Head head = new Head();
+        head.setVersion(pcacConfig.getVersion());
+        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "10"));
+        head.setOrigSender("");
+        head.setOrigSenderSID("");
+        head.setRecSystemId("R0001");
+        head.setTrnxCode("");
+        head.setTrnxTime(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_TIME_PCAC));
+        head.setUserToken("");
+        head.setSecretKey(CFCACipherUtils.getSecretKey(symmetricKeyEncoded));
+        request.setHead(head);
+        return request;
     }
 }

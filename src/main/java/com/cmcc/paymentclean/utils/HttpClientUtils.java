@@ -51,10 +51,16 @@ public class HttpClientUtils {
      * @return 返回结果
      * @throws Exception
      */
-    public static String sendHttpsGet(String url) throws Exception {
-        CloseableHttpClient httpClient = createIgnoreVerifyHttpClient();
-        //CloseableHttpClient httpClient = HttpClients.createDefault();
-        return doGet(url, httpClient);
+    public static String sendHttpsGet(String url){
+        CloseableHttpClient httpClient = null;
+        try {
+            httpClient = createIgnoreVerifyHttpClient();
+            return doGet(url, httpClient);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("发送https get请求失败");
+            return null;
+        }
     }
 
     /**
@@ -78,11 +84,16 @@ public class HttpClientUtils {
      * @return 返回结果
      * @throws Exception
      */
-    public static String sendHttpsPost(String url, String params) throws Exception {
-        CloseableHttpClient httpClient = createIgnoreVerifyHttpClient();
-        //CloseableHttpClient httpClient = HttpClients.createDefault();
-        return doPost(httpClient, url, params);
-
+    public static String sendHttpsPost(String url, String params){
+        CloseableHttpClient httpClient = null;
+        try {
+            httpClient = createIgnoreVerifyHttpClient();
+            return doPost(httpClient, url, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("发送https post请求失败");
+            return null;
+        }
     }
 
     /**

@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @Data
 public class Document {
-    @XmlElement()
+
     private Request Request;
 
     private String Signature;

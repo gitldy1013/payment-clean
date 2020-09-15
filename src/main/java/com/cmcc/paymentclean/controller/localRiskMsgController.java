@@ -2,7 +2,9 @@ package com.cmcc.paymentclean.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
+import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
 import io.swagger.annotations.ApiOperation;
@@ -33,4 +35,16 @@ public class localRiskMsgController {
 
         return localAssociatedRiskMerchantInfoService.pageLocalAssociatedRiskMerchantInfo(associatedRiskMerchantInfoReq);
     }
+
+    /**
+     * 本地商户关联反馈接口
+     */
+    @ApiOperation(value = "本地商户关联反馈", notes = "本地商户关联反馈")
+    @RequestMapping(value = "/back",method = RequestMethod.POST)
+    public ResultBean<Body> back(@RequestBody AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq) {
+
+        return localAssociatedRiskMerchantInfoService.localAssociatedRiskMerchantInfoBack(associatedRiskMerchantInfoBackReq);
+    }
+
+
 }

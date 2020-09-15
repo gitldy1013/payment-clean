@@ -31,7 +31,7 @@ public class LocalAssociatedRiskMerchantInfo extends Model<LocalAssociatedRiskMe
     private Integer localAssociatedRiskMerchantInfoId;
 
     @ApiModelProperty(value = "商户编号")
-    private String cusNumber;
+    private String cusCode;
 
     @ApiModelProperty(value = "推送名单类型")
     private String pushListType;

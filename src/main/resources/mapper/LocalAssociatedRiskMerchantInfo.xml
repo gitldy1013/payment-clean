@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo">
         <id column="local_associated_risk_merchant_info_id" property="localAssociatedRiskMerchantInfoId" />
-        <result column="cus_number" property="cusNumber" />
+        <result column="cus_node" property="cusCode" />
         <result column="push_list_type" property="pushListType" />
         <result column="up_date" property="upDate" />
         <result column="level" property="level" />
@@ -36,7 +36,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        local_associated_risk_merchant_info_id, cus_number, push_list_type, up_date, level, risk_type, cus_name, reg_name, handle_result, feedback_status, feedback_date, doc_type, doc_code, leg_rep_name, leg_doc_type, leg_doc_code, valid_date, valid_status, cus_type, occurarea, ass_mer_number, status, is_black, ass_field_cnt, ass_field_name, operator, msg_detail, amount
+        local_associated_risk_merchant_info_id, cus_node, push_list_type, up_date, level, risk_type, cus_name, reg_name, handle_result, feedback_status, feedback_date, doc_type, doc_code, leg_rep_name, leg_doc_type, leg_doc_code, valid_date, valid_status, cus_type, occurarea, ass_mer_number, status, is_black, ass_field_cnt, ass_field_name, operator, msg_detail, amount
     </sql>
 
     <select id="pageLocalAssociatedRiskMerchantInfo" resultType="com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp"
@@ -50,8 +50,8 @@
         <if test="req.regName !=null and req.regName !=''">
             and t.reg_Name like concat('%',#{req.regName},'%')
         </if>
-        <if test="req.cusNumber !=null and req.cusNumber !=''">
-            and t.cus_Number = #{req.cusNumber}
+        <if test="req.cusCode !=null and req.cusCode !=''">
+            and t.cus_node = #{req.cusCode}
         </if>
         <if test="req.legDocCode !=null and req.legDocCode !=''">
             and t.leg_Doc_Code=#{req.legDocCode}
