@@ -155,7 +155,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             return;
         }
         //校验xml报文
-        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.059");
         // boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
