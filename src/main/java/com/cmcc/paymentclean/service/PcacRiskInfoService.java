@@ -2,6 +2,7 @@ package com.cmcc.paymentclean.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
+import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
@@ -82,6 +83,6 @@ public interface PcacRiskInfoService {
      * @param pushListType
      * @return List<PcacRiskInfo>
      */
-    List<PcacRiskInfo> listByIsBlack(String pushListType);
+    List<PcacRiskInfoDTO> listByIsBlack(String pushListType);
 
 }

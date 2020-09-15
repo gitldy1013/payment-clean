@@ -24,7 +24,7 @@ import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
  */
 public class SFTPUtils {
 
-    private static final String SFTP_PROPERTY = "sftp.properties";
+    private static final String SFTP_PROPERTY = "application-dev.yml";
     private static Logger logger = LoggerFactory.getLogger(SFTPUtils.class);
 
     public static String OPERATE_UPLOAD = "upload";
@@ -44,12 +44,12 @@ public class SFTPUtils {
     public SFTPUtils() {
         String resourcePath = PROJECT_PATH + BASE_MAPPER_ROOT + SFTP_PROPERTY;
         Properties properties = CodeGenerator.getProperties(resourcePath);
-        this.host = properties.getProperty("host");
-        this.port = Integer.parseInt(properties.getProperty("port"));
-        this.username = properties.getProperty("username");
-        this.password = properties.getProperty("password");
-        REMOTE_PATH_UPLOAD = properties.getProperty("remote_path_upload");
-        REMOTE_PATH_DOWNLOAD = properties.getProperty("remote_path_download");
+        this.host = properties.getProperty("sftp.host");
+        this.port = Integer.parseInt(properties.getProperty("sftp.port"));
+        this.username = properties.getProperty("sftp.username");
+        this.password = properties.getProperty("sftp.password");
+        REMOTE_PATH_UPLOAD = properties.getProperty("sftp.remote_path_upload");
+        REMOTE_PATH_DOWNLOAD = properties.getProperty("sftp.remote_path_download");
     }
 
     /**
