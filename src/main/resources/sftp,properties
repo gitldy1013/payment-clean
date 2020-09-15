@@ -1,7 +1,17 @@
 host=172.16.48.89
 port=22
-username=
-password=
+username=zfqs
+password=Root@123
 remote_path_upload=/ftp_data/zfqs/input
 remote_path_download=/ftp_data/zfqs/output
 export_path=tmp/
+
+# 测试sftp
+# ip 172.16.48.89
+# 用户zfqs/Root@123
+# 目录：写入 /ftp_data/zfqs/input 读取/ftp_data/zfqs/output
+
+# 生产sftp
+# ip 172.27.132.71
+# 用户zfqs/Root@123
+# 目录：写入 /app/zfqs/input 读取/app/zfqs/output
