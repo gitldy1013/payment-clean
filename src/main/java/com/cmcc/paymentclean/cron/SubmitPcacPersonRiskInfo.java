@@ -44,6 +44,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     private PcacConfig pcacConfig;
 
     /**
+     * 个人风险信息上报清算协会
      * 个人风险信息需要加密字段：个人风险信息关键字：手机号、银行帐/卡号、客户姓名、身份证件号码、 固定电话、收款银
      * 行帐/卡号
      */
