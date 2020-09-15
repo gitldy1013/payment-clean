@@ -1,9 +1,15 @@
 package com.cmcc.paymentclean.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
+import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 /**
@@ -18,4 +24,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QueryPcacMerchantRiskInfoMapper extends BaseMapper<QueryPcacMerchantRiskInfo> {
 
+    Page<QueryPcacMerchantRiskInfoResp> pageLocalAssociatedRiskMerchantInfo(Page page, @Param("req") QueryPcacMerchantRiskInfoReq req);
+
+    List<QueryPcacMerchantRiskInfoResp> qryByPushStatus(@Param("pushStatus")String pushStatus);
+
+    void updatePushStatus(@Param("ids")List<String> ids);
 }
