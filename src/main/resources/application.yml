@@ -4,7 +4,7 @@ spring:
   application:
     name: payment-clean
   profiles:
-    active: test
+    active: dev
   mvc:
     throw-exception-if-no-handler-found: true
   servlet:
