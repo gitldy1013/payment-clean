@@ -3,6 +3,8 @@ package com.cmcc.paymentclean.service;
 import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 
 /**
 * <p>
@@ -66,4 +68,5 @@ public interface BusinessInfoService {
     */
     int updateBusinessInfo(BusinessInfo businessInfo);
 
+    ResultBean<Body> exportExcel();
 }

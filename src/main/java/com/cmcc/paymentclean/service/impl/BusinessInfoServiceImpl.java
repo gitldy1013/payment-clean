@@ -1,14 +1,31 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.cmcc.paymentclean.consts.IsTransferEnum;
+import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.BusinessInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cmcc.paymentclean.utils.ExcelUtils;
+import com.cmcc.paymentclean.utils.SFTPUtils;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import com.cmcc.paymentclean.exception.bizException.BizException;
+import org.springframework.util.CollectionUtils;
+
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
 * <p>
@@ -21,6 +38,12 @@ import com.cmcc.paymentclean.exception.bizException.BizException;
 @Slf4j
 @Service
 public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, BusinessInfo> implements BusinessInfoService {
+
+    @Value("${sftp.modDir}")
+    private String modDir;
+
+    @Value("${sftp.remotePathUpload}")
+    private String remotePathUpload;
 
     @Override
     public Page<BusinessInfo> listBusinessInfosByPage(int page, int pageSize, String factor) {
@@ -75,6 +98,61 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             log.error("更新id为{}的businessInfo失败",businessInfo.getBusinessInfoId());
             throw new BizException("更新失败[id=" + businessInfo.getBusinessInfoId() + "]");
         }
+    }
+
+    @Autowired
+    private BusinessInfoMapper businessInfoMapper;
+
+    @Override
+    public ResultBean<Body> exportExcel() {
+        ResultBean resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+        //查出未推送数据
+        List<BusinessInfoResp> businessInfoResps = businessInfoMapper.qryBySubmitStatus("0");
+        if(CollectionUtils.isEmpty(businessInfoResps)){
+            return resultBean;
+        }
+        List<String> stringList = new ArrayList<>();
+        for(BusinessInfoResp businessInfoResp:businessInfoResps){
+            stringList.add(businessInfoResp.getBusinessInfoId());
+            businessInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(businessInfoResp.getLegDocType()));
+        }
+
+        //生成excel文件
+        ExcelUtils excelUtils = new ExcelUtils();
+        String fileName = "RiskMer_"+ System.currentTimeMillis() + ".xlsx";
+        try {
+            //文件名
+            SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(businessInfoResps,BusinessInfoResp.class);
+            FileOutputStream fos = new FileOutputStream(modDir + fileName);
+            sxssfWorkbook.write(fos);
+            if(sxssfWorkbook != null) {
+                // dispose of temporary files backing this workbook on disk -> 处
+                //     理SXSSFWorkbook导出excel时，产生的临时文件
+                sxssfWorkbook.dispose();
+            }
+            if(fos != null) {
+                fos.close();
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        SFTPUtils sftpUtils = new SFTPUtils();
+        //上传文件
+        try {
+            sftpUtils.connect();
+            sftpUtils.uploadFile(remotePathUpload,fileName,modDir,fileName);
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            sftpUtils.disconnect();
+        }
+
+        //更新状态为推送
+        businessInfoMapper.updateSubmitStatus(stringList);
+        return resultBean;
     }
 
 }

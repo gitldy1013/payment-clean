@@ -97,7 +97,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
 
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = "RiskMer_"+ System.currentTimeMillis() + ".xlsx";
+        String fileName = "QueryPcacMerchant_"+ System.currentTimeMillis() + ".xlsx";
         try {
             //文件名
             SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(queryPcacMerchantRiskInfoResps,QueryPcacMerchantRiskInfoResp.class);
@@ -126,8 +126,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
             sftpUtils.disconnect();
         }
 
-        //更新状态为推送
-        queryPcacMerchantRiskInfoMapper.updatePushStatus(stringList);
+//        //更新状态为推送
+//        queryPcacMerchantRiskInfoMapper.updatePushStatus(stringList);
         return resultBean;
     }
 }
