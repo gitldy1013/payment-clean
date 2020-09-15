@@ -2,15 +2,20 @@ package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
+import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
+import com.cmcc.paymentclean.utils.ExcelUtils;
 import com.cmcc.paymentclean.utils.SFTPUtils;
 import com.cmcc.paymentclean.utils.TxtFileUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,46 +41,28 @@ public class SftpPcacRiskInfo {
         Date startDate = new Date();
         log.info("SftpPcacRiskInfoJob run start.....{}", startDate);
         //1.先取出加黑的所有名单数据
-        List<PcacRiskInfo> pcacRiskInfos = pcacRiskInfoService.listByIsBlack(IsBlackEnum.ISBLACKE_01.getCode());
+        List<PcacRiskInfoDTO> pcacRiskInfos = pcacRiskInfoService.listByIsBlack(IsBlackEnum.ISBLACKE_01.getCode());
         if(CollectionUtils.isEmpty(pcacRiskInfos)){
             return;
         }
-        List<String> fileList = new ArrayList<>();
-        fileList.add("推送日期|商户名称|商户简称|法人证件类型|法人证件号码|法定代表人姓名|法定代表人类型|法定代表人（负责人） 证件号码|风险信息等级|" +
-                "风险类型|有效期|有效性|商户类型|风险事件发生地域|银行结算账户|网址|商户注册号");
-        for(PcacRiskInfo pcacRiskInfo:pcacRiskInfos){
-            String str = "";
-            str = setStr(str,pcacRiskInfo.getUpDate(),true);
-            try {
-                str = setStr(str, new String(pcacRiskInfo.getRegName(),"UTF-8"), true);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            str = setStr(str,pcacRiskInfo.getCusName(),true);
-            str = setStr(str,pcacRiskInfo.getDocType(),true);
-            str = setStr(str,pcacRiskInfo.getDocCode(),true);
-            str =  setStr(str,pcacRiskInfo.getLegDocName(),true);
-            str = setStr(str,pcacRiskInfo.getLegDocCode(),true);
-            str = setStr(str,pcacRiskInfo.getLevel(),true);
-            str = setStr(str,pcacRiskInfo.getRiskType(),true);
-            str = setStr(str,pcacRiskInfo.getValidDate(),true);
-            str = setStr(str,pcacRiskInfo.getValidStatus(),true);
-            str = setStr(str,pcacRiskInfo.getCusType(),true);
-            str = setStr(str,pcacRiskInfo.getOccurarea(),true);
-            str = setStr(str,pcacRiskInfo.getBankNo(),true);
-            str = setStr(str,pcacRiskInfo.getUrl(),true);
-            str = setStr(str,pcacRiskInfo.getRegisteredCode(),false);
-            fileList.add(str);
-        }
-
-        //文件名
-        String fileName = "Black_"+ System.currentTimeMillis() + ".txt";
-
-        //写本地文件
+        //生成excel文件
+        ExcelUtils excelUtils = new ExcelUtils();
+        String fileName = "Black_"+ System.currentTimeMillis() + ".xlsx";
         try {
-            TxtFileUtil.writeFileContext(fileList,modDir+fileName);
-        } catch (Exception e) {
-            e.printStackTrace();
+            //文件名
+            SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(pcacRiskInfos,PcacRiskInfoDTO.class);
+            FileOutputStream fos = new FileOutputStream(modDir + fileName);
+            sxssfWorkbook.write(fos);
+            if(sxssfWorkbook != null) {
+                // dispose of temporary files backing this workbook on disk -> 处
+                //     理SXSSFWorkbook导出excel时，产生的临时文件
+                sxssfWorkbook.dispose();
+            }
+            if(fos != null) {
+                fos.close();
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
 
         //上传文件
