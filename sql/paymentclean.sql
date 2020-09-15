@@ -181,13 +181,12 @@ drop table if exists pcac_person_risk_submit_info;
 /*==============================================================*/
 create table pcac_person_risk_submit_info
 (
-   pcac_person_risk_submit_info_id int(64) not null comment 'id序号',
+   pcac_person_risk_submit_info_id int(64) not null  auto_increment comment 'id序号',
    cus_property         varchar(2) comment '客户属性',
    risk_type            varchar(2) comment '风险类型',
    mobile_no            varchar(20) comment '手机号',
    mac                  varchar(17) comment 'MAC 地址',
-   imei                 varchar(32) comment 'Imei（Imei 必须为小于或等于 32 位数
-            字组成）',
+   imei                 varchar(32) comment 'Imei（Imei 必须为小于或等于 32 位数字组成）',
    bank_no              varchar(64) comment '付款账户/付款银行卡号（支付账户）',
    open_bank            varchar(64) comment '开户机构',
    cus_name             varchar(64) comment '个人姓名',
@@ -200,8 +199,7 @@ create table pcac_person_risk_submit_info
    rec_name             varchar(128) comment '中转或收款人姓名',
    rec_doc_type         varchar(2) comment '中转或收款人证件类型',
    rec_doc_code         varchar(64) comment '中转或收款人证件号',
-   rec_bank_no          varchar(64) comment '中转或收款银行卡号（支付账户） ， 不
-            校验格式',
+   rec_bank_no          varchar(64) comment '中转或收款银行卡号（支付账户） ， 不校验格式',
    rec_open_bank        varchar(64) comment '中转或收款开户机构',
    rec_host_area        varchar(2) comment '收款人所在国家或地区',
    email                varchar(64) comment '邮箱',
@@ -212,7 +210,7 @@ create table pcac_person_risk_submit_info
    occurarea            varchar(256) comment '风险事件发生地域',
    note                 varchar(2048) comment '风险事件描述',
    org_id               varchar(32) comment '上报机构',
-   rep_date             Date comment '上报日期',
+   rep_date             datetime comment '上报日期',
    rep_type             varchar(2) comment '上传方式（值： 03）',
    rep_person           varchar(32) comment '上传人',
    source_channel       varchar(4) comment '风险信息来源',
@@ -229,7 +227,7 @@ create table pcac_person_risk_submit_info
    result_code          varchar(6) comment '交易返回码',
    msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_person_risk_submit_info_id)
-);
+)comment = '协会个人风险信息上报表 ';
 
 
 
@@ -270,7 +268,7 @@ create table pcac_enterprise_risk_submit_info
    note                 varchar(2048) comment '风险事件描述',
    occurtimeb           date comment '风险事件发生时间',
    org_id               varchar(32) comment '上报机构',
-   rep_date             date comment '上报日期',
+   rep_date             datetime comment '上报日期',
    rep_type             varchar(2) comment '上传方式（值： 03）',
    rep_person           varchar(32) comment '上传人',
    operator             varchar(10) comment '操作人',
@@ -325,5 +323,73 @@ create table local_associated_risk_merchant_info
 )comment = '本地关联风险商户信息表 ';
 
 
+drop table if exists query_pcac_merchant_risk_info;
+
+/*==============================================================*/
+/* Table: query_pcac_merchant_risk_info                         */
+/*==============================================================*/
+create table query_pcac_merchant_risk_info
+(
+   query_pcac_merchant_risk_info_id int(64) not null auto_increment comment '序号id',
+   Id                   varchar(64) comment '风险反馈主键编码',
+   cus_type             varchar(2) comment '商户类型',
+   cus_property         varchar(2) comment '客户属性',
+   risk_type            varchar(2) comment '风险类型',
+   cus_nature           varchar(2) comment '商户属性',
+   cus_name             varchar(128) comment '商户简称',
+   reg_name             varchar(128) comment '商户名称/企业名称',
+   cus_code             varchar(32) comment '商户代码，最长不能超过 32 个字符',
+   doc_type             varchar(2) comment '法人证件类型',
+   doc_code             varchar(64) comment '法人证件号码',
+   leg_rep_name         varchar(64) comment '法定代表人姓名',
+   leg_doc_type         varchar(2) comment '法定代表人（负责人） 证件类型',
+   leg_doc_code         varchar(64) comment '法定代表人（负责人）证件号码',
+   is_transfer          varchar(2) comment '中转或收款 0 收款 1 中转',
+   bank_no              varchar(64) comment '银行结算账号',
+   open_bank            varchar(64) comment '开户行（支付账户开立机构）',
+   url                  varchar(512) comment '网址',
+   server_ip            varchar(512) comment '服务器 IP',
+   mobile_no            varchar(20) comment '法定代表人（负责人） 手机号',
+   address              varchar(256) comment '商户实际办公地',
+   icp                  varchar(20) comment 'ICP 备案编号',
+   level                varchar(2) comment '风险信息等级',
+   occurtimeb           date comment '风险事件发生时间',
+   occurtimee           date comment '风险事件结束时间',
+   occurchan            varchar(2) comment '风险事件发生渠道',
+   stop_num             varchar(10) comment '终止合作的机构数量',
+   refuse_num           varchar(10) comment '拒绝拓展的机构数量',
+   use_rise_num         varchar(10) comment '暂停办理资金结算的机构数量',
+   frozen_num           varchar(10) comment '冻结账户的机构数量',
+   adjustment_cycle_num varchar(10) comment '调整结算周期的机构数量',
+   delay_num            varchar(10) comment '延迟资金结算的机构数量',
+   quota_num            varchar(10) comment '设置收款限额的机构数量',
+   anti_money_num       varchar(10) comment '报送反洗钱可疑交易的机构数量',
+   other_num            varchar(10) comment '其他的机构数量',
+   risk_find_time       date comment '风险事件发现时间',
+   amount               varchar(11) comment '交易金额',
+   suspend_num          char(10) comment '暂停银行卡交易的机构数量',
+   close_num            char(10) comment '收回受理终端 (关闭网络支付接口) 的机构数
+            收回受理终端 (关闭网络支付接口) 的机构数量',
+   follow_num           char(10) comment '暂未采取控制措施,持续关注客户的机构数量',
+   valid_status         varchar(2) comment '有效性',
+   occurarea            varchar(256) comment '风险事件发生地域',
+   note                 varchar(2048) comment '风险事件描述',
+   valid_date           date comment '有效期',
+   registered_area      varchar(2) comment '商户注册国家或地区',
+   registered_code      varchar(256) comment '商户注册号码',
+   source_channel       varchar(4) comment '风险信息来源',
+   currency             varchar(3) comment '交易币种',
+   leg_control_name     varchar(64) comment '实控人姓名',
+   leg_control_card_type varchar(2) comment '实控人证件类型',
+   leg_control_card_code varchar(64) comment '实控人证件号',
+   remarks              varchar(2048) comment '备注',
+   leg_ben_name         varchar(64) comment '受益人姓名',
+   leg_ben_card_type    varchar(2) comment '受益人证件类型',
+   leg_ben_card_code    varchar(64) comment '受益人证件号',
+   push_status          varchar(2) default '0' comment '推送状态0为未推送，1为已推送',
+   result_status        varchar(2) comment '交易结果',
+   result_code          varchar(6) comment '交易返回码',
+   primary key (query_pcac_merchant_risk_info_id)
+)comment = '查询协会商户风险信息表 ';
 
 
