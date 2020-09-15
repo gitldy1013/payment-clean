@@ -285,6 +285,41 @@ public class CFCACipherUtils {
     }
 
 
+ /**
+     * 数据解密
+     * secretKey为加密后的AES密钥
+     * toBeDecStr为需要解密的字符串
+     * */
+    public static String decrypt(String secretKey,String toBeDecStr) {
+        String decryptedData = null;
+        try {
+            // 初始化加密会话
+            /*JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
+            Session session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);*/
+
+            // 解密对称密钥
+            PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
+            /*********************************************/
+            // 去掉外层Base64解码，在方法体内部已经做过Base64解码
+            byte[] keyData = EncryptUtil.decryptMessageByRSA(secretKey.getBytes(), priKey, session);
+            SecretKeySpec symmetricKey = new SecretKeySpec(keyData, "AES");
+
+            // 解密被加密的项，可使用对称密钥对多个加密项进行解密
+            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
+            cipher.init(Cipher.DECRYPT_MODE, symmetricKey);
+                byte[] result = cipher.doFinal(Base64.decode(toBeDecStr));
+                 decryptedData = new String(result, "UTF-8");
+                logger.info("解密后的原文数据:{}", decryptedData);
+
+        } catch (Exception e) {
+            logger.info("解密数据失败");
+            e.printStackTrace();
+        }
+        return decryptedData;
+    }
+
+
+
     /**
      * 数据解密
      * secretKey为加密后的AES密钥

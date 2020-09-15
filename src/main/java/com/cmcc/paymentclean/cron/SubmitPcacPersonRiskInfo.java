@@ -17,6 +17,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.util.Date;
@@ -43,6 +44,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     private PcacConfig pcacConfig;
 
     /**
+     * 个人风险信息上报清算协会
      * 个人风险信息需要加密字段：个人风险信息关键字：手机号、银行帐/卡号、客户姓名、身份证件号码、 固定电话、收款银
      * 行帐/卡号
      */
@@ -57,33 +59,39 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             log.info("当前没有可上报的个人风险信息");
             return;
         }
+        //获取随机加密密码
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);
 
         log.debug("-------开始封装xml报文实体对象------");
-        PcacList pcacLists = new PcacList();
+        ArrayList<RiskInfo> riskInfos = new ArrayList<>();
         for (PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo : pcacPersonRiskList) {
-            //Map<String, String> toBeEncMap = new HashMap<>();
-            //非必填数据本次不加密不上报
-            // toBeEncMap.put("mobileNo",pcacPersonRiskSubmitInfo.getMobileNo());
-            //toBeEncMap.put("bankNo",pcacPersonRiskSubmitInfo.getBankNo());
-            //toBeEncMap.put("cusName",pcacPersonRiskSubmitInfo.getCusName());
-            //toBeEncMap.put("docCode",pcacPersonRiskSubmitInfo.getDocCode());
-            //toBeEncMap.put("telephone",pcacPersonRiskSubmitInfo.getTelephone());
-            //获取随机加密密码
+
             //判断是身份证类型需要先进行内部解密，再进行清算协会加密
             String encryptDocCode = null;
-            if(DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())){
+            String encryptBankNo = null;
+            if(!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getDocType())&&DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())){
                     //内部解密
                     String docCode = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getDocCode());
                     //协会加密
                     encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded,docCode );
             }
+            if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getBankNo())){
+                //内部解密
+                String bankNo = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getBankNo());
+                //协会加密
+                encryptBankNo = CFCACipherUtils.encrypt(symmetricKeyEncoded,bankNo );
+            }
+            pcacPersonRiskSubmitInfo.setBankNo(encryptBankNo);
             pcacPersonRiskSubmitInfo.setDocCode(encryptDocCode);
+            String encryptMobileNo = CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getMobileNo());
+            pcacPersonRiskSubmitInfo.setMobileNo(encryptMobileNo);
+            String encryptCusName = CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getCusName());
+            pcacPersonRiskSubmitInfo.setCusName(encryptCusName);
+            String encryptTelephone = CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getTelephone());
+            pcacPersonRiskSubmitInfo.setTelephone(encryptTelephone);
 
-            PcacList pcacList = new PcacList();
-            pcacList.setCount(pcacPersonRiskList.size());
-            ArrayList<RiskInfo> riskInfos = new ArrayList<>();
+
             RiskInfo riskInfo = new RiskInfo();
             BeanUtils.copyProperties(pcacPersonRiskSubmitInfo, riskInfo);
             //validDate、repDate在两个对象中类型不同，所以无法复制属性，需要自己set
@@ -95,11 +103,20 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             log.info("riskInfo复制的对象属性包括：{}", riskInfo);
 
             BankList bankList = new BankList();
+            BankInfo bankInfo = new BankInfo();
+            bankInfo.setIsTransfer("");
+            bankInfo.setRecName("");
+            bankInfo.setRecDocType("");
+            bankInfo.setRecDocCode("");
+            bankInfo.setBankNo("");
+            bankInfo.setOpenBank("");
             bankList.setCount("0");
             riskInfo.setBankList(bankList);
             riskInfos.add(riskInfo);
-            pcacList.setRiskInfo(riskInfos);
         }
+        PcacList pcacLists = new PcacList();
+        pcacLists.setCount(riskInfos.size());
+        pcacLists.setRiskInfo(riskInfos);
         Body body = new Body();
         body.setPcacList(pcacLists);
         Head head = new Head();
@@ -126,7 +143,8 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         request.setBody(body);
         Document document = new Document();
         document.setRequest(request);
-
+        //注意生成签名的时候设置空串显示<Signature>,不设置空串默认null，就不显示<Signature>，具体生成签名要不要<Signature>测试联调再说了
+        //document.setSignature("");
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
