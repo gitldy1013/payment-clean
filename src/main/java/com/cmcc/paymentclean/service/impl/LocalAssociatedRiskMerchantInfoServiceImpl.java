@@ -134,7 +134,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
     }
 
     @Override
-    public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> localAssociatedRiskMerchantInfoBack(AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq) {
+    public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> localAssociatedRiskMerchantInfoBack(List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReq) {
         QueryWrapper<LocalAssociatedRiskMerchantInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("", "");
         LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfoMapper.selectOne(wrapper);
@@ -148,19 +148,22 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         PcacList pcacList = new PcacList();
         pcacList.setCount(1);
         List<RiskInfo> riskInfos = new ArrayList<>();
-        RiskInfo riskInfo = new RiskInfo();
-        riskInfos.add(riskInfo);
-        riskInfo.setCusType(localAssociatedRiskMerchantInfo.getCusType());
-        riskInfo.setRegName(localAssociatedRiskMerchantInfo.getRegName());
-        riskInfo.setCurrency("人民币");
-        riskInfo.setAmount(associatedRiskMerchantInfoBackReq.getAmount());
-        riskInfo.setDocType(associatedRiskMerchantInfoBackReq.getDocType());
-        riskInfo.setDocCode(associatedRiskMerchantInfoBackReq.getDocCode());
-        riskInfo.setHandleResult(associatedRiskMerchantInfoBackReq.getHandleResult());
-        riskInfo.setHandleTime(DateUtils.formatTime(new Date(), null));
-        pcacList.setRiskInfo(riskInfos);
-        body.setPcacList(pcacList);
-        request.setBody(body);
+        for (int i = 0; i < associatedRiskMerchantInfoBackReq.size(); i++) {
+            AssociatedRiskMerchantInfoBackReq armbr = associatedRiskMerchantInfoBackReq.get(i);
+            RiskInfo riskInfo = new RiskInfo();
+            riskInfos.add(riskInfo);
+            riskInfo.setCusType(localAssociatedRiskMerchantInfo.getCusType());
+            riskInfo.setRegName(localAssociatedRiskMerchantInfo.getRegName());
+            riskInfo.setCurrency("人民币");
+            riskInfo.setAmount(armbr.getAmount());
+            riskInfo.setDocType(armbr.getDocType());
+            riskInfo.setDocCode(armbr.getDocCode());
+            riskInfo.setHandleResult(armbr.getHandleResult());
+            riskInfo.setHandleTime(DateUtils.formatTime(new Date(), null));
+            pcacList.setRiskInfo(riskInfos);
+            body.setPcacList(pcacList);
+            request.setBody(body);
+        }
         document.setRequest(request);
         //发起反馈
         String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);

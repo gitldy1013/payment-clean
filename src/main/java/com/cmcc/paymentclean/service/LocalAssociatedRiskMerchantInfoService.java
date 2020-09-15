@@ -8,6 +8,8 @@ import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
 
+import java.util.List;
+
 /**
 * <p>
 * 本地关联风险商户信息表  服务类
@@ -82,5 +84,5 @@ public interface LocalAssociatedRiskMerchantInfoService {
      * @param associatedRiskMerchantInfoBackReq 反馈信息
      * @return 反馈状态信息
      */
-    ResultBean<Body> localAssociatedRiskMerchantInfoBack(AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq);
+    ResultBean<Body> localAssociatedRiskMerchantInfoBack(List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReq);
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by lumma on 2020/9/12.
  */
@@ -41,7 +43,7 @@ public class localRiskMsgController {
      */
     @ApiOperation(value = "本地商户关联反馈", notes = "本地商户关联反馈")
     @RequestMapping(value = "/back",method = RequestMethod.POST)
-    public ResultBean<Body> back(@RequestBody AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq) {
+    public ResultBean<Body> back(@RequestBody List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReq) {
 
         return localAssociatedRiskMerchantInfoService.localAssociatedRiskMerchantInfoBack(associatedRiskMerchantInfoBackReq);
     }
