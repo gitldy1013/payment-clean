@@ -30,7 +30,7 @@ drop table if exists pcac_risk_info;
 create table pcac_risk_info
 (
    pcac_risk_info_id    int(64) not null auto_increment comment 'id序号',
-   pushListType         varchar(2) comment '推送名单类型,01黑名单，02风险提示信息',
+   push_list_type         varchar(2) comment '推送名单类型,01黑名单，02风险提示信息',
    up_date              varchar(10) comment '推送日期',
    reg_name             varchar(128) comment '商户名称',
    cus_name             varchar(128) comment '商户简称',
@@ -292,7 +292,7 @@ drop table if exists local_associated_risk_merchant_info;
 create table local_associated_risk_merchant_info
 (
    local_associated_risk_merchant_info_id int(64) not null auto_increment comment 'id序号',
-   cus_number           varchar(30) comment '商户编号',
+   cus_code           varchar(30) comment '商户编号',
    push_list_type       varchar(2) comment '推送名单类型',
    up_date              varchar(10) comment '推送日期',
    level                varchar(2) comment '风险信息等级',
