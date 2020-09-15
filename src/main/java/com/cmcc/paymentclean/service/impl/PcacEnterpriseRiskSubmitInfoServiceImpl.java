@@ -204,10 +204,10 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         head.setSecretKey(CFCACipherUtils.getSecretKey(symmetricKeyEncoded));
         Body body = new Body();
-        ArrayList<PcacList> pcacList = new ArrayList<PcacList>();
+        PcacList pcacList = new PcacList();
         for (int i = 0; i < PcacEnterpriseRiskSubmitInfos.size(); i++) {
-            PcacList pcac = new PcacList();
-            pcac.setCount(PcacEnterpriseRiskSubmitInfos.size());
+            pcacList.setCount(PcacEnterpriseRiskSubmitInfos.size());
+            ArrayList<RiskInfo> riskInfos = new ArrayList<>();
             RiskInfo riskInfo = new RiskInfo();
             PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo = PcacEnterpriseRiskSubmitInfos.get(i);
             BeanUtilsEx.copyProperties(riskInfo, PcacEnterpriseRiskSubmitInfo);
@@ -250,8 +250,8 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             riskInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(PcacEnterpriseRiskSubmitInfo.getDocType(), PcacEnterpriseRiskSubmitInfo.getDocCode(), symmetricKeyEncoded));
             */
             riskInfo.setBenList(benList);
-            pcac.setRiskInfo(riskInfo);
-            pcacList.add(pcac);
+            riskInfos.add(riskInfo);
+            pcacList.setRiskInfo(riskInfos);
         }
         body.setPcacList(pcacList);
         request.setHead(head);

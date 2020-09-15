@@ -195,4 +195,6 @@ public class RiskInfo {
     private String Id;
 
     private String HandleNote;
+
+
 }

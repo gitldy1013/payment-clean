@@ -61,7 +61,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);
 
         log.debug("-------开始封装xml报文实体对象------");
-        ArrayList<PcacList> pcacLists = new ArrayList<>();
+        PcacList pcacLists = new PcacList();
         for (PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo : pcacPersonRiskList) {
             //Map<String, String> toBeEncMap = new HashMap<>();
             //非必填数据本次不加密不上报
@@ -83,6 +83,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
             PcacList pcacList = new PcacList();
             pcacList.setCount(pcacPersonRiskList.size());
+            ArrayList<RiskInfo> riskInfos = new ArrayList<>();
             RiskInfo riskInfo = new RiskInfo();
             BeanUtils.copyProperties(pcacPersonRiskSubmitInfo, riskInfo);
             //validDate、repDate在两个对象中类型不同，所以无法复制属性，需要自己set
@@ -96,9 +97,8 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             BankList bankList = new BankList();
             bankList.setCount("0");
             riskInfo.setBankList(bankList);
-            pcacList.setRiskInfo(riskInfo);
-            pcacLists.add(pcacList);
-
+            riskInfos.add(riskInfo);
+            pcacList.setRiskInfo(riskInfos);
         }
         Body body = new Body();
         body.setPcacList(pcacLists);

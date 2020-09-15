@@ -25,7 +25,7 @@ import java.util.List;
 @Data
 public class Body {
 
-    private List<PcacList> PcacList;
+    private PcacList PcacList;
 
     private String RiskType;
     private String ReqDate;

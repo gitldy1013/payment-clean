@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 // XML文件中的根标识
@@ -26,7 +27,7 @@ public class PcacList implements Serializable {
 
     private String UpDate;
 
-    private RiskInfo RiskInfo;
+    private List<RiskInfo> RiskInfo;
 
     private BaseInfo BaseInfo;
 
