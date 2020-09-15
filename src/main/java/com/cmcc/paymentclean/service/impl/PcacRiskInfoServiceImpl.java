@@ -8,6 +8,7 @@ import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
+import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
@@ -16,10 +17,13 @@ import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -113,14 +117,30 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     }
 
     @Override
-    public List<PcacRiskInfo> listByIsBlack(String pushListType) {
+    public List<PcacRiskInfoDTO> listByIsBlack(String pushListType) {
+        List<PcacRiskInfoDTO> pcacRiskInfoDTOs = new ArrayList<>();
         if(StringUtils.isEmpty(pushListType)){
             pushListType = IsBlackEnum.ISBLACKE_01.getCode();
         }
         QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("pushListType",pushListType);
+        queryWrapper.eq("push_List_Type",pushListType);
 
-        return this.list(queryWrapper);
+        List<PcacRiskInfo> pcacRiskInfos =  this.list(queryWrapper);
+        if(!CollectionUtils.isEmpty(pcacRiskInfos)){
+            for(PcacRiskInfo pcacRiskInfo:pcacRiskInfos){
+                PcacRiskInfoDTO pcacRiskInfoDTO = new PcacRiskInfoDTO();
+                BeanUtils.copyProperties(pcacRiskInfo,pcacRiskInfoDTO);
+                try {
+                    String regName= new String(pcacRiskInfo.getRegName(),"UTF-8");
+                    pcacRiskInfoDTO.setRegName(regName);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                pcacRiskInfoDTOs.add(pcacRiskInfoDTO);
+            }
+        }
+
+        return pcacRiskInfoDTOs;
     }
 
 }

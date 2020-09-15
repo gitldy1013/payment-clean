@@ -29,6 +29,9 @@ public class PcacRiskInfo extends Model<PcacRiskInfo> {
     @TableId(value = "pcac_risk_info_id", type = IdType.AUTO)
     private Integer pcacRiskInfoId;
 
+    @ApiModelProperty(value = "推送名单类型")
+    private String pushListType;
+
     @ApiModelProperty(value = "推送日期")
     private String upDate;
 
