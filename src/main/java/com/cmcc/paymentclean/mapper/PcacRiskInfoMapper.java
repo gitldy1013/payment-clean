@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 
 /**
 * <p>
@@ -23,4 +25,6 @@ import org.springframework.stereotype.Repository;
 public interface PcacRiskInfoMapper extends BaseMapper<PcacRiskInfo> {
 
     Page<PcacRiskInfoResp> pagePcacRiskInfo(Page page, @Param("req") PcacRiskInfoReq req);
+
+    void insertBatchPcacRiskInfo( ArrayList<PcacRiskInfo> pcacRiskInfoList);
 }

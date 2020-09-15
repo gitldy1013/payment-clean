@@ -3,6 +3,7 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
@@ -10,18 +11,23 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.*;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +45,8 @@ import java.util.List;
 @Service
 public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, PcacRiskInfo> implements PcacRiskInfoService {
 
+    @Autowired
+    private PcacConfig pcacConfig;
     @Override
     public Page<PcacRiskInfo> listPcacRiskInfosByPage(int page, int pageSize, String factor) {
         log.info("正在执行分页查询pcacRiskInfo: page = {} pageSize = {} factor = {}",page,pageSize,factor);
@@ -141,6 +149,43 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         }
 
         return pcacRiskInfoDTOs;
+    }
+
+    @Override
+    public void insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList) {
+        pcacRiskInfoMapper.insertBatchPcacRiskInfo( pcacRiskInfoList);
+        /*//获取随机加密密码
+        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+        String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);*/
+        Date date = new Date();
+        Body body = new Body();
+        RespInfo respInfo = new RespInfo();
+        //返回成功的状态码
+        respInfo.setResultStatus("01");
+        respInfo.setResultCode("S00000");
+        body.setRespInfo(respInfo);
+        Document document = new Document();
+        Respone respone = new Respone();
+        respone.setBody(body);
+        document.setRespone(respone);
+        Head head = new Head();
+
+        head.setVersion(pcacConfig.getVersion());
+        //报文唯一标识（8 位日期+10 顺序号）
+        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"10";
+        head.setIdentification(identification);
+        //收单机构收单机构机构号（字母、数字、下划线）
+        head.setOrigSender(pcacConfig.getOrigSender());
+        //收单机构收单机构发送系统号（字母、数字、下划线）
+        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
+        //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
+        head.setRecSystemId("R0001");
+        //交易码，见 5.1 报文分类列表（数字、字母）-----黑名单推送响应TrnxCode为空
+        head.setTrnxCode("");
+        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
+        head.setTrnxTime(trnxTime);
+        head.setSecretKey("");
+
     }
 
 }

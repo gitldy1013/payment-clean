@@ -197,6 +197,9 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
     @ApiModelProperty(value = "交易返回码")
     private String resultCode;
 
+    @ApiModelProperty(value = "推送日期")
+    private String upDate;
+
 
     @Override
     protected Serializable pkVal() {
