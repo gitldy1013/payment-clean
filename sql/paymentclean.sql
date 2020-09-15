@@ -146,7 +146,7 @@ create table pcac_merchant_risk_submit_info
    note                 varchar(2048) comment '风险事件描述',
    valid_date           date comment '有效期',
    org_id               varchar(32) comment '上报机构',
-   rep_date             date comment '上报日期',
+   rep_date             datetime comment '上报日期',
    rep_type             varchar(2) comment '上传方式（值： 03）',
    rep_person           varchar(32) comment '上传人',
    registered_area      varchar(2) comment '商户注册国家或地区',
@@ -368,8 +368,7 @@ create table query_pcac_merchant_risk_info
    risk_find_time       date comment '风险事件发现时间',
    amount               varchar(11) comment '交易金额',
    suspend_num          char(10) comment '暂停银行卡交易的机构数量',
-   close_num            char(10) comment '收回受理终端 (关闭网络支付接口) 的机构数
-            收回受理终端 (关闭网络支付接口) 的机构数量',
+   close_num            char(10) comment '收回受理终端 (关闭网络支付接口) 的机构数收回受理终端 (关闭网络支付接口) 的机构数量',
    follow_num           char(10) comment '暂未采取控制措施,持续关注客户的机构数量',
    valid_status         varchar(2) comment '有效性',
    occurarea            varchar(256) comment '风险事件发生地域',
