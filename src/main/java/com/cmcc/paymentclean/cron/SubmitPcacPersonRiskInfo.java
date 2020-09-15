@@ -142,7 +142,8 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         request.setBody(body);
         Document document = new Document();
         document.setRequest(request);
-
+        //注意生成签名的时候设置空串显示<Signature>,不设置空串默认null，就不显示<Signature>，具体生成签名要不要<Signature>测试联调再说了
+        //document.setSignature("");
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
