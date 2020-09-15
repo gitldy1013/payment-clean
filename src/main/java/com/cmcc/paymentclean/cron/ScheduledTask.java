@@ -30,11 +30,11 @@ public class ScheduledTask {
     /**
      * 上报个人风险信息
      */
-    @Scheduled(cron = "0/5 * * * * *")
+    @Scheduled(cron = "0 0 23 ? * *")
     public void  submitPcacPersonRiskInfoJob(){
-        log.info("执行上报个人风险信息到清算协会任务==START==");
+        log.info("每天23:00执行上报个人风险信息到清算协会任务==START==");
         submitPcacPersonRiskInfo.submit();
-        log.info("执行上报个人风险信息到清算协会任务==END==");
+        log.info("每天23:00执行上报个人风险信息到清算协会任务==END==");
     }
 
     /**

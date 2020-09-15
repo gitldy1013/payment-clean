@@ -1,6 +1,7 @@
 
 package com.cmcc.paymentclean.cron;
 
+import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
@@ -37,14 +38,9 @@ import org.quartz.JobExecutionException;*/
 public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     @Autowired
     private PcacPersonRiskSubmitInfoMapper pcacPersonRiskSubmitInfoMapper;
-    @Value("pcac.version")
-    private String pcacVersion;
 
-    @Value("orig-sender")
-    private  String OrigSender;
-
-    @Value("orig-sender-sid")
-    private String OrigSenderSID;
+    @Autowired
+    private PcacConfig pcacConfig;
 
     /**
      * 个人风险信息需要加密字段：个人风险信息关键字：手机号、银行帐/卡号、客户姓名、身份证件号码、 固定电话、收款银
@@ -55,6 +51,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {*/
     public void submit()  {
         List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
+        Date date = new Date();
         log.debug("查询个人风险信息结果：{}", pcacPersonRiskList);
         if (pcacPersonRiskList.size()==0){
             log.info("当前没有可上报的个人风险信息");
@@ -90,10 +87,9 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             BeanUtils.copyProperties(pcacPersonRiskSubmitInfo, riskInfo);
             //validDate、repDate在两个对象中类型不同，所以无法复制属性，需要自己set
             Date validDate = pcacPersonRiskSubmitInfo.getValidDate();
-            riskInfo.setValidDate(validDate.toString());
-
-            Date repDate = new Date(System.currentTimeMillis());
-            String repDateStr = DateUtils.formatTime(repDate, "yyyy-MM-DD HH:mm:ss");
+            String validDateStr = DateUtils.formatTime(validDate, "yyyy-MM-dd");
+            riskInfo.setValidDate(validDateStr);
+            String repDateStr = DateUtils.formatTime(date, "yyyy-MM-dd HH:mm:ss");
             riskInfo.setRepDate(repDateStr);
             log.info("riskInfo复制的对象属性包括：{}", riskInfo);
 
@@ -107,19 +103,20 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         Body body = new Body();
         body.setPcacList(pcacLists);
         Head head = new Head();
-        log.info("请求清算协会版本号：{}",pcacVersion);
-        head.setVersion(pcacVersion);
+        log.info("请求清算协会版本号：{}",pcacConfig.getVersion());
+        head.setVersion(pcacConfig.getVersion());
         //报文唯一标识（8 位日期+10 顺序号）
-        head.setIdentification("");
+        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"10";
+        head.setIdentification(identification);
         //收单机构收单机构机构号（字母、数字、下划线）
-        head.setOrigSender("");
+        head.setOrigSender(pcacConfig.getOrigSender());
         //收单机构收单机构发送系统号（字母、数字、下划线）
-        head.setOrigSenderSID("");
+        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
         //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
         head.setRecSystemId("R0001");
         //交易码，见 5.1 报文分类列表（数字、字母）
         head.setTrnxCode("PR0001");
-        String trnxTime = DateUtils.formatTime(new Date(), "yyyyMMDDHH:mm:ss");
+        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
         head.setUserToken("");
         head.setSecretKey(secretKey);
@@ -155,7 +152,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
                         //上报成功，修改数据库状态
                         PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
                         BeanUtils.copyProperties(respInfo,pcacPersonRiskSubmitInfo);
-                        pcacPersonRiskSubmitInfo.setSubmitTime(new Date());
+                        pcacPersonRiskSubmitInfo.setSubmitTime(date);
                         pcacPersonRiskSubmitInfo.setSubmitStatus("1");
                         pcacPersonRiskSubmitInfo.setMsgDetail("已上报");
                         log.info("更新数据库表时间和状态信息：{}",pcacPersonRiskSubmitInfo);
