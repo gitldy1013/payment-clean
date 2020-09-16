@@ -16,5 +16,13 @@ public class PcacConfig {
     private String origSender;
 
     private String origSenderSid;
+
+    private  String loginUrl;
+
+    private  String businessUrl;
+
+    private  String userToken;
+
+
 }
 
