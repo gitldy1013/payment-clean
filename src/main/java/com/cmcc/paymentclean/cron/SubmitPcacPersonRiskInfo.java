@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /*import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -119,24 +120,8 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         pcacLists.setRiskInfo(riskInfos);
         Body body = new Body();
         body.setPcacList(pcacLists);
-        Head head = new Head();
-        log.info("请求清算协会版本号：{}",pcacConfig.getVersion());
-        head.setVersion(pcacConfig.getVersion());
-        //报文唯一标识（8 位日期+10 顺序号）
-        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"10";
-        head.setIdentification(identification);
-        //收单机构收单机构机构号（字母、数字、下划线）
-        head.setOrigSender(pcacConfig.getOrigSender());
-        //收单机构收单机构发送系统号（字母、数字、下划线）
-        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
-        //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
-        head.setRecSystemId("R0001");
-        //交易码，见 5.1 报文分类列表（数字、字母）
-        head.setTrnxCode("PR0001");
-        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
-        head.setTrnxTime(trnxTime);
-        head.setUserToken("");
-        head.setSecretKey(secretKey);
+
+        Head head = getHead(secretKey,date);
 
         Request request = new Request();
         request.setHead(head);
@@ -194,6 +179,30 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
          catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    private Head getHead(String secretKey,Date date ){
+        Head head = new Head();
+        log.info("请求清算协会版本号：{}",pcacConfig.getVersion());
+        head.setVersion(pcacConfig.getVersion());
+        //报文唯一标识（8 位日期+10 顺序号）
+        int random = new Random().nextInt(1000) + 1000;
+        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"100000"+random;
+        head.setIdentification(identification);
+        //收单机构收单机构机构号（字母、数字、下划线）
+        head.setOrigSender(pcacConfig.getOrigSender());
+        //收单机构收单机构发送系统号（字母、数字、下划线）
+        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
+        //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
+        head.setRecSystemId("R0001");
+        //交易码，见 5.1 报文分类列表（数字、字母）
+        head.setTrnxCode("PR0001");
+        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
+        head.setTrnxTime(trnxTime);
+        head.setUserToken("");
+        head.setSecretKey(secretKey);
+        return head;
     }
 
 

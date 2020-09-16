@@ -28,11 +28,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
 * <p>
@@ -155,10 +153,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     @Override
     public String insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList) {
         pcacRiskInfoMapper.insertBatchPcacRiskInfo( pcacRiskInfoList);
-        /*//获取随机加密密码
-        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
-        String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);*/
-        Date date = new Date();
+
         Body body = new Body();
         RespInfo respInfo = new RespInfo();
         //返回成功的状态码
@@ -168,11 +163,28 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         Document document = new Document();
         Respone respone = new Respone();
         respone.setBody(body);
-        Head head = new Head();
 
+        Head head = getHead();
+        respone.setHead(head);
+        document.setRespone(respone);
+        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        String signature = CFCACipherUtils.doSignature(noSignXml);
+        document.setSignature(signature);
+        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        return doXml;
+
+    }
+
+    /**
+    * 组装响应报文头的信息
+    * */
+    private Head getHead(){
+        Date date = new Date();
+        Head head = new Head();
         head.setVersion(pcacConfig.getVersion());
         //报文唯一标识（8 位日期+10 顺序号）
-        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"10";
+        int random = new Random().nextInt(1000) + 1000;
+        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"100000"+random;
         head.setIdentification(identification);
         //收单机构收单机构机构号（字母、数字、下划线）
         head.setOrigSender(pcacConfig.getOrigSender());
@@ -185,14 +197,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
         head.setSecretKey("");
-        respone.setHead(head);
-        document.setRespone(respone);
-        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        String signature = CFCACipherUtils.doSignature(noSignXml);
-        document.setSignature(signature);
-        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        return doXml;
-
+        return head;
     }
 
 }
