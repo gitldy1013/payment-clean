@@ -21,6 +21,7 @@
         <result column="cus_type" property="cusType" />
         <result column="occurarea" property="occurarea" />
         <result column="bank_no" property="bankNo" />
+        <result column="push_status" property="pushStatus" />
         <result column="url" property="url" />
         <result column="registered_code" property="registeredCode" />
     </resultMap>
