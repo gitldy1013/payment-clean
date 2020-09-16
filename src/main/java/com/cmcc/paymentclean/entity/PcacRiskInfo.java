@@ -77,6 +77,9 @@ public class PcacRiskInfo extends Model<PcacRiskInfo> {
     @ApiModelProperty(value = "银行结算账户")
     private String bankNo;
 
+    @ApiModelProperty(value = "推送状态")
+    private String pushStatus;
+
     @ApiModelProperty(value = "网址")
     private String url;
 
