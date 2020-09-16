@@ -22,13 +22,14 @@ pcac:
   orig-sender: 收单机构号
   orig-sender-sid: 收单机构收单机构发送系统号
 
-sftp.host: 172.16.48.89
-sftp.port: 22
-sftp.username: zfqs
-sftp.password: Root@123
-sftp.modDir: /tmp/
-sftp.remotePathUpload: /ftp_data/zfqs/input/
-sftp.remotePathDownload: /ftp_data/zfqs/output/
-sftp.queryPcacMerchantRiskInfoFileNamePrefix: Risk_
-sftp.pcacRiskInfoFileNamePrefix: Black_
-sftp.businessInfoFileNamePrefix: Business_
+sftp:
+  host: 172.16.48.89
+  port: 22
+  username: zfqs
+  password: Root@123
+  modDir: /tmp/
+  remotePathUpload: /ftp_data/zfqs/input/
+  remotePathDownload: /ftp_data/zfqs/output/
+  queryPcacMerchantRiskInfoFileNamePrefix: Risk_
+  pcacRiskInfoFileNamePrefix: Black_
+  businessInfoFileNamePrefix: Business_

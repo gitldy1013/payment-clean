@@ -23,7 +23,7 @@ pcac:
   orig-sender: 收单机构号
   orig-sender-sid: 收单机构收单机构发送系统号
 
-sftp：
+sftp:
   host: 172.16.48.89
   port: 22
   username: zfqs
