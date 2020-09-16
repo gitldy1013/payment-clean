@@ -13,4 +13,5 @@ import com.cmcc.paymentclean.entity.LoginResult;
 public interface LoginPcacService {
 
     LoginResult login();
+    LoginResult logout();
 }

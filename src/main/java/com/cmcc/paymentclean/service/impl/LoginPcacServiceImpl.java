@@ -48,12 +48,12 @@ public class LoginPcacServiceImpl implements LoginPcacService {
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
-        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("登录清算协会请求参数报文：{}",doXml);
-        boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.022");
+        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+        log.info("登录清算协会请求参数报文s：{}",xml);
+        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.022");
         if (validate){
 
-            String result = HttpClientUtils.sendHttpsPost("地址", doXml);
+            String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/loginServlet", xml);
             log.info("登录清算协会响应报文：{}",result);
             com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                     (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
@@ -69,6 +69,44 @@ public class LoginPcacServiceImpl implements LoginPcacService {
         return new LoginResult(respInfo.getResultCode(),respInfo.getResultStatus());
 
     }
+
+    @Override
+    public LoginResult logout() {
+        RespInfo respInfo=null;
+        Date date = new Date();
+        Head head = getHead(date);
+        Request request = new Request();
+        request.setHead(head);
+        Document document = new Document();
+        document.setRequest(request);
+        //加上签名空标签
+        document.setSignature("");
+        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        String signature = CFCACipherUtils.doSignature(noSignXml);
+        document.setSignature(signature);
+        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        log.info("登录清算协会请求参数报文：{}",doXml);
+        boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.022");
+        if (validate){
+
+            String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/loginServlet", doXml);
+            log.info("登录清算协会响应报文：{}",result);
+            com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
+                    (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+            Respone respone = documentResp.getRespone();
+            Body body = respone.getBody();
+            respInfo = body.getRespInfo();
+            if("S00000".equals(respInfo.getResultCode())&&"01".equals(respInfo.getResultStatus())){
+                return new LoginResult(respInfo.getUserToken());
+            }
+
+        }
+
+        return new LoginResult(respInfo.getResultCode(),respInfo.getResultStatus());
+
+    }
+
+
 
     private Head getHead(Date date ){
         Head head = new Head();
