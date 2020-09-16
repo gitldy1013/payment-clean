@@ -19,8 +19,8 @@ server:
 pcac:
   url: https://localhost:8081/pcac
   version: V1.3.0
-  orig-sender: 收单机构号
-  orig-sender-sid: 收单机构收单机构发送系统号
+  orig-sender: Z2015044000015
+  orig-sender-sid: zf_sysstem
 
 sftp:
   host: 172.21.72.19
