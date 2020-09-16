@@ -131,7 +131,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         }
         QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper();
         queryWrapper.eq("push_List_Type",pushListType);
-
+        queryWrapper.eq("update_status","0");
         List<PcacRiskInfo> pcacRiskInfos =  this.list(queryWrapper);
         if(!CollectionUtils.isEmpty(pcacRiskInfos)){
             for(PcacRiskInfo pcacRiskInfo:pcacRiskInfos){
@@ -140,6 +140,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 try {
                     String regName= new String(pcacRiskInfo.getRegName(),"UTF-8");
                     pcacRiskInfoDTO.setRegName(regName);
+                    pcacRiskInfoDTO.setPcacRiskInfoId(pcacRiskInfo.getPcacRiskInfoId().toString());
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -173,6 +174,11 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
         return doXml;
 
+    }
+
+    @Override
+    public void updateStatus(List<String> ids) {
+        pcacRiskInfoMapper.updateStatus(ids);
     }
 
     /**

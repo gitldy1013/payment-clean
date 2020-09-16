@@ -1,6 +1,7 @@
 package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
+import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,9 @@ public class ScheduledTask {
     @Autowired
     private SftpPcacRiskInfo sftpPcacRiskInfo;
 
+    @Autowired
+    private BusinessInfoService businessInfoService;
+
     /**
      * 上报个人风险信息
      */
@@ -62,11 +66,18 @@ public class ScheduledTask {
         log.info("每天23:00上报商户风险信息==END==");
     }
 
-    @Scheduled(cron = "0 0 8 ? * *")
+    @Scheduled(cron = "0 0 11 ? * *")
     public void  SftpPcacRiskInfoJob(){
         log.info("执行协会风险商户黑名单推送SFTP任务==START==");
         sftpPcacRiskInfo.run();
         log.info("执行协会风险商户黑名单推送SFTP任务==END==");
+    }
+
+    @Scheduled(cron = "5 0 11 ? * *")
+    public void  SftpBusinessInfoJob(){
+        log.info("执行企业商户信息表推送SFTP任务==START==");
+        businessInfoService.exportExcel();
+        log.info("执行企业商户信息表推送SFTP任务==END==");
     }
 
 }

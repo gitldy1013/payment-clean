@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.IsTransferEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
@@ -44,6 +45,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
 
     @Value("${sftp.remotePathUpload}")
     private String remotePathUpload;
+
+    @Value("${sftp.businessInfoFileNamePrefix}")
+    private String fileNamePrefix;
 
     @Override
     public Page<BusinessInfo> listBusinessInfosByPage(int page, int pageSize, String factor) {
@@ -116,12 +120,11 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         List<String> stringList = new ArrayList<>();
         for(BusinessInfoResp businessInfoResp:businessInfoResps){
             stringList.add(businessInfoResp.getBusinessInfoId());
-            businessInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(businessInfoResp.getLegDocType()));
         }
 
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = "RiskMer_"+ System.currentTimeMillis() + ".xlsx";
+        String fileName = fileNamePrefix + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
         try {
             //文件名
             SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(businessInfoResps,BusinessInfoResp.class);
