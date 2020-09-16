@@ -50,6 +50,7 @@ import javax.xml.bind.annotation.XmlType;
         "LegControlName",
         "LegControlCardType",
         "LegControlCardCode",
+        "Remarks",
         "BenList",
         "Mac",
         "Imei",
