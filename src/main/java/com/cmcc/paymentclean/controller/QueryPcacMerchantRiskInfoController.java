@@ -2,20 +2,18 @@ package com.cmcc.paymentclean.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
-import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantRiskSyncInfoReq;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
-import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * <p>
