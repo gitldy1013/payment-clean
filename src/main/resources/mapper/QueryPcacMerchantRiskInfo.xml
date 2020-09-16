@@ -71,4 +71,50 @@
         query_pcac_merchant_risk_info_id, cus_type, cus_property, risk_type, cus_nature, cus_name, reg_name, cus_code, doc_type, doc_code, leg_rep_name, leg_doc_type, leg_doc_code, is_transfer, bank_no, open_bank, url, server_ip, mobile_no, address, icp, level, occurtimeb, occurtimee, occurchan, stop_num, refuse_num, use_rise_num, frozen_num, adjustment_cycle_num, delay_num, quota_num, anti_money_num, other_num, risk_find_time, amount, suspend_num, close_num, follow_num, valid_status, occurarea, note, valid_date, registered_area, registered_code, source_channel, currency, leg_control_name, leg_control_card_type, leg_control_card_code, remarks, leg_ben_name, leg_ben_card_type, leg_ben_card_code, push_status, result_status, result_code,up_date
     </sql>
 
+    <select id="pageLocalAssociatedRiskMerchantInfo" resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
+            parameterType="com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        query_pcac_merchant_risk_info t
+        WHERE
+        1=1
+        <if test="req.cusCode !=null and req.cusCode !=''">
+            and t.cus_Code like concat('%',#{req.cusCode},'%')
+        </if>
+        <if test="req.id !=null and req.id !=''">
+            and t.id = #{req.id}
+        </if>
+        <if test="req.cusType !=null and req.cusType !=''">
+            and t.cus_Type=#{req.cusType}
+        </if>
+        <if test="req.feedbackStatus !=null and req.feedbackStatus !=''">
+            and t.result_code=#{req.feedbackStatus}
+        </if>
+        <if test="req.feedbackStartDate!=null ">
+            <![CDATA[  and DATE_FORMAT(t.up_date, '%Y-%m-%d') >= DATE_FORMAT(#{req.feedbackStartDate}, '%Y-%m-%d')  ]]>
+        </if>
+        <if test="req.feedbackEndDate!=null ">
+            <![CDATA[  and DATE_FORMAT(t.up_date, '%Y-%m-%d') <= DATE_FORMAT(#{req.feedbackEndDate}, '%Y-%m-%d')    ]]>
+        </if>
+    </select>
+
+    <select id="qryByPushStatus" resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
+            parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        query_pcac_merchant_risk_info t
+        WHERE  t.push_Status = #{pushStatus}
+    </select>
+
+    <update id="updatePushStatus" parameterType="java.lang.String">
+        UPDATE query_pcac_merchant_risk_info
+        SET
+        push_Status = "1"
+        WHERE query_Pcac_Merchant_Risk_Info_Id in
+        <foreach item="id" index="index" open="(" separator="," close=")" collection="ids">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

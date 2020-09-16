@@ -67,10 +67,14 @@ public class SftpPcacRiskInfo {
 
         //上传文件
         SFTPUtils sftpUtils = new SFTPUtils();
-        sftpUtils.connect();
-        sftpUtils.uploadFile(remotePathUpload,fileName,modDir,fileName);
-        sftpUtils.disconnect();
-
+        try {
+            sftpUtils.connect();
+            sftpUtils.uploadFile(remotePathUpload,fileName,modDir,fileName);
+        } catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            sftpUtils.disconnect();
+        }
         Date endDate = new Date();
         log.info("SftpPcacRiskInfoJob run end.....{}", endDate);
     }
