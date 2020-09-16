@@ -30,6 +30,9 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
     @TableId(value = "query_pcac_merchant_risk_info_id", type = IdType.AUTO)
     private Integer queryPcacMerchantRiskInfoId;
 
+    @ApiModelProperty(value = "风险反馈主键编码")
+    private String Id;
+
     @ApiModelProperty(value = "商户类型")
     private String cusType;
 
