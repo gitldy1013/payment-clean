@@ -79,4 +79,13 @@ public class ScheduledTask {
         log.info("执行企业商户信息表推送SFTP任务==END==");
     }
 
+    /**
+     * 上报企业商户信息
+     */
+    @Scheduled(cron = "0 0 18 1 * ?")
+    public void runBusinessInfoAndPushPcac(){
+        log.info("每月1号8点上报企业商户信息==START==");
+        businessInfoService.queryBusinessInfoAndPushPcac();
+        log.info("每月1号8点上报企业商户信息==END==");
+    }
 }
