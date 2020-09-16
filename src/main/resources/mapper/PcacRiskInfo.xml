@@ -28,7 +28,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        pcac_risk_info_id,push_list_type, up_date, reg_name, cus_name, doc_type, doc_code, leg_doc_name, leg_doc_type, leg_doc_code, level, risk_type, valid_date, valid_status, cus_type, occurarea, bank_no, url, registered_code
+        pcac_risk_info_id,push_list_type, up_date, reg_name, cus_name, doc_type, doc_code, leg_doc_name, leg_doc_type, leg_doc_code, level, risk_type, valid_date, valid_status, cus_type, occurarea, bank_no, url, registered_code,push_status
     </sql>
 
     <select id="pagePcacRiskInfo" resultType="com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp"

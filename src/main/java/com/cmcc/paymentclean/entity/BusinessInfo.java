@@ -174,6 +174,9 @@ public class BusinessInfo extends Model<BusinessInfo> {
     @ApiModelProperty(value = "交易返回码")
     private String resultCode;
 
+    @ApiModelProperty(value = "推送状态")
+    private String pushStatus;
+
 
     @Override
     protected Serializable pkVal() {

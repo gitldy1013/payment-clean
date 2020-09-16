@@ -55,6 +55,7 @@
         <result column="result_status" property="resultStatus" />
         <result column="result_code" property="resultCode" />
         <result column="msg_detail" property="msgDetail" />
+        <result column="url" property="url" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -62,7 +63,7 @@
         pcac_merchant_risk_submit_info_id,cus_type,cus_property,risk_type,cus_nature,cus_name,reg_name,cus_code,doc_type,doc_code,leg_rep_name,leg_doc_type,
         leg_doc_code,is_transfer,bank_no,open_bank,server_ip,mobile_no,address,icp,level,occurtimeb,occurtimee,occurchan,occurarea,note,valid_date,org_id,rep_date,
         rep_type,rep_person,registered_area,registered_code,source_channel,currency,amount,risk_find_time,leg_control_name,leg_control_card_type,leg_control_card_code,
-        remarks,leg_ben_name,leg_ben_card_type,leg_ben_card_code,operator,operate_time,submit_time,submit_status,result_status,result_code,msg_detail
+        remarks,leg_ben_name,leg_ben_card_type,leg_ben_card_code,operator,operate_time,submit_time,submit_status,result_status,result_code,msg_detail,url
 
     </sql>
 

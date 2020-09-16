@@ -180,6 +180,9 @@ public class PcacMerchantRiskSubmitInfo extends Model<PcacMerchantRiskSubmitInfo
     @ApiModelProperty(value = "错误详情")
     private String msgDetail;
 
+    @ApiModelProperty(value = "网址")
+    private String url;
+
 
     @Override
     protected Serializable pkVal() {
