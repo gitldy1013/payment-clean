@@ -21,6 +21,8 @@ public class PcacConfig {
 
     private  String businessUrl;
 
+    private  String userToken;
+
 
 }
 

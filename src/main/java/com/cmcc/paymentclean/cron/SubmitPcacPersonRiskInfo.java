@@ -137,7 +137,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         request.setBody(body);
         Document document = new Document();
         document.setRequest(request);
-        //注意生成签名的时候设置空串显示<Signature>,不设置空串默认null，就不显示<Signature>，具体生成签名要不要<Signature>测试联调再说了
+        //注意生成签名的时候设置空串显示<Signature>,不设置空串默认null，就不显示<Signature>
         //document.setSignature("");
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
         String signature = CFCACipherUtils.doSignature(noSignXml);
@@ -209,7 +209,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         head.setTrnxCode("PR0001");
         String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
-        head.setUserToken("");
+        head.setUserToken(pcacConfig.getUserToken());
         head.setSecretKey(secretKey);
         return head;
     }
