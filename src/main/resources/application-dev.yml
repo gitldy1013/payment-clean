@@ -29,4 +29,6 @@ sftp.password: crm
 sftp.modDir: /tmp/
 sftp.remotePathUpload: /ftp_data/zfqs/input/
 sftp.remotePathDownload: /ftp_data/zfqs/output/
-
+sftp.queryPcacMerchantRiskInfoFileNamePrefix： Risk_
+sftp.pcacRiskInfoFileNamePrefix：Black_
+sftp.businessInfoFileNamePrefix：Business_

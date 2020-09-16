@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -27,4 +28,6 @@ public interface PcacRiskInfoMapper extends BaseMapper<PcacRiskInfo> {
     Page<PcacRiskInfoResp> pagePcacRiskInfo(Page page, @Param("req") PcacRiskInfoReq req);
 
     void insertBatchPcacRiskInfo( ArrayList<PcacRiskInfo> pcacRiskInfoList);
+
+    void updateStatus(@Param("ids")List<String> ids);
 }

@@ -116,5 +116,6 @@
         <foreach item="id" index="index" open="(" separator="," close=")" collection="ids">
             #{id}
         </foreach>
+        and push_Status = "0"
     </update>
 </mapper>

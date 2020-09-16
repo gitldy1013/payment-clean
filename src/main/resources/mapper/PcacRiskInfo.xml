@@ -73,4 +73,14 @@
         </foreach>
     </insert>
 
+    <update id="updateStatus" parameterType="java.lang.String">
+        UPDATE pcac_risk_info
+        SET
+        update_status = "1"
+        WHERE pcac_risk_info_id in
+        <foreach item="id" index="index" open="(" separator="," close=")" collection="ids">
+            #{id}
+        </foreach>
+        and update_status = "0"
+    </update>
 </mapper>

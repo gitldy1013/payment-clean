@@ -81,12 +81,14 @@ public interface PcacRiskInfoService {
     ResultBean<Page<PcacRiskInfoResp>> pagePcacRiskInfo(PcacRiskInfoReq riskInfoReq);
 
     /**
-     * 协会风险商户根据推送名单类型 查询
+     * 协会风险商户根据推送名单类型 查询(未上传)
      * @param pushListType
      * @return List<PcacRiskInfo>
      */
     List<PcacRiskInfoDTO> listByIsBlack(String pushListType);
 
     String insertBatchPcacRiskInfo(@Param("items")ArrayList<PcacRiskInfo> pcacRiskInfoList);
+
+    void updateStatus(List<String> ids);
 
 }
