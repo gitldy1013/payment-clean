@@ -22,8 +22,8 @@ import java.util.List;
 @Repository
 public interface BusinessInfoMapper extends BaseMapper<BusinessInfo> {
 
-    List<BusinessInfoResp> qryBySubmitStatus(@Param("submitStatus")String submitStatus);
+    List<BusinessInfoResp> qryByPushStatus(@Param("pushStatus")String pushStatus);
 
-    void updateSubmitStatus(@Param("ids")List<String> ids);
+    void updatePushStatus(@Param("ids")List<String> ids);
 
 }

@@ -68,4 +68,9 @@ public interface BusinessInfoService {
     int updateBusinessInfo(BusinessInfo businessInfo);
 
     ResultBean<Body> exportExcel();
+
+    /**
+     * 企业商户查询本地数据库推送至协会
+     */
+    void queryBusinessInfoAndPushPcac();
 }

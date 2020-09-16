@@ -29,7 +29,7 @@ public class PcacList implements Serializable {
 
     private List<RiskInfo> RiskInfo;
 
-    private BaseInfo BaseInfo;
+    private List<BaseInfo> BaseInfo;
 
     private EntInfo EntInfo;
 

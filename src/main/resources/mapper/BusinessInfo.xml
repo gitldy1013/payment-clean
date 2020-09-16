@@ -60,23 +60,23 @@
         business_info_id, cus_type, cus_name_en, cus_nature, cus_name, reg_name, cus_code, doc_type, doc_code, indu_type, leg_doc_name, reg_addr_prov, reg_addr_detail, addr_detail, out_service_card_type, org_id, rep_date, rep_type, rep_person, out_service_card_code, out_service_leg_card_type, out_service_leg_card_code, unit_prop, share_holder, open_type, chage_type, account_type, expand_type, out_service_name, status, start_time, end_time, risk_status, result_status, cont_name, cont_phone, cus_email, network_type, addr_prov, leg_doc_type, leg_doc_code, bank_no, open_bank, url, server_ip, icp, occurarea, submit_status, result_code
     </sql>
 
-    <select id="qryBySubmitStatus" resultType="com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp"
+    <select id="pushStatus" resultType="com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp"
             parameterType="java.lang.String">
         SELECT
         <include refid="Base_Column_List"/>
         FROM
         business_info t
-        WHERE  t.submit_status = #{submitStatus}
+        WHERE  t.push_status = #{pushStatus}
     </select>
 
-    <update id="updateSubmitStatus" parameterType="java.lang.String">
+    <update id="updatePushStatus" parameterType="java.lang.String">
         UPDATE business_info
         SET
-        submit_status = "1"
+        push_status = "1"
         WHERE business_Info_Id in
         <foreach item="id" index="index" open="(" separator="," close=")" collection="ids">
             #{id}
         </foreach>
-        and submit_status = "0"
+        and push_status = "0"
     </update>
 </mapper>
