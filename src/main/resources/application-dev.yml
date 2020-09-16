@@ -17,9 +17,9 @@ server:
   port: 8081
 
 pcac:
-  url: https://localhost:8081/pcac
+  url: http://210.12.239.161:10001/ries_interface/httpServlet
   version: V1.3.0
-  orig-sender: Z2015044000015
+  orig-sender: Z2004343000017
   orig-sender-sid: zf_sysstem
 
 sftp:

@@ -71,7 +71,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig);
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"");
         //设置报文体
         com.cmcc.paymentclean.entity.dto.pcac.resq.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
         body.setCusProperty(queryPcacMerchantRiskReq.getCusProperty());
@@ -200,7 +200,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig);
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"");
         //设置报文体
         com.cmcc.paymentclean.entity.dto.pcac.resq.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
         com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList();
