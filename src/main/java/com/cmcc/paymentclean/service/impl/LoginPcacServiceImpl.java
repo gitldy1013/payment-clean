@@ -46,6 +46,7 @@ public class LoginPcacServiceImpl implements LoginPcacService {
         Document document = new Document();
         document.setRequest(request);
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        log.info("不加签名的xml数据：{}",noSignXml);
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
         String xml = XmlJsonUtils.convertObjectToXmlStr(document);
@@ -57,6 +58,17 @@ public class LoginPcacServiceImpl implements LoginPcacService {
             log.info("登录清算协会响应报文：{}",result);
             com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                     (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+
+            //添加验签逻辑
+            String signature1 = documentResp.getSignature();
+            log.info("-----------响应报文签名：{}",signature1);
+            documentResp.setSignature(null);
+            String s = XmlJsonUtils.convertObjectToXmlStr(documentResp);
+            log.info("-----------响应报文去掉签名信息：{}",s);
+            boolean b = CFCACipherUtils.verifySignature(s, signature1);
+            log.info("-----------------------------验证响应报文的签名结果：{}",b);
+
+
             Respone respone = documentResp.getRespone();
             Body body = respone.getBody();
             respInfo = body.getRespInfo();
@@ -72,37 +84,9 @@ public class LoginPcacServiceImpl implements LoginPcacService {
 
     @Override
     public LoginResult logout() {
-        RespInfo respInfo=null;
-        Date date = new Date();
-        Head head = getHead(date);
-        Request request = new Request();
-        request.setHead(head);
-        Document document = new Document();
-        document.setRequest(request);
-        //加上签名空标签
-        document.setSignature("");
-        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        String signature = CFCACipherUtils.doSignature(noSignXml);
-        document.setSignature(signature);
-        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("登录清算协会请求参数报文：{}",doXml);
-        boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.022");
-        if (validate){
 
-            String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/loginServlet", doXml);
-            log.info("登录清算协会响应报文：{}",result);
-            com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
-                    (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
-            Respone respone = documentResp.getRespone();
-            Body body = respone.getBody();
-            respInfo = body.getRespInfo();
-            if("S00000".equals(respInfo.getResultCode())&&"01".equals(respInfo.getResultStatus())){
-                return new LoginResult(respInfo.getUserToken());
-            }
 
-        }
-
-        return new LoginResult(respInfo.getResultCode(),respInfo.getResultStatus());
+        return new LoginResult();
 
     }
 

@@ -368,4 +368,12 @@ public class CFCACipherUtils {
         return CFCACipherUtils.encrypt(symmetrickeyencoded, docCode);
     }
 
+    public static void main(String[] args) {
+        String signature = "Gx5kFLHK13WFj50I1HggC1cCOgA5RXLzs2sxk7WmyBq5ZYnrrFnkrYaym9jIbMOFBJsXb03/JWrtNAVXMiuZlNwCNudiKCmfzin84pAmLJUYTsa+MeMlkxagNkPPtEM2SSdn0pybWBVmTqYISswwcNOzZ8hfDIt3ezvK49oyMqrS6+5Tl8UfmKewecQAKGKSedJVAyD8uHkjZLgLjR4JvhWUZgz+SzRANnf4q5xf061v2Ek8c63bk0dPlc1YI5Ckq77Q9sBLnCUSBq/AuAsBaR6CrQySo7LgvAUnW/Y2ELW5WSgsxU4ZtZPiqnmpA5/MWud8HN8mCwqzbr845apg2A==";
+        String a ="           <?xml version=\"1.0\" encoding=\"UTF-8\"?><Document><Request><Head><Version>V1.3.0</Version><Identification>202009161000001642</Identification><OrigSender>Z2015044000015</OrigSender><OrigSenderSID>zf_sysstem</OrigSenderSID><RecSystemId>R0001</RecSystemId><TrnxCode>LR0001</TrnxCode><TrnxTime>20200916164519</TrnxTime><SecretKey></SecretKey></Head></Request><Signature>EA1UBKVE2nr1tA+CwEc+8UNEgTiBFcUBv/mu8QsOqXhiQ23cwvGaOXeF4pARIoocA0qj+N83ROUzo2KoNT9snIm6Ogq/0/bwz+y07C/Hl18tflmPZQzYXQeZ+ETOZl9hJ2rvzH/GNtGUlALwHfz2ixHL8ngZwL7ZrjcRG55xqEDCmh5XlpvD27/8+eheAahnzCykvhX+p3aZ9yYHqTNfvSIXSCld8RVkYTNlnJnIt9bDMNqzoAM8dxocdw3XBn+0VF006ts8me+j/JtrcW1aJ/khqAM+yONJQ0ctMKDTY9ZEQzxYKBNqcydUWzhuvR66yHgMkoLfVOdhPC5EjSsSVg==</Signature></Document>";
+        String srcData ="<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document><Respone><Head><Version>V1.3.0</Version><Identification>202009161000001371</Identification><OrigSender>Z2015044000015</OrigSender><OrigSenderSID>zf_sysstem</OrigSenderSID><RecSystemId>R0001</RecSystemId><TrnxCode>LR0001</TrnxCode><TrnxTime>20200916153928</TrnxTime><SecretKey></SecretKey></Head><Body><RespInfo><ResultStatus>02</ResultStatus><ResultCode>F00005</ResultCode><MsgDetail>验证签名失败</MsgDetail></RespInfo></Body></Respone></Document>";
+        boolean b = verifySignature(srcData, signature);
+        System.out.println("验签结果："+b);
+    }
+
 }
