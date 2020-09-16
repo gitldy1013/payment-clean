@@ -40,7 +40,7 @@ public class XmlJsonUtils {
                 .replaceAll("</e>", "")
                 .replaceAll("<a>", "")
                 .replaceAll("</a>", "");
-        return formatXml(resXml).replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\"\\?>\r\n", "");
+        return formatXml(resXml).replaceAll("<\\?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"\\?>\r\n", "");
     }
 
     /**
@@ -106,6 +106,7 @@ public class XmlJsonUtils {
      * 将对象直接转换成String类型的 XML输出
      */
     public static String convertObjectToXmlStr(Object obj) {
+        String enter = System.getProperty("line.separator");//换行
         // 创建输出流
         StringWriter sw = new StringWriter();
         try {
@@ -122,7 +123,7 @@ public class XmlJsonUtils {
             e.printStackTrace();
             log.info("解析对象为xml报文出错");
         }
-        return sw.toString();
+        return (convertFromXml(sw.toString())).replaceAll(" standalone=\"yes\"", "");
     }
 
     /**
@@ -162,5 +163,36 @@ public class XmlJsonUtils {
         head.setSecretKey(CFCACipherUtils.getSecretKey(symmetricKeyEncoded));
         request.setHead(head);
         return request;
+    }
+
+    private static String convertFromXml(String str) {
+        boolean flag = true;
+        boolean quotesFlag = true;
+        StringBuffer ans = new StringBuffer();
+        String tmp = "";
+        for (int i = 0; i < str.length(); i++) {
+            if ('"' == str.charAt(i)) {
+                ans.append(str.charAt(i));
+                quotesFlag = !quotesFlag;
+            } else if ('<' == str.charAt(i)) {
+                tmp = tmp.trim();
+                ans.append(tmp);
+                flag = true;
+                ans.append(str.charAt(i));
+            } else if ('>' == str.charAt(i)) {
+                if (quotesFlag) {
+                    flag = false;
+                    ans.append(str.charAt(i));
+                    tmp = "";
+                } else {
+                    ans.append(">");
+                }
+            } else if (flag) {
+                ans.append(str.charAt(i));
+            } else {
+                tmp += str.charAt(i);
+            }
+        }
+        return ans.toString();
     }
 }
