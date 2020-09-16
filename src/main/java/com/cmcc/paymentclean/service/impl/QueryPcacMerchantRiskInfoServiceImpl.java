@@ -10,7 +10,13 @@ import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.BankInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.BankList;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.BenList;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
 import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
@@ -18,6 +24,7 @@ import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
 import com.cmcc.paymentclean.mapper.QueryPcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.ExcelUtils;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
@@ -87,11 +94,10 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
             resultBean.setResCode("801");
             return resultBean;
         }
-        pushToPcac(queryPcacMerchantRiskReq, xml);
-        return resultBean;
+        return pushToPcac(xml, resultBean);
     }
 
-    private void pushToPcac(QueryPcacMerchantRiskReq queryPcacMerchantRiskReq, String xml) {
+    private ResultBean<Body> pushToPcac(String xml,ResultBean<Body> resultBean) {
         //上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         log.info("url:{}", pcacConfig.getUrl());
@@ -103,7 +109,24 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
                 "</Body>";*/
         com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
         log.info("pcac.ries.005 协会返回数据对象:{}", resBody);
-        resBody.getRespInfo();
+        PcacList pcacList = resBody.getPcacList();
+        List<RiskInfo> riskInfos = pcacList.getRiskInfo();
+        for (int i = 0; i < riskInfos.size(); i++) {
+            RiskInfo riskInfo = riskInfos.get(i);
+            BankInfo bankInfo = riskInfo.getBankInfo();
+            BankList bankList = riskInfo.getBankList();
+            BenList benList = riskInfo.getBenList();
+            QueryPcacMerchantRiskInfo queryPcacMerchantRiskInfo = new QueryPcacMerchantRiskInfo();
+            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo,bankInfo);
+            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo,bankList);
+            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo,benList);
+            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo,riskInfo);
+            queryPcacMerchantRiskInfoMapper.insert(queryPcacMerchantRiskInfo);
+        }
+        RespInfo respInfo = resBody.getRespInfo();
+        resultBean.setResCode(respInfo.getResultCode());
+        resultBean.setResMsg(respInfo.getMsgDetail());
+        return resultBean;
     }
 
     @Autowired

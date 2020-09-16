@@ -12,9 +12,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "Body")
 // 控制JAXB 绑定类中属性和字段的排序
 @XmlType(propOrder = {
-        "RespInfo"
+        "RespInfo",
+        "PcacList",
 })
 @Data
 public class Body {
     private RespInfo RespInfo;
+
+    private PcacList PcacList;
 }
