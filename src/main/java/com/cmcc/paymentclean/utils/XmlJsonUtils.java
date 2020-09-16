@@ -21,6 +21,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.Random;
 
 @Slf4j
 public class XmlJsonUtils {
@@ -148,18 +149,18 @@ public class XmlJsonUtils {
 
     }
 
-    public static Request getRequest(byte[] symmetricKeyEncoded, com.cmcc.paymentclean.entity.dto.pcac.resq.Document document, PcacConfig pcacConfig) {
-        document.setSignature("");
+    public static Request getRequest(byte[] symmetricKeyEncoded, com.cmcc.paymentclean.entity.dto.pcac.resq.Document document, PcacConfig pcacConfig,String trnxCode) {
+        document.setSignature(null);
         Request request = new Request();
         Head head = new Head();
         head.setVersion(pcacConfig.getVersion());
-        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "10"));
-        head.setOrigSender("");
-        head.setOrigSenderSID("");
+        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "100000"+new Random().nextInt(1000) + 1000));
+        head.setOrigSender(pcacConfig.getOrigSender());
+        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
         head.setRecSystemId("R0001");
-        head.setTrnxCode("");
+        head.setTrnxCode(trnxCode);
         head.setTrnxTime(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_TIME_PCAC));
-        head.setUserToken("");
+        head.setUserToken("Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyE4pl8JxdRRG2jY71wCPim2");
         head.setSecretKey(CFCACipherUtils.getSecretKey(symmetricKeyEncoded));
         request.setHead(head);
         return request;

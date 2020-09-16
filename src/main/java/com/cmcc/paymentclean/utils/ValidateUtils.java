@@ -90,7 +90,7 @@ public class ValidateUtils {
             XMLWriter writer = new XMLWriter(OutputFormat.createPrettyPrint());
             //如果错误信息不为空，说明校验失败，打印错误信息
             if (errorHandler.getErrors().hasContent()) {
-                log.info("XML文件通过XSD文件校验失败！");
+                log.info("XSD文件校验失败！");
                 writer.write(errorHandler.getErrors());
                 return false;
             } else {

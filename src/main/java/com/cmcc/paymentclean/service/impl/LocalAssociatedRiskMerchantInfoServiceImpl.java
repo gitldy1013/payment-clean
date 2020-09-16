@@ -142,7 +142,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig);
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"");
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();

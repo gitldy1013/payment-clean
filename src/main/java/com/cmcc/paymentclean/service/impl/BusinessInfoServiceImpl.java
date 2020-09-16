@@ -195,7 +195,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         Document document = new Document();
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig);
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"");
         //设置报文体
         com.cmcc.paymentclean.entity.dto.pcac.resq.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
         PcacList pcacList = new PcacList();

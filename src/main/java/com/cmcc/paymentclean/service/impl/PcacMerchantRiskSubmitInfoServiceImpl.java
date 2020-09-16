@@ -153,8 +153,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             return;
         }
         //校验xml报文
-        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
-        // boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
+//        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+         boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
             return;
@@ -172,10 +172,11 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                     "        <ResultCode>01</ResultCode>\n" +
                     "    </RespInfo>\n" +
                     "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
-        log.info("协会返回数据对象:{}", resBody);
+        log.info("协会返回数据字符串:{}", post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        log.info("协会返回数据对象:{}", doc);
         for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
-            UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", resBody.getRespInfo().getResultStatus());
+            UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getResultStatus());
             pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
         }
     }
@@ -185,7 +186,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         Document document = new Document();
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig);
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"ER0001");
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
@@ -225,7 +226,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             //法定代表人（负责人）手机号
             riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getMobileNo()));
             //网址
-            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()));
+            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()+""));
             //服务器 ip
             riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
             //ICP 备案编号
@@ -236,8 +237,12 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             pcacList.setRiskInfo(riskInfos);
         }
         body.setPcacList(pcacList);
-        request.setBody(body);
         document.setRequest(request);
+        request.setBody(body);
+        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+        //加签
+        String doSignature = CFCACipherUtils.doSignature(xml);
+        document.setSignature(doSignature);
         return document;
     }
 

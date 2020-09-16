@@ -17,6 +17,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.BenInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BenList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
@@ -172,10 +173,10 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
                 "        <ResultCode>01</ResultCode>\n" +
                 "    </RespInfo>\n" +
                 "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
-        log.info("协会返回数据对象:{}", resBody);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        log.info("协会返回数据对象:{}", doc);
         for (PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo : PcacEnterpriseRiskSubmitInfos) {
-            UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", resBody.getRespInfo().getResultStatus());
+            UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getResultStatus());
             pcacEnterpriseRiskSubmitInfoMapper.update(PcacEnterpriseRiskSubmitInfo, updateWrapper);
         }
     }
@@ -185,7 +186,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig);
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"BR0001");
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
@@ -237,6 +238,10 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         }
         body.setPcacList(pcacList);
         request.setBody(body);
+        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+        //加签
+        String doSignature = CFCACipherUtils.doSignature(xml);
+        document.setSignature(doSignature);
         document.setRequest(request);
         return document;
     }
