@@ -21,7 +21,7 @@ import java.util.List;
 */
 public interface QueryPcacMerchantRiskInfoService {
 
-    ResultBean<Body> batchQueryPcacMerchantRisk(List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReqs);
+    ResultBean<Body> batchQueryPcacMerchantRisk(QueryPcacMerchantRiskReq queryPcacMerchantRiskReq);
 
     ResultBean<Page<QueryPcacMerchantRiskInfoResp>> pageLocalAssociatedRiskMerchantInfo(QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq);
 

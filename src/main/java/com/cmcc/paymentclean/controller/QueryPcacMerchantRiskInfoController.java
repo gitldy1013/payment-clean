@@ -27,7 +27,7 @@ import java.util.List;
  * @version v1.0
  */
 @RestController
-@RequestMapping("/isocRisk/isocRegRisk")
+@RequestMapping("/isocRisk")
 public class QueryPcacMerchantRiskInfoController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class QueryPcacMerchantRiskInfoController {
      * 协会风险商户查询请求接口
      */
     @ApiOperation(value = "协会风险商户查询请求接口", notes = "协会风险商户查询请求接口")
-    @RequestMapping(value = "/queryPage",method = RequestMethod.POST)
+    @RequestMapping(value = "/isocRegRisk/query",method = RequestMethod.POST)
     public ResultBean<Page<QueryPcacMerchantRiskInfoResp>> queryPage(@RequestBody QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq) {
 
         return queryPcacMerchantRiskInfoService.pageLocalAssociatedRiskMerchantInfo(queryPcacMerchantRiskInfoReq);
@@ -47,8 +47,8 @@ public class QueryPcacMerchantRiskInfoController {
      * 批量查询商户风险信息
      */
     @ApiOperation(value = "批量查询商户风险信息", notes = "批量查询商户风险信息")
-    @RequestMapping(value = "/query",method = RequestMethod.POST)
-    public ResultBean<Body> query(@RequestBody List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReqs) {
-        return queryPcacMerchantRiskInfoService.batchQueryPcacMerchantRisk(queryPcacMerchantRiskReqs);
+    @RequestMapping(value = "/isocRiskReg/query",method = RequestMethod.POST)
+    public ResultBean<Body> query(@RequestBody QueryPcacMerchantRiskReq queryPcacMerchantRiskReq) {
+        return queryPcacMerchantRiskInfoService.batchQueryPcacMerchantRisk(queryPcacMerchantRiskReq);
     }
 }
