@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.cron;
 
+import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
@@ -37,6 +38,9 @@ public class SftpPcacRiskInfo {
     @Value("${sftp.remotePathUpload}")
     private String remotePathUpload;
 
+    @Value("${sftp.pcacRiskInfoFileNamePrefix}")
+    private String fileNamePrefix;
+
     public void run()  {
         Date startDate = new Date();
         log.info("SftpPcacRiskInfoJob run start.....{}", startDate);
@@ -45,9 +49,13 @@ public class SftpPcacRiskInfo {
         if(CollectionUtils.isEmpty(pcacRiskInfos)){
             return;
         }
+        List<String> ids = new ArrayList<>();
+        for(PcacRiskInfoDTO pcacRiskInfoDTO:pcacRiskInfos){
+            ids.add(pcacRiskInfoDTO.getPcacRiskInfoId());
+        }
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = "Black_"+ System.currentTimeMillis() + ".xlsx";
+        String fileName = fileNamePrefix + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
         try {
             //文件名
             SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(pcacRiskInfos,PcacRiskInfoDTO.class);
@@ -75,6 +83,10 @@ public class SftpPcacRiskInfo {
         }finally {
             sftpUtils.disconnect();
         }
+
+        //更新状态为上报
+        pcacRiskInfoService.updateStatus(ids);
+
         Date endDate = new Date();
         log.info("SftpPcacRiskInfoJob run end.....{}", endDate);
     }

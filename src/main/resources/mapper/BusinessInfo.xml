@@ -77,5 +77,6 @@
         <foreach item="id" index="index" open="(" separator="," close=")" collection="ids">
             #{id}
         </foreach>
+        and submit_status = "0"
     </update>
 </mapper>

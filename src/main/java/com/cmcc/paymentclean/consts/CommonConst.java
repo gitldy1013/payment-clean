@@ -14,4 +14,9 @@ public class CommonConst {
      * validStatus 有效期 无效
      */
     public static String VALIDSTATUS_02 = "02";
+
+    /**
+     * SFTP_FILE_NAME_SUFFIX SFTP文件后缀
+     */
+    public static String SFTP_FILE_NAME_SUFFIX = ".xlsx";
 }
