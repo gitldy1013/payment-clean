@@ -136,7 +136,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         }
         QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper();
         queryWrapper.eq("push_List_Type",pushListType);
-        queryWrapper.eq("update_status","0");
+        queryWrapper.eq("push_status","0");
         List<PcacRiskInfo> pcacRiskInfos =  this.list(queryWrapper);
         if(!CollectionUtils.isEmpty(pcacRiskInfos)){
             for(PcacRiskInfo pcacRiskInfo:pcacRiskInfos){
@@ -182,8 +182,8 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     }
 
     @Override
-    public void updateStatus(List<String> ids) {
-        pcacRiskInfoMapper.updateStatus(ids);
+    public void updatePushStatus(List<String> ids) {
+        pcacRiskInfoMapper.updatePushStatus(ids);
     }
 
     /**

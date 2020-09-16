@@ -1,6 +1,7 @@
 package com.cmcc.paymentclean.entity.dto.resquest;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,14 +29,17 @@ public class RiskPersonRiskSyncInfoReq implements Serializable {
 
      @NotNull(message = "有效期不能为空")
      @ApiModelProperty(value = "有效期")
+     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
      private Date validDate ;
 
      @NotNull(message = "风险事件发生时间不能为空")
      @ApiModelProperty(value = "风险事件发生时间")
+     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
      private Date occurtimeb ;
 
      @NotNull(message = "风险事件结束时间不能为空")
      @ApiModelProperty(value = "风险事件结束时间")
+     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
      private Date occurtimee ;
 
      @NotNull(message = "风险事件发生渠道不能为空")

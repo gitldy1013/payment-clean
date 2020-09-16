@@ -29,5 +29,5 @@ public interface PcacRiskInfoMapper extends BaseMapper<PcacRiskInfo> {
 
     void insertBatchPcacRiskInfo( ArrayList<PcacRiskInfo> pcacRiskInfoList);
 
-    void updateStatus(@Param("ids")List<String> ids);
+    void updatePushStatus(@Param("ids")List<String> ids);
 }

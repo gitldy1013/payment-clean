@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.utils;
 
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -13,6 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 
 /**
  * http工具类
@@ -88,7 +91,7 @@ public class HttpClientUtils {
         CloseableHttpClient httpClient = null;
         try {
             httpClient = createIgnoreVerifyHttpClient();
-            return doPost(httpClient, url, params);
+            return doPostPcac(httpClient, url, params);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("发送https post请求失败");
@@ -182,6 +185,22 @@ public class HttpClientUtils {
         PoolingHttpClientConnectionManager connManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
         CloseableHttpClient httpClient = HttpClients.custom().setConnectionManager(connManager).build();
         return httpClient;
+    }
+
+
+    /**
+     * 封装post请求方式的处理
+     */
+    private static String doPostPcac(CloseableHttpClient httpClient, String url, String xml) throws Exception {
+        log.info("Post请求url：{}", url);
+        log.info("Post请求params：{}", xml);
+        ArrayList<BasicNameValuePair> basicNameValuePairsList = new ArrayList<>();
+        basicNameValuePairsList.add(new BasicNameValuePair("xml", xml));
+        UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(basicNameValuePairsList, "UTF-8");
+        HttpPost httpPost = new HttpPost(url);
+       // httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
+        httpPost.setEntity(urlEncodedFormEntity);
+        return execute(httpClient, httpPost);
     }
 
 }
