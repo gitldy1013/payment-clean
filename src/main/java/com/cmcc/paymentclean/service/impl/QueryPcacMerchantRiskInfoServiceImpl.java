@@ -46,7 +46,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
     @Value("${sftp.remotePathUpload}")
     private String remotePathUpload;
 
-    @Value("${sftp.QueryPcacMerchantRiskInfoFileNamePrefix}")
+    @Value("${sftp.queryPcacMerchantRiskInfoFileNamePrefix}")
     private String fileNamePrefix;
 
     @Override
