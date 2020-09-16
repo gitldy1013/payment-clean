@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {
         "ResultStatus",
         "ResultCode",
+        "UserToken",
         "MsgDetail",
         "ResultSequence"
 })
@@ -23,7 +24,11 @@ public class RespInfo {
 
     private String ResultCode;
 
+    private  String UserToken;
+
     private String MsgDetail;
 
     private String ResultSequence;
+
+
 }
