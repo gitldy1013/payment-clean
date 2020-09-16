@@ -1,0 +1,36 @@
+logging:
+  config: classpath:log4j2-dev.xml
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: zfqs
+    password: Zaq!@#123
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://172.16.48.224/zfqs?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&serverTimezone=Asia/Shanghai
+
+server:
+  port: 8081
+
+
+pcac:
+  url: https://localhost:8081/pcac
+  version: V1.3.0
+  orig-sender: 收单机构号
+  orig-sender-sid: 收单机构收单机构发送系统号
+
+sftp：
+  host: 172.16.48.89
+  port: 22
+  username: zfqs
+  password: Root@123
+  modDir: /tmp/
+  remotePathUpload: /ftp_data/zfqs/input/
+  remotePathDownload: /ftp_data/zfqs/output/
+  queryPcacMerchantRiskInfoFileNamePrefix: Risk_
+  pcacRiskInfoFileNamePrefix: Black_
+  businessInfoFileNamePrefix: Business_

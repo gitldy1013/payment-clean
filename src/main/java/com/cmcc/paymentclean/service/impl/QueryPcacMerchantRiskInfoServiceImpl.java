@@ -3,6 +3,7 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
+import com.cmcc.paymentclean.config.SftpConfig;
 import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.IsTransferEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
@@ -27,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -37,25 +37,19 @@ import java.util.Date;
 import java.util.List;
 
 /**
-* <p>
-*  服务实现类
-* </p>
-*
-* @author zhaolei
-* @since 2020-09-14
-*/
+ * <p>
+ * 服务实现类
+ * </p>
+ *
+ * @author zhaolei
+ * @since 2020-09-14
+ */
 @Slf4j
 @Service
 public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacMerchantRiskInfoMapper, QueryPcacMerchantRiskInfo> implements QueryPcacMerchantRiskInfoService {
 
-    @Value("${sftp.modDir}")
-    private String modDir;
-
-    @Value("${sftp.remotePathUpload}")
-    private String remotePathUpload;
-
-    @Value("${sftp.queryPcacMerchantRiskInfoFileNamePrefix}")
-    private String fileNamePrefix;
+    @Autowired
+    private SftpConfig sftpConfig;
 
     @Autowired
     private PcacConfig pcacConfig;
@@ -119,11 +113,11 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
     public ResultBean<Page<QueryPcacMerchantRiskInfoResp>> pageLocalAssociatedRiskMerchantInfo(QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq) {
         ResultBean<Page<QueryPcacMerchantRiskInfoResp>> resultBean = new ResultBean();
         Page<QueryPcacMerchantRiskInfoResp> page = new Page<>(queryPcacMerchantRiskInfoReq.getPageNo(), queryPcacMerchantRiskInfoReq.getPageSize());
-        Page<QueryPcacMerchantRiskInfoResp> queryPcacMerchantRiskInfoRespPage =  queryPcacMerchantRiskInfoMapper.pageLocalAssociatedRiskMerchantInfo(page, queryPcacMerchantRiskInfoReq);
+        Page<QueryPcacMerchantRiskInfoResp> queryPcacMerchantRiskInfoRespPage = queryPcacMerchantRiskInfoMapper.pageLocalAssociatedRiskMerchantInfo(page, queryPcacMerchantRiskInfoReq);
         List<QueryPcacMerchantRiskInfoResp> queryPcacMerchantRiskInfoResps = queryPcacMerchantRiskInfoRespPage.getRecords();
-        if(!CollectionUtils.isEmpty(queryPcacMerchantRiskInfoResps)){
-            for(QueryPcacMerchantRiskInfoResp queryPcacMerchantRiskInfoResp:queryPcacMerchantRiskInfoResps){
-                String validStatus = (new Date().before(queryPcacMerchantRiskInfoResp.getValidDate()))? CommonConst.VALIDSTATUS_01:CommonConst.VALIDSTATUS_02;
+        if (!CollectionUtils.isEmpty(queryPcacMerchantRiskInfoResps)) {
+            for (QueryPcacMerchantRiskInfoResp queryPcacMerchantRiskInfoResp : queryPcacMerchantRiskInfoResps) {
+                String validStatus = (new Date().before(queryPcacMerchantRiskInfoResp.getValidDate())) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
                 queryPcacMerchantRiskInfoResp.setValidStatus(validStatus);
                 queryPcacMerchantRiskInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegDocType()));
                 queryPcacMerchantRiskInfoResp.setIsTransfer(IsTransferEnum.getIsTransferDesc(queryPcacMerchantRiskInfoResp.getIsTransfer()));
@@ -143,13 +137,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         //查出未推送数据
         List<QueryPcacMerchantRiskInfoResp> queryPcacMerchantRiskInfoResps = queryPcacMerchantRiskInfoMapper.qryByPushStatus("0");
-        if(CollectionUtils.isEmpty(queryPcacMerchantRiskInfoResps)){
+        if (CollectionUtils.isEmpty(queryPcacMerchantRiskInfoResps)) {
             return resultBean;
         }
         List<String> stringList = new ArrayList<>();
-        for(QueryPcacMerchantRiskInfoResp queryPcacMerchantRiskInfoResp:queryPcacMerchantRiskInfoResps){
+        for (QueryPcacMerchantRiskInfoResp queryPcacMerchantRiskInfoResp : queryPcacMerchantRiskInfoResps) {
             stringList.add(queryPcacMerchantRiskInfoResp.getQueryPcacMerchantRiskInfoId());
-            String validStatus = (new Date().before(queryPcacMerchantRiskInfoResp.getValidDate()))? CommonConst.VALIDSTATUS_01:CommonConst.VALIDSTATUS_02;
+            String validStatus = (new Date().before(queryPcacMerchantRiskInfoResp.getValidDate())) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
             queryPcacMerchantRiskInfoResp.setValidStatus(validStatus);
             queryPcacMerchantRiskInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegDocType()));
             queryPcacMerchantRiskInfoResp.setIsTransfer(IsTransferEnum.getIsTransferDesc(queryPcacMerchantRiskInfoResp.getIsTransfer()));
@@ -158,20 +152,15 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
 
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = fileNamePrefix+ System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+        String fileName = sftpConfig.getQueryPcacMerchantRiskInfoFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
         try {
             //文件名
-            SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(queryPcacMerchantRiskInfoResps,QueryPcacMerchantRiskInfoResp.class);
-            FileOutputStream fos = new FileOutputStream(modDir + fileName);
+            SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(queryPcacMerchantRiskInfoResps, QueryPcacMerchantRiskInfoResp.class);
+            FileOutputStream fos = new FileOutputStream(sftpConfig.getModDir() + fileName);
             sxssfWorkbook.write(fos);
-            if(sxssfWorkbook != null) {
-                // dispose of temporary files backing this workbook on disk -> 处
-                //     理SXSSFWorkbook导出excel时，产生的临时文件
-                sxssfWorkbook.dispose();
-            }
-            if(fos != null) {
-                fos.close();
-            }
+            // dispose of temporary files backing this workbook on disk -> 处理SXSSFWorkbook导出excel时，产生的临时文件
+            sxssfWorkbook.dispose();
+            fos.close();
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -179,11 +168,11 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         SFTPUtils sftpUtils = new SFTPUtils();
         //上传文件
         try {
-            sftpUtils.connect();
-            sftpUtils.uploadFile(remotePathUpload,fileName,modDir,fileName);
-        } catch (Exception e){
+            sftpUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
+                    sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             sftpUtils.disconnect();
         }
 
