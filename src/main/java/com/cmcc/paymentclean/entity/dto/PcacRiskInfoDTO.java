@@ -86,4 +86,7 @@ public class PcacRiskInfoDTO implements Serializable {
     @ExcelExportField(name = "商户注册号", index = 17)
     @ApiModelProperty(value = "商户注册号")
     private String registeredCode;
+
+    @ApiModelProperty(value = "推送状态0为未推送，1为已推送")
+    private String pushStatus;
 }
