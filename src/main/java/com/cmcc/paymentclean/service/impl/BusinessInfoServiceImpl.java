@@ -128,17 +128,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             e1.printStackTrace();
         }
 
-        SFTPUtils sftpUtils = new SFTPUtils();
         //上传文件
-        try {
-            sftpUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
-                    sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            sftpUtils.disconnect();
-        }
-
+        SFTPUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
+                sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
         //更新状态为推送
         businessInfoMapper.updateSubmitStatus(stringList);
         return resultBean;

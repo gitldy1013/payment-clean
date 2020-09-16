@@ -30,7 +30,7 @@ public class SFTPUtils {
     /**
      * 通过SFTP连接服务器
      */
-    public void connect(String username, String host, String port, String password) {
+    private void connect(String username, String host, String port, String password) {
         try {
             JSch jsch = new JSch();
             sshSession = jsch.getSession(username, host, Integer.parseInt(port));
@@ -54,7 +54,7 @@ public class SFTPUtils {
     /**
      * 关闭连接
      */
-    public void disconnect() {
+    private void disconnect() {
         if (this.sftp != null) {
             if (this.sftp.isConnected()) {
                 this.sftp.disconnect();
@@ -78,7 +78,7 @@ public class SFTPUtils {
      * @param localFileName：保存文件名
      * @return 是否成功
      */
-    public boolean downloadFile(String remotePath, String remoteFileName, String localPath, String localFileName) {
+    private boolean downloadFile(String remotePath, String remoteFileName, String localPath, String localFileName) {
         FileOutputStream fieloutput = null;
         try {
             File file = new File(localPath + localFileName);
@@ -109,7 +109,7 @@ public class SFTPUtils {
      * @param localFileName：上传的文件名
      * @return 是否成功
      */
-    public boolean uploadFile(String remotePath, String remoteFileName, String localPath, String localFileName) {
+    private boolean uploadFile(String remotePath, String remoteFileName, String localPath, String localFileName) {
         FileInputStream in = null;
         String tempRemoteFileName = remoteFileName + ".temp";
         try {
@@ -138,7 +138,7 @@ public class SFTPUtils {
      *
      * @param createpath 目录
      */
-    public void createDir(String createpath) {
+    private void createDir(String createpath) {
         try {
             if (isDirExist(createpath)) {
                 this.sftp.cd(createpath);
@@ -173,7 +173,7 @@ public class SFTPUtils {
      * @param directory 文件夹
      * @return 是否存在
      */
-    public boolean isDirExist(String directory) {
+    private boolean isDirExist(String directory) {
         boolean isDirExistFlag = false;
         try {
             SftpATTRS sftpATTRS = sftp.lstat(directory);
@@ -188,19 +188,18 @@ public class SFTPUtils {
     }
 
     /**
-     *
-     * @param username 用户名
-     * @param host 地址
-     * @param port 端口
-     * @param password 密码
-     * @param remotePath 远程地址
+     * @param username       用户名
+     * @param host           地址
+     * @param port           端口
+     * @param password       密码
+     * @param remotePath     远程地址
      * @param remoteFileName 远程文件名
-     * @param localPath 本地路径
-     * @param localFileName 本地文件名
-     * @param operateType 操作类型
+     * @param localPath      本地路径
+     * @param localFileName  本地文件名
+     * @param operateType    操作类型
      * @return
      */
-    public boolean operateSFTP(String username, String host, String port, String password, String remotePath, String remoteFileName, String localPath, String localFileName, String operateType) {
+    public static boolean operateSFTP(String username, String host, String port, String password, String remotePath, String remoteFileName, String localPath, String localFileName, String operateType) {
         SFTPUtils sftp = null;
         try {
             sftp = new SFTPUtils();
@@ -214,6 +213,7 @@ public class SFTPUtils {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            log.info("文件操作异常：{}", localFileName + operateType + "失败!");
         } finally {
             assert sftp != null;
             sftp.disconnect();

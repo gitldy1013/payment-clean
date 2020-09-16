@@ -59,19 +59,10 @@ public class SftpPcacRiskInfo {
         }
 
         //上传文件
-        SFTPUtils sftpUtils = new SFTPUtils();
-        try {
-            sftpUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
-                    sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            sftpUtils.disconnect();
-        }
-
+        SFTPUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
+                sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
         //更新状态为上报
         pcacRiskInfoService.updateStatus(ids);
-
         Date endDate = new Date();
         log.info("SftpPcacRiskInfoJob run end.....{}", endDate);
     }
