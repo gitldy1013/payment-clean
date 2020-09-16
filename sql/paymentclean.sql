@@ -27,10 +27,13 @@ create table pcac_opt_log
 
 drop table if exists pcac_risk_info;
 
+/*==============================================================*/
+/* Table: pcac_risk_info                                        */
+/*==============================================================*/
 create table pcac_risk_info
 (
    pcac_risk_info_id    int(64) not null auto_increment comment 'id序号',
-   push_list_type         varchar(2) comment '推送名单类型,01黑名单，02风险提示信息',
+   push_list_type       varchar(2) comment '推送名单类型,01黑名单，02风险提示信息',
    up_date              varchar(10) comment '推送日期',
    reg_name             varchar(128) comment '商户名称',
    cus_name             varchar(128) comment '商户简称',
@@ -46,6 +49,7 @@ create table pcac_risk_info
    cus_type             varchar(2) comment '商户类型',
    occurarea            varchar(256) comment '风险事件发生地域，省级/地市，可多选，逗号隔开',
    bank_no              varchar(128) comment '银行结算账户',
+   push_status          varchar(2) default '0' comment '推送状态0为未推送，1为已推送',
    url                  varchar(512) comment '网址',
    registered_code      varchar(256) comment '商户注册号',
    primary key (pcac_risk_info_id)
