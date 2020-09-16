@@ -1160,14 +1160,14 @@
 >* 请求报文示例：
 
 ```json
-{
+[{
     "id":"",
     "cusType":"",
     "amount":"",
     "handleResult":"",
     "handleTime":"",
     "currency":""
-}
+}]
 ```
 
 * 响应报文字段

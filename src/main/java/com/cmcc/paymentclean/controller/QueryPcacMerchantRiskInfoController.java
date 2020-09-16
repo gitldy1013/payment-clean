@@ -4,6 +4,7 @@ package com.cmcc.paymentclean.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,13 +35,23 @@ public class QueryPcacMerchantRiskInfoController {
     private QueryPcacMerchantRiskInfoService queryPcacMerchantRiskInfoService;
 
     /**
-     * 协会风险商户查询请求接口
+     * 商户风险信息查询使用情况查询
      */
-    @ApiOperation(value = "协会风险商户查询请求接口", notes = "协会风险商户查询请求接口")
+    @ApiOperation(value = "商户风险信息查询使用情况查询", notes = "商户风险信息查询使用情况查询")
     @RequestMapping(value = "/isocRegRisk/query",method = RequestMethod.POST)
     public ResultBean<Page<QueryPcacMerchantRiskInfoResp>> queryPage(@RequestBody QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq) {
 
         return queryPcacMerchantRiskInfoService.pageLocalAssociatedRiskMerchantInfo(queryPcacMerchantRiskInfoReq);
+    }
+
+    /**
+     * 批量商户风险信息查询使用情况反馈
+     */
+    @ApiOperation(value = "批量商户风险信息查询使用情况反馈", notes = "批量商户风险信息查询使用情况反馈")
+    @RequestMapping(value = "/isocRegRisk/back",method = RequestMethod.POST)
+    public ResultBean<Body> back(@RequestBody List<QueryPcacMerchantRiskInfoBackReq> queryPcacMerchantRiskInfoBackReq) {
+
+        return queryPcacMerchantRiskInfoService.queryPcacMerchantRiskInfoBack(queryPcacMerchantRiskInfoBackReq);
     }
 
     /**
