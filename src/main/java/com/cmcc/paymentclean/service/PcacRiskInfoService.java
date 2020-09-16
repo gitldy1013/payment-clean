@@ -89,6 +89,6 @@ public interface PcacRiskInfoService {
 
     String insertBatchPcacRiskInfo(@Param("items")ArrayList<PcacRiskInfo> pcacRiskInfoList);
 
-    void updateStatus(List<String> ids);
+    void updatePushStatus(List<String> ids);
 
 }

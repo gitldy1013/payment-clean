@@ -45,7 +45,7 @@ public class SftpPcacRiskInfo {
         }
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = sftpConfig.getQueryPcacMerchantRiskInfoFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+        String fileName = sftpConfig.getPcacRiskInfoFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
         try {
             //文件名
             SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(pcacRiskInfos, PcacRiskInfoDTO.class);
@@ -61,8 +61,8 @@ public class SftpPcacRiskInfo {
         //上传文件
         SFTPUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
                 sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
-        //更新状态为上报
-        pcacRiskInfoService.updateStatus(ids);
+        //更新状态为已推送
+        pcacRiskInfoService.updatePushStatus(ids);
         Date endDate = new Date();
         log.info("SftpPcacRiskInfoJob run end.....{}", endDate);
     }
