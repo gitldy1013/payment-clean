@@ -1,6 +1,5 @@
 package com.cmcc.paymentclean.cron;
 
-import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;

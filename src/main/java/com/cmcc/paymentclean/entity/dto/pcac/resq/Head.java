@@ -1,6 +1,5 @@
 package com.cmcc.paymentclean.entity.dto.pcac.resq;
 
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;

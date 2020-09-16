@@ -1,8 +1,8 @@
 package com.cmcc.paymentclean.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import org.apache.ibatis.annotations.Mapper;

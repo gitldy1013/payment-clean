@@ -1,7 +1,7 @@
 package com.cmcc.paymentclean.mapper;
 
-import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
