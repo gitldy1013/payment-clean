@@ -20,6 +20,7 @@ import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -203,7 +204,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             ArrayList<BaseInfo> baseInfos = new ArrayList<BaseInfo>();
             BaseInfo baseInfo = new BaseInfo();
             BusinessInfo businessInfo = businessInfos.get(i);
-            BeanUtilsEx.copyProperties(businessInfo, baseInfo);
+            BeanUtils.copyProperties(businessInfo, baseInfo);
             baseInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
             baseInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, businessInfo.getBankNo()));
 
