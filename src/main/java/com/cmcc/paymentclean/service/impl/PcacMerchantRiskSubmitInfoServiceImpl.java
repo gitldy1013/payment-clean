@@ -154,6 +154,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         }
         //校验xml报文
 //        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+        log.info("请求报文: {}",XmlJsonUtils.formatXml(xml));
          boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
@@ -166,13 +167,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         //上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         log.info("url:{}", pcacConfig.getUrl());
-            /*String post = "<Body>\n" +
-                    "    <RespInfo>\n" +
-                    "        <ResultStatus>已上报</ResultStatus>\n" +
-                    "        <ResultCode>01</ResultCode>\n" +
-                    "    </RespInfo>\n" +
-                    "</Body>";*/
-        log.info("协会返回数据字符串:{}", post);
+        log.info("协会返回数据字符串:{}", XmlJsonUtils.formatXml(post));
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
         log.info("协会返回数据对象:{}", doc);
         for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
