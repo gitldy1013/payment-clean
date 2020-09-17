@@ -42,7 +42,8 @@ public class CFCACipherUtils {
     // 签名证书保护密码
     //private static String pfxFilePwd = "11111111";
     // 签名证书公钥证书
-    private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac.cer";
+    //private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac.cer";
+    private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac-new.cer";
 
     // 解密证书（带私钥）
     private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/huiyuan.pfx";
@@ -195,94 +196,6 @@ public class CFCACipherUtils {
     }
 
 
-    /**
-     * 使用AES随机密钥对map数据进行加密
-     */
-    public static Map<String, String> encrypt(byte[] symmetricKeyEncoded, Map<String, String> toBeEncMap) {
-        //AES加密后数据
-        String encrytedData = null;
-        try {
-
-            SecretKeySpec key = new SecretKeySpec(symmetricKeyEncoded, "AES");
-
-            // 对称加密
-            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
-
-            Set<String> keySet = toBeEncMap.keySet();
-            Iterator<String> iterator = keySet.iterator();
-            while (iterator.hasNext()) {
-                String mapkey = iterator.next();
-                String toBeEncData = toBeEncMap.get(mapkey);
-                byte[] byteContent = toBeEncData.getBytes("UTF-8");
-                cipher.init(Cipher.ENCRYPT_MODE, key);
-                byte[] result = cipher.doFinal(byteContent);
-
-                encrytedData = new String(Base64.encode(result));
-                logger.info("使用AES对称密钥加密后的密文（经Base64编码）:{}", encrytedData);
-                toBeEncMap.put(mapkey, encrytedData);
-
-            }
-
-        } catch (Exception e) {
-            logger.info("加密数据失败");
-            e.printStackTrace();
-        }
-        return toBeEncMap;
-    }
-
-
-
-    /* *//*
-     * 数据加密，AES密钥加密
-     * *//*
-    public static Map<String,String> encrypt(String toBeEncData) {
-        //AES加密后数据
-        String encrytedData = null;
-        //AES密钥加密后密钥key
-        String encryptedKey = null;
-        Map<String,String> encryptMap = new HashMap<String,String>();
-        try{
-            // 初始化加密会话
-            JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
-            Session session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);
-
-            // 生成对称AES密钥
-            KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            kgen.init(128, new SecureRandom());
-            SecretKey secretKey = kgen.generateKey();
-            logger.info("---------------AES密钥:", secretKey.toString());
-            byte[] symmetricKeyEncoded = secretKey.getEncoded();
-            SecretKeySpec key = new SecretKeySpec(symmetricKeyEncoded, "AES");
-
-            // 对称加密
-            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
-            byte[] byteContent = toBeEncData.getBytes("UTF-8");
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] result = cipher.doFinal(byteContent);
-
-            encrytedData = new String(Base64.encode(result));
-            logger.info("使用AES对称密钥加密后的密文（经Base64编码）:{}" , encrytedData);
-
-            // 获取接收方公钥
-            //FileInputStream fin = new FileInputStream(publicCertFilePath);
-            FileInputStream fin = new FileInputStream(encPublicCertFilePath);
-            X509Cert cert = new X509Cert(fin);
-
-
-    */
-
-    /*********************************************//*
-            // 去掉外层Base64编码，在方法体内部已经做过Base64编码
-            encryptedKey = new String(EncryptUtil.encryptMessageByRSA(symmetricKeyEncoded, cert, session));
-            logger.info("使用对方公钥加密后的会话密钥密文（经Base64编码）:{}" ,encryptedKey);
-            encryptMap.put("encrytedData",encrytedData);
-            encryptMap.put("encryptedKey",encryptedKey);
-        }catch(Exception e){
-            logger.info("加密数据失败");
-            e.printStackTrace();
-        }
-        return encryptMap;
-    }
 
 
  /**
@@ -318,46 +231,6 @@ public class CFCACipherUtils {
         return decryptedData;
     }
 
-
-
-    /**
-     * 数据解密
-     * secretKey为加密后的AES密钥
-     * toBeDecMap为需要加密的字段map集合
-     * */
-    public static Map<String, String> decrypt(String secretKey, Map<String, String> toBeDecMap) {
-
-        try {
-            // 初始化加密会话
-            /*JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
-            Session session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);*/
-
-            // 解密对称密钥
-            PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
-            /*********************************************/
-            // 去掉外层Base64解码，在方法体内部已经做过Base64解码
-            byte[] keyData = EncryptUtil.decryptMessageByRSA(secretKey.getBytes(), priKey, session);
-            SecretKeySpec symmetricKey = new SecretKeySpec(keyData, "AES");
-
-            // 解密被加密的项，可使用对称密钥对多个加密项进行解密
-            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
-            cipher.init(Cipher.DECRYPT_MODE, symmetricKey);
-            Set<String> keySet = toBeDecMap.keySet();
-            Iterator<String> iterator = keySet.iterator();
-            while (iterator.hasNext()) {
-                String mapkey = iterator.next();
-                String encrytedData = toBeDecMap.get(mapkey);
-                byte[] result = cipher.doFinal(Base64.decode(encrytedData));
-                String decryptedData = new String(result, "UTF-8");
-                logger.info("解密后的原文数据:{}", decryptedData);
-                toBeDecMap.put(mapkey, decryptedData);
-            }
-        } catch (Exception e) {
-            logger.info("解密数据失败");
-            e.printStackTrace();
-        }
-        return toBeDecMap;
-    }
 
     public static String getInnerToCFCA(String docType, String docCode, byte[] symmetrickeyencoded) {
         if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {
