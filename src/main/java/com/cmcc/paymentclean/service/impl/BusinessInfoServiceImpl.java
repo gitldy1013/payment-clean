@@ -13,6 +13,7 @@ import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.*;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
+import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
@@ -170,6 +171,54 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         pushToPcac(businessInfos, xml);
     }
 
+    @Override
+    public ResultBean batchQuery(List<BusinessInfoReq> businessInfoReqs) {
+        ResultBean resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+        if(CollectionUtils.isEmpty(businessInfoReqs)){
+            resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+            resultBean.setData("入参为空");
+            return resultBean;
+        }
+        for(BusinessInfoReq businessInfoReq:businessInfoReqs){
+            if((StringUtils.isNotEmpty(businessInfoReq.getDocCode()) && StringUtils.isNotEmpty(businessInfoReq.getRegName()) )){
+                continue;
+            }else if(StringUtils.isNotEmpty(businessInfoReq.getLegDocCode()) && StringUtils.isNotEmpty(businessInfoReq.getLegDocType())){
+                continue;
+            }else{
+                resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+                resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+                resultBean.setData("查询条件组合中选择一种进行查询：企业商户法人名称;法人证件号码;法定代表人（负责人）证件号码+法定代表人姓名");
+                return resultBean;
+            }
+        }
+        Document document = this.getDocumentByQuery(businessInfoReqs);
+        //报文转换
+        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+        log.info("获取到的xml数据:{}", xml);
+        if (StringUtils.isEmpty(xml)) {
+            log.info("xml报文转换失败");
+            resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+            resultBean.setData("xml报文转换失败");
+            return resultBean;
+        }
+        //校验xml报文  企业商户信息上报请求
+        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.044");
+        if (!validate) {
+            log.info("XML校验失败");
+            resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+            resultBean.setData("XML校验失败");
+            return resultBean;
+        }
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = this.pushToPcacByQuery(xml);
+        resultBean.setData(resBody.getRespInfo());
+        return resultBean;
+    }
+
     private void pushToPcac(List<BusinessInfo> businessInfos, String xml) {
         //上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
@@ -186,6 +235,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             UpdateWrapper<BusinessInfo> updateWrapper = new UpdateWrapper<BusinessInfo>();
             updateWrapper.eq("submit_status","1");
             updateWrapper.eq("rep_date",new Date());
+            updateWrapper.eq("result_status",resBody.getRespInfo().getResultStatus());
+            updateWrapper.eq("result_code",resBody.getRespInfo().getResultCode());
             businessInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
         }
     }
@@ -243,5 +294,59 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         request.setBody(body);
         document.setRequest(request);
         return document;
+    }
+
+    private Document getDocumentByQuery(List<BusinessInfoReq> businessInfoReqs) {
+        //拼装报文
+        Document document = new Document();
+        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+        //设置报文头
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"");
+        //设置报文体
+        com.cmcc.paymentclean.entity.dto.pcac.resq.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
+        PcacList pcacList = new PcacList();
+        for (int i = 0; i < businessInfoReqs.size(); i++) {
+            pcacList.setCount(businessInfoReqs.size());
+            ArrayList<BaseInfo> baseInfos = new ArrayList<BaseInfo>();
+            BaseInfo baseInfo = new BaseInfo();
+            BusinessInfoReq businessInfo = businessInfoReqs.get(i);
+            BeanUtils.copyProperties(businessInfo, baseInfo);
+            baseInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
+
+            if(StringUtils.isNotEmpty(businessInfo.getDocCode())){
+                //法人证件号码
+                baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
+            }else if(StringUtils.isNotEmpty(businessInfo.getRegName())){
+                //商户名称
+                baseInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegName()));
+            }else{
+                //法定代表人姓名/负责人姓名
+                baseInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
+                //法定代表人（负责人）证件号码
+                baseInfo.setLegDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocCode()));
+            }
+
+            baseInfos.add(baseInfo);
+            pcacList.setBaseInfo(baseInfos);
+        }
+        body.setPcacList(pcacList);
+        request.setBody(body);
+        document.setRequest(request);
+        return document;
+    }
+
+    private com.cmcc.paymentclean.entity.dto.pcac.resp.Body pushToPcacByQuery(String xml) {
+        //上报数据
+        String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+        log.info("url:{}", pcacConfig.getUrl());
+            /*String post = "<Body>\n" +
+                    "    <RespInfo>\n" +
+                    "        <ResultStatus>已上报</ResultStatus>\n" +
+                    "        <ResultCode>01</ResultCode>\n" +
+                    "    </RespInfo>\n" +
+                    "</Body>";*/
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
+        log.info("协会返回数据对象:{}", resBody);
+        return resBody;
     }
 }

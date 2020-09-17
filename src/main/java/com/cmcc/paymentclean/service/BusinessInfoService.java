@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
+
+import java.util.List;
 
 /**
 * <p>
@@ -73,4 +76,6 @@ public interface BusinessInfoService {
      * 企业商户查询本地数据库推送至协会
      */
     void queryBusinessInfoAndPushPcac();
+
+    ResultBean batchQuery(List<BusinessInfoReq> businessInfoReqs);
 }
