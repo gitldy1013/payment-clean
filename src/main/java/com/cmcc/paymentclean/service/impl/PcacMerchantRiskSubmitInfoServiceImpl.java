@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.MsgDetailEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
@@ -138,7 +139,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
     @Override
     public void queryRiskMerchantAndPushPcac() {
         //获取未上报的数据
-        QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper = new QueryWrapper<PcacMerchantRiskSubmitInfo>().like("msg_detail", "未上报");
+        QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper = new QueryWrapper<PcacMerchantRiskSubmitInfo>().like("msg_detail", MsgDetailEnum.MSGDETAILENUM_00.getDesc());
         List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos = pcacMerchantRiskSubmitInfoMapper.selectList(queryWrapper);
         if (pcacMerchantRiskSubmitInfos.size() == 0) {
             log.info("当前没有可上报的风险商户信息");
@@ -154,6 +155,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         }
         //校验xml报文
 //        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+        log.info("请求报文: {}",XmlJsonUtils.formatXml(xml));
          boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
@@ -166,17 +168,11 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         //上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         log.info("url:{}", pcacConfig.getUrl());
-            /*String post = "<Body>\n" +
-                    "    <RespInfo>\n" +
-                    "        <ResultStatus>已上报</ResultStatus>\n" +
-                    "        <ResultCode>01</ResultCode>\n" +
-                    "    </RespInfo>\n" +
-                    "</Body>";*/
-        log.info("协会返回数据字符串:{}", post);
+        log.info("协会返回数据字符串:{}", XmlJsonUtils.formatXml(post));
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
         log.info("协会返回数据对象:{}", doc);
         for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
-            UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getResultStatus());
+            UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", MsgDetailEnum.getOccurChanEnum(doc.getRespone().getBody().getRespInfo().getResultStatus()));
             pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
         }
     }
@@ -220,7 +216,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             //法人证件号码
             riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getDocCode()));
             //法定代表人姓名/负责人姓名
-            riskInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocName()));
+            riskInfo.setLegRepName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegRepName()));
             //法定代表人（负责人）证件号码
             riskInfo.setLegDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocCode()));
             //法定代表人（负责人）手机号

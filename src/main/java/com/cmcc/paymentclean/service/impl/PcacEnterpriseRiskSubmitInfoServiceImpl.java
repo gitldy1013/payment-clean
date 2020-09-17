@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.MsgDetailEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
@@ -139,7 +140,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
     @Override
     public void queryRiskEnterpriseAndPushPcac() {
         //获取未上报的数据
-        QueryWrapper<PcacEnterpriseRiskSubmitInfo> queryWrapper = new QueryWrapper<PcacEnterpriseRiskSubmitInfo>().like("msg_detail", "未上报");
+        QueryWrapper<PcacEnterpriseRiskSubmitInfo> queryWrapper = new QueryWrapper<PcacEnterpriseRiskSubmitInfo>().eq("msg_detail", MsgDetailEnum.MSGDETAILENUM_00.getDesc());
         List<PcacEnterpriseRiskSubmitInfo> PcacEnterpriseRiskSubmitInfos = pcacEnterpriseRiskSubmitInfoMapper.selectList(queryWrapper);
         if (PcacEnterpriseRiskSubmitInfos.size() == 0) {
             log.info("当前没有可上报的风险商户信息");
@@ -176,7 +177,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
         log.info("协会返回数据对象:{}", doc);
         for (PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo : PcacEnterpriseRiskSubmitInfos) {
-            UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getResultStatus());
+            UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", MsgDetailEnum.getOccurChanEnum(doc.getRespone().getBody().getRespInfo().getResultStatus()));
             pcacEnterpriseRiskSubmitInfoMapper.update(PcacEnterpriseRiskSubmitInfo, updateWrapper);
         }
     }

@@ -154,13 +154,13 @@ public class XmlJsonUtils {
         Request request = new Request();
         Head head = new Head();
         head.setVersion(pcacConfig.getVersion());
-        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "100000"+new Random().nextInt(1000) + 1000));
+        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "100"+new Random().nextInt(1000) + 1000));
         head.setOrigSender(pcacConfig.getOrigSender());
         head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
         head.setRecSystemId("R0001");
         head.setTrnxCode(trnxCode);
         head.setTrnxTime(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_TIME_PCAC));
-        head.setUserToken("Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyE4pl8JxdRRG2jY71wCPim2");
+        head.setUserToken(pcacConfig.getUserToken());
         head.setSecretKey(CFCACipherUtils.getSecretKey(symmetricKeyEncoded));
         request.setHead(head);
         return request;
