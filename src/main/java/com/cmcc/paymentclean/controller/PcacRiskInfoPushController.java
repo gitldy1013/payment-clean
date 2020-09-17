@@ -40,6 +40,25 @@ public class PcacRiskInfoPushController {
 
 
     /**
+     * 协会推送风险提示信息
+     * 风险提示信息关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
+     *
+     *
+     * */
+    @RequestMapping(value = "/riskTipsInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public String  riskTipsInfo(@RequestParam(value = "xml") String xmlStr){
+        log.debug("接收协会风险提示信息报文：{}",xmlStr);
+        String pushListType = IsBlackEnum.ISBLACKE_02.getCode();
+
+        String doXml = getRiskInfo(xmlStr,pushListType);
+
+        return doXml;
+    }
+
+
+
+    /**
      * 协会推送黑名单信息
      * 黑名单推送关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
      *
@@ -49,60 +68,70 @@ public class PcacRiskInfoPushController {
     @ResponseBody
     public String  blackList(@RequestParam(value = "xml") String xmlStr){
         log.debug("接收协会黑名单报文：{}",xmlStr);
-        String doXml =null;
+        String pushListType = IsBlackEnum.ISBLACKE_01.getCode();
+
+        String doXml = getRiskInfo(xmlStr,pushListType);
+
+        return doXml;
+    }
+
+
+
+
+    private String getRiskInfo(String xmlStr,String pushListType) {
+        String doXml = null;
         Document document = (Document) XmlJsonUtils.convertXmlStrToObject(Document.class, xmlStr);
         String signature = document.getSignature();
         document.setSignature(null);
         String noSignatureXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.debug("验签使用的原数据xml：{}",noSignatureXml);
+        log.debug("验签使用的原数据xml：{}", noSignatureXml);
         boolean isSign = CFCACipherUtils.verifySignature(noSignatureXml, signature);
-        log.info("-------黑名单信息推送验证签名结果为：{}",isSign);
-            Request request = document.getRequest();
-            Head head = request.getHead();
-            String secretKey = head.getSecretKey();
-            Body body = request.getBody();
-            PcacList pcacList = body.getPcacList();
-            String upDate = pcacList.getUpDate();
-            List<RiskInfo> riskInfoList = pcacList.getRiskInfo();
-            ArrayList<PcacRiskInfo> pcacRiskInfoList = new ArrayList<>();
-            for(RiskInfo riskInfo:riskInfoList){
-                log.debug("协会返回黑名单信息：{}",riskInfo);
-                //对关键字进行解密，证件号码和银行卡号加密
-                //商户简称
-                String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
-                riskInfo.setCusName(decryptCusName);
-                //商户名称
-                String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
-                riskInfo.setRegName(decryptRegName);
-                //法人证件号码
-                String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
-                riskInfo.setCusCode(decryptDocCode);
-                //法定代表人姓名
-                String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
-                riskInfo.setLegDocName(decryptLegDocName);
-                //法定代表人证件号码
-                String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
-                String encryptLegDocCode =null;
-                //判断证件类型是身份证就进行内部加密
-                if(!StringUtils.isEmpty(riskInfo.getLegDocCode())&&LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())){
-                    encryptLegDocCode = InnerCipherUtils.encrypt(decryptLegDocCode);
-                }
+        log.info("-------风险信息推送验证签名结果为：{}", isSign);
+        Request request = document.getRequest();
+        Head head = request.getHead();
+        String secretKey = head.getSecretKey();
+        Body body = request.getBody();
+        PcacList pcacList = body.getPcacList();
+        String upDate = pcacList.getUpDate();
+        List<RiskInfo> riskInfoList = pcacList.getRiskInfo();
+        ArrayList<PcacRiskInfo> pcacRiskInfoList = new ArrayList<>();
+        for (RiskInfo riskInfo : riskInfoList) {
+            log.debug("协会返回风险信息：{}", riskInfo);
+            //对关键字进行解密，证件号码和银行卡号加密
+            //商户简称
+            String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
+            riskInfo.setCusName(decryptCusName);
+            //商户名称
+            String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
+            riskInfo.setRegName(decryptRegName);
+            //法人证件号码
+            String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
+            riskInfo.setCusCode(decryptDocCode);
+            //法定代表人姓名
+            String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
+            riskInfo.setLegDocName(decryptLegDocName);
+            //法定代表人证件号码
+            String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
+            String encryptLegDocCode = null;
+            //判断证件类型是身份证就进行内部加密
+            if (!StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
+                encryptLegDocCode = InnerCipherUtils.encrypt(decryptLegDocCode);
+            }
 
-                riskInfo.setLegDocCode(encryptLegDocCode);
-                String encryptBankNo = InnerCipherUtils.encrypt(riskInfo.getBankNo());
-                riskInfo.setBankNo(encryptBankNo);
-                PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
-                BeanUtilsEx.copyProperties(pcacRiskInfo,riskInfo);
-                log.debug("BeanUtilsEx.copyProperties方法封装进对象后黑名单信息：{}",pcacRiskInfo);
-                pcacRiskInfo.setUpDate(upDate);
-                //设置类型为黑名单
-                pcacRiskInfo.setPushListType(IsBlackEnum.ISBLACKE_01.getCode());
-                pcacRiskInfoList.add(pcacRiskInfo);
+            riskInfo.setLegDocCode(encryptLegDocCode);
+            String encryptBankNo = InnerCipherUtils.encrypt(riskInfo.getBankNo());
+            riskInfo.setBankNo(encryptBankNo);
+            PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
+            BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
+            log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
+            pcacRiskInfo.setUpDate(upDate);
+            //设置类型01为黑名单,02为风险提示信息
+            pcacRiskInfo.setPushListType(pushListType);
+            pcacRiskInfoList.add(pcacRiskInfo);
 
 
-            log.debug("需要入库黑名单信息：",pcacRiskInfoList);
-             doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
-
+            log.debug("需要入库风险信息：", pcacRiskInfoList);
+            doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
 
         }
         return doXml;
