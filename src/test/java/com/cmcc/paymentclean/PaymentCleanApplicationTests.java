@@ -25,7 +25,8 @@ class PaymentCleanApplicationTests {
 
     @Test
     public void  test02(){
-        LoginResult result = loginPcacService.login();
+       LoginResult result = loginPcacService.login();
+       // LoginResult result = loginPcacService.logout();
         System.out.println("----------------登录结果--------------");
         System.out.println(result);
     }

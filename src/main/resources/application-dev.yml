@@ -23,7 +23,7 @@ pcac:
   orig-sender-sid: zf_sysstem
   login-url: http://210.12.239.161:10001/ries_interface/loginServlet
   business-url: http://210.12.239.161:10001/ries_interface/httpServlet
-  user-token: Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyE4pl8JxdRRG2jY71wCPim2
+  user-token: Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyE60nbKNerDjTeL2CjI3AmR
 
 sftp:
   host: 172.21.72.19
