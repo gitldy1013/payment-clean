@@ -120,6 +120,76 @@ public class ExcelUtils {
     }
 
     /**
+     * list对象转excel的sheet(指定)
+     * 自定义格式
+     *
+     * @param wb                excel表格
+     * @param sheet             sheet标签
+     * @param list              数据
+     * @param c                 list中实例的类型
+     * @return
+     * @throws Exception
+     */
+    public SXSSFWorkbook exportExcelAppointSheet(SXSSFWorkbook wb, Sheet sheet, List list, Class c)
+            throws Exception {
+        wb = workbookSetting(wb);
+        Row row = null;
+        Cell cell = null;
+
+        //行号，默认当前sheet种最后一行的行号
+        int rowc = sheet.getLastRowNum();
+
+        //通过对象反射获取表头信息
+        Field[] fields = c.getDeclaredFields();
+        List<FieldInfo> fieldInfos = new ArrayList<>();
+        ExcelExportField excelExportField = null;
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(ExcelExportField.class)) {
+                excelExportField = field.getAnnotation(ExcelExportField.class);
+                fieldInfos.add(new FieldInfo(excelExportField, field.getName()));
+            }
+        }
+        Collections.sort(fieldInfos, Comparator.comparing(FieldInfo::getIndex));
+
+        //设置表头数据和宽度
+        row = sheet.createRow(rowc);
+        for (int i = 0; i < fieldInfos.size(); i++) {
+            cell = row.createCell(i);
+            cell.setCellValue(fieldInfos.get(i).getName());
+            sheet.setColumnWidth(i, fieldInfos.get(i).getWidth() * 256);
+        }
+
+        //写入数据
+        if (list != null && list.size() > 0) {
+            FieldInfo fieldInfo = null;
+            for (int i = 0; i < list.size(); i++) {
+                rowc++;
+                //初始化一行
+                row = sheet.createRow(rowc);
+                //每一列设置对应的数据
+                for (int j = 0; j < fieldInfos.size(); j++) {
+                    fieldInfo = fieldInfos.get(j);
+                    Field field = c.getDeclaredField(fieldInfo.getFieldName());
+                    //开启私有字段的权限
+                    field.setAccessible(true);
+                    if (fieldInfo.enumClass != null && fieldInfo.enumClass.isEnum() && fieldInfo.enumField.length() > 0
+                            && fieldInfo.enumShowField.length() > 0 && field.get(list.get(i)) != null) {
+                        row.createCell(j).setCellValue(toString(getEnumValue(list.get(i), fieldInfo, field)));
+                    } else if (fieldInfo.valueMap.length() > 0 && field.get(list.get(i)) != null) {
+                        Map map = (Map) fromJson(fieldInfo.valueMap, HashMap.class);
+                        row.createCell(j).setCellValue(toString(map.get(field.get(list.get(i)).toString())));
+                    } else {
+                        row.createCell(j).setCellValue(toString(field.get(list.get(i))));
+                    }
+                }
+                row = null;
+                fieldInfo = null;
+            }
+        }
+        return wb;
+    }
+
+    /**
      * 通过枚举获取显示的数据
      *
      * @param item      对象

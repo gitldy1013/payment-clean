@@ -11,6 +11,7 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.*;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
@@ -18,8 +19,10 @@ import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.utils.*;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -353,5 +356,67 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
         log.info("协会返回数据对象:{}", resBody);
         return resBody;
+    }
+
+    @Override
+    public ResultBean<?> getBusinessInfoXML(String xml){
+        log.info("接收的xml:{}", xml);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resq.Body.class, xml);
+        List<ConditionList> conditionLists = resBody.getConditionList();
+        if(!CollectionUtils.isEmpty(conditionLists)){
+            for(ConditionList conditionList:conditionLists){
+                //返回记录总数
+                int count = Integer.valueOf(conditionList.getCondition().getCount());
+                Condition condition = conditionList.getCondition();
+                ResultCondition resultCondition = condition.getResultCondition();
+                ResultInfo resultInfo = resultCondition.getResultInfo();
+                BaseInfo baseInfo = resultInfo.getBaseInfo();
+                //待补充落表逻辑
+
+                List<HisSignList> hisSignList = resultInfo.getHisSignList();
+                List<CurSignList> curSignList = resultInfo.getCurSignList();
+                List<BlackList> blackList = resultInfo.getBlackList();
+                List<WarningList> warningList = resultInfo.getWarningList();
+                List<LegBlackList> legBlackList = resultInfo.getLegBlackList();
+                List<LegWarningList> legWarningList = resultInfo.getLegWarningList();
+                SXSSFWorkbook sxssfWorkbook = new SXSSFWorkbook();
+                String fileName = sftpConfig.getBusinessInfoFileNamePrefix() + "Back_" + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+                try {
+                    //文件名
+                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook,"BaseInfo", Lists.newArrayList(baseInfo),BaseInfo.class);
+                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook,"HisSignList",hisSignList,HisSignList.class);
+                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook,"HisSignList",curSignList,CurSignList.class);
+                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook,"HisSignList",blackList,BlackList.class);
+                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook,"HisSignList",warningList,WarningList.class);
+                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook,"HisSignList",legBlackList,LegBlackList.class);
+                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook,"LegWarningList",legWarningList,LegWarningList.class);
+                    FileOutputStream fos = new FileOutputStream(sftpConfig.getModDir() + fileName);
+                    sxssfWorkbook.write(fos);
+                    sxssfWorkbook.dispose();
+                    fos.close();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        ResultBean resultBean = new ResultBean();
+
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Body respBody = new com.cmcc.paymentclean.entity.dto.pcac.resp.Body();
+        RespInfo respInfo = new RespInfo();
+        respInfo.setResultCode("01");
+        respInfo.setResultStatus("已接收");
+        respBody.setRespInfo(respInfo);
+        return resultBean;
+    }
+
+    private SXSSFWorkbook getSxssfWorkbook(SXSSFWorkbook sxssfWorkbook,String sheetName,List list, Class c){
+        ExcelUtils excelUtils = new ExcelUtils();
+        Sheet sheet = sxssfWorkbook.createSheet(sheetName);
+        try {
+            sxssfWorkbook = excelUtils.exportExcelAppointSheet(sxssfWorkbook,sheet,list,c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sxssfWorkbook;
     }
 }

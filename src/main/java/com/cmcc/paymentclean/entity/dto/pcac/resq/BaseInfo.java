@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.entity.dto.pcac.resq;
 
+import com.cmcc.paymentclean.annotation.ExcelExportField;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -110,9 +111,14 @@ public class BaseInfo {
     private String RepType;
     private String RepPerson;
     private String UnitProp;
+    @ExcelExportField(name = "签约数量", index = 1)
     private String SignNum;
+    @ExcelExportField(name = "当前签约数量", index = 2)
     private String SignCurrentNum;
+    @ExcelExportField(name = "是否存在同时签约", index = 3)
     private String SignCurrentState;
+    @ExcelExportField(name = "黑名单数量", index = 4)
     private String BlackNum;
+    @ExcelExportField(name = "风险提示数量", index = 5)
     private String RiskNum;
 }

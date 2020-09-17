@@ -77,5 +77,13 @@ public interface BusinessInfoService {
      */
     void queryBusinessInfoAndPushPcac();
 
+    /**
+     * 批量协会查询企业商户信息
+     */
     ResultBean batchQuery(List<BusinessInfoReq> businessInfoReqs);
+
+    /**
+     * 批量协会查询企业商户信息反馈
+     */
+    ResultBean<?> getBusinessInfoXML(String xml);
 }

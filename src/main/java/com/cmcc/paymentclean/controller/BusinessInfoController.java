@@ -84,4 +84,15 @@ public class BusinessInfoController {
 
        return businessInfoService.batchQuery(businessInfoReqs);
     }
+
+    /**
+     * 批量企业商户查询请求接口
+     */
+    @ApiOperation(value = "批量企业商户查询请求接口", notes = "批量企业商户查询请求接口")
+    @RequestMapping(value = "/getBusinessInfoXML",method = RequestMethod.POST)
+    public ResultBean<?> getBusinessInfoXML(@RequestBody String xml) {
+
+        return  businessInfoService.getBusinessInfoXML(xml);
+
+    }
 }
