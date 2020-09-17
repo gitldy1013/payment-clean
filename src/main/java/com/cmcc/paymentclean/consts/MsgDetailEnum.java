@@ -14,13 +14,13 @@ public enum MsgDetailEnum {
         this.code = code;
         this.desc = desc;
     }
-    public static String getOccurChanEnum(String code) {
+    public static String getMsgDetailEnum(String code) {
         if (StringUtils.isEmpty(code)) {
             return "";
         }
-        for (OccurChanEnum occurChanEnum : OccurChanEnum.values()) {
-            if (occurChanEnum.getCode().equalsIgnoreCase(code)) {
-                return occurChanEnum.getDesc();
+        for (MsgDetailEnum msgDetailEnum : MsgDetailEnum.values()) {
+            if (msgDetailEnum.getCode().equalsIgnoreCase(code)) {
+                return msgDetailEnum.getDesc();
             }
         }
         return code;

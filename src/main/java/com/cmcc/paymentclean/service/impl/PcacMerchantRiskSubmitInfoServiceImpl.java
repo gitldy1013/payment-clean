@@ -172,8 +172,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
         log.info("协会返回数据对象:{}", doc);
         for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
-            UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", MsgDetailEnum.getOccurChanEnum(doc.getRespone().getBody().getRespInfo().getResultStatus()));
-            pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
+            UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
+            //pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
         }
     }
 
@@ -186,9 +186,9 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
+        ArrayList<RiskInfo> riskInfos = new ArrayList<RiskInfo>();
         for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
             pcacList.setCount(pcacMerchantRiskSubmitInfos.size());
-            ArrayList<RiskInfo> riskInfos = new ArrayList<RiskInfo>();
             RiskInfo riskInfo = new RiskInfo();
             PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
             BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
@@ -197,6 +197,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
             //银行结算账号
             bankInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, bankInfo.getBankNo()));
+            //log.info("解密：{}",CFCACipherUtils.decrypt(symmetricKeyEncoded,bankInfo.getBankNo()));
             bankList.setBankInfo(bankInfo);
             riskInfo.setBankList(bankList);
             riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
@@ -222,12 +223,16 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             //法定代表人（负责人）手机号
             riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getMobileNo()));
             //网址
-            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()+""));
+            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()+"1"));
             //服务器 ip
             riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
             //ICP 备案编号
             riskInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacMerchantRiskSubmitInfo.getRegName()));
             riskInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(pcacMerchantRiskSubmitInfo.getDocType(), pcacMerchantRiskSubmitInfo.getDocCode(), symmetricKeyEncoded));
+            //实控人证件号
+            riskInfo.setLegControlCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegControlCardCode()));
+            //商户注册号
+            riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegisteredCode()));
             riskInfo.setBenList(benList);
             riskInfos.add(riskInfo);
             pcacList.setRiskInfo(riskInfos);

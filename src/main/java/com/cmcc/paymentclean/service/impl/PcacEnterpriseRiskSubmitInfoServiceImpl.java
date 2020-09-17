@@ -177,7 +177,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
         log.info("协会返回数据对象:{}", doc);
         for (PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo : PcacEnterpriseRiskSubmitInfos) {
-            UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", MsgDetailEnum.getOccurChanEnum(doc.getRespone().getBody().getRespInfo().getResultStatus()));
+            UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
             pcacEnterpriseRiskSubmitInfoMapper.update(PcacEnterpriseRiskSubmitInfo, updateWrapper);
         }
     }
@@ -191,9 +191,9 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
+        ArrayList<RiskInfo> riskInfos = new ArrayList<>();
         for (int i = 0; i < PcacEnterpriseRiskSubmitInfos.size(); i++) {
             pcacList.setCount(PcacEnterpriseRiskSubmitInfos.size());
-            ArrayList<RiskInfo> riskInfos = new ArrayList<>();
             RiskInfo riskInfo = new RiskInfo();
             PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo = PcacEnterpriseRiskSubmitInfos.get(i);
             BeanUtilsEx.copyProperties(riskInfo, PcacEnterpriseRiskSubmitInfo);
