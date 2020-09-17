@@ -4,6 +4,7 @@ package com.cmcc.paymentclean.cron;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
@@ -17,12 +18,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
 import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.InnerCipherUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,13 +110,14 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
             BankList bankList = new BankList();
             BankInfo bankInfo = new BankInfo();
-            bankInfo.setIsTransfer("");
+            /*bankInfo.setIsTransfer("");
             bankInfo.setRecName("");
             bankInfo.setRecDocType("");
             bankInfo.setRecDocCode("");
             bankInfo.setBankNo("");
-            bankInfo.setOpenBank("");
-            bankList.setCount("0");
+            bankInfo.setOpenBank("");*/
+            BeanUtilsEx.copyProperties(bankInfo,pcacPersonRiskSubmitInfo);
+            bankList.setCount("1");
             riskInfo.setBankList(bankList);
             riskInfos.add(riskInfo);
         }
@@ -147,7 +144,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         try {
             boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.001");
             if (validate){
-                String result = HttpClientUtils.sendHttpsPost("接口地址", doXml);
+                String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
                 log.info("个人风险信息上报支付清算协会响应xml报文：",result);
                 com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp=
                         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
@@ -206,7 +203,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
         head.setRecSystemId("R0001");
         //交易码，见 5.1 报文分类列表（数字、字母）
-        head.setTrnxCode("PR0001");
+        head.setTrnxCode(TrnxCodeEnum.PERSON_RISK_INFO_SUBMIT.getCode());
         String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
         head.setUserToken(pcacConfig.getUserToken());
