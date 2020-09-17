@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.IsBlackEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -18,6 +15,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
+import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
@@ -169,8 +167,8 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         Document document = new Document();
         Respone respone = new Respone();
         respone.setBody(body);
-
-        Head head = getHead();
+        String trnxCode = "";
+        Head head = getHead(trnxCode);
         respone.setHead(head);
         document.setRespone(respone);
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
@@ -186,10 +184,17 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         pcacRiskInfoMapper.updatePushStatus(ids);
     }
 
+    @Override
+    public ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq) {
+        Head head = getHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
+        return null;
+    }
+
     /**
     * 组装响应报文头的信息
     * */
-    private Head getHead(){
+    private Head getHead(String trnxCode){
         Date date = new Date();
         Head head = new Head();
         head.setVersion(pcacConfig.getVersion());
@@ -204,7 +209,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
         head.setRecSystemId("R0001");
         //交易码，见 5.1 报文分类列表（数字、字母）-----黑名单推送响应TrnxCode为空
-        head.setTrnxCode("");
+        head.setTrnxCode(trnxCode);
         String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
         head.setSecretKey("");

@@ -6,6 +6,7 @@ import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
+import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
@@ -87,8 +88,10 @@ public interface PcacRiskInfoService {
      */
     List<PcacRiskInfoDTO> listByIsBlack(String pushListType);
 
-    String insertBatchPcacRiskInfo(@Param("items")ArrayList<PcacRiskInfo> pcacRiskInfoList);
+    String insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList);
 
     void updatePushStatus(List<String> ids);
 
+
+    ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq);
 }

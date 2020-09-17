@@ -3,27 +3,30 @@ package com.cmcc.paymentclean.controller;
 import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
+import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
-import com.cmcc.paymentclean.utils.BeanUtilsEx;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.InnerCipherUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,6 +77,31 @@ public class PcacRiskInfoPushController {
 
         return doXml;
     }
+
+
+public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoReq){
+        log.info("补发请求入参是：{}",reissueRiskInfoReq);
+        /*if (StringUtils.isEmpty(reissueRiskInfoReq.getRiskType())){
+            return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
+        }
+        if (StringUtils.isEmpty(reissueRiskInfoReq.getReqDate())){
+            return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
+        }
+        if (StringUtils.isEmpty(reissueRiskInfoReq.getReqDateEnd())){
+            return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
+        }*/
+        if (reissueRiskInfoReq.getReqDate().contains("-")&&reissueRiskInfoReq.getReqDateEnd().contains("-")){
+            return new ResultBean(ResultBean.PARAM_ERR,"日期格式为YYYY-MM-DD");
+        }
+    ResultBean resultBean =  pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
+
+    return resultBean;
+}
+
+
+
+
+
 
 
 
