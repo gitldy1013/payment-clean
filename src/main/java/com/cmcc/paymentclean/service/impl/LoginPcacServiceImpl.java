@@ -77,7 +77,7 @@ public class LoginPcacServiceImpl implements LoginPcacService {
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
         String xml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("登录清算协会请求参数报文s：{}", xml);
+        log.info("登录清算协会请求参数报文：{}", xml);
         boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.022");
         if (validate) {
 
