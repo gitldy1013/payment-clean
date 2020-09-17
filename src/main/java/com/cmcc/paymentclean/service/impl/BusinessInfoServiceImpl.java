@@ -174,8 +174,6 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     @Override
     public ResultBean batchQuery(List<BusinessInfoReq> businessInfoReqs) {
         ResultBean resultBean = new ResultBean();
-        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
-        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         if(CollectionUtils.isEmpty(businessInfoReqs)){
             resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
             resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
@@ -215,7 +213,14 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             return resultBean;
         }
         com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = this.pushToPcacByQuery(xml);
-        resultBean.setData(resBody.getRespInfo());
+
+        resultBean.setData(resBody);
+        resultBean.setResCode(resBody.getRespInfo().getResultCode());
+        if (resBody.getRespInfo().getMsgDetail().isEmpty()) {
+            resultBean.setResMsg(resBody.getRespInfo().getResultStatus());
+        } else {
+            resultBean.setResMsg(resBody.getRespInfo().getMsgDetail());
+        }
         return resultBean;
     }
 
