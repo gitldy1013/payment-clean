@@ -152,7 +152,7 @@ public class CFCACipherUtils {
 
         try {
             // 获取接收方公钥
-            FileInputStream fin = new FileInputStream(encPublicCertFilePath);
+            FileInputStream fin = new FileInputStream(publicCertFilePath);
             X509Cert cert = new X509Cert(fin);
             //*********************************************//*
             // 去掉外层Base64编码，在方法体内部已经做过Base64编码
