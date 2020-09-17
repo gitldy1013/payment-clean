@@ -3,7 +3,9 @@ package com.cmcc.paymentclean.controller;
 
 import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
+import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.service.BusinessInfoService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version v1.0
  */
 @RestController
-@RequestMapping("/paymentclean/api/v1/business-info")
+@RequestMapping("/business/businessInfo")
 public class BusinessInfoController {
 
     @Autowired
@@ -69,5 +73,15 @@ public class BusinessInfoController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResultBean<?> updateById(@RequestBody BusinessInfo businessInfo) {
         return new ResultBean<>(businessInfoService.updateBusinessInfo(businessInfo));
+    }
+
+    /**
+     * 批量企业商户查询请求接口
+     */
+    @ApiOperation(value = "批量企业商户查询请求接口", notes = "批量企业商户查询请求接口")
+    @RequestMapping(value = "/batchQuery",method = RequestMethod.POST)
+    public ResultBean<?> batchQuery(@RequestBody List<BusinessInfoReq> businessInfoReqs) {
+
+       return businessInfoService.batchQuery(businessInfoReqs);
     }
 }
