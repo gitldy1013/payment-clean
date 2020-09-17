@@ -83,7 +83,7 @@ public interface BusinessInfoService {
     ResultBean batchQuery(List<BusinessInfoReq> businessInfoReqs);
 
     /**
-     * 批量协会查询企业商户信息反馈
+     * 批量查询企业信息结果推送
      */
     ResultBean<?> getBusinessInfoXML(String xml);
 }

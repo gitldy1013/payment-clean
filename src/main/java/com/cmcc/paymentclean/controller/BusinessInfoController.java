@@ -86,9 +86,9 @@ public class BusinessInfoController {
     }
 
     /**
-     * 批量企业商户查询请求接口
+     * 批量查询企业信息结果推送
      */
-    @ApiOperation(value = "批量企业商户查询请求接口", notes = "批量企业商户查询请求接口")
+    @ApiOperation(value = "批量查询企业信息结果推送", notes = "批量查询企业信息结果推送")
     @RequestMapping(value = "/getBusinessInfoXML",method = RequestMethod.POST)
     public ResultBean<?> getBusinessInfoXML(@RequestBody String xml) {
 
