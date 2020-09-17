@@ -27,6 +27,7 @@ import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,6 +136,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
 
     @Override
     public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> localAssociatedRiskMerchantInfoBack(List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReq) {
+        ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> resultBean = new ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body>();
         QueryWrapper<LocalAssociatedRiskMerchantInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("", "");
         LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfoMapper.selectOne(wrapper);
@@ -167,10 +169,14 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         document.setRequest(request);
         //发起反馈
         String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);
-        //解析相应
+        boolean validateXML = ValidateUtils.validateXML(xmlStr, "");
+        if(!validateXML){
+            log.info("XSD校验失败{}",xmlStr);
+            return resultBean;
+        }
+        //解析响应
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xmlStr);
         com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
-        ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> resultBean = new ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body>();
         resultBean.setData(resBody);
         resultBean.setResCode(resBody.getRespInfo().getResultCode());
         if (resBody.getRespInfo().getMsgDetail().isEmpty()) {
