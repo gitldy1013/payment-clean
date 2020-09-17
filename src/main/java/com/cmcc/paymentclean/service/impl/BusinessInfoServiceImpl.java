@@ -174,7 +174,12 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     @Override
     public ResultBean batchQuery(List<BusinessInfoReq> businessInfoReqs) {
         ResultBean resultBean = new ResultBean();
+        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         if(CollectionUtils.isEmpty(businessInfoReqs)){
+            resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+            resultBean.setData("入参为空");
             return resultBean;
         }
         for(BusinessInfoReq businessInfoReq:businessInfoReqs){
@@ -195,17 +200,22 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         log.info("获取到的xml数据:{}", xml);
         if (StringUtils.isEmpty(xml)) {
             log.info("xml报文转换失败");
+            resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+            resultBean.setData("xml报文转换失败");
             return resultBean;
         }
         //校验xml报文  企业商户信息上报请求
         boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.044");
         if (!validate) {
             log.info("XML校验失败");
+            resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
+            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
+            resultBean.setData("XML校验失败");
             return resultBean;
         }
         com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = this.pushToPcacByQuery(xml);
-        resultBean.setResCode(resBody.getRespInfo().getResultCode());
-        resultBean.setResMsg(resBody.getRespInfo().getResultStatus());
+        resultBean.setData(resBody.getRespInfo());
         return resultBean;
     }
 
