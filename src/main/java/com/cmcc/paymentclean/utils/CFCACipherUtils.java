@@ -43,14 +43,14 @@ public class CFCACipherUtils {
     //private static String pfxFilePwd = "11111111";
     // 签名证书公钥证书
     //private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac.cer";
-    private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac-new.cer";
+    private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac.cer";
 
     // 解密证书（带私钥）
     private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/huiyuan.pfx";
     // 解密证书保护密码
     private static String encPfxFilePwd = "cfca1234";
     // 加密证书公钥证书
-    private static String encPublicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/huiyuan.cer";
+    //private static String encPublicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/huiyuan.cer";
     private static Session session = null;
 
     static {
