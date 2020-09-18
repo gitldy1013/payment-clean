@@ -91,7 +91,7 @@ public class PcacRiskInfoPushController {
             return new ResultBean(ResultBean.PARAM_ERR, "日期格式为YYYY-MM-DD");
         }*/
         //风控测试用逻辑
-        ResultBean resultBean = new ResultBean(ResultBean.SUCCESS_CODE,"补发信息成功");
+        ResultBean resultBean = new ResultBean("补发信息成功",ResultBean.SUCCESS_CODE);
 
 
         //ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
