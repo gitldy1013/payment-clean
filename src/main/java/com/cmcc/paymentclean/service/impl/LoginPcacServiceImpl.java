@@ -80,7 +80,8 @@ public class LoginPcacServiceImpl implements LoginPcacService {
         boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.022");
         if (validate) {
 
-            String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/loginServlet", xml);
+            //String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/loginServlet", xml);
+            String result = HttpClientUtils.sendHttpsPost(pcacConfig.getLoginUrl(), xml);
             log.info("登录清算协会响应报文：{}", result);
             com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                     (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);

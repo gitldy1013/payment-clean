@@ -17,12 +17,11 @@ server:
   port: 8081
 
 pcac:
-  url: https://localhost:8081/pcac
+  url: http://210.12.239.161:10001/ries_interface/httpServlet
   version: V1.3.0
   orig-sender: Z2004343000017
   orig-sender-sid: zf_sysstem
   login-url: http://210.12.239.161:10001/ries_interface/loginServlet
-  business-url: http://210.12.239.161:10001/ries_interface/httpServlet
   user-token: Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I
 
 sftp:

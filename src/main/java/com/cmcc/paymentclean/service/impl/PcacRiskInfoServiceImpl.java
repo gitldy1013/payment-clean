@@ -224,7 +224,8 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         log.info("信息补发申请请求清算协会报文：{}", doXml);
         boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.029");
         if (validate) {
-            String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
+            //String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
+            String result = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), doXml);
             ResultBean resultBean = doReissueRiskInfo(result);
 
 

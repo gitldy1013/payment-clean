@@ -146,11 +146,12 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
         String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("个人风险信息上报支付清算协会请求xml报文：", doXml);
+        log.info("个人风险信息上报支付清算协会请求xml报文：{}", doXml);
         try {
             boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.001");
             if (validate) {
-                String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
+                //String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
+                String result = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), doXml);
                 log.info("个人风险信息上报支付清算协会响应xml报文：", result);
                 com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
