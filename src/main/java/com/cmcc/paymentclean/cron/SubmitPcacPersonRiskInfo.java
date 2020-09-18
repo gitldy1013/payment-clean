@@ -84,13 +84,13 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             String encryptBankNo = null;
             if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getDocType()) && DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())) {
                 //内部解密
-                String docCode = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getDocCode());
+                String docCode = InnerCipherUtils.decryptUserData(pcacPersonRiskSubmitInfo.getDocCode());
                 //协会加密
                 encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded, docCode);
             }
             if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getBankNo())) {
                 //内部解密
-                String bankNo = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getBankNo());
+                String bankNo = InnerCipherUtils.decryptBankData(pcacPersonRiskSubmitInfo.getBankNo());
                 //协会加密
                 encryptBankNo = CFCACipherUtils.encrypt(symmetricKeyEncoded, bankNo);
             }

@@ -133,11 +133,11 @@ public class PcacRiskInfoPushController {
             String encryptLegDocCode = null;
             //判断证件类型是身份证就进行内部加密
             if (!StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
-                encryptLegDocCode = InnerCipherUtils.encrypt(decryptLegDocCode);
+                encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
             }
 
             riskInfo.setLegDocCode(encryptLegDocCode);
-            String encryptBankNo = InnerCipherUtils.encrypt(riskInfo.getBankNo());
+            String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
             riskInfo.setBankNo(encryptBankNo);
             PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
             BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
