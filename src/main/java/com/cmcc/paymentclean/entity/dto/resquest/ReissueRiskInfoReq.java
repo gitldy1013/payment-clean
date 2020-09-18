@@ -18,7 +18,7 @@ public class ReissueRiskInfoReq implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    @ApiModelProperty(value = "申请补发类型， 01 黑名单 02 风险提示信息 03 ETC 风险信息")
+    @ApiModelProperty(value = "申请补发类型， 01 黑名单 02 风险提示信息")
     @NotBlank(message = "申请补发类型不能为空")
     String riskType;
 
@@ -28,7 +28,7 @@ public class ReissueRiskInfoReq implements Serializable {
     String ReqDate;
 
     @ApiModelProperty(value = "请求重新推送结束日期，格式YYYY-MM-DD")
-    @Pattern(regexp = "[0-9]{4}-[0-9]{2}-[0-9]{2}", message = "请求重新推送日期，格式 YYYY-MM-DD")
+    @Pattern(regexp = "[0-9]{4}-[0-9]{2}-[0-9]{2}", message = "请求重新推送结束日期，格式 YYYY-MM-DD")
     String ReqDateEnd;
 
 
