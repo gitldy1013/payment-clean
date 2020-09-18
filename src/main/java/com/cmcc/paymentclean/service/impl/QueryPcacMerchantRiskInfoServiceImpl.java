@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.config.SftpConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.IsTransferEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.BankInfo;
@@ -142,6 +139,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
                 queryPcacMerchantRiskInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegDocType()));
                 queryPcacMerchantRiskInfoResp.setIsTransfer(IsTransferEnum.getIsTransferDesc(queryPcacMerchantRiskInfoResp.getIsTransfer()));
                 queryPcacMerchantRiskInfoResp.setLegControlCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegControlCardType()));
+                queryPcacMerchantRiskInfoResp.setDocType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getDocType()));
+                queryPcacMerchantRiskInfoResp.setCusType(CusTypeEnum.getCusTypeEnum(queryPcacMerchantRiskInfoResp.getCusType()));
+                queryPcacMerchantRiskInfoResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(queryPcacMerchantRiskInfoResp.getRiskType()));
+                queryPcacMerchantRiskInfoResp.setCusNature(CusNatureEnum.getCusNatureEnum(queryPcacMerchantRiskInfoResp.getCusNature()));
+                queryPcacMerchantRiskInfoResp.setSourceChannel(SourChaEnum.getSourChaEnum(queryPcacMerchantRiskInfoResp.getSourceChannel()));
+                queryPcacMerchantRiskInfoResp.setLegControlCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegControlCardType()));
+                queryPcacMerchantRiskInfoResp.setLegBenCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegBenCardType()));
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

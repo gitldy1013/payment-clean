@@ -118,6 +118,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 String validStatus = (new Date().before(riskPersonResp.getValidDate()))? CommonConst.VALIDSTATUS_01:CommonConst.VALIDSTATUS_02;
                 riskPersonResp.setValidStatus(validStatus);
                 riskPersonResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getLegDocType()));
+                riskPersonResp.setDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getDocType()));
+                riskPersonResp.setCusType(CusTypeEnum.getCusTypeEnum(riskPersonResp.getCusType()));
+                riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
@@ -134,7 +137,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         }
         QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper();
         queryWrapper.eq("push_List_Type",pushListType);
-        queryWrapper.eq("push_status","0");
+        queryWrapper.eq("push_status", "0");
         List<PcacRiskInfo> pcacRiskInfos =  this.list(queryWrapper);
         if(!CollectionUtils.isEmpty(pcacRiskInfos)){
             for(PcacRiskInfo pcacRiskInfo:pcacRiskInfos){
@@ -189,18 +192,18 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         com.cmcc.paymentclean.entity.dto.pcac.resq.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
         com.cmcc.paymentclean.entity.dto.pcac.resq.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
         BeanUtilsEx.copyProperties(body,reissueRiskInfoReq);
-        log.info("请求体body参数：{}",body);
+        log.info("请求体body参数：{}", body);
         com.cmcc.paymentclean.entity.dto.pcac.resq.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resq.Document();
         Request request = new Request();
         request.setHead(head);
         request.setBody(body);
         document.setRequest(request);
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("没加签名xml串：{}",noSignXml);
+        log.info("没加签名xml串：{}", noSignXml);
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
         String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("信息补发申请请求清算协会报文：{}",doXml);
+        log.info("信息补发申请请求清算协会报文：{}", doXml);
         boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.029");
         if (validate){
             String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);

@@ -5,11 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.MsgDetailEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
-import com.cmcc.paymentclean.consts.SubmitStatusEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.BankInfo;
@@ -131,6 +127,10 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
                 riskEnterpriseResp.setValidStatus(validStatus);
                 riskEnterpriseResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskEnterpriseResp.getLegDocType()));
                 riskEnterpriseResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskEnterpriseResp.getSubmitStatus()));
+                riskEnterpriseResp.setDocType(LegDocTypeEnum.getLegDocTypeDesc(riskEnterpriseResp.getDocType()));
+                riskEnterpriseResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskEnterpriseResp.getSubmitStatus()));
+                riskEnterpriseResp.setSourceChannel(SourChaEnum.getSourChaEnum(riskEnterpriseResp.getSourceChannel()));
+                riskEnterpriseResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskEnterpriseResp.getRiskType()));
             }
         }
         resultBean.setData(pagePcacEnterpriseRiskSubmitInfo);
