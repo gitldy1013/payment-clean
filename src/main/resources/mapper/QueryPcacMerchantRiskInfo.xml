@@ -74,7 +74,7 @@
     <select id="pageLocalAssociatedRiskMerchantInfo" resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
             parameterType="com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>, t.result_status as handleResult, t.result_code as feedbackStatus, t.up_date as feedbackDate
         FROM
         query_pcac_merchant_risk_info t
         WHERE
