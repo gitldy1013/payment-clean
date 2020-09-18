@@ -4,7 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.*;
+import com.cmcc.paymentclean.consts.CommonConst;
+import com.cmcc.paymentclean.consts.CusTypeEnum;
+import com.cmcc.paymentclean.consts.IsBlackEnum;
+import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.LevelCodeEnum;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.RiskTypeEnum;
+import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -15,7 +22,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resp.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
@@ -204,11 +211,11 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
     @Override
     public ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq) {
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body();
         BeanUtilsEx.copyProperties(body, reissueRiskInfoReq);
         log.info("请求体body参数：{}", body);
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document();
         Request request = new Request();
         request.setHead(head);
         request.setBody(body);
@@ -334,9 +341,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     /**
      * 组装请求报文头的信息
      */
-    private com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head getResqHead(String trnxCode) {
+    private com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head getResqHead(String trnxCode) {
         Date date = new Date();
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head();
         head.setVersion(pcacConfig.getVersion());
         //报文唯一标识（8 位日期+10 顺序号）
         int random = new Random().nextInt(1000) + 1000;

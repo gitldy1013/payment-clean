@@ -22,9 +22,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_MAPPER_ROOT;
 import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;

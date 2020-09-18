@@ -6,7 +6,7 @@
 //
 
 
-package com.cmcc.paymentclean.entity.dto.pcac.resq.gen;
+package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin;
 
 public class BaseBody {
 

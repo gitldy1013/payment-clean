@@ -7,7 +7,6 @@ import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
 import java.util.List;

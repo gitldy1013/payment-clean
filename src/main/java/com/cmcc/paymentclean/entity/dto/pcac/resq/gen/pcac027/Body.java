@@ -8,7 +8,7 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.BaseBody;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.BaseBody;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
