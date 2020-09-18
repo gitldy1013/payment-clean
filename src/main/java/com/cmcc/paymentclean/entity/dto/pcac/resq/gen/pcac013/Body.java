@@ -41,7 +41,7 @@ import lombok.Data;
     "pcacList"
 })
 @XmlRootElement(name = "Body")
-public class Body {
+public class Body extends com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Body {
 
     @XmlElement(name = "PcacList", required = true)
     protected PcacList pcacList;

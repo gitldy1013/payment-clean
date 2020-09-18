@@ -45,7 +45,7 @@ import lombok.Data;
     "reqDateEnd"
 })
 @XmlRootElement(name = "Body")
-public class Body {
+public class Body extends com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Body {
 
     @XmlElement(name = "RiskType", required = true)
     protected String riskType;
