@@ -12,6 +12,7 @@ import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.RiskEnterpriseRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskEnterpriseRiskSyncInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -100,6 +101,8 @@ public class RiskEnterpriseRiskSyncInfoServiceImpl extends ServiceImpl<RiskEnter
         for(RiskEnterpriseRiskSyncInfoReq riskEnterprise:riskEnterpriseList){
             RiskEnterpriseRiskSyncInfo riskEnterpriseRiskSyncInfo = new RiskEnterpriseRiskSyncInfo();
             BeanUtils.copyProperties(riskEnterprise, riskEnterpriseRiskSyncInfo);
+            riskEnterpriseRiskSyncInfo.setRiskType(this.splitStrs(riskEnterpriseRiskSyncInfo.getRiskType()));
+            riskEnterpriseRiskSyncInfo.setSourceChannel(this.splitStrs(riskEnterpriseRiskSyncInfo.getSourceChannel()));
             riskEnterpriseRiskSyncInfo.setOperateTime(new Date(System.currentTimeMillis()));
             QueryWrapper<RiskEnterpriseRiskSyncInfo> queryWrapper = new QueryWrapper();
             queryWrapper.eq("cus_code",riskEnterprise.getCusCode());
@@ -117,5 +120,13 @@ public class RiskEnterpriseRiskSyncInfoServiceImpl extends ServiceImpl<RiskEnter
         }
 
         return resultBean;
+    }
+
+    private String splitStrs(String strings){
+        if(StringUtils.isEmpty(strings)){
+            return strings;
+        }
+        String [] strs = strings.split("|");
+        return strs[0];
     }
 }

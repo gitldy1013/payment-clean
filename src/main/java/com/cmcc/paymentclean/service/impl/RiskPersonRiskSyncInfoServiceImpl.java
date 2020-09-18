@@ -12,6 +12,7 @@ import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.RiskPersonRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskPersonRiskSyncInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -98,6 +99,9 @@ public class RiskPersonRiskSyncInfoServiceImpl extends ServiceImpl<RiskPersonRis
             for(RiskPersonRiskSyncInfoReq riskPerson:riskPersonList){
                 RiskPersonRiskSyncInfo riskPersonRiskSyncInfo = new RiskPersonRiskSyncInfo();
                 BeanUtils.copyProperties(riskPerson, riskPersonRiskSyncInfo);
+                riskPersonRiskSyncInfo.setOccurchan(this.splitStrs(riskPersonRiskSyncInfo.getOccurchan()));
+                riskPersonRiskSyncInfo.setRiskType(this.splitStrs(riskPersonRiskSyncInfo.getRiskType()));
+                riskPersonRiskSyncInfo.setSourceChannel(this.splitStrs(riskPersonRiskSyncInfo.getSourceChannel()));
                 riskPersonRiskSyncInfo.setOperateTime(new Date(System.currentTimeMillis()));
                 QueryWrapper<RiskPersonRiskSyncInfo> queryWrapper = new QueryWrapper();
                 queryWrapper.eq("usrNo",riskPerson.getUsrNo());
@@ -117,5 +121,13 @@ public class RiskPersonRiskSyncInfoServiceImpl extends ServiceImpl<RiskPersonRis
         }
 
         return resultBean;
+    }
+
+    private String splitStrs(String strings){
+        if(StringUtils.isEmpty(strings)){
+            return strings;
+        }
+        String [] strs = strings.split("|");
+        return strs[0];
     }
 }
