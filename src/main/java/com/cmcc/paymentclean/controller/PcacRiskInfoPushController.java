@@ -86,10 +86,10 @@ public class PcacRiskInfoPushController {
         }
         if (StringUtils.isEmpty(reissueRiskInfoReq.getReqDateEnd())){
             return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
-        }*/
+        }
         if (reissueRiskInfoReq.getReqDate().contains("-") && reissueRiskInfoReq.getReqDateEnd().contains("-")) {
             return new ResultBean(ResultBean.PARAM_ERR, "日期格式为YYYY-MM-DD");
-        }
+        }*/
         ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
 
         return resultBean;
