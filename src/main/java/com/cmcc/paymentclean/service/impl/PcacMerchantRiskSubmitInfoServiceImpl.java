@@ -129,6 +129,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                 riskMerchantResp.setCusType(CusTypeEnum.getCusTypeEnum(riskMerchantResp.getCusType()));
                 riskMerchantResp.setCusNature(CusNatureEnum.getCusNatureEnum(riskMerchantResp.getCusNature()));
                 riskMerchantResp.setSourceChannel(SourChaEnum.getSourChaEnum(riskMerchantResp.getSourceChannel()));
+                riskMerchantResp.setLevel(LevelCodeEnum.getLevelDesc(riskMerchantResp.getLevel()));
             }
         }
         resultBean.setData(pagePcacMerchantRiskSubmitInfo);

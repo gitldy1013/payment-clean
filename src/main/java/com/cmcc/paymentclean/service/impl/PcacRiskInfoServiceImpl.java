@@ -4,13 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.CusTypeEnum;
-import com.cmcc.paymentclean.consts.IsBlackEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
-import com.cmcc.paymentclean.consts.RiskTypeEnum;
-import com.cmcc.paymentclean.consts.TrnxCodeEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -139,6 +133,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 riskPersonResp.setDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getDocType()));
                 riskPersonResp.setCusType(CusTypeEnum.getCusTypeEnum(riskPersonResp.getCusType()));
                 riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
+                riskPersonResp.setLevel(LevelCodeEnum.getLevelDesc(riskPersonResp.getLevel()));
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
