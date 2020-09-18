@@ -34,7 +34,7 @@ import java.util.List;
  * @date 2020-09-15 12:38
  */
 @Controller
-@RequestMapping("/pcacRiskInfo")
+@RequestMapping("/localRisk")
 @Slf4j
 public class PcacRiskInfoPushController {
 
@@ -74,7 +74,7 @@ public class PcacRiskInfoPushController {
         return doXml;
     }
 
-    @RequestMapping(value = "/reissueRiskInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/localRiskMsg", method = RequestMethod.POST)
     @ResponseBody
     public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoReq) {
         log.info("补发请求入参是：{}", reissueRiskInfoReq);
