@@ -12,8 +12,10 @@ import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -42,11 +44,23 @@ import javax.xml.bind.annotation.XmlType;
     "body"
 })
 @XmlRootElement(name = "Request")
-public class Request <T extends BaseBody>{
+@XmlSeeAlso(value = {com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac001.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.Body.class,})
+public class Request <T>{
 
     @XmlElement(name = "Head", required = true)
     protected Head head;
-    @XmlElement(name = "Body", required = true)
+    @XmlAnyElement(lax = true)
     protected T body;
 
     /**

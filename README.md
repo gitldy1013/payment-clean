@@ -836,7 +836,6 @@
         "handleResult":"",
         "feedbackStatus":"",
         "feedbackDate":"",
-        "pushDate":"",
         "docType":"",
         "docCode":"",
         "legRepName":"",
@@ -932,11 +931,11 @@
 * 请求报文示例：
 
 ```json
-{
+[{
     "cusProperty":"",
     "keyWord":"",
     "infos":""
-}
+}]
 ```
 
 * 响应报文字段
@@ -1116,7 +1115,6 @@
         "legControlCardType":"",
         "legControlCardCode":"",
         "remarks":"",
-        "count":"",
         "legBenName":"",
         "legBenCardType":"",
         "legBenCardCode":"",

@@ -8,7 +8,6 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.BaseBody;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -47,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
     "infos"
 })
 @XmlRootElement(name = "Body")
-public class Body extends BaseBody {
+public class Body {
 
     @XmlElement(name = "CusProperty", required = true)
     protected String cusProperty;

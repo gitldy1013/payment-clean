@@ -3,29 +3,29 @@ package com.cmcc.paymentclean.consts;
 import org.springframework.util.StringUtils;
 
 /**
- * Created by lumma on 2020/9/12.
+ * Created by lumma on 2020/9/18.
  */
-public enum SubmitStatusEnum {
-    ISBLACKENUM_0("0", "已报送"),
-    ISBLACKENUM_1("1", "未报送");
-
+public enum StatusEnum {
+    STATUS_01("01", "启用"),
+    STATUS_02("02", "关闭（暂停）"),
+    STATUS_03("03", "注销");
 
     private final String code;
 
     private final String desc;
 
-    private SubmitStatusEnum(String code, String desc) {
+    private StatusEnum(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }
 
-    public static String getSubmitStatusEnumDesc (String code) {
+    public static String getStatusDesc (String code) {
         if (StringUtils.isEmpty(code)) {
             return "";
         }
-        for (SubmitStatusEnum submitStatusEnum : SubmitStatusEnum.values()) {
-            if (submitStatusEnum.getCode().equalsIgnoreCase(code)) {
-                return submitStatusEnum.getDesc();
+        for (StatusEnum statusEnum : StatusEnum.values()) {
+            if (statusEnum.getCode().equalsIgnoreCase(code)) {
+                return statusEnum.getDesc();
             }
         }
         return code;

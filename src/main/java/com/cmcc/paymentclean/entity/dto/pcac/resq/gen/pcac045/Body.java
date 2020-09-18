@@ -8,7 +8,6 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.BaseBody;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -40,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
     "pcacList"
 })
 @XmlRootElement(name = "Body")
-public class Body extends BaseBody {
+public class Body {
 
     @XmlElement(name = "PcacList", required = true)
     protected PcacList pcacList;
