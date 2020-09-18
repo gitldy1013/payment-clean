@@ -114,6 +114,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
 
     @Override
     public ResultBean<Page<RiskEnterpriseResp>> pageRiskEnterprise(RiskEnterpriseReq riskEnterpriseReq) {
+        log.info("pageRiskEnterprise req={}", com.alibaba.fastjson.JSON.toJSON(riskEnterpriseReq));
         ResultBean<Page<RiskEnterpriseResp>> resultBean = new ResultBean();
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
@@ -134,6 +135,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             }
         }
         resultBean.setData(pagePcacEnterpriseRiskSubmitInfo);
+        log.info("pageRiskEnterprise resp={}", com.alibaba.fastjson.JSON.toJSON(pagePcacEnterpriseRiskSubmitInfo));
         return resultBean;
     }
 

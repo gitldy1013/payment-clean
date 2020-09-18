@@ -113,6 +113,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
 
     @Override
     public ResultBean<Page<RiskMerchantResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
+        log.info("pageRiskMerchant req={}", com.alibaba.fastjson.JSON.toJSON(riskMerchantReq));
         ResultBean<Page<RiskMerchantResp>> resultBean = new ResultBean();
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
@@ -129,9 +130,11 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                 riskMerchantResp.setCusType(CusTypeEnum.getCusTypeEnum(riskMerchantResp.getCusType()));
                 riskMerchantResp.setCusNature(CusNatureEnum.getCusNatureEnum(riskMerchantResp.getCusNature()));
                 riskMerchantResp.setSourceChannel(SourChaEnum.getSourChaEnum(riskMerchantResp.getSourceChannel()));
+                riskMerchantResp.setLevel(LevelCodeEnum.getLevelDesc(riskMerchantResp.getLevel()));
             }
         }
         resultBean.setData(pagePcacMerchantRiskSubmitInfo);
+        log.info("pageRiskMerchant resp={}", com.alibaba.fastjson.JSON.toJSON(pagePcacMerchantRiskSubmitInfo));
         return resultBean;
     }
 
