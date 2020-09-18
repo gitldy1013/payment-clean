@@ -34,7 +34,7 @@
     <select id="pagePcacRiskInfo" resultType="com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp"
             parameterType="com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>, t.leg_doc_name as legRepName
         FROM
         pcac_risk_info t
         WHERE
