@@ -34,61 +34,6 @@ import java.util.List;
 public class RiskPersonRiskSyncInfoServiceImpl extends ServiceImpl<RiskPersonRiskSyncInfoMapper, RiskPersonRiskSyncInfo> implements RiskPersonRiskSyncInfoService {
 
     @Override
-    public Page<RiskPersonRiskSyncInfo> listRiskPersonRiskSyncInfosByPage(int page, int pageSize, String factor) {
-        log.info("正在执行分页查询riskPersonRiskSyncInfo: page = {} pageSize = {} factor = {}",page,pageSize,factor);
-        QueryWrapper<RiskPersonRiskSyncInfo> queryWrapper =  new QueryWrapper<RiskPersonRiskSyncInfo>().like("", factor);
-        //TODO 这里需要自定义用于匹配的字段,并把wrapper传入下面的page方法
-        Page<RiskPersonRiskSyncInfo> result = super.page(new Page<RiskPersonRiskSyncInfo>(page, pageSize),queryWrapper);
-        result.setTotal(result.getRecords().size());
-        log.info("分页查询riskPersonRiskSyncInfo完毕: 结果数 = {} ",result.getRecords().size());
-        return result;
-    }
-
-    @Override
-    public RiskPersonRiskSyncInfo getRiskPersonRiskSyncInfoById(int id) {
-        log.info("正在查询riskPersonRiskSyncInfo中id为{}的数据",id);
-        RiskPersonRiskSyncInfo riskPersonRiskSyncInfo = super.getById(id);
-        log.info("查询id为{}的riskPersonRiskSyncInfo{}",id,(null == riskPersonRiskSyncInfo?"无结果":"成功"));
-        return riskPersonRiskSyncInfo;
-    }
-
-    @Override
-    public int insertRiskPersonRiskSyncInfo(RiskPersonRiskSyncInfo riskPersonRiskSyncInfo) {
-        log.info("正在插入riskPersonRiskSyncInfo");
-        if (super.save(riskPersonRiskSyncInfo)) {
-            log.info("插入riskPersonRiskSyncInfo成功,id为{}",riskPersonRiskSyncInfo.getRiskPersonRiskSyncInfoId());
-            return riskPersonRiskSyncInfo.getRiskPersonRiskSyncInfoId();
-        } else {
-            log.error("插入riskPersonRiskSyncInfo失败");
-            throw new BizException("添加失败");
-        }
-    }
-
-    @Override
-    public int deleteRiskPersonRiskSyncInfoById(int id) {
-        log.info("正在删除id为{}的riskPersonRiskSyncInfo",id);
-        if (super.removeById(id)) {
-            log.info("删除id为{}的riskPersonRiskSyncInfo成功",id);
-            return id;
-        } else {
-            log.error("删除id为{}的riskPersonRiskSyncInfo失败",id);
-            throw new BizException("删除失败[id=" + id + "]");
-        }
-    }
-
-    @Override
-    public int updateRiskPersonRiskSyncInfo(RiskPersonRiskSyncInfo riskPersonRiskSyncInfo) {
-        log.info("正在更新id为{}的riskPersonRiskSyncInfo",riskPersonRiskSyncInfo.getRiskPersonRiskSyncInfoId());
-        if (super.updateById(riskPersonRiskSyncInfo)) {
-            log.info("更新d为{}的riskPersonRiskSyncInfo成功",riskPersonRiskSyncInfo.getRiskPersonRiskSyncInfoId());
-            return riskPersonRiskSyncInfo.getRiskPersonRiskSyncInfoId();
-        } else {
-            log.error("更新id为{}的riskPersonRiskSyncInfo失败",riskPersonRiskSyncInfo.getRiskPersonRiskSyncInfoId());
-            throw new BizException("更新失败[id=" + riskPersonRiskSyncInfo.getRiskPersonRiskSyncInfoId() + "]");
-        }
-    }
-
-    @Override
     public ResultBean<Boolean> addRiskPerson(List<RiskPersonRiskSyncInfoReq> riskPersonList) {
         log.info("addRiskPerson req={}", com.alibaba.fastjson.JSON.toJSON(riskPersonList));
         ResultBean resultBean = new ResultBean();
