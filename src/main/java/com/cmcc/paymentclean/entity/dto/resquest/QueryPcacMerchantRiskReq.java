@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value = "协会风险商户查询请求参数")
+@ApiModel(value = "批量商户风险信息导入查询请求参数")
 public class QueryPcacMerchantRiskReq implements Serializable {
     private static final long serialVersionUID = 1L;
 
