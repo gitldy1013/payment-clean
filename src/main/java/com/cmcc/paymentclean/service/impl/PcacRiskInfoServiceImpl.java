@@ -8,20 +8,16 @@ import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.*;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
+import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -49,6 +45,10 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
     @Autowired
     private PcacConfig pcacConfig;
+
+    @Autowired
+    private PcacRiskInfoService pcacRiskInfoService;
+
     @Override
     public Page<PcacRiskInfo> listPcacRiskInfosByPage(int page, int pageSize, String factor) {
         log.info("正在执行分页查询pcacRiskInfo: page = {} pageSize = {} factor = {}",page,pageSize,factor);
@@ -168,7 +168,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         Respone respone = new Respone();
         respone.setBody(body);
         String trnxCode = "";
-        Head head = getHead(trnxCode);
+        Head head = getRespHead(trnxCode);
         respone.setHead(head);
         document.setRespone(respone);
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
@@ -186,15 +186,113 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
     @Override
     public ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq) {
-        Head head = getHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
-        new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
+        com.cmcc.paymentclean.entity.dto.pcac.resq.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
+        BeanUtilsEx.copyProperties(body,reissueRiskInfoReq);
+        log.info("请求体body参数：{}",body);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resq.Document();
+        Request request = new Request();
+        request.setHead(head);
+        request.setBody(body);
+        document.setRequest(request);
+        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        log.info("没加签名xml串：{}",noSignXml);
+        String signature = CFCACipherUtils.doSignature(noSignXml);
+        document.setSignature(signature);
+        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        log.info("信息补发申请请求清算协会报文：{}",doXml);
+        boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.029");
+        if (validate){
+            String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
+            ResultBean resultBean =  doReissueRiskInfo(result);
+
+
+        }else {
+            log.info("----------xsd文件校验xml格式失败-------");
+            throw new SubmitPCACException(ResultCodeEnum.XSD_FILE_VALID_FALSE.getCode(),ResultCodeEnum.XSD_FILE_VALID_FALSE.getDesc());
+        }
+
         return null;
+    }
+
+    private ResultBean doReissueRiskInfo(String result) {
+        log.info("信息补发申请清算协会响应xml报文：",result);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp=
+                (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+        String signatureResp = documentResp.getSignature();
+        log.info("响应报文的签名串signature：{}",signatureResp);
+        documentResp.setSignature(null);
+        String noSignXmlResp = XmlJsonUtils.convertObjectToXmlStr(documentResp);
+        log.info("不加签名信息的响应报文xml串：{}",noSignXmlResp);
+        boolean isSign = CFCACipherUtils.verifySignature(noSignXmlResp, signatureResp);
+        log.info("-------信息补发验证签名结果为：{}", isSign);
+        Respone respone = documentResp.getRespone();
+        Head respHead = respone.getHead();
+        String secretKey = respHead.getSecretKey();
+        Body respBody = respone.getBody();
+        //这里的RiskType为申请补发类型， 01 黑名单 02 风险提示信息
+        String pushListType = respBody.getQueryInfo().getRiskType();
+        RespInfo respInfo = respBody.getRespInfo();
+        if("S00000".equals(respInfo.getResultCode())&&"01".equals(respInfo.getResultStatus())){
+            PcacList pcacList = respBody.getPcacList();
+
+            if (null == pcacList || pcacList.getRiskInfo().size()==0){
+                return new ResultBean(ResultBean.SUCCESS_CODE,"该日期无需要补发数据");
+            }else {
+                ArrayList<PcacRiskInfo> pcacRiskInfoList = new ArrayList<>();
+                for (RiskInfo riskInfo :pcacList.getRiskInfo()){
+                    log.debug("协会补发风险信息：{}", riskInfo);
+                    //对关键字进行解密，证件号码和银行卡号加密
+                    //商户简称
+                    String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
+                    riskInfo.setCusName(decryptCusName);
+                    //商户名称
+                    String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
+                    riskInfo.setRegName(decryptRegName);
+                    //法人证件号码
+                    String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
+                    riskInfo.setCusCode(decryptDocCode);
+                    //法定代表人姓名
+                    String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
+                    riskInfo.setLegDocName(decryptLegDocName);
+                    //法定代表人证件号码
+                    String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
+                    String encryptLegDocCode = null;
+                    //判断证件类型是身份证就进行内部加密
+                    if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
+                        encryptLegDocCode = InnerCipherUtils.encrypt(decryptLegDocCode);
+                    }
+                    riskInfo.setLegDocCode(encryptLegDocCode);
+                    String encryptBankNo = InnerCipherUtils.encrypt(riskInfo.getBankNo());
+                    riskInfo.setBankNo(encryptBankNo);
+                    PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
+                    BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
+                    log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
+                    pcacRiskInfo.setUpDate(riskInfo.getPushDate());
+                    //设置类型01为黑名单,02为风险提示信息
+                    pcacRiskInfo.setPushListType(pushListType);
+                    pcacRiskInfoList.add(pcacRiskInfo);
+
+
+
+
+                }
+                log.debug("需要入库风险信息：", pcacRiskInfoList);
+                pcacRiskInfoMapper.insertBatchPcacRiskInfo( pcacRiskInfoList);
+                return new ResultBean(ResultBean.SUCCESS_CODE,"信息补发成功");
+            }
+
+
+        }else {
+            return new ResultBean(ResultBean.UNSPECIFIED_CODE,"风险信息补发失败");
+        }
+
     }
 
     /**
     * 组装响应报文头的信息
     * */
-    private Head getHead(String trnxCode){
+    private Head getRespHead(String trnxCode){
         Date date = new Date();
         Head head = new Head();
         head.setVersion(pcacConfig.getVersion());
@@ -212,6 +310,32 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         head.setTrnxCode(trnxCode);
         String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
+        head.setSecretKey("");
+        return head;
+    }
+
+    /**
+     * 组装请求报文头的信息
+     * */
+    private com.cmcc.paymentclean.entity.dto.pcac.resq.Head getResqHead(String trnxCode){
+        Date date = new Date();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resq.Head();
+        head.setVersion(pcacConfig.getVersion());
+        //报文唯一标识（8 位日期+10 顺序号）
+        int random = new Random().nextInt(1000) + 1000;
+        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"100000"+random;
+        head.setIdentification(identification);
+        //收单机构收单机构机构号（字母、数字、下划线）
+        head.setOrigSender(pcacConfig.getOrigSender());
+        //收单机构收单机构发送系统号（字母、数字、下划线）
+        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
+        //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
+        head.setRecSystemId("R0001");
+        //交易码，见 5.1 报文分类列表（数字、字母）-----黑名单推送响应TrnxCode为空
+        head.setTrnxCode(trnxCode);
+        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
+        head.setTrnxTime(trnxTime);
+        head.setUserToken(pcacConfig.getUserToken());
         head.setSecretKey("");
         return head;
     }

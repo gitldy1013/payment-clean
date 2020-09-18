@@ -54,7 +54,7 @@ public class PcacRiskInfoPushController {
         log.debug("接收协会风险提示信息报文：{}",xmlStr);
         String pushListType = IsBlackEnum.ISBLACKE_02.getCode();
 
-        String doXml = getRiskInfo(xmlStr,pushListType);
+        String doXml = saveRiskInfo(xmlStr,pushListType);
 
         return doXml;
     }
@@ -73,7 +73,7 @@ public class PcacRiskInfoPushController {
         log.debug("接收协会黑名单报文：{}",xmlStr);
         String pushListType = IsBlackEnum.ISBLACKE_01.getCode();
 
-        String doXml = getRiskInfo(xmlStr,pushListType);
+        String doXml = saveRiskInfo(xmlStr,pushListType);
 
         return doXml;
     }
@@ -106,7 +106,7 @@ public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoR
 
 
 
-    private String getRiskInfo(String xmlStr,String pushListType) {
+    private String saveRiskInfo(String xmlStr,String pushListType) {
         String doXml = null;
         Document document = (Document) XmlJsonUtils.convertXmlStrToObject(Document.class, xmlStr);
         String signature = document.getSignature();
