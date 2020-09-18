@@ -134,6 +134,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 String validStatus = (new Date().before(riskPersonResp.getValidDate())) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
                 riskPersonResp.setValidStatus(validStatus);
                 riskPersonResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getLegDocType()));
+                riskPersonResp.setDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getDocType()));
+                riskPersonResp.setCusType(CusTypeEnum.getCusTypeEnum(riskPersonResp.getCusType()));
+                riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
