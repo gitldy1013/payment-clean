@@ -149,6 +149,9 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
                 queryPcacMerchantRiskInfoResp.setLegBenCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegBenCardType()));
                 queryPcacMerchantRiskInfoResp.setLevel(LevelCodeEnum.getLevelDesc(queryPcacMerchantRiskInfoResp.getLevel()));
                 queryPcacMerchantRiskInfoResp.setFeedbackStatus(FeedbackStatusEnum.getFeedbackStatusDesc(queryPcacMerchantRiskInfoResp.getFeedbackStatus()));
+                queryPcacMerchantRiskInfoResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(queryPcacMerchantRiskInfoResp.getCusProperty()));
+                queryPcacMerchantRiskInfoResp.setHandleResult(HandleResultEnum.getHandleResultDesc(queryPcacMerchantRiskInfoResp.getHandleResult()));
+                queryPcacMerchantRiskInfoResp.setOccurchan(OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
