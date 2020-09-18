@@ -45,42 +45,38 @@ public class PcacRiskInfoPushController {
     /**
      * 协会推送风险提示信息
      * 风险提示信息关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
-     *
-     *
-     * */
-    @RequestMapping(value = "/riskTipsInfo",method = RequestMethod.POST)
+     */
+    @RequestMapping(value = "/riskTipsInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String  riskTipsInfo(@RequestParam(value = "xml") String xmlStr){
-        log.debug("接收协会风险提示信息报文：{}",xmlStr);
+    public String riskTipsInfo(@RequestParam(value = "xml") String xmlStr) {
+        log.debug("接收协会风险提示信息报文：{}", xmlStr);
         String pushListType = IsBlackEnum.ISBLACKE_02.getCode();
 
-        String doXml = saveRiskInfo(xmlStr,pushListType);
+        String doXml = saveRiskInfo(xmlStr, pushListType);
 
         return doXml;
     }
-
 
 
     /**
      * 协会推送黑名单信息
      * 黑名单推送关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
-     *
-     *
-     * */
-    @RequestMapping(value = "/blackList",method = RequestMethod.POST)
+     */
+    @RequestMapping(value = "/blackList", method = RequestMethod.POST)
     @ResponseBody
-    public String  blackList(@RequestParam(value = "xml") String xmlStr){
-        log.debug("接收协会黑名单报文：{}",xmlStr);
+    public String blackList(@RequestParam(value = "xml") String xmlStr) {
+        log.debug("接收协会黑名单报文：{}", xmlStr);
         String pushListType = IsBlackEnum.ISBLACKE_01.getCode();
 
-        String doXml = saveRiskInfo(xmlStr,pushListType);
+        String doXml = saveRiskInfo(xmlStr, pushListType);
 
         return doXml;
     }
 
-
-public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoReq){
-        log.info("补发请求入参是：{}",reissueRiskInfoReq);
+    @RequestMapping(value = "/reissueRiskInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoReq) {
+        log.info("补发请求入参是：{}", reissueRiskInfoReq);
         /*if (StringUtils.isEmpty(reissueRiskInfoReq.getRiskType())){
             return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
         }
@@ -90,23 +86,16 @@ public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoR
         if (StringUtils.isEmpty(reissueRiskInfoReq.getReqDateEnd())){
             return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
         }*/
-        if (reissueRiskInfoReq.getReqDate().contains("-")&&reissueRiskInfoReq.getReqDateEnd().contains("-")){
-            return new ResultBean(ResultBean.PARAM_ERR,"日期格式为YYYY-MM-DD");
+        if (reissueRiskInfoReq.getReqDate().contains("-") && reissueRiskInfoReq.getReqDateEnd().contains("-")) {
+            return new ResultBean(ResultBean.PARAM_ERR, "日期格式为YYYY-MM-DD");
         }
-    ResultBean resultBean =  pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
+        ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
 
-    return resultBean;
-}
-
-
+        return resultBean;
+    }
 
 
-
-
-
-
-
-    private String saveRiskInfo(String xmlStr,String pushListType) {
+    private String saveRiskInfo(String xmlStr, String pushListType) {
         String doXml = null;
         Document document = (Document) XmlJsonUtils.convertXmlStrToObject(Document.class, xmlStr);
         String signature = document.getSignature();

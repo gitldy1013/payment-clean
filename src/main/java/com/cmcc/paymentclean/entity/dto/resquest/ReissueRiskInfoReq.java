@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -23,11 +24,12 @@ public class ReissueRiskInfoReq implements Serializable {
 
     @ApiModelProperty(value = "请求重新推送日期，格式 YYYY-MM-DD")
     @NotBlank(message = "请求重新推送日期不能为空")
+    @Pattern(regexp = "[0-9]{4}-[0-9]{2}-[0-9]{2}", message = "请求重新推送日期，格式 YYYY-MM-DD")
     String ReqDate;
 
     @ApiModelProperty(value = "请求重新推送结束日期，格式YYYY-MM-DD")
+    @Pattern(regexp = "[0-9]{4}-[0-9]{2}-[0-9]{2}", message = "请求重新推送日期，格式 YYYY-MM-DD")
     String ReqDateEnd;
-
 
 
 }

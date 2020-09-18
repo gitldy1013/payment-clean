@@ -6,6 +6,7 @@ import com.cmcc.paymentclean.exception.ParamInvalidException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,19 @@ public class GlobalExceptionHandler {
     private ResultBean<Object> createResultVO(ResultCodeEnum resultCodeEnum, String detailMessage) {
 
         return new ResultBean(resultCodeEnum.getCode(), resultCodeEnum.getDesc(), detailMessage);
+    }
+
+
+    /**
+     * vatlidated校验异常处理
+     */
+    @ExceptionHandler(BindException.class)
+    @ResponseBody
+    public ResultBean handlerBindException(BindException e) {
+        ResultBean resultBean = new ResultBean(ResultBean.PARAM_ERR,
+                e.getBindingResult().getFieldError().getDefaultMessage());
+        log.error("响应码:{},响应信息:{}", resultBean.getResCode(), resultBean.getResMsg());
+        return resultBean;
     }
 
 }
