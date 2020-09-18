@@ -8,7 +8,7 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.BaseBody;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.BaseBody;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;

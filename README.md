@@ -1321,12 +1321,3 @@
 | 114         | 无效的ip参数           |
 | 801         | 无效的操作方法         |
 | 805         | 数据库操作出错，请重试 |
-
-(待确认 sftp服务器)
->* sftp服务IP：localhost
->* sftp服务port：8090
->* sftp服务用户名：root
->* sftp服务密码：root
->* sftp服务获取目录：/Blacklist和/Risk
-
-数据加解密算法接口开发

@@ -6,7 +6,7 @@
 //
 
 
-package com.cmcc.paymentclean.entity.dto.pcac.resq.gen;
+package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin;
 
 import lombok.Data;
 
@@ -26,8 +26,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}Head"/>
- *         &lt;element ref="{}Body"/>
+ *         &lt;element ref="{}Request"/>
+ *         &lt;element ref="{}Signature"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,63 +38,63 @@ import javax.xml.bind.annotation.XmlType;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "head",
-    "body"
+    "request",
+    "signature"
 })
-@XmlRootElement(name = "Request")
-public class Request <T extends BaseBody>{
+@XmlRootElement(name = "Document")
+public class Document {
 
-    @XmlElement(name = "Head", required = true)
-    protected Head head;
-    @XmlElement(name = "Body", required = true)
-    protected T body;
+    @XmlElement(name = "Request", required = true)
+    protected Request request;
+    @XmlElement(name = "Signature", required = true)
+    protected String signature;
 
     /**
-     * 获取head属性的值。
+     * 获取request属性的值。
      *
      * @return
      *     possible object is
-     *     {@link Head }
+     *     {@link Request }
      *
      */
-    public Head getHead() {
-        return head;
+    public Request getRequest() {
+        return request;
     }
 
     /**
-     * 设置head属性的值。
+     * 设置request属性的值。
      *
      * @param value
      *     allowed object is
-     *     {@link Head }
+     *     {@link Request }
      *
      */
-    public void setHead(Head value) {
-        this.head = value;
+    public void setRequest(Request value) {
+        this.request = value;
     }
 
     /**
-     * 获取body属性的值。
+     * 获取signature属性的值。
      *
      * @return
      *     possible object is
-     *     {@link T }
+     *     {@link String }
      *
      */
-    public T getBody() {
-        return body;
+    public String getSignature() {
+        return signature;
     }
 
     /**
-     * 设置body属性的值。
+     * 设置signature属性的值。
      *
      * @param value
      *     allowed object is
-     *     {@link T }
+     *     {@link String }
      *
      */
-    public void setBody(T value) {
-        this.body = value;
+    public void setSignature(String value) {
+        this.signature = value;
     }
 
 }

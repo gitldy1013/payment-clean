@@ -4,7 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.*;
+import com.cmcc.paymentclean.consts.CommonConst;
+import com.cmcc.paymentclean.consts.CusTypeEnum;
+import com.cmcc.paymentclean.consts.IsBlackEnum;
+import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.LevelCodeEnum;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.RiskTypeEnum;
+import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -15,7 +22,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resp.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
@@ -60,61 +67,6 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
     @Autowired
     private PcacRiskInfoService pcacRiskInfoService;
-
-    @Override
-    public Page<PcacRiskInfo> listPcacRiskInfosByPage(int page, int pageSize, String factor) {
-        log.info("正在执行分页查询pcacRiskInfo: page = {} pageSize = {} factor = {}", page, pageSize, factor);
-        QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper<PcacRiskInfo>().like("", factor);
-        //TODO 这里需要自定义用于匹配的字段,并把wrapper传入下面的page方法
-        Page<PcacRiskInfo> result = super.page(new Page<PcacRiskInfo>(page, pageSize), queryWrapper);
-        result.setTotal(result.getRecords().size());
-        log.info("分页查询pcacRiskInfo完毕: 结果数 = {} ", result.getRecords().size());
-        return result;
-    }
-
-    @Override
-    public PcacRiskInfo getPcacRiskInfoById(int id) {
-        log.info("正在查询pcacRiskInfo中id为{}的数据", id);
-        PcacRiskInfo pcacRiskInfo = super.getById(id);
-        log.info("查询id为{}的pcacRiskInfo{}", id, (null == pcacRiskInfo ? "无结果" : "成功"));
-        return pcacRiskInfo;
-    }
-
-    @Override
-    public int insertPcacRiskInfo(PcacRiskInfo pcacRiskInfo) {
-        log.info("正在插入pcacRiskInfo");
-        if (super.save(pcacRiskInfo)) {
-            log.info("插入pcacRiskInfo成功,id为{}", pcacRiskInfo.getPcacRiskInfoId());
-            return pcacRiskInfo.getPcacRiskInfoId();
-        } else {
-            log.error("插入pcacRiskInfo失败");
-            throw new BizException("添加失败");
-        }
-    }
-
-    @Override
-    public int deletePcacRiskInfoById(int id) {
-        log.info("正在删除id为{}的pcacRiskInfo", id);
-        if (super.removeById(id)) {
-            log.info("删除id为{}的pcacRiskInfo成功", id);
-            return id;
-        } else {
-            log.error("删除id为{}的pcacRiskInfo失败", id);
-            throw new BizException("删除失败[id=" + id + "]");
-        }
-    }
-
-    @Override
-    public int updatePcacRiskInfo(PcacRiskInfo pcacRiskInfo) {
-        log.info("正在更新id为{}的pcacRiskInfo", pcacRiskInfo.getPcacRiskInfoId());
-        if (super.updateById(pcacRiskInfo)) {
-            log.info("更新d为{}的pcacRiskInfo成功", pcacRiskInfo.getPcacRiskInfoId());
-            return pcacRiskInfo.getPcacRiskInfoId();
-        } else {
-            log.error("更新id为{}的pcacRiskInfo失败", pcacRiskInfo.getPcacRiskInfoId());
-            throw new BizException("更新失败[id=" + pcacRiskInfo.getPcacRiskInfoId() + "]");
-        }
-    }
 
     @Autowired
     private PcacRiskInfoMapper pcacRiskInfoMapper;
@@ -204,11 +156,11 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
     @Override
     public ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq) {
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body();
         BeanUtilsEx.copyProperties(body, reissueRiskInfoReq);
         log.info("请求体body参数：{}", body);
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document();
         Request request = new Request();
         request.setHead(head);
         request.setBody(body);
@@ -334,9 +286,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     /**
      * 组装请求报文头的信息
      */
-    private com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head getResqHead(String trnxCode) {
+    private com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head getResqHead(String trnxCode) {
         Date date = new Date();
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head();
         head.setVersion(pcacConfig.getVersion());
         //报文唯一标识（8 位日期+10 顺序号）
         int random = new Random().nextInt(1000) + 1000;

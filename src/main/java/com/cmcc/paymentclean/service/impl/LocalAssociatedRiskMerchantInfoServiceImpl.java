@@ -13,11 +13,11 @@ import com.cmcc.paymentclean.consts.PushListTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
@@ -50,61 +50,6 @@ import java.util.List;
 @Service
 public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<LocalAssociatedRiskMerchantInfoMapper, LocalAssociatedRiskMerchantInfo> implements LocalAssociatedRiskMerchantInfoService {
 
-    @Override
-    public Page<LocalAssociatedRiskMerchantInfo> listLocalAssociatedRiskMerchantInfosByPage(int page, int pageSize, String factor) {
-        log.info("正在执行分页查询localAssociatedRiskMerchantInfo: page = {} pageSize = {} factor = {}", page, pageSize, factor);
-        QueryWrapper<LocalAssociatedRiskMerchantInfo> queryWrapper = new QueryWrapper<LocalAssociatedRiskMerchantInfo>().like("", factor);
-        //TODO 这里需要自定义用于匹配的字段,并把wrapper传入下面的page方法
-        Page<LocalAssociatedRiskMerchantInfo> result = super.page(new Page<LocalAssociatedRiskMerchantInfo>(page, pageSize), queryWrapper);
-        result.setTotal(result.getRecords().size());
-        log.info("分页查询localAssociatedRiskMerchantInfo完毕: 结果数 = {} ", result.getRecords().size());
-        return result;
-    }
-
-    @Override
-    public LocalAssociatedRiskMerchantInfo getLocalAssociatedRiskMerchantInfoById(int id) {
-        log.info("正在查询localAssociatedRiskMerchantInfo中id为{}的数据", id);
-        LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = super.getById(id);
-        log.info("查询id为{}的localAssociatedRiskMerchantInfo{}", id, (null == localAssociatedRiskMerchantInfo ? "无结果" : "成功"));
-        return localAssociatedRiskMerchantInfo;
-    }
-
-    @Override
-    public int insertLocalAssociatedRiskMerchantInfo(LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo) {
-        log.info("正在插入localAssociatedRiskMerchantInfo");
-        if (super.save(localAssociatedRiskMerchantInfo)) {
-            log.info("插入localAssociatedRiskMerchantInfo成功,id为{}", localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId());
-            return localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId();
-        } else {
-            log.error("插入localAssociatedRiskMerchantInfo失败");
-            throw new BizException("添加失败");
-        }
-    }
-
-    @Override
-    public int deleteLocalAssociatedRiskMerchantInfoById(int id) {
-        log.info("正在删除id为{}的localAssociatedRiskMerchantInfo", id);
-        if (super.removeById(id)) {
-            log.info("删除id为{}的localAssociatedRiskMerchantInfo成功", id);
-            return id;
-        } else {
-            log.error("删除id为{}的localAssociatedRiskMerchantInfo失败", id);
-            throw new BizException("删除失败[id=" + id + "]");
-        }
-    }
-
-    @Override
-    public int updateLocalAssociatedRiskMerchantInfo(LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo) {
-        log.info("正在更新id为{}的localAssociatedRiskMerchantInfo", localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId());
-        if (super.updateById(localAssociatedRiskMerchantInfo)) {
-            log.info("更新d为{}的localAssociatedRiskMerchantInfo成功", localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId());
-            return localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId();
-        } else {
-            log.error("更新id为{}的localAssociatedRiskMerchantInfo失败", localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId());
-            throw new BizException("更新失败[id=" + localAssociatedRiskMerchantInfo.getLocalAssociatedRiskMerchantInfoId() + "]");
-        }
-    }
-
     @Autowired
     private LocalAssociatedRiskMerchantInfoMapper localAssociatedRiskMerchantInfoMapper;
 
@@ -125,6 +70,9 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
                 associatedRiskMerchantInfoResp.setLevel(LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
                 associatedRiskMerchantInfoResp.setPushListType(PushListTypeEnum.getPushListTypeDesc(associatedRiskMerchantInfoResp.getPushListType()));
                 associatedRiskMerchantInfoResp.setFeedbackStatus(FeedbackStatusEnum.getFeedbackStatusDesc(associatedRiskMerchantInfoResp.getFeedbackStatus()));
+                associatedRiskMerchantInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(associatedRiskMerchantInfoResp.getLegDocType()));
+                associatedRiskMerchantInfoResp.setIsBlack(IsBlackEnum.getIsBlackEnumDesc(associatedRiskMerchantInfoResp.getIsBlack()));
+                associatedRiskMerchantInfoResp.setLevel(LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
                 associatedRiskMerchantInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(associatedRiskMerchantInfoResp.getLegDocType()));
                 associatedRiskMerchantInfoResp.setIsBlack(IsBlackEnum.getIsBlackEnumDesc(associatedRiskMerchantInfoResp.getIsBlack()));
                 associatedRiskMerchantInfoResp.setLevel(LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
