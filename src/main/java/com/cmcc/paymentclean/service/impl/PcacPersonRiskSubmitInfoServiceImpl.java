@@ -92,6 +92,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl extends ServiceImpl<PcacPersonR
 
     @Override
     public ResultBean<Page<RiskPersonResp>> pageRiskPerson(RiskPersonReq riskPersonReq) {
+        log.info("pageRiskPerson req={}", com.alibaba.fastjson.JSON.toJSON(riskPersonReq));
         ResultBean<Page<RiskPersonResp>> resultBean = new ResultBean();
         Page<PcacPersonRiskSubmitInfo> page = new Page<>(riskPersonReq.getPageNo(), riskPersonReq.getPageSize());
         Page<RiskPersonResp> pcacPersonRiskSubmitInfoPage =  pcacPersonRiskSubmitInfoMapper.pagePcacPersonRiskSubmitInfo(page, riskPersonReq);
@@ -112,6 +113,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl extends ServiceImpl<PcacPersonR
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         resultBean.setData(pcacPersonRiskSubmitInfoPage);
+        log.info("pageRiskPerson resp={}", com.alibaba.fastjson.JSON.toJSON(pcacPersonRiskSubmitInfoPage));
         return resultBean;
     }
 }

@@ -37,6 +37,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import com.alibaba.fastjson.JSON;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -128,6 +129,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
 
     @Override
     public ResultBean<Page<QueryPcacMerchantRiskInfoResp>> pageLocalAssociatedRiskMerchantInfo(QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq) {
+        log.info("pageLocalAssociatedRiskMerchantInfo req={}", com.alibaba.fastjson.JSON.toJSON(queryPcacMerchantRiskInfoReq));
         ResultBean<Page<QueryPcacMerchantRiskInfoResp>> resultBean = new ResultBean();
         Page<QueryPcacMerchantRiskInfoResp> page = new Page<>(queryPcacMerchantRiskInfoReq.getPageNo(), queryPcacMerchantRiskInfoReq.getPageSize());
         Page<QueryPcacMerchantRiskInfoResp> queryPcacMerchantRiskInfoRespPage = queryPcacMerchantRiskInfoMapper.pageLocalAssociatedRiskMerchantInfo(page, queryPcacMerchantRiskInfoReq);
@@ -152,6 +154,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         resultBean.setData(queryPcacMerchantRiskInfoRespPage);
+        log.info("pageLocalAssociatedRiskMerchantInfo resp={}", com.alibaba.fastjson.JSON.toJSON(queryPcacMerchantRiskInfoRespPage));
         return resultBean;
     }
 

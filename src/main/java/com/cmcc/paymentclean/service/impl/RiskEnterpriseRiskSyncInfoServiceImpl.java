@@ -89,6 +89,7 @@ public class RiskEnterpriseRiskSyncInfoServiceImpl extends ServiceImpl<RiskEnter
 
     @Override
     public ResultBean<Boolean> addEnterprise(List<RiskEnterpriseRiskSyncInfoReq> riskEnterpriseList) {
+        log.info("addEnterprise req={}", com.alibaba.fastjson.JSON.toJSON(riskEnterpriseList));
         ResultBean resultBean = new ResultBean();
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());

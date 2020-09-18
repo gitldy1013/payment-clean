@@ -89,6 +89,7 @@ public class RiskMerchantRiskSyncInfoServiceImpl extends ServiceImpl<RiskMerchan
 
     @Override
     public ResultBean<Boolean> addMerchant(List<RiskMerchantRiskSyncInfoReq> riskMerchantList) {
+        log.info("addMerchant req={}", com.alibaba.fastjson.JSON.toJSON(riskMerchantList));
         ResultBean resultBean = new ResultBean();
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());

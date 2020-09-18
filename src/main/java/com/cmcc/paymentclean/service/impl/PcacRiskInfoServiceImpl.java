@@ -121,6 +121,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
     @Override
     public ResultBean<Page<PcacRiskInfoResp>> pagePcacRiskInfo(PcacRiskInfoReq riskInfoReq) {
+        log.info("pagePcacRiskInfo req={}", com.alibaba.fastjson.JSON.toJSON(riskInfoReq));
         ResultBean<Page<PcacRiskInfoResp>> resultBean = new ResultBean();
         Page<PcacRiskInfoResp> page = new Page<>(riskInfoReq.getPageNo(), riskInfoReq.getPageSize());
         Page<PcacRiskInfoResp> pcacPersonRiskSubmitInfoPage = pcacRiskInfoMapper.pagePcacRiskInfo(page, riskInfoReq);
@@ -139,6 +140,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         resultBean.setData(pcacPersonRiskSubmitInfoPage);
+        log.info("pagePcacRiskInfo resp={}", com.alibaba.fastjson.JSON.toJSON(pcacPersonRiskSubmitInfoPage));
         return resultBean;
     }
 
