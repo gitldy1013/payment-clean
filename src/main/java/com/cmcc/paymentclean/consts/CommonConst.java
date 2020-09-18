@@ -8,12 +8,12 @@ public class CommonConst {
     /**
      * validStatus 有效期 有效
      */
-    public static String VALIDSTATUS_01 = "01";
+    public static String VALIDSTATUS_01 = "有效";
 
     /**
      * validStatus 有效期 无效
      */
-    public static String VALIDSTATUS_02 = "02";
+    public static String VALIDSTATUS_02 = "无效";
 
     /**
      * SFTP_FILE_NAME_SUFFIX SFTP文件后缀
