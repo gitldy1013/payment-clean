@@ -8,17 +8,23 @@ import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac001.BankInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac001.BankList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac001.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac001.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac001.RiskInfo;
 import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.PcacPersonRiskSubmitInfoMapper;
-import com.cmcc.paymentclean.utils.*;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.DateUtils;
+import com.cmcc.paymentclean.utils.HttpClientUtils;
+import com.cmcc.paymentclean.utils.InnerCipherUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
+import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,11 +63,11 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
    /* @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {*/
-    public void submit()  {
+    public void submit() {
         List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
         Date date = new Date();
         log.debug("查询个人风险信息结果：{}", pcacPersonRiskList);
-        if (pcacPersonRiskList.size()==0){
+        if (pcacPersonRiskList.size() == 0) {
             log.info("当前没有可上报的个人风险信息");
             return;
         }
@@ -76,17 +82,17 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             //判断是身份证类型需要先进行内部解密，再进行清算协会加密
             String encryptDocCode = null;
             String encryptBankNo = null;
-            if(!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getDocType())&&DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())){
-                    //内部解密
-                    String docCode = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getDocCode());
-                    //协会加密
-                    encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded,docCode );
+            if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getDocType()) && DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())) {
+                //内部解密
+                String docCode = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getDocCode());
+                //协会加密
+                encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded, docCode);
             }
-            if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getBankNo())){
+            if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getBankNo())) {
                 //内部解密
                 String bankNo = InnerCipherUtils.decrypt(pcacPersonRiskSubmitInfo.getBankNo());
                 //协会加密
-                encryptBankNo = CFCACipherUtils.encrypt(symmetricKeyEncoded,bankNo );
+                encryptBankNo = CFCACipherUtils.encrypt(symmetricKeyEncoded, bankNo);
             }
             pcacPersonRiskSubmitInfo.setBankNo(encryptBankNo);
             pcacPersonRiskSubmitInfo.setDocCode(encryptDocCode);
@@ -116,18 +122,18 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             bankInfo.setRecDocCode("");
             bankInfo.setBankNo("");
             bankInfo.setOpenBank("");*/
-            BeanUtilsEx.copyProperties(bankInfo,pcacPersonRiskSubmitInfo);
+            BeanUtilsEx.copyProperties(bankInfo, pcacPersonRiskSubmitInfo);
             bankList.setCount("1");
             riskInfo.setBankList(bankList);
             riskInfos.add(riskInfo);
         }
         PcacList pcacLists = new PcacList();
-        pcacLists.setCount(riskInfos.size());
+        pcacLists.setCount(riskInfos.size() + "");
         pcacLists.setRiskInfo(riskInfos);
         Body body = new Body();
         body.setPcacList(pcacLists);
 
-        Head head = getHead(secretKey,date);
+        Head head = getHead(secretKey, date);
 
         Request request = new Request();
         request.setHead(head);
@@ -140,61 +146,59 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         String signature = CFCACipherUtils.doSignature(noSignXml);
         document.setSignature(signature);
         String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("个人风险信息上报支付清算协会请求xml报文：",doXml);
+        log.info("个人风险信息上报支付清算协会请求xml报文：", doXml);
         try {
             boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.001");
-            if (validate){
+            if (validate) {
                 String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
-                log.info("个人风险信息上报支付清算协会响应xml报文：",result);
-                com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp=
+                log.info("个人风险信息上报支付清算协会响应xml报文：", result);
+                com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
                 String signatureResp = documentResp.getSignature();
-                log.info("响应报文的签名串signature：{}",signatureResp);
+                log.info("响应报文的签名串signature：{}", signatureResp);
                 documentResp.setSignature(null);
                 String noSignXmlResp = XmlJsonUtils.convertObjectToXmlStr(documentResp);
-                log.info("不加签名信息的响应报文xml串：{}",noSignXmlResp);
+                log.info("不加签名信息的响应报文xml串：{}", noSignXmlResp);
                 boolean isSign = CFCACipherUtils.verifySignature(noSignXmlResp, signatureResp);
-                if (isSign){
+                if (isSign) {
                     Respone respone = documentResp.getRespone();
                     RespInfo respInfo = respone.getBody().getRespInfo();
-                    if("S00000".equals(respInfo.getResultCode())&&"01".equals(respInfo.getResultStatus())){
+                    if ("S00000".equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
                         //上报成功，修改数据库状态
                         PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
-                        BeanUtils.copyProperties(respInfo,pcacPersonRiskSubmitInfo);
+                        BeanUtils.copyProperties(respInfo, pcacPersonRiskSubmitInfo);
                         pcacPersonRiskSubmitInfo.setSubmitTime(date);
                         pcacPersonRiskSubmitInfo.setSubmitStatus("1");
                         pcacPersonRiskSubmitInfo.setMsgDetail("已上报");
-                        log.info("更新数据库表时间和状态信息：{}",pcacPersonRiskSubmitInfo);
+                        log.info("更新数据库表时间和状态信息：{}", pcacPersonRiskSubmitInfo);
                         pcacPersonRiskSubmitInfoMapper.updateByPcacPersonRiskSubmitInfo(pcacPersonRiskSubmitInfo);
 
                     }
 
-                }else {
+                } else {
                     log.info("------响应报文验签失败-------");
-                    throw new SubmitPCACException(ResultCodeEnum.SIGNATURE_FALSE.getCode(),ResultCodeEnum.SIGNATURE_FALSE.getDesc());
+                    throw new SubmitPCACException(ResultCodeEnum.SIGNATURE_FALSE.getCode(), ResultCodeEnum.SIGNATURE_FALSE.getDesc());
 
                 }
 
-            }else {
+            } else {
                 log.info("----------xsd文件校验xml格式失败-------");
-                throw new SubmitPCACException(ResultCodeEnum.XSD_FILE_VALID_FALSE.getCode(),ResultCodeEnum.XSD_FILE_VALID_FALSE.getDesc());
+                throw new SubmitPCACException(ResultCodeEnum.XSD_FILE_VALID_FALSE.getCode(), ResultCodeEnum.XSD_FILE_VALID_FALSE.getDesc());
             }
 
-        }
-
-         catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    private Head getHead(String secretKey,Date date ){
+    private Head getHead(String secretKey, Date date) {
         Head head = new Head();
-        log.info("请求清算协会版本号：{}",pcacConfig.getVersion());
+        log.info("请求清算协会版本号：{}", pcacConfig.getVersion());
         head.setVersion(pcacConfig.getVersion());
         //报文唯一标识（8 位日期+10 顺序号）
         int random = new Random().nextInt(1000) + 1000;
-        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"100000"+random;
+        String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;
         head.setIdentification(identification);
         //收单机构收单机构机构号（字母、数字、下划线）
         head.setOrigSender(pcacConfig.getOrigSender());
@@ -210,7 +214,6 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         head.setSecretKey(secretKey);
         return head;
     }
-
 
 
 }

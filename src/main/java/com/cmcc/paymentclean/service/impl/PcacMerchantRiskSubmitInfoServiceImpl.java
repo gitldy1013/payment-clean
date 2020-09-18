@@ -12,15 +12,15 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BenInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BenList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BankInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BankList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BenInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BenList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
@@ -155,8 +155,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         }
         //校验xml报文
 //        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
-        log.info("请求报文: {}",XmlJsonUtils.formatXml(xml));
-         boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
+        log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
+        boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
             return;
@@ -182,31 +182,33 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         Document document = new Document();
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"ER0001");
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "ER0001");
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
         ArrayList<RiskInfo> riskInfos = new ArrayList<RiskInfo>();
         for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
-            pcacList.setCount(pcacMerchantRiskSubmitInfos.size());
+            pcacList.setCount(pcacMerchantRiskSubmitInfos.size() + "");
             RiskInfo riskInfo = new RiskInfo();
             PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
             BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
             BankList bankList = new BankList();
+            List<BankInfo> bankInfos = new ArrayList<BankInfo>();
             BankInfo bankInfo = new BankInfo();
             BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
             //银行结算账号
             bankInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, bankInfo.getBankNo()));
             //log.info("解密：{}",CFCACipherUtils.decrypt(symmetricKeyEncoded,bankInfo.getBankNo()));
-            bankList.setBankInfo(bankInfo);
+            bankInfos.add(bankInfo);
+            bankList.setBankInfo(bankInfos);
             riskInfo.setBankList(bankList);
             riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
             BenList benList = new BenList();
+            List<BenInfo> benInfos = new ArrayList<>();
             BenInfo benInfo = new BenInfo();
             BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
-            benList.setBenInfo(benInfo);
-            riskInfo.setBankNo(null);
-            riskInfo.setOpenBank(null);
+            bankInfos.add(bankInfo);
+            benList.setBenInfo(benInfos);
             //解密风控加密协会 商户上报：
             //商户名称
             riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
@@ -223,7 +225,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             //法定代表人（负责人）手机号
             riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getMobileNo()));
             //网址
-            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()+"1"));
+            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl() + "1"));
             //服务器 ip
             riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
             //ICP 备案编号

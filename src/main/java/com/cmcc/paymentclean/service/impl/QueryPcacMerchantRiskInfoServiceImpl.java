@@ -19,8 +19,8 @@ import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
 import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
@@ -71,9 +71,9 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"");
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "");
         //设置报文体
-        com.cmcc.paymentclean.entity.dto.pcac.resq.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body();
         body.setCusProperty(queryPcacMerchantRiskReq.getCusProperty());
         body.setKeyWord(queryPcacMerchantRiskReq.getKeyWord());
         body.setInfos(queryPcacMerchantRiskReq.getInfos());
@@ -200,14 +200,14 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"");
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "");
         //设置报文体
-        com.cmcc.paymentclean.entity.dto.pcac.resq.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.Body();
-        com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList();
-        pcacList.setCount(queryPcacMerchantRiskInfoBackReq.size());
-        List<com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo> riskInfos = new ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo>();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList();
+        pcacList.setCount(queryPcacMerchantRiskInfoBackReq.size() + "");
+        List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo> riskInfos = new ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo>();
         for (int i = 0; i < queryPcacMerchantRiskInfoBackReq.size(); i++) {
-            com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo riskInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo();
+            com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo riskInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo();
             BeanUtilsEx.copyProperties(riskInfo, queryPcacMerchantRiskInfoBackReq);
             riskInfos.add(riskInfo);
         }

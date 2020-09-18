@@ -2,19 +2,18 @@
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
 // 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:52 PM CST
+// 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
 
-package com.cmcc.paymentclean.entity.dto.pcac.resq.gen;
-
-import lombok.Data;
+package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 
 /**
  * <p>anonymous complex type的 Java 类。
@@ -26,75 +25,77 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}Head"/>
- *         &lt;element ref="{}Body"/>
+ *         &lt;element name="DocType" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="DocCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ *
+ *
  */
-
+import lombok.Data;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "head",
-    "body"
+    "docType",
+    "docCode"
 })
-@XmlRootElement(name = "Request")
-public class Request <T extends BaseBody>{
+@XmlRootElement(name = "ResultQueryInfo")
+public class ResultQueryInfo {
 
-    @XmlElement(name = "Head", required = true)
-    protected Head head;
-    @XmlElement(name = "Body", required = true)
-    protected T body;
+    @XmlElement(name = "DocType", required = true)
+    protected String docType;
+    @XmlElement(name = "DocCode", required = true)
+    protected String docCode;
 
     /**
-     * 获取head属性的值。
+     * 获取docType属性的值。
      *
      * @return
      *     possible object is
-     *     {@link Head }
+     *     {@link String }
      *
      */
-    public Head getHead() {
-        return head;
+    public String getDocType() {
+        return docType;
     }
 
     /**
-     * 设置head属性的值。
+     * 设置docType属性的值。
      *
      * @param value
      *     allowed object is
-     *     {@link Head }
+     *     {@link String }
      *
      */
-    public void setHead(Head value) {
-        this.head = value;
+    public void setDocType(String value) {
+        this.docType = value;
     }
 
     /**
-     * 获取body属性的值。
+     * 获取docCode属性的值。
      *
      * @return
      *     possible object is
-     *     {@link T }
+     *     {@link String }
      *
      */
-    public T getBody() {
-        return body;
+    public String getDocCode() {
+        return docCode;
     }
 
     /**
-     * 设置body属性的值。
+     * 设置docCode属性的值。
      *
      * @param value
      *     allowed object is
-     *     {@link T }
+     *     {@link String }
      *
      */
-    public void setBody(T value) {
-        this.body = value;
+    public void setDocCode(String value) {
+        this.docCode = value;
     }
 
 }

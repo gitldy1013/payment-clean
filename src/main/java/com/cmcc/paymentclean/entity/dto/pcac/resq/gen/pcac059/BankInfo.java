@@ -2,13 +2,12 @@
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
 // 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.18 时间 12:54:58 PM CST
+// 生成时间: 2020.09.18 时间 01:20:41 PM CST
 //
 
 
-package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005;
+package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.BaseBody;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}CusProperty"/>
- *         &lt;element name="KeyWord" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element ref="{}Infos"/>
+ *         &lt;element ref="{}IsTransfer"/>
+ *         &lt;element ref="{}BankNo"/>
+ *         &lt;element ref="{}OpenBank"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -42,90 +41,90 @@ import javax.xml.bind.annotation.XmlType;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "cusProperty",
-    "keyWord",
-    "infos"
+    "isTransfer",
+    "bankNo",
+    "openBank"
 })
-@XmlRootElement(name = "Body")
-public class Body extends BaseBody {
+@XmlRootElement(name = "BankInfo")
+public class BankInfo {
 
-    @XmlElement(name = "CusProperty", required = true)
-    protected String cusProperty;
-    @XmlElement(name = "KeyWord", required = true)
-    protected String keyWord;
-    @XmlElement(name = "Infos", required = true)
-    protected String infos;
+    @XmlElement(name = "IsTransfer", required = true)
+    protected String isTransfer;
+    @XmlElement(name = "BankNo", required = true)
+    protected String bankNo;
+    @XmlElement(name = "OpenBank", required = true)
+    protected String openBank;
 
     /**
-     * 获取cusProperty属性的值。
+     * 获取isTransfer属性的值。
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getCusProperty() {
-        return cusProperty;
+    public String getIsTransfer() {
+        return isTransfer;
     }
 
     /**
-     * 设置cusProperty属性的值。
+     * 设置isTransfer属性的值。
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setCusProperty(String value) {
-        this.cusProperty = value;
+    public void setIsTransfer(String value) {
+        this.isTransfer = value;
     }
 
     /**
-     * 获取keyWord属性的值。
+     * 获取bankNo属性的值。
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getKeyWord() {
-        return keyWord;
+    public String getBankNo() {
+        return bankNo;
     }
 
     /**
-     * 设置keyWord属性的值。
+     * 设置bankNo属性的值。
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setKeyWord(String value) {
-        this.keyWord = value;
+    public void setBankNo(String value) {
+        this.bankNo = value;
     }
 
     /**
-     * 获取infos属性的值。
+     * 获取openBank属性的值。
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getInfos() {
-        return infos;
+    public String getOpenBank() {
+        return openBank;
     }
 
     /**
-     * 设置infos属性的值。
+     * 设置openBank属性的值。
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setInfos(String value) {
-        this.infos = value;
+    public void setOpenBank(String value) {
+        this.openBank = value;
     }
 
 }

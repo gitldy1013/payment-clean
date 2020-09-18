@@ -12,16 +12,16 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BenInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BenList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.BankInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.BankList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.BenInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.BenList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
@@ -193,24 +193,26 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         PcacList pcacList = new PcacList();
         ArrayList<RiskInfo> riskInfos = new ArrayList<>();
         for (int i = 0; i < PcacEnterpriseRiskSubmitInfos.size(); i++) {
-            pcacList.setCount(PcacEnterpriseRiskSubmitInfos.size());
+            pcacList.setCount(PcacEnterpriseRiskSubmitInfos.size()+"");
             RiskInfo riskInfo = new RiskInfo();
             PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo = PcacEnterpriseRiskSubmitInfos.get(i);
             BeanUtilsEx.copyProperties(riskInfo, PcacEnterpriseRiskSubmitInfo);
             BankList bankList = new BankList();
+            List<BankInfo> bankInfos = new ArrayList<>();
             BankInfo bankInfo = new BankInfo();
             BeanUtilsEx.copyProperties(bankInfo, PcacEnterpriseRiskSubmitInfo);
             //银行结算账号
             bankInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, bankInfo.getBankNo()));
-            bankList.setBankInfo(bankInfo);
+            bankInfos.add(bankInfo);
+            bankList.setBankInfo(bankInfos);
             riskInfo.setBankList(bankList);
             riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
             BenList benList = new BenList();
+            List<BenInfo> benInfos = new ArrayList<>();
             BenInfo benInfo = new BenInfo();
             BeanUtilsEx.copyProperties(benInfo, PcacEnterpriseRiskSubmitInfo);
-            benList.setBenInfo(benInfo);
-            riskInfo.setBankNo(null);
-            riskInfo.setOpenBank(null);
+            bankInfos.add(bankInfo);
+            benList.setBenInfo(benInfos);
             //解密风控加密协会 商户上报：
             //商户名称
             riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
@@ -221,7 +223,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             //法人证件号码
             riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getDocCode()));
             //法定代表人姓名/负责人姓名
-            riskInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocName()));
+            riskInfo.setLegRepName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
             //法定代表人（负责人）证件号码
             riskInfo.setLegDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocCode()));
             //法定代表人（负责人）手机号

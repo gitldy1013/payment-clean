@@ -2,19 +2,18 @@
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
 // 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:52 PM CST
+// 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
 
-package com.cmcc.paymentclean.entity.dto.pcac.resq.gen;
-
-import lombok.Data;
+package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
 
 /**
  * <p>anonymous complex type的 Java 类。
@@ -26,75 +25,77 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}Head"/>
- *         &lt;element ref="{}Body"/>
+ *         &lt;element ref="{}QueryInfo"/>
+ *         &lt;element ref="{}ResultInfo"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
+ *
+ *
  */
-
+import lombok.Data;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "head",
-    "body"
+    "queryInfo",
+    "resultInfo"
 })
-@XmlRootElement(name = "Request")
-public class Request <T extends BaseBody>{
+@XmlRootElement(name = "Condition")
+public class Condition {
 
-    @XmlElement(name = "Head", required = true)
-    protected Head head;
-    @XmlElement(name = "Body", required = true)
-    protected T body;
+    @XmlElement(name = "QueryInfo", required = true)
+    protected QueryInfo queryInfo;
+    @XmlElement(name = "ResultInfo", required = true)
+    protected ResultInfo resultInfo;
 
     /**
-     * 获取head属性的值。
+     * 获取queryInfo属性的值。
      *
      * @return
      *     possible object is
-     *     {@link Head }
+     *     {@link QueryInfo }
      *
      */
-    public Head getHead() {
-        return head;
+    public QueryInfo getQueryInfo() {
+        return queryInfo;
     }
 
     /**
-     * 设置head属性的值。
+     * 设置queryInfo属性的值。
      *
      * @param value
      *     allowed object is
-     *     {@link Head }
+     *     {@link QueryInfo }
      *
      */
-    public void setHead(Head value) {
-        this.head = value;
+    public void setQueryInfo(QueryInfo value) {
+        this.queryInfo = value;
     }
 
     /**
-     * 获取body属性的值。
+     * 获取resultInfo属性的值。
      *
      * @return
      *     possible object is
-     *     {@link T }
+     *     {@link ResultInfo }
      *
      */
-    public T getBody() {
-        return body;
+    public ResultInfo getResultInfo() {
+        return resultInfo;
     }
 
     /**
-     * 设置body属性的值。
+     * 设置resultInfo属性的值。
      *
      * @param value
      *     allowed object is
-     *     {@link T }
+     *     {@link ResultInfo }
      *
      */
-    public void setBody(T value) {
-        this.body = value;
+    public void setResultInfo(ResultInfo value) {
+        this.resultInfo = value;
     }
 
 }

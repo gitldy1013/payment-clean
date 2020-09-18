@@ -6,9 +6,9 @@ import com.cmcc.paymentclean.entity.LoginResult;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
 import com.cmcc.paymentclean.service.LoginPcacService;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -44,11 +44,11 @@ public class LoginPcacServiceImpl implements LoginPcacService {
         String trnxCode = TrnxCodeEnum.LOGIN.getCode();
 
         RespInfo respInfo = toPcac(trnxCode);
-        if("S00000".equals(respInfo.getResultCode())&&"01".equals(respInfo.getResultStatus())){
+        if ("S00000".equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
             return new LoginResult(respInfo.getUserToken());
         }
 
-        return new LoginResult(respInfo.getResultCode(),respInfo.getResultStatus());
+        return new LoginResult(respInfo.getResultCode(), respInfo.getResultStatus());
 
     }
 
@@ -59,9 +59,8 @@ public class LoginPcacServiceImpl implements LoginPcacService {
         String trnxCode = TrnxCodeEnum.LOGOUT.getCode();
 
         RespInfo respInfo = toPcac(trnxCode);
-         return new LoginResult(respInfo.getResultCode(),respInfo.getResultStatus());
+        return new LoginResult(respInfo.getResultCode(), respInfo.getResultStatus());
     }
-
 
 
     private RespInfo toPcac(String trnxCode) {
@@ -103,13 +102,13 @@ public class LoginPcacServiceImpl implements LoginPcacService {
         return respInfo;
     }
 
-    private Head getHead(Date date,String trnxCode ){
+    private Head getHead(Date date, String trnxCode) {
         Head head = new Head();
-        log.info("请求清算协会版本号：{}",pcacConfig.getVersion());
+        log.info("请求清算协会版本号：{}", pcacConfig.getVersion());
         head.setVersion(pcacConfig.getVersion());
         //报文唯一标识（8 位日期+10 顺序号）
         int random = new Random().nextInt(1000) + 1000;
-        String identification = DateUtils.formatTime(date, "yyyyMMdd")+"100000"+random;
+        String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;
         head.setIdentification(identification);
         //收单机构收单机构机构号（字母、数字、下划线）
         head.setOrigSender(pcacConfig.getOrigSender());

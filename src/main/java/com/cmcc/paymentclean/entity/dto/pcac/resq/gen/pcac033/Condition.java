@@ -2,14 +2,11 @@
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
 // 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.18 时间 12:54:58 PM CST
+// 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
 
-package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005;
-
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.BaseBody;
-import lombok.Data;
+package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,9 +25,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}CusProperty"/>
- *         &lt;element name="KeyWord" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element ref="{}Infos"/>
+ *         &lt;element ref="{}QueryInfo"/>
+ *         &lt;element name="Count" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element ref="{}ResultCondition"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -39,93 +36,94 @@ import javax.xml.bind.annotation.XmlType;
  *
  *
  */
+import lombok.Data;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "cusProperty",
-    "keyWord",
-    "infos"
+    "queryInfo",
+    "count",
+    "resultCondition"
 })
-@XmlRootElement(name = "Body")
-public class Body extends BaseBody {
+@XmlRootElement(name = "Condition")
+public class Condition {
 
-    @XmlElement(name = "CusProperty", required = true)
-    protected String cusProperty;
-    @XmlElement(name = "KeyWord", required = true)
-    protected String keyWord;
-    @XmlElement(name = "Infos", required = true)
-    protected String infos;
+    @XmlElement(name = "QueryInfo", required = true)
+    protected QueryInfo queryInfo;
+    @XmlElement(name = "Count", required = true)
+    protected String count;
+    @XmlElement(name = "ResultCondition", required = true)
+    protected ResultCondition resultCondition;
 
     /**
-     * 获取cusProperty属性的值。
+     * 获取queryInfo属性的值。
+     *
+     * @return
+     *     possible object is
+     *     {@link QueryInfo }
+     *
+     */
+    public QueryInfo getQueryInfo() {
+        return queryInfo;
+    }
+
+    /**
+     * 设置queryInfo属性的值。
+     *
+     * @param value
+     *     allowed object is
+     *     {@link QueryInfo }
+     *
+     */
+    public void setQueryInfo(QueryInfo value) {
+        this.queryInfo = value;
+    }
+
+    /**
+     * 获取count属性的值。
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getCusProperty() {
-        return cusProperty;
+    public String getCount() {
+        return count;
     }
 
     /**
-     * 设置cusProperty属性的值。
+     * 设置count属性的值。
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setCusProperty(String value) {
-        this.cusProperty = value;
+    public void setCount(String value) {
+        this.count = value;
     }
 
     /**
-     * 获取keyWord属性的值。
+     * 获取resultCondition属性的值。
      *
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link ResultCondition }
      *
      */
-    public String getKeyWord() {
-        return keyWord;
+    public ResultCondition getResultCondition() {
+        return resultCondition;
     }
 
     /**
-     * 设置keyWord属性的值。
+     * 设置resultCondition属性的值。
      *
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link ResultCondition }
      *
      */
-    public void setKeyWord(String value) {
-        this.keyWord = value;
-    }
-
-    /**
-     * 获取infos属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getInfos() {
-        return infos;
-    }
-
-    /**
-     * 设置infos属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setInfos(String value) {
-        this.infos = value;
+    public void setResultCondition(ResultCondition value) {
+        this.resultCondition = value;
     }
 
 }

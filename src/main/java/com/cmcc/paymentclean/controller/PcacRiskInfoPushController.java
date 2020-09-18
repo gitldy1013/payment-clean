@@ -4,15 +4,18 @@ import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
-import com.cmcc.paymentclean.utils.*;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.InnerCipherUtils;
+import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,13 +45,11 @@ public class PcacRiskInfoPushController {
     /**
      * 协会推送风险提示信息
      * 风险提示信息关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
-     *
-     *
-     * */
-    @RequestMapping(value = "/riskTipsInfo",method = RequestMethod.POST)
+     */
+    @RequestMapping(value = "/riskTipsInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String  riskTipsInfo(@RequestParam(value = "xml") String xmlStr){
-        log.debug("接收协会风险提示信息报文：{}",xmlStr);
+    public String riskTipsInfo(@RequestParam(value = "xml") String xmlStr) {
+        log.debug("接收协会风险提示信息报文：{}", xmlStr);
         String pushListType = IsBlackEnum.ISBLACKE_02.getCode();
 
         String doXml = saveRiskInfo(xmlStr,pushListType);
@@ -60,17 +58,14 @@ public class PcacRiskInfoPushController {
     }
 
 
-
     /**
      * 协会推送黑名单信息
      * 黑名单推送关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
-     *
-     *
-     * */
-    @RequestMapping(value = "/blackList",method = RequestMethod.POST)
+     */
+    @RequestMapping(value = "/blackList", method = RequestMethod.POST)
     @ResponseBody
-    public String  blackList(@RequestParam(value = "xml") String xmlStr){
-        log.debug("接收协会黑名单报文：{}",xmlStr);
+    public String blackList(@RequestParam(value = "xml") String xmlStr) {
+        log.debug("接收协会黑名单报文：{}", xmlStr);
         String pushListType = IsBlackEnum.ISBLACKE_01.getCode();
 
         String doXml = saveRiskInfo(xmlStr,pushListType);
@@ -79,8 +74,8 @@ public class PcacRiskInfoPushController {
     }
 
 
-public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoReq){
-        log.info("补发请求入参是：{}",reissueRiskInfoReq);
+    public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoReq) {
+        log.info("补发请求入参是：{}", reissueRiskInfoReq);
         /*if (StringUtils.isEmpty(reissueRiskInfoReq.getRiskType())){
             return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
         }
@@ -90,20 +85,13 @@ public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoR
         if (StringUtils.isEmpty(reissueRiskInfoReq.getReqDateEnd())){
             return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
         }*/
-        if (reissueRiskInfoReq.getReqDate().contains("-")&&reissueRiskInfoReq.getReqDateEnd().contains("-")){
-            return new ResultBean(ResultBean.PARAM_ERR,"日期格式为YYYY-MM-DD");
+        if (reissueRiskInfoReq.getReqDate().contains("-") && reissueRiskInfoReq.getReqDateEnd().contains("-")) {
+            return new ResultBean(ResultBean.PARAM_ERR, "日期格式为YYYY-MM-DD");
         }
-    ResultBean resultBean =  pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
+        ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
 
-    return resultBean;
-}
-
-
-
-
-
-
-
+        return resultBean;
+    }
 
 
     private String saveRiskInfo(String xmlStr,String pushListType) {
@@ -118,7 +106,7 @@ public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoR
         Request request = document.getRequest();
         Head head = request.getHead();
         String secretKey = head.getSecretKey();
-        Body body = request.getBody();
+        Body body = (Body) request.getBody();
         PcacList pcacList = body.getPcacList();
         String upDate = pcacList.getUpDate();
         List<RiskInfo> riskInfoList = pcacList.getRiskInfo();
@@ -134,7 +122,7 @@ public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoR
             riskInfo.setRegName(decryptRegName);
             //法人证件号码
             String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
-            riskInfo.setCusCode(decryptDocCode);
+            riskInfo.setDocCode(decryptDocCode);
             //法定代表人姓名
             String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
             riskInfo.setLegDocName(decryptLegDocName);

@@ -1,6 +1,5 @@
 package com.cmcc.paymentclean.entity.dto.pcac.resp;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.BankInfo;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;

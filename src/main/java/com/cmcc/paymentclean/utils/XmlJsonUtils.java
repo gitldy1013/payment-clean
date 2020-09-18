@@ -1,8 +1,8 @@
 package com.cmcc.paymentclean.utils;
 
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Head;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONSerializer;
 import net.sf.json.xml.XMLSerializer;
@@ -149,7 +149,7 @@ public class XmlJsonUtils {
 
     }
 
-    public static Request getRequest(byte[] symmetricKeyEncoded, com.cmcc.paymentclean.entity.dto.pcac.resq.Document document, PcacConfig pcacConfig,String trnxCode) {
+    public static Request getRequest(byte[] symmetricKeyEncoded, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document document, PcacConfig pcacConfig, String trnxCode) {
         document.setSignature(null);
         Request request = new Request();
         Head head = new Head();

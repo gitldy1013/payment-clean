@@ -2,13 +2,12 @@
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
 // 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.18 时间 12:54:58 PM CST
+// 生成时间: 2020.09.18 时间 01:20:41 PM CST
 //
 
 
-package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005;
+package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.BaseBody;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}CusProperty"/>
- *         &lt;element name="KeyWord" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element ref="{}Infos"/>
+ *         &lt;element ref="{}LegBenName"/>
+ *         &lt;element ref="{}LegBenCardType"/>
+ *         &lt;element ref="{}LegBenCardCode"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -42,90 +41,90 @@ import javax.xml.bind.annotation.XmlType;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "cusProperty",
-    "keyWord",
-    "infos"
+    "legBenName",
+    "legBenCardType",
+    "legBenCardCode"
 })
-@XmlRootElement(name = "Body")
-public class Body extends BaseBody {
+@XmlRootElement(name = "BenInfo")
+public class BenInfo {
 
-    @XmlElement(name = "CusProperty", required = true)
-    protected String cusProperty;
-    @XmlElement(name = "KeyWord", required = true)
-    protected String keyWord;
-    @XmlElement(name = "Infos", required = true)
-    protected String infos;
+    @XmlElement(name = "LegBenName", required = true)
+    protected String legBenName;
+    @XmlElement(name = "LegBenCardType", required = true)
+    protected String legBenCardType;
+    @XmlElement(name = "LegBenCardCode", required = true)
+    protected String legBenCardCode;
 
     /**
-     * 获取cusProperty属性的值。
+     * 获取legBenName属性的值。
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getCusProperty() {
-        return cusProperty;
+    public String getLegBenName() {
+        return legBenName;
     }
 
     /**
-     * 设置cusProperty属性的值。
+     * 设置legBenName属性的值。
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setCusProperty(String value) {
-        this.cusProperty = value;
+    public void setLegBenName(String value) {
+        this.legBenName = value;
     }
 
     /**
-     * 获取keyWord属性的值。
+     * 获取legBenCardType属性的值。
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getKeyWord() {
-        return keyWord;
+    public String getLegBenCardType() {
+        return legBenCardType;
     }
 
     /**
-     * 设置keyWord属性的值。
+     * 设置legBenCardType属性的值。
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setKeyWord(String value) {
-        this.keyWord = value;
+    public void setLegBenCardType(String value) {
+        this.legBenCardType = value;
     }
 
     /**
-     * 获取infos属性的值。
+     * 获取legBenCardCode属性的值。
      *
      * @return
      *     possible object is
      *     {@link String }
      *
      */
-    public String getInfos() {
-        return infos;
+    public String getLegBenCardCode() {
+        return legBenCardCode;
     }
 
     /**
-     * 设置infos属性的值。
+     * 设置legBenCardCode属性的值。
      *
      * @param value
      *     allowed object is
      *     {@link String }
      *
      */
-    public void setInfos(String value) {
-        this.infos = value;
+    public void setLegBenCardCode(String value) {
+        this.legBenCardCode = value;
     }
 
 }

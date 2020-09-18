@@ -13,11 +13,11 @@ import com.cmcc.paymentclean.consts.PushListTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.Request;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
@@ -144,11 +144,11 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig,"");
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "");
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
-        pcacList.setCount(1);
+        pcacList.setCount(associatedRiskMerchantInfoBackReq.size() + "");
         List<RiskInfo> riskInfos = new ArrayList<>();
         for (int i = 0; i < associatedRiskMerchantInfoBackReq.size(); i++) {
             AssociatedRiskMerchantInfoBackReq armbr = associatedRiskMerchantInfoBackReq.get(i);
@@ -170,8 +170,8 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         //发起反馈
         String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);
         boolean validateXML = ValidateUtils.validateXML(xmlStr, "");
-        if(!validateXML){
-            log.info("XSD校验失败{}",xmlStr);
+        if (!validateXML) {
+            log.info("XSD校验失败{}", xmlStr);
             return resultBean;
         }
         //解析响应
