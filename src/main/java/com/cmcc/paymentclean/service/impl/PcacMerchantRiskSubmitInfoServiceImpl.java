@@ -5,15 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.CusNatureEnum;
-import com.cmcc.paymentclean.consts.CusTypeEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.LevelCodeEnum;
-import com.cmcc.paymentclean.consts.MsgDetailEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
-import com.cmcc.paymentclean.consts.SourChaEnum;
-import com.cmcc.paymentclean.consts.SubmitStatusEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BankInfo;
@@ -83,6 +75,9 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                 riskMerchantResp.setCusNature(CusNatureEnum.getCusNatureEnum(riskMerchantResp.getCusNature()));
                 riskMerchantResp.setSourceChannel(SourChaEnum.getSourChaEnum(riskMerchantResp.getSourceChannel()));
                 riskMerchantResp.setLevel(LevelCodeEnum.getLevelDesc(riskMerchantResp.getLevel()));
+                riskMerchantResp.setDocType(DocTypeEnum.getDocTypeDesc(riskMerchantResp.getDocType()));
+                riskMerchantResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskMerchantResp.getRiskType()));
+                riskMerchantResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(riskMerchantResp.getCusProperty()));
             }
         }
         resultBean.setData(pagePcacMerchantRiskSubmitInfo);

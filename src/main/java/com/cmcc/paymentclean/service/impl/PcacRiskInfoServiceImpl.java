@@ -4,14 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.CusTypeEnum;
-import com.cmcc.paymentclean.consts.IsBlackEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.LevelCodeEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
-import com.cmcc.paymentclean.consts.RiskTypeEnum;
-import com.cmcc.paymentclean.consts.TrnxCodeEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -83,10 +76,11 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 String validStatus = (new Date().before(riskPersonResp.getValidDate())) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
                 riskPersonResp.setValidStatus(validStatus);
                 riskPersonResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getLegDocType()));
-                riskPersonResp.setDocType(LegDocTypeEnum.getLegDocTypeDesc(riskPersonResp.getDocType()));
+                riskPersonResp.setDocType(DocTypeEnum.getDocTypeDesc(riskPersonResp.getDocType()));
                 riskPersonResp.setCusType(CusTypeEnum.getCusTypeEnum(riskPersonResp.getCusType()));
                 riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
                 riskPersonResp.setLevel(LevelCodeEnum.getLevelDesc(riskPersonResp.getLevel()));
+                riskPersonResp.setPushListType(PushListTypeEnum.getPushListTypeDesc(riskPersonResp.getPushListType()));
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
@@ -231,10 +225,10 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                     String encryptLegDocCode = null;
                     //判断证件类型是身份证就进行内部加密
                     if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
-                        encryptLegDocCode = InnerCipherUtils.encrypt(decryptLegDocCode);
+                        encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
                     }
                     riskInfo.setLegDocCode(encryptLegDocCode);
-                    String encryptBankNo = InnerCipherUtils.encrypt(riskInfo.getBankNo());
+                    String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
                     riskInfo.setBankNo(encryptBankNo);
                     PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
                     BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
@@ -287,6 +281,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
      * 组装请求报文头的信息
      */
     private com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head getResqHead(String trnxCode) {
+        //没有需要加密的字段，但是xsd文件校验secretKey长度必须大于1
+        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+        String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);
         Date date = new Date();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head();
         head.setVersion(pcacConfig.getVersion());
@@ -305,7 +302,8 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
         head.setUserToken(pcacConfig.getUserToken());
-        head.setSecretKey("");
+        //head.setSecretKey("");
+        head.setSecretKey(secretKey);
         return head;
     }
 

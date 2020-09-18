@@ -7,20 +7,13 @@ import org.springframework.util.StringUtils;
  * @date 2020-09-14 15:02
  */
 public enum DocTypeEnum {
-    DOCTYPEENUM_01("01", "身份证"),
-    DOCTYPEENUM_02("02", "护照"),
-    DOCTYPEENUM_03("03", "军官证"),
-    DOCTYPEENUM_04("04", "户口簿"),
-    DOCTYPEENUM_05("05", "士兵证"),
-    DOCTYPEENUM_06("06", "港澳居民来往内地通行证"),
-    DOCTYPEENUM_07("07", "台湾同胞来往内地通行证"),
-    DOCTYPEENUM_08("08", "临时身份证"),
-    DOCTYPEENUM_09("09", "外国人居留证"),
-    DOCTYPEENUM_10("10", "警官证"),
-    DOCTYPEENUM_11("11", "港澳居民居住证"),
-    DOCTYPEENUM_12("12", "台湾居民居住证"),
+//    01:营业执照编码 02:统一社会信息代码 03:组织机构代码证 04:经营许可证 05：税务登记证 99:其他
+    DOCTYPEENUM_01("01", "营业执照编码"),
+    DOCTYPEENUM_02("02", "统一社会信息代码"),
+    DOCTYPEENUM_03("03", "组织机构代码证"),
+    DOCTYPEENUM_04("04", "经营许可证"),
+    DOCTYPEENUM_05("05", "税务登记证"),
     DOCTYPEENUM_99("99", "其他")
-
     ;
 
     private final String code;

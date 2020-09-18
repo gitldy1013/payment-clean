@@ -4,13 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.FeedbackStatusEnum;
-import com.cmcc.paymentclean.consts.IsBlackEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.LevelCodeEnum;
-import com.cmcc.paymentclean.consts.PushListTypeEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body;
@@ -73,6 +67,13 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
                 associatedRiskMerchantInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(associatedRiskMerchantInfoResp.getLegDocType()));
                 associatedRiskMerchantInfoResp.setIsBlack(IsBlackEnum.getIsBlackEnumDesc(associatedRiskMerchantInfoResp.getIsBlack()));
                 associatedRiskMerchantInfoResp.setLevel(LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
+                associatedRiskMerchantInfoResp.setDocType(DocTypeEnum.getDocTypeDesc(associatedRiskMerchantInfoResp.getDocType()));
+                associatedRiskMerchantInfoResp.setIsBlack(IsBlackEnum.getIsBlackEnumDesc(associatedRiskMerchantInfoResp.getIsBlack()));
+                associatedRiskMerchantInfoResp.setLevel(LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
+                associatedRiskMerchantInfoResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(associatedRiskMerchantInfoResp.getRiskType()));
+                associatedRiskMerchantInfoResp.setHandleResult(HandleResultEnum.getHandleResultDesc(associatedRiskMerchantInfoResp.getHandleResult()));
+                associatedRiskMerchantInfoResp.setCusType(CusTypeEnum.getCusTypeEnum(associatedRiskMerchantInfoResp.getCusType()));
+                associatedRiskMerchantInfoResp.setStatus(StatusEnum.getStatusDesc(associatedRiskMerchantInfoResp.getStatus()));
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
@@ -85,6 +86,12 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
     @Override
     public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> localAssociatedRiskMerchantInfoBack(List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReq) {
         ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> resultBean = new ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body>();
+//        if(true){
+//            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+//            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+//            return resultBean;
+//        }
+
         QueryWrapper<LocalAssociatedRiskMerchantInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("", "");
         LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfoMapper.selectOne(wrapper);

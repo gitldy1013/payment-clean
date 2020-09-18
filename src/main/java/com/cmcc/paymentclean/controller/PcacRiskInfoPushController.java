@@ -86,11 +86,15 @@ public class PcacRiskInfoPushController {
         }
         if (StringUtils.isEmpty(reissueRiskInfoReq.getReqDateEnd())){
             return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
-        }*/
+        }
         if (reissueRiskInfoReq.getReqDate().contains("-") && reissueRiskInfoReq.getReqDateEnd().contains("-")) {
             return new ResultBean(ResultBean.PARAM_ERR, "日期格式为YYYY-MM-DD");
-        }
-        ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
+        }*/
+        //风控测试用逻辑
+        ResultBean resultBean = new ResultBean("补发信息成功",ResultBean.SUCCESS_CODE);
+
+
+        //ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
 
         return resultBean;
     }
@@ -133,11 +137,11 @@ public class PcacRiskInfoPushController {
             String encryptLegDocCode = null;
             //判断证件类型是身份证就进行内部加密
             if (!StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
-                encryptLegDocCode = InnerCipherUtils.encrypt(decryptLegDocCode);
+                encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
             }
 
             riskInfo.setLegDocCode(encryptLegDocCode);
-            String encryptBankNo = InnerCipherUtils.encrypt(riskInfo.getBankNo());
+            String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
             riskInfo.setBankNo(encryptBankNo);
             PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
             BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
