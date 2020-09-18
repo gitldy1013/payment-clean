@@ -1,8 +1,8 @@
 //
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
-// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:51 PM CST 
+// 生成时间: 2020.09.17 时间 06:12:51 PM CST
 //
 
 
@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>anonymous complex type的 Java 类。
- * 
+ *
  * <p>以下模式片段指定包含在此类中的预期内容。
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -75,9 +75,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
+import lombok.Data;
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "cusType",
@@ -222,11 +224,11 @@ public class BaseInfo {
 
     /**
      * 获取cusType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusType() {
         return cusType;
@@ -234,11 +236,11 @@ public class BaseInfo {
 
     /**
      * 设置cusType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusType(String value) {
         this.cusType = value;
@@ -246,11 +248,11 @@ public class BaseInfo {
 
     /**
      * 获取cusNature属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusNature() {
         return cusNature;
@@ -258,11 +260,11 @@ public class BaseInfo {
 
     /**
      * 设置cusNature属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusNature(String value) {
         this.cusNature = value;
@@ -270,11 +272,11 @@ public class BaseInfo {
 
     /**
      * 获取regName属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRegName() {
         return regName;
@@ -282,11 +284,11 @@ public class BaseInfo {
 
     /**
      * 设置regName属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRegName(String value) {
         this.regName = value;
@@ -294,11 +296,11 @@ public class BaseInfo {
 
     /**
      * 获取cusName属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusName() {
         return cusName;
@@ -306,11 +308,11 @@ public class BaseInfo {
 
     /**
      * 设置cusName属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusName(String value) {
         this.cusName = value;
@@ -318,11 +320,11 @@ public class BaseInfo {
 
     /**
      * 获取cusNameEn属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusNameEn() {
         return cusNameEn;
@@ -330,11 +332,11 @@ public class BaseInfo {
 
     /**
      * 设置cusNameEn属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusNameEn(String value) {
         this.cusNameEn = value;
@@ -342,11 +344,11 @@ public class BaseInfo {
 
     /**
      * 获取docType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDocType() {
         return docType;
@@ -354,11 +356,11 @@ public class BaseInfo {
 
     /**
      * 设置docType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDocType(String value) {
         this.docType = value;
@@ -366,11 +368,11 @@ public class BaseInfo {
 
     /**
      * 获取docCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDocCode() {
         return docCode;
@@ -378,11 +380,11 @@ public class BaseInfo {
 
     /**
      * 设置docCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDocCode(String value) {
         this.docCode = value;
@@ -390,11 +392,11 @@ public class BaseInfo {
 
     /**
      * 获取legDocName属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getLegDocName() {
         return legDocName;
@@ -402,11 +404,11 @@ public class BaseInfo {
 
     /**
      * 设置legDocName属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLegDocName(String value) {
         this.legDocName = value;
@@ -414,11 +416,11 @@ public class BaseInfo {
 
     /**
      * 获取legDocType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getLegDocType() {
         return legDocType;
@@ -426,11 +428,11 @@ public class BaseInfo {
 
     /**
      * 设置legDocType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLegDocType(String value) {
         this.legDocType = value;
@@ -438,11 +440,11 @@ public class BaseInfo {
 
     /**
      * 获取legDocCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getLegDocCode() {
         return legDocCode;
@@ -450,11 +452,11 @@ public class BaseInfo {
 
     /**
      * 设置legDocCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLegDocCode(String value) {
         this.legDocCode = value;
@@ -462,11 +464,11 @@ public class BaseInfo {
 
     /**
      * 获取cusCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusCode() {
         return cusCode;
@@ -474,11 +476,11 @@ public class BaseInfo {
 
     /**
      * 设置cusCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusCode(String value) {
         this.cusCode = value;
@@ -486,11 +488,11 @@ public class BaseInfo {
 
     /**
      * 获取induType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getInduType() {
         return induType;
@@ -498,11 +500,11 @@ public class BaseInfo {
 
     /**
      * 设置induType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setInduType(String value) {
         this.induType = value;
@@ -510,11 +512,11 @@ public class BaseInfo {
 
     /**
      * 获取bankNo属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getBankNo() {
         return bankNo;
@@ -522,11 +524,11 @@ public class BaseInfo {
 
     /**
      * 设置bankNo属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setBankNo(String value) {
         this.bankNo = value;
@@ -534,11 +536,11 @@ public class BaseInfo {
 
     /**
      * 获取openBank属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOpenBank() {
         return openBank;
@@ -546,11 +548,11 @@ public class BaseInfo {
 
     /**
      * 设置openBank属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOpenBank(String value) {
         this.openBank = value;
@@ -558,11 +560,11 @@ public class BaseInfo {
 
     /**
      * 获取regAddrProv属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRegAddrProv() {
         return regAddrProv;
@@ -570,11 +572,11 @@ public class BaseInfo {
 
     /**
      * 设置regAddrProv属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRegAddrProv(String value) {
         this.regAddrProv = value;
@@ -582,11 +584,11 @@ public class BaseInfo {
 
     /**
      * 获取regAddrDetail属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRegAddrDetail() {
         return regAddrDetail;
@@ -594,11 +596,11 @@ public class BaseInfo {
 
     /**
      * 设置regAddrDetail属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRegAddrDetail(String value) {
         this.regAddrDetail = value;
@@ -606,11 +608,11 @@ public class BaseInfo {
 
     /**
      * 获取addrProv属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAddrProv() {
         return addrProv;
@@ -618,11 +620,11 @@ public class BaseInfo {
 
     /**
      * 设置addrProv属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAddrProv(String value) {
         this.addrProv = value;
@@ -630,11 +632,11 @@ public class BaseInfo {
 
     /**
      * 获取addrDetail属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAddrDetail() {
         return addrDetail;
@@ -642,11 +644,11 @@ public class BaseInfo {
 
     /**
      * 设置addrDetail属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAddrDetail(String value) {
         this.addrDetail = value;
@@ -654,11 +656,11 @@ public class BaseInfo {
 
     /**
      * 获取url属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getUrl() {
         return url;
@@ -666,11 +668,11 @@ public class BaseInfo {
 
     /**
      * 设置url属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setUrl(String value) {
         this.url = value;
@@ -678,11 +680,11 @@ public class BaseInfo {
 
     /**
      * 获取serverIp属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getServerIp() {
         return serverIp;
@@ -690,11 +692,11 @@ public class BaseInfo {
 
     /**
      * 设置serverIp属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setServerIp(String value) {
         this.serverIp = value;
@@ -702,11 +704,11 @@ public class BaseInfo {
 
     /**
      * 获取icp属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getIcp() {
         return icp;
@@ -714,11 +716,11 @@ public class BaseInfo {
 
     /**
      * 设置icp属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setIcp(String value) {
         this.icp = value;
@@ -726,11 +728,11 @@ public class BaseInfo {
 
     /**
      * 获取contName属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getContName() {
         return contName;
@@ -738,11 +740,11 @@ public class BaseInfo {
 
     /**
      * 设置contName属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setContName(String value) {
         this.contName = value;
@@ -750,11 +752,11 @@ public class BaseInfo {
 
     /**
      * 获取contPhone属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getContPhone() {
         return contPhone;
@@ -762,11 +764,11 @@ public class BaseInfo {
 
     /**
      * 设置contPhone属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setContPhone(String value) {
         this.contPhone = value;
@@ -774,11 +776,11 @@ public class BaseInfo {
 
     /**
      * 获取cusEmail属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusEmail() {
         return cusEmail;
@@ -786,11 +788,11 @@ public class BaseInfo {
 
     /**
      * 设置cusEmail属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusEmail(String value) {
         this.cusEmail = value;
@@ -798,11 +800,11 @@ public class BaseInfo {
 
     /**
      * 获取occurarea属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOccurarea() {
         return occurarea;
@@ -810,11 +812,11 @@ public class BaseInfo {
 
     /**
      * 设置occurarea属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOccurarea(String value) {
         this.occurarea = value;
@@ -822,11 +824,11 @@ public class BaseInfo {
 
     /**
      * 获取networkType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getNetworkType() {
         return networkType;
@@ -834,11 +836,11 @@ public class BaseInfo {
 
     /**
      * 设置networkType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setNetworkType(String value) {
         this.networkType = value;
@@ -846,11 +848,11 @@ public class BaseInfo {
 
     /**
      * 获取status属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getStatus() {
         return status;
@@ -858,11 +860,11 @@ public class BaseInfo {
 
     /**
      * 设置status属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setStatus(String value) {
         this.status = value;
@@ -870,11 +872,11 @@ public class BaseInfo {
 
     /**
      * 获取startTime属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getStartTime() {
         return startTime;
@@ -882,11 +884,11 @@ public class BaseInfo {
 
     /**
      * 设置startTime属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setStartTime(String value) {
         this.startTime = value;
@@ -894,11 +896,11 @@ public class BaseInfo {
 
     /**
      * 获取endTime属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getEndTime() {
         return endTime;
@@ -906,11 +908,11 @@ public class BaseInfo {
 
     /**
      * 设置endTime属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setEndTime(String value) {
         this.endTime = value;
@@ -918,11 +920,11 @@ public class BaseInfo {
 
     /**
      * 获取riskStatus属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRiskStatus() {
         return riskStatus;
@@ -930,11 +932,11 @@ public class BaseInfo {
 
     /**
      * 设置riskStatus属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRiskStatus(String value) {
         this.riskStatus = value;
@@ -942,11 +944,11 @@ public class BaseInfo {
 
     /**
      * 获取shareHolder属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getShareHolder() {
         return shareHolder;
@@ -954,11 +956,11 @@ public class BaseInfo {
 
     /**
      * 设置shareHolder属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setShareHolder(String value) {
         this.shareHolder = value;
@@ -966,11 +968,11 @@ public class BaseInfo {
 
     /**
      * 获取openType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOpenType() {
         return openType;
@@ -978,11 +980,11 @@ public class BaseInfo {
 
     /**
      * 设置openType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOpenType(String value) {
         this.openType = value;
@@ -990,11 +992,11 @@ public class BaseInfo {
 
     /**
      * 获取chageType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getChageType() {
         return chageType;
@@ -1002,11 +1004,11 @@ public class BaseInfo {
 
     /**
      * 设置chageType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setChageType(String value) {
         this.chageType = value;
@@ -1014,11 +1016,11 @@ public class BaseInfo {
 
     /**
      * 获取accountType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAccountType() {
         return accountType;
@@ -1026,11 +1028,11 @@ public class BaseInfo {
 
     /**
      * 设置accountType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAccountType(String value) {
         this.accountType = value;
@@ -1038,11 +1040,11 @@ public class BaseInfo {
 
     /**
      * 获取expandType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getExpandType() {
         return expandType;
@@ -1050,11 +1052,11 @@ public class BaseInfo {
 
     /**
      * 设置expandType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setExpandType(String value) {
         this.expandType = value;
@@ -1062,11 +1064,11 @@ public class BaseInfo {
 
     /**
      * 获取outServiceName属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOutServiceName() {
         return outServiceName;
@@ -1074,11 +1076,11 @@ public class BaseInfo {
 
     /**
      * 设置outServiceName属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOutServiceName(String value) {
         this.outServiceName = value;
@@ -1086,11 +1088,11 @@ public class BaseInfo {
 
     /**
      * 获取outServiceCardType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOutServiceCardType() {
         return outServiceCardType;
@@ -1098,11 +1100,11 @@ public class BaseInfo {
 
     /**
      * 设置outServiceCardType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOutServiceCardType(String value) {
         this.outServiceCardType = value;
@@ -1110,11 +1112,11 @@ public class BaseInfo {
 
     /**
      * 获取outServiceCardCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOutServiceCardCode() {
         return outServiceCardCode;
@@ -1122,11 +1124,11 @@ public class BaseInfo {
 
     /**
      * 设置outServiceCardCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOutServiceCardCode(String value) {
         this.outServiceCardCode = value;
@@ -1134,11 +1136,11 @@ public class BaseInfo {
 
     /**
      * 获取outServiceLegCardType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOutServiceLegCardType() {
         return outServiceLegCardType;
@@ -1146,11 +1148,11 @@ public class BaseInfo {
 
     /**
      * 设置outServiceLegCardType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOutServiceLegCardType(String value) {
         this.outServiceLegCardType = value;
@@ -1158,11 +1160,11 @@ public class BaseInfo {
 
     /**
      * 获取outServiceLegCardCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOutServiceLegCardCode() {
         return outServiceLegCardCode;
@@ -1170,11 +1172,11 @@ public class BaseInfo {
 
     /**
      * 设置outServiceLegCardCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOutServiceLegCardCode(String value) {
         this.outServiceLegCardCode = value;
@@ -1182,11 +1184,11 @@ public class BaseInfo {
 
     /**
      * 获取orgId属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOrgId() {
         return orgId;
@@ -1194,11 +1196,11 @@ public class BaseInfo {
 
     /**
      * 设置orgId属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOrgId(String value) {
         this.orgId = value;
@@ -1206,11 +1208,11 @@ public class BaseInfo {
 
     /**
      * 获取repDate属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRepDate() {
         return repDate;
@@ -1218,11 +1220,11 @@ public class BaseInfo {
 
     /**
      * 设置repDate属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRepDate(String value) {
         this.repDate = value;
@@ -1230,11 +1232,11 @@ public class BaseInfo {
 
     /**
      * 获取repType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRepType() {
         return repType;
@@ -1242,11 +1244,11 @@ public class BaseInfo {
 
     /**
      * 设置repType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRepType(String value) {
         this.repType = value;
@@ -1254,11 +1256,11 @@ public class BaseInfo {
 
     /**
      * 获取repPerson属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRepPerson() {
         return repPerson;
@@ -1266,11 +1268,11 @@ public class BaseInfo {
 
     /**
      * 设置repPerson属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRepPerson(String value) {
         this.repPerson = value;
@@ -1278,11 +1280,11 @@ public class BaseInfo {
 
     /**
      * 获取unitProp属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getUnitProp() {
         return unitProp;
@@ -1290,11 +1292,11 @@ public class BaseInfo {
 
     /**
      * 设置unitProp属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setUnitProp(String value) {
         this.unitProp = value;

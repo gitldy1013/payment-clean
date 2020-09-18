@@ -1,8 +1,8 @@
 //
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
-// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:52 PM CST 
+// 生成时间: 2020.09.17 时间 06:12:52 PM CST
 //
 
 
@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>anonymous complex type的 Java 类。
- * 
+ *
  * <p>以下模式片段指定包含在此类中的预期内容。
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -37,9 +37,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
+import lombok.Data;
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "id",
@@ -70,11 +72,11 @@ public class RiskInfo {
 
     /**
      * 获取id属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -82,11 +84,11 @@ public class RiskInfo {
 
     /**
      * 设置id属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;
@@ -94,11 +96,11 @@ public class RiskInfo {
 
     /**
      * 获取cusType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusType() {
         return cusType;
@@ -106,11 +108,11 @@ public class RiskInfo {
 
     /**
      * 设置cusType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusType(String value) {
         this.cusType = value;
@@ -118,11 +120,11 @@ public class RiskInfo {
 
     /**
      * 获取handleResult属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getHandleResult() {
         return handleResult;
@@ -130,11 +132,11 @@ public class RiskInfo {
 
     /**
      * 设置handleResult属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setHandleResult(String value) {
         this.handleResult = value;
@@ -142,11 +144,11 @@ public class RiskInfo {
 
     /**
      * 获取handleTime属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getHandleTime() {
         return handleTime;
@@ -154,11 +156,11 @@ public class RiskInfo {
 
     /**
      * 设置handleTime属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setHandleTime(String value) {
         this.handleTime = value;
@@ -166,11 +168,11 @@ public class RiskInfo {
 
     /**
      * 获取handleNote属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getHandleNote() {
         return handleNote;
@@ -178,11 +180,11 @@ public class RiskInfo {
 
     /**
      * 设置handleNote属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setHandleNote(String value) {
         this.handleNote = value;
@@ -190,11 +192,11 @@ public class RiskInfo {
 
     /**
      * 获取currency属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCurrency() {
         return currency;
@@ -202,11 +204,11 @@ public class RiskInfo {
 
     /**
      * 设置currency属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCurrency(String value) {
         this.currency = value;
@@ -214,11 +216,11 @@ public class RiskInfo {
 
     /**
      * 获取amount属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAmount() {
         return amount;
@@ -226,11 +228,11 @@ public class RiskInfo {
 
     /**
      * 设置amount属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAmount(String value) {
         this.amount = value;

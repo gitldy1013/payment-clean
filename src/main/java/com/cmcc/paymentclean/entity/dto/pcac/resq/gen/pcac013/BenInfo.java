@@ -1,8 +1,8 @@
 //
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
-// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:50 PM CST 
+// 生成时间: 2020.09.17 时间 06:12:50 PM CST
 //
 
 
@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>anonymous complex type的 Java 类。
- * 
+ *
  * <p>以下模式片段指定包含在此类中的预期内容。
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -33,9 +33,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
+import lombok.Data;
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "legBenName",
@@ -54,11 +56,11 @@ public class BenInfo {
 
     /**
      * 获取legBenName属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getLegBenName() {
         return legBenName;
@@ -66,11 +68,11 @@ public class BenInfo {
 
     /**
      * 设置legBenName属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLegBenName(String value) {
         this.legBenName = value;
@@ -78,11 +80,11 @@ public class BenInfo {
 
     /**
      * 获取legBenCardType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getLegBenCardType() {
         return legBenCardType;
@@ -90,11 +92,11 @@ public class BenInfo {
 
     /**
      * 设置legBenCardType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLegBenCardType(String value) {
         this.legBenCardType = value;
@@ -102,11 +104,11 @@ public class BenInfo {
 
     /**
      * 获取legBenCardCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getLegBenCardCode() {
         return legBenCardCode;
@@ -114,11 +116,11 @@ public class BenInfo {
 
     /**
      * 设置legBenCardCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLegBenCardCode(String value) {
         this.legBenCardCode = value;

@@ -1,8 +1,8 @@
 //
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
-// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:49 PM CST 
+// 生成时间: 2020.09.17 时间 06:12:49 PM CST
 //
 
 
@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>anonymous complex type的 Java 类。
- * 
+ *
  * <p>以下模式片段指定包含在此类中的预期内容。
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -36,9 +36,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
+import lombok.Data;
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "isTransfer",
@@ -66,11 +68,11 @@ public class BankInfo {
 
     /**
      * 获取isTransfer属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getIsTransfer() {
         return isTransfer;
@@ -78,11 +80,11 @@ public class BankInfo {
 
     /**
      * 设置isTransfer属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setIsTransfer(String value) {
         this.isTransfer = value;
@@ -90,11 +92,11 @@ public class BankInfo {
 
     /**
      * 获取recName属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRecName() {
         return recName;
@@ -102,11 +104,11 @@ public class BankInfo {
 
     /**
      * 设置recName属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRecName(String value) {
         this.recName = value;
@@ -114,11 +116,11 @@ public class BankInfo {
 
     /**
      * 获取recDocType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRecDocType() {
         return recDocType;
@@ -126,11 +128,11 @@ public class BankInfo {
 
     /**
      * 设置recDocType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRecDocType(String value) {
         this.recDocType = value;
@@ -138,11 +140,11 @@ public class BankInfo {
 
     /**
      * 获取recDocCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRecDocCode() {
         return recDocCode;
@@ -150,11 +152,11 @@ public class BankInfo {
 
     /**
      * 设置recDocCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRecDocCode(String value) {
         this.recDocCode = value;
@@ -162,11 +164,11 @@ public class BankInfo {
 
     /**
      * 获取recBankNo属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRecBankNo() {
         return recBankNo;
@@ -174,11 +176,11 @@ public class BankInfo {
 
     /**
      * 设置recBankNo属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRecBankNo(String value) {
         this.recBankNo = value;
@@ -186,11 +188,11 @@ public class BankInfo {
 
     /**
      * 获取recOpenBank属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRecOpenBank() {
         return recOpenBank;
@@ -198,11 +200,11 @@ public class BankInfo {
 
     /**
      * 设置recOpenBank属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRecOpenBank(String value) {
         this.recOpenBank = value;

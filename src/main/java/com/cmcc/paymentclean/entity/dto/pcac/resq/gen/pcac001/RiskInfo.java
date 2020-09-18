@@ -1,8 +1,8 @@
 //
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
-// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:49 PM CST 
+// 生成时间: 2020.09.17 时间 06:12:49 PM CST
 //
 
 
@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>anonymous complex type的 Java 类。
- * 
+ *
  * <p>以下模式片段指定包含在此类中的预期内容。
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -61,9 +61,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
+import lombok.Data;
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "cusProperty",
@@ -166,11 +168,11 @@ public class RiskInfo {
 
     /**
      * 获取cusProperty属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusProperty() {
         return cusProperty;
@@ -178,11 +180,11 @@ public class RiskInfo {
 
     /**
      * 设置cusProperty属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusProperty(String value) {
         this.cusProperty = value;
@@ -190,11 +192,11 @@ public class RiskInfo {
 
     /**
      * 获取riskType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRiskType() {
         return riskType;
@@ -202,11 +204,11 @@ public class RiskInfo {
 
     /**
      * 设置riskType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRiskType(String value) {
         this.riskType = value;
@@ -214,11 +216,11 @@ public class RiskInfo {
 
     /**
      * 获取mobileNo属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getMobileNo() {
         return mobileNo;
@@ -226,11 +228,11 @@ public class RiskInfo {
 
     /**
      * 设置mobileNo属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setMobileNo(String value) {
         this.mobileNo = value;
@@ -238,11 +240,11 @@ public class RiskInfo {
 
     /**
      * 获取mac属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getMac() {
         return mac;
@@ -250,11 +252,11 @@ public class RiskInfo {
 
     /**
      * 设置mac属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setMac(String value) {
         this.mac = value;
@@ -262,11 +264,11 @@ public class RiskInfo {
 
     /**
      * 获取imei属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getImei() {
         return imei;
@@ -274,11 +276,11 @@ public class RiskInfo {
 
     /**
      * 设置imei属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setImei(String value) {
         this.imei = value;
@@ -286,11 +288,11 @@ public class RiskInfo {
 
     /**
      * 获取bankNo属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getBankNo() {
         return bankNo;
@@ -298,11 +300,11 @@ public class RiskInfo {
 
     /**
      * 设置bankNo属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setBankNo(String value) {
         this.bankNo = value;
@@ -310,11 +312,11 @@ public class RiskInfo {
 
     /**
      * 获取openBank属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOpenBank() {
         return openBank;
@@ -322,11 +324,11 @@ public class RiskInfo {
 
     /**
      * 设置openBank属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOpenBank(String value) {
         this.openBank = value;
@@ -334,11 +336,11 @@ public class RiskInfo {
 
     /**
      * 获取cusName属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusName() {
         return cusName;
@@ -346,11 +348,11 @@ public class RiskInfo {
 
     /**
      * 设置cusName属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusName(String value) {
         this.cusName = value;
@@ -358,11 +360,11 @@ public class RiskInfo {
 
     /**
      * 获取docType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDocType() {
         return docType;
@@ -370,11 +372,11 @@ public class RiskInfo {
 
     /**
      * 设置docType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDocType(String value) {
         this.docType = value;
@@ -382,11 +384,11 @@ public class RiskInfo {
 
     /**
      * 获取docCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDocCode() {
         return docCode;
@@ -394,11 +396,11 @@ public class RiskInfo {
 
     /**
      * 设置docCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDocCode(String value) {
         this.docCode = value;
@@ -406,11 +408,11 @@ public class RiskInfo {
 
     /**
      * 获取ip属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getIp() {
         return ip;
@@ -418,11 +420,11 @@ public class RiskInfo {
 
     /**
      * 设置ip属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setIp(String value) {
         this.ip = value;
@@ -430,11 +432,11 @@ public class RiskInfo {
 
     /**
      * 获取address属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAddress() {
         return address;
@@ -442,11 +444,11 @@ public class RiskInfo {
 
     /**
      * 设置address属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAddress(String value) {
         this.address = value;
@@ -454,11 +456,11 @@ public class RiskInfo {
 
     /**
      * 获取telephone属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getTelephone() {
         return telephone;
@@ -466,11 +468,11 @@ public class RiskInfo {
 
     /**
      * 设置telephone属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setTelephone(String value) {
         this.telephone = value;
@@ -478,11 +480,11 @@ public class RiskInfo {
 
     /**
      * 获取bankList属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BankList }
-     *     
+     *
      */
     public BankList getBankList() {
         return bankList;
@@ -490,11 +492,11 @@ public class RiskInfo {
 
     /**
      * 设置bankList属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BankList }
-     *     
+     *
      */
     public void setBankList(BankList value) {
         this.bankList = value;
@@ -502,11 +504,11 @@ public class RiskInfo {
 
     /**
      * 获取recHostArea属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRecHostArea() {
         return recHostArea;
@@ -514,11 +516,11 @@ public class RiskInfo {
 
     /**
      * 设置recHostArea属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRecHostArea(String value) {
         this.recHostArea = value;
@@ -526,11 +528,11 @@ public class RiskInfo {
 
     /**
      * 获取email属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getEmail() {
         return email;
@@ -538,11 +540,11 @@ public class RiskInfo {
 
     /**
      * 设置email属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setEmail(String value) {
         this.email = value;
@@ -550,11 +552,11 @@ public class RiskInfo {
 
     /**
      * 获取validDate属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getValidDate() {
         return validDate;
@@ -562,11 +564,11 @@ public class RiskInfo {
 
     /**
      * 设置validDate属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setValidDate(String value) {
         this.validDate = value;
@@ -574,11 +576,11 @@ public class RiskInfo {
 
     /**
      * 获取occurtimeb属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOccurtimeb() {
         return occurtimeb;
@@ -586,11 +588,11 @@ public class RiskInfo {
 
     /**
      * 设置occurtimeb属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOccurtimeb(String value) {
         this.occurtimeb = value;
@@ -598,11 +600,11 @@ public class RiskInfo {
 
     /**
      * 获取occurtimee属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOccurtimee() {
         return occurtimee;
@@ -610,11 +612,11 @@ public class RiskInfo {
 
     /**
      * 设置occurtimee属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOccurtimee(String value) {
         this.occurtimee = value;
@@ -622,11 +624,11 @@ public class RiskInfo {
 
     /**
      * 获取occurchan属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOccurchan() {
         return occurchan;
@@ -634,11 +636,11 @@ public class RiskInfo {
 
     /**
      * 设置occurchan属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOccurchan(String value) {
         this.occurchan = value;
@@ -646,11 +648,11 @@ public class RiskInfo {
 
     /**
      * 获取occurarea属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOccurarea() {
         return occurarea;
@@ -658,11 +660,11 @@ public class RiskInfo {
 
     /**
      * 设置occurarea属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOccurarea(String value) {
         this.occurarea = value;
@@ -670,11 +672,11 @@ public class RiskInfo {
 
     /**
      * 获取note属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getNote() {
         return note;
@@ -682,11 +684,11 @@ public class RiskInfo {
 
     /**
      * 设置note属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setNote(String value) {
         this.note = value;
@@ -694,11 +696,11 @@ public class RiskInfo {
 
     /**
      * 获取orgId属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOrgId() {
         return orgId;
@@ -706,11 +708,11 @@ public class RiskInfo {
 
     /**
      * 设置orgId属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOrgId(String value) {
         this.orgId = value;
@@ -718,11 +720,11 @@ public class RiskInfo {
 
     /**
      * 获取repDate属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRepDate() {
         return repDate;
@@ -730,11 +732,11 @@ public class RiskInfo {
 
     /**
      * 设置repDate属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRepDate(String value) {
         this.repDate = value;
@@ -742,11 +744,11 @@ public class RiskInfo {
 
     /**
      * 获取repType属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRepType() {
         return repType;
@@ -754,11 +756,11 @@ public class RiskInfo {
 
     /**
      * 设置repType属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRepType(String value) {
         this.repType = value;
@@ -766,11 +768,11 @@ public class RiskInfo {
 
     /**
      * 获取repPerson属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRepPerson() {
         return repPerson;
@@ -778,11 +780,11 @@ public class RiskInfo {
 
     /**
      * 设置repPerson属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRepPerson(String value) {
         this.repPerson = value;
@@ -790,11 +792,11 @@ public class RiskInfo {
 
     /**
      * 获取sourceChannel属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getSourceChannel() {
         return sourceChannel;
@@ -802,11 +804,11 @@ public class RiskInfo {
 
     /**
      * 设置sourceChannel属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setSourceChannel(String value) {
         this.sourceChannel = value;
@@ -814,11 +816,11 @@ public class RiskInfo {
 
     /**
      * 获取diskNumber属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDiskNumber() {
         return diskNumber;
@@ -826,11 +828,11 @@ public class RiskInfo {
 
     /**
      * 设置diskNumber属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDiskNumber(String value) {
         this.diskNumber = value;
@@ -838,11 +840,11 @@ public class RiskInfo {
 
     /**
      * 获取currency属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCurrency() {
         return currency;
@@ -850,11 +852,11 @@ public class RiskInfo {
 
     /**
      * 设置currency属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCurrency(String value) {
         this.currency = value;
@@ -862,11 +864,11 @@ public class RiskInfo {
 
     /**
      * 获取amount属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getAmount() {
         return amount;
@@ -874,11 +876,11 @@ public class RiskInfo {
 
     /**
      * 设置amount属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setAmount(String value) {
         this.amount = value;
@@ -886,11 +888,11 @@ public class RiskInfo {
 
     /**
      * 获取riskFindTime属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRiskFindTime() {
         return riskFindTime;
@@ -898,11 +900,11 @@ public class RiskInfo {
 
     /**
      * 设置riskFindTime属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRiskFindTime(String value) {
         this.riskFindTime = value;

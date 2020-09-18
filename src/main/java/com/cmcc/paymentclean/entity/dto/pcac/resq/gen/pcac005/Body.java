@@ -1,8 +1,8 @@
 //
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
-// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:49 PM CST 
+// 生成时间: 2020.09.17 时间 06:12:49 PM CST
 //
 
 
@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>anonymous complex type的 Java 类。
- * 
+ *
  * <p>以下模式片段指定包含在此类中的预期内容。
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -33,9 +33,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
+import lombok.Data;
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "cusProperty",
@@ -54,11 +56,11 @@ public class Body {
 
     /**
      * 获取cusProperty属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCusProperty() {
         return cusProperty;
@@ -66,11 +68,11 @@ public class Body {
 
     /**
      * 设置cusProperty属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCusProperty(String value) {
         this.cusProperty = value;
@@ -78,11 +80,11 @@ public class Body {
 
     /**
      * 获取keyWord属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getKeyWord() {
         return keyWord;
@@ -90,11 +92,11 @@ public class Body {
 
     /**
      * 设置keyWord属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setKeyWord(String value) {
         this.keyWord = value;
@@ -102,11 +104,11 @@ public class Body {
 
     /**
      * 获取infos属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getInfos() {
         return infos;
@@ -114,11 +116,11 @@ public class Body {
 
     /**
      * 设置infos属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setInfos(String value) {
         this.infos = value;

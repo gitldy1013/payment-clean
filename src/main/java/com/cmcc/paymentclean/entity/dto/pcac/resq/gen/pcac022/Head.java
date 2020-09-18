@@ -1,8 +1,8 @@
 //
 // 此文件是由 JavaTM Architecture for XML Binding (JAXB) 引用实现 v2.2.8-b130911.1802 生成的
-// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
+// 请访问 <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
 // 在重新编译源模式时, 对此文件的所有修改都将丢失。
-// 生成时间: 2020.09.17 时间 06:12:50 PM CST 
+// 生成时间: 2020.09.17 时间 06:12:50 PM CST
 //
 
 
@@ -17,9 +17,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>anonymous complex type的 Java 类。
- * 
+ *
  * <p>以下模式片段指定包含在此类中的预期内容。
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -38,9 +38,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
+import lombok.Data;
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "version",
@@ -74,11 +76,11 @@ public class Head {
 
     /**
      * 获取version属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVersion() {
         return version;
@@ -86,11 +88,11 @@ public class Head {
 
     /**
      * 设置version属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVersion(String value) {
         this.version = value;
@@ -98,11 +100,11 @@ public class Head {
 
     /**
      * 获取identification属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getIdentification() {
         return identification;
@@ -110,11 +112,11 @@ public class Head {
 
     /**
      * 设置identification属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setIdentification(String value) {
         this.identification = value;
@@ -122,11 +124,11 @@ public class Head {
 
     /**
      * 获取origSender属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOrigSender() {
         return origSender;
@@ -134,11 +136,11 @@ public class Head {
 
     /**
      * 设置origSender属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOrigSender(String value) {
         this.origSender = value;
@@ -146,11 +148,11 @@ public class Head {
 
     /**
      * 获取origSenderSID属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getOrigSenderSID() {
         return origSenderSID;
@@ -158,11 +160,11 @@ public class Head {
 
     /**
      * 设置origSenderSID属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setOrigSenderSID(String value) {
         this.origSenderSID = value;
@@ -170,11 +172,11 @@ public class Head {
 
     /**
      * 获取recSystemId属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getRecSystemId() {
         return recSystemId;
@@ -182,11 +184,11 @@ public class Head {
 
     /**
      * 设置recSystemId属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setRecSystemId(String value) {
         this.recSystemId = value;
@@ -194,11 +196,11 @@ public class Head {
 
     /**
      * 获取trnxCode属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getTrnxCode() {
         return trnxCode;
@@ -206,11 +208,11 @@ public class Head {
 
     /**
      * 设置trnxCode属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setTrnxCode(String value) {
         this.trnxCode = value;
@@ -218,11 +220,11 @@ public class Head {
 
     /**
      * 获取trnxTime属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getTrnxTime() {
         return trnxTime;
@@ -230,11 +232,11 @@ public class Head {
 
     /**
      * 设置trnxTime属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setTrnxTime(String value) {
         this.trnxTime = value;
@@ -242,11 +244,11 @@ public class Head {
 
     /**
      * 获取secretKey属性的值。
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getSecretKey() {
         return secretKey;
@@ -254,11 +256,11 @@ public class Head {
 
     /**
      * 设置secretKey属性的值。
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setSecretKey(String value) {
         this.secretKey = value;
