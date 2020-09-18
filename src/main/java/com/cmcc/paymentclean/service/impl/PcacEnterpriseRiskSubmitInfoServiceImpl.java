@@ -76,7 +76,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
                 riskEnterpriseResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskEnterpriseResp.getSubmitStatus()));
                 riskEnterpriseResp.setSourceChannel(SourChaEnum.getSourChaEnum(riskEnterpriseResp.getSourceChannel()));
                 riskEnterpriseResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskEnterpriseResp.getRiskType()));
-                riskEnterpriseResp.setMsgType(MsgTypeEnum.getMsgTypeDesc(riskEnterpriseResp.getMsgType()));
+                riskEnterpriseResp.setMsgType(MsgTypeEnum.MsgTypeEnum_04.getDesc());
             }
         }
         resultBean.setData(pagePcacEnterpriseRiskSubmitInfo);

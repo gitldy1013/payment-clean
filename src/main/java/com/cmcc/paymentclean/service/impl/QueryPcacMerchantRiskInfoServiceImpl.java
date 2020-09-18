@@ -6,15 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.config.SftpConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.CusNatureEnum;
-import com.cmcc.paymentclean.consts.CusTypeEnum;
-import com.cmcc.paymentclean.consts.IsTransferEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.LevelCodeEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
-import com.cmcc.paymentclean.consts.RiskTypeEnum;
-import com.cmcc.paymentclean.consts.SourChaEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.BankInfo;
@@ -156,6 +148,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
                 queryPcacMerchantRiskInfoResp.setLegControlCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegControlCardType()));
                 queryPcacMerchantRiskInfoResp.setLegBenCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegBenCardType()));
                 queryPcacMerchantRiskInfoResp.setLevel(LevelCodeEnum.getLevelDesc(queryPcacMerchantRiskInfoResp.getLevel()));
+                queryPcacMerchantRiskInfoResp.setFeedbackStatus(FeedbackStatusEnum.getFeedbackStatusDesc(queryPcacMerchantRiskInfoResp.getFeedbackStatus()));
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
