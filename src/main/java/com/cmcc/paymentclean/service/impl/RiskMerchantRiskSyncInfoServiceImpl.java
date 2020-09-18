@@ -49,6 +49,9 @@ public class RiskMerchantRiskSyncInfoServiceImpl extends ServiceImpl<RiskMerchan
             riskMerchantRiskSyncInfo.setRiskType(this.splitStrs(riskMerchantRiskSyncInfo.getRiskType()));
             riskMerchantRiskSyncInfo.setSourceChannel(this.splitStrs(riskMerchantRiskSyncInfo.getSourceChannel()));
             riskMerchantRiskSyncInfo.setOperateTime(new Date(System.currentTimeMillis()));
+            riskMerchantRiskSyncInfo.setCusType(this.splitStrs(riskMerchantRiskSyncInfo.getCusType()));
+            riskMerchantRiskSyncInfo.setCusNature(this.splitStrs(riskMerchantRiskSyncInfo.getCusNature()));
+            riskMerchantRiskSyncInfo.setLevel(this.splitStrs(riskMerchantRiskSyncInfo.getLevel()));
             QueryWrapper<RiskMerchantRiskSyncInfo> queryWrapper = new QueryWrapper();
             queryWrapper.eq("cus_code", riskMerchant.getCusCode());
             RiskMerchantRiskSyncInfo riskMerchant1 = super.getOne(queryWrapper);
