@@ -90,7 +90,11 @@ public class PcacRiskInfoPushController {
         if (reissueRiskInfoReq.getReqDate().contains("-") && reissueRiskInfoReq.getReqDateEnd().contains("-")) {
             return new ResultBean(ResultBean.PARAM_ERR, "日期格式为YYYY-MM-DD");
         }*/
-        ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
+        //风控测试用逻辑
+        ResultBean resultBean = new ResultBean(ResultBean.SUCCESS_CODE,"补发信息成功");
+
+
+        //ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
 
         return resultBean;
     }

@@ -287,6 +287,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
      * 组装请求报文头的信息
      */
     private com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head getResqHead(String trnxCode) {
+        //没有需要加密的字段，但是xsd文件校验secretKey长度必须大于1
+        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+        String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);
         Date date = new Date();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head();
         head.setVersion(pcacConfig.getVersion());
@@ -305,7 +308,8 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
         head.setTrnxTime(trnxTime);
         head.setUserToken(pcacConfig.getUserToken());
-        head.setSecretKey("");
+        //head.setSecretKey("");
+        head.setSecretKey(secretKey);
         return head;
     }
 
