@@ -59,7 +59,7 @@ public class QueryPcacMerchantRiskInfoController {
      */
     @ApiOperation(value = "批量查询商户风险信息", notes = "批量查询商户风险信息")
     @RequestMapping(value = "/isocRegRiskByKeyWord/query",method = RequestMethod.POST)
-    public ResultBean<Body> query(@RequestBody QueryPcacMerchantRiskReq queryPcacMerchantRiskReq) {
+    public ResultBean<Body> query(@RequestBody List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReq) {
         return queryPcacMerchantRiskInfoService.batchQueryPcacMerchantRisk(queryPcacMerchantRiskReq);
     }
 }

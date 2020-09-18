@@ -8,7 +8,6 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.BaseBody;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -40,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
     "conditionList"
 })
 @XmlRootElement(name = "Body")
-public class Body extends BaseBody {
+public class Body {
 
     @XmlElement(name = "ConditionList", required = true)
     protected ConditionList conditionList;

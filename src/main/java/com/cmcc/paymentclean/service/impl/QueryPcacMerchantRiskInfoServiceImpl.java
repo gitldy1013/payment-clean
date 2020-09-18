@@ -70,7 +70,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
     private PcacConfig pcacConfig;
 
     @Override
-    public ResultBean<Body> batchQueryPcacMerchantRisk(QueryPcacMerchantRiskReq queryPcacMerchantRiskReq) {
+    public ResultBean<Body> batchQueryPcacMerchantRisk(List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReqs) {
         ResultBean<Body> resultBean = new ResultBean<>();
         //拼装报文
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
@@ -78,34 +78,47 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         //设置报文头
         Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "");
         //设置报文体
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body();
-        body.setCusProperty(queryPcacMerchantRiskReq.getCusProperty());
-        body.setKeyWord(queryPcacMerchantRiskReq.getKeyWord());
-        body.setInfos(queryPcacMerchantRiskReq.getInfos());
-        request.setBody(body);
-        document.setRequest(request);
-        //报文转换
-        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("获取到的xml数据:{}", xml);
-        if (StringUtils.isEmpty(xml)) {
-            log.info("xml报文转换失败");
-            resultBean.setResMsg("xml报文转换失败");
-            resultBean.setResCode("100");
-            return resultBean;
+        String resCode = "01";
+        String resMsg = "查询成功！";
+        for (int i = 0; i < queryPcacMerchantRiskReqs.size(); i++) {
+            QueryPcacMerchantRiskReq queryPcacMerchantRiskReq = queryPcacMerchantRiskReqs.get(i);
+            com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body();
+            body.setCusProperty(queryPcacMerchantRiskReq.getCusProperty());
+            body.setKeyWord(queryPcacMerchantRiskReq.getKeyWord());
+            body.setInfos(queryPcacMerchantRiskReq.getInfos());
+            request.setBody(body);
+            document.setRequest(request);
+            //报文转换
+            String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+            log.info("获取到的xml数据:{}", xml);
+            if (StringUtils.isEmpty(xml)) {
+                log.info("xml报文转换失败");
+                resultBean.setResMsg("xml报文转换失败");
+                resultBean.setResCode("100");
+                return resultBean;
+            }
+            //校验xml报文
+            boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.005");
+            // boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
+            if (!validate) {
+                log.info("XML校验失败");
+                resultBean.setResMsg("xml报文转换失败");
+                resultBean.setResCode("801");
+                return resultBean;
+            }
+            Body resBody = pushQueryPcacMerchantRiskReqToPcac(xml);
+            RespInfo respInfo = resBody.getRespInfo();
+            if(!respInfo.getResultCode().equals("S00000")){
+                resCode = respInfo.getResultCode();
+                resMsg = respInfo.getMsgDetail();
+            }
         }
-        //校验xml报文
-        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.005");
-        // boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
-        if (!validate) {
-            log.info("XML校验失败");
-            resultBean.setResMsg("xml报文转换失败");
-            resultBean.setResCode("801");
-            return resultBean;
-        }
-        return pushQueryPcacMerchantRiskReqToPcac(xml, resultBean);
+        resultBean.setResCode(resCode);
+        resultBean.setResMsg(resMsg);
+        return resultBean;
     }
 
-    private ResultBean<Body> pushQueryPcacMerchantRiskReqToPcac(String xml, ResultBean<Body> resultBean) {
+    private Body pushQueryPcacMerchantRiskReqToPcac(String xml) {
         //上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         log.info("url:{}", pcacConfig.getUrl());
@@ -113,8 +126,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         log.info("pcac.ries.005 协会返回数据对象:{}", resBody);
         PcacList pcacList = resBody.getPcacList();
         List<RiskInfo> riskInfos = pcacList.getRiskInfo();
-        for (int i = 0; i < riskInfos.size(); i++) {
-            RiskInfo riskInfo = riskInfos.get(i);
+        for (RiskInfo riskInfo : riskInfos) {
             BankInfo bankInfo = riskInfo.getBankInfo();
             BankList bankList = riskInfo.getBankList();
             BenList benList = riskInfo.getBenList();
@@ -125,10 +137,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
             BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, riskInfo);
             queryPcacMerchantRiskInfoMapper.insert(queryPcacMerchantRiskInfo);
         }
-        RespInfo respInfo = resBody.getRespInfo();
-        resultBean.setResCode(respInfo.getResultCode());
-        resultBean.setResMsg(respInfo.getMsgDetail());
-        return resultBean;
+        return resBody;
     }
 
     @Autowired

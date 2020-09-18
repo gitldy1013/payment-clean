@@ -27,7 +27,6 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
-import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
@@ -67,7 +66,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
     @Override
     public ResultBean<Page<RiskMerchantResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
         log.info("pageRiskMerchant req={}", com.alibaba.fastjson.JSON.toJSON(riskMerchantReq));
-        ResultBean<Page<RiskMerchantResp>> resultBean = new ResultBean();
+        ResultBean<Page<RiskMerchantResp>> resultBean = new ResultBean<>();
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
 
@@ -111,7 +110,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         //校验xml报文
 //        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
         log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
-        boolean validate = ValidateUtils.validateXML(xml, "pcac.ries.013");
+        boolean validate = ValidateUtils.validateXML(XmlJsonUtils.formatXml(xml), "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
             return;
@@ -162,7 +161,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             List<BenInfo> benInfos = new ArrayList<>();
             BenInfo benInfo = new BenInfo();
             BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
-            bankInfos.add(bankInfo);
+            benInfos.add(benInfo);
             benList.setBenInfo(benInfos);
             //解密风控加密协会 商户上报：
             //商户名称
@@ -195,8 +194,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             pcacList.setRiskInfo(riskInfos);
         }
         body.setPcacList(pcacList);
-        document.setRequest(request);
         request.setBody(body);
+        document.setRequest(request);
         String xml = XmlJsonUtils.convertObjectToXmlStr(document);
         //加签
         String doSignature = CFCACipherUtils.doSignature(xml);
