@@ -26,7 +26,6 @@ public class ReissueRiskInfoReq implements Serializable {
     String ReqDate;
 
     @ApiModelProperty(value = "请求重新推送结束日期，格式YYYY-MM-DD")
-    @NotBlank(message = "请求重新推送结束日期不能为空" )
     String ReqDateEnd;
 
 
