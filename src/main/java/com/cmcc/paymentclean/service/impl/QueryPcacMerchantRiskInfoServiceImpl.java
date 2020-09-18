@@ -64,6 +64,11 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
     @Override
     public ResultBean<Body> batchQueryPcacMerchantRisk(QueryPcacMerchantRiskReq queryPcacMerchantRiskReq) {
         ResultBean<Body> resultBean = new ResultBean<>();
+//        if(true){
+//            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+//            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+//            return resultBean;
+//        }
         //拼装报文
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
@@ -140,7 +145,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
                 queryPcacMerchantRiskInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegDocType()));
                 queryPcacMerchantRiskInfoResp.setIsTransfer(IsTransferEnum.getIsTransferDesc(queryPcacMerchantRiskInfoResp.getIsTransfer()));
                 queryPcacMerchantRiskInfoResp.setLegControlCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegControlCardType()));
-                queryPcacMerchantRiskInfoResp.setDocType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getDocType()));
+                queryPcacMerchantRiskInfoResp.setDocType(DocTypeEnum.getDocTypeDesc(queryPcacMerchantRiskInfoResp.getDocType()));
                 queryPcacMerchantRiskInfoResp.setCusType(CusTypeEnum.getCusTypeEnum(queryPcacMerchantRiskInfoResp.getCusType()));
                 queryPcacMerchantRiskInfoResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(queryPcacMerchantRiskInfoResp.getRiskType()));
                 queryPcacMerchantRiskInfoResp.setCusNature(CusNatureEnum.getCusNatureEnum(queryPcacMerchantRiskInfoResp.getCusNature()));
@@ -152,6 +157,14 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
                 queryPcacMerchantRiskInfoResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(queryPcacMerchantRiskInfoResp.getCusProperty()));
                 queryPcacMerchantRiskInfoResp.setHandleResult(HandleResultEnum.getHandleResultDesc(queryPcacMerchantRiskInfoResp.getHandleResult()));
                 queryPcacMerchantRiskInfoResp.setOccurchan(OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
+                //联调测试
+//                queryPcacMerchantRiskInfoResp.setCount("99");
+//                queryPcacMerchantRiskInfoResp.setSubmitAmount("99");
+//                queryPcacMerchantRiskInfoResp.setCusCodeCount("99");
+//                queryPcacMerchantRiskInfoResp.setTotalOrganNum("99");
+//                queryPcacMerchantRiskInfoResp.setBenListcount("99");
+//                queryPcacMerchantRiskInfoResp.setOperator("联调测试");
+//                queryPcacMerchantRiskInfoResp.setErrInfo("联调测试");
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
@@ -207,6 +220,11 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
     @Override
     public ResultBean<Body> queryPcacMerchantRiskInfoBack(List<QueryPcacMerchantRiskInfoBackReq> queryPcacMerchantRiskInfoBackReq) {
         ResultBean<Body> resultBean = new ResultBean<>();
+//        if(true){
+//            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+//            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+//            return resultBean;
+//        }
         //拼装报文
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();

@@ -86,6 +86,12 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
     @Override
     public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> localAssociatedRiskMerchantInfoBack(List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReq) {
         ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> resultBean = new ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body>();
+//        if(true){
+//            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+//            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+//            return resultBean;
+//        }
+
         QueryWrapper<LocalAssociatedRiskMerchantInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("", "");
         LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfoMapper.selectOne(wrapper);
