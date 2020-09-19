@@ -9,6 +9,9 @@
         <result column="cus_code" property="cusCode" />
         <result column="reg_name" property="regName" />
         <result column="leg_doc_name" property="legDocName" />
+        <result column="dif_cus_code" property="difCusCode" />
+        <result column="dif_reg_name" property="difRegName" />
+        <result column="dif_leg_doc_name" property="difLegDocName" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
