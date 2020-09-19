@@ -3,7 +3,10 @@ package com.cmcc.paymentclean.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cmcc.paymentclean.entity.PcacAssistanceInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 
 
 /**
@@ -18,4 +21,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PcacAssistanceInfoMapper extends BaseMapper<PcacAssistanceInfo> {
 
+
+    void insertBatchAssistanceInfo(@Param("items")ArrayList<PcacAssistanceInfo> assistanceInfoList);
 }

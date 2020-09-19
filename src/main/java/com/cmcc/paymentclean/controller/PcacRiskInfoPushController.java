@@ -151,11 +151,9 @@ public class PcacRiskInfoPushController {
             pcacRiskInfo.setPushListType(pushListType);
             pcacRiskInfoList.add(pcacRiskInfo);
 
-
-            log.debug("需要入库风险信息：{}", pcacRiskInfoList);
-            doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
-
         }
+        log.debug("需要入库风险信息：{}", pcacRiskInfoList);
+        doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
         return doXml;
     }
 }

@@ -2,6 +2,9 @@ package com.cmcc.paymentclean.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.PcacAssistanceInfo;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 /**
 * <p>
@@ -11,6 +14,8 @@ import com.cmcc.paymentclean.entity.PcacAssistanceInfo;
 * @author cmcc
 * @since 2020-09-08
 */
+@Service
 public interface PcacAssistanceInfoService {
 
+    String saveAssistanceInfo(ArrayList<PcacAssistanceInfo> assistanceInfoList);
 }

@@ -41,6 +41,15 @@ public class PcacAssistanceInfo extends Model<PcacAssistanceInfo> {
     @ApiModelProperty(value = "法定代表人（负责人）姓名")
     private String legDocName;
 
+    @ApiModelProperty(value = "商户代码")
+    private String difCusCode;
+
+    @ApiModelProperty(value = "商户名称")
+    private String difRegName;
+
+    @ApiModelProperty(value = "法定代表人（负责人）姓名")
+    private String difLegDocName;
+
 
     @Override
     protected Serializable pkVal() {

@@ -16,4 +16,13 @@
         pcac_assistance_info_id, up_date, cus_code, reg_name, leg_doc_name
     </sql>
 
+    <insert id="insertBatchAssistanceInfo" parameterType="java.util.List">
+
+        insert into pcac_assistance_info(up_date,cus_code,reg_name,leg_doc_name,dif_cus_code,dif_reg_name,dif_leg_doc_name) values
+        <foreach collection="items" item="item" separator=",">
+            (#{item.upDate},#{item.cusCode},#{item.regName},#{item.legDocName},#{item.difCusCode},#{item.difRegName},#{item.difLegDocName})
+        </foreach>
+
+    </insert>
+
 </mapper>

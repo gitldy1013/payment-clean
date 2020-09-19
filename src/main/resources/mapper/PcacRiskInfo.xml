@@ -64,13 +64,13 @@
         </if>
     </select>
 
-    <insert id="insertBatchPcacRiskInfo" parameterType="com.cmcc.paymentclean.entity.PcacRiskInfo">
+    <insert id="insertBatchPcacRiskInfo" parameterType="java.util.List">
 
         insert into  pcac_risk_info ( push_list_type, up_date, reg_name, cus_name, doc_type, doc_code, leg_doc_name, leg_doc_type, leg_doc_code, level, risk_type,
         valid_date, valid_status, cus_type, occurarea, bank_no, url, registered_code)  values
         <foreach collection="items" item="item" separator=",">
-            (#{item.push_list_type},#{item.up_date},#{item.reg_name},#{item.cus_name},#{item.doc_type},#{item.leg_doc_name},#{item.leg_doc_type}
-            ,#{item.leg_doc_code},#{item.level},#{item.risk_type},#{item.valid_date},#{item.valid_status},#{item.cus_type},#{item.occurarea},#{item.bank_no},#{item.url},#{item.registered_code})
+            (#{item.pushListType},#{item.upDate},#{item.regName},#{item.cusName},#{item.docType},#{item.legDocName},#{item.legDocType}
+            ,#{item.legDocCode},#{item.level},#{item.riskType},#{item.validDate},#{item.validStatus},#{item.cusType},#{item.occurarea},#{item.bankNo},#{item.url},#{item.registeredCode})
         </foreach>
     </insert>
 
