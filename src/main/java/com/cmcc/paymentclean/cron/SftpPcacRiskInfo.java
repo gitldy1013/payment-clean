@@ -1,10 +1,10 @@
 package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.config.SftpConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.IsBlackEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
+import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.ExcelUtils;
 import com.cmcc.paymentclean.utils.SFTPUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,16 @@ public class SftpPcacRiskInfo {
         List<PcacRiskInfoDTO> pcacRiskInfos = pcacRiskInfoService.listByIsBlack(IsBlackEnum.ISBLACKE_01.getCode());
         if (CollectionUtils.isEmpty(pcacRiskInfos)) {
             return;
+        }
+        for(PcacRiskInfoDTO pcacRiskInfoDTO:pcacRiskInfos){
+            Date validDate = DateUtils.stringToDate(pcacRiskInfoDTO.getValidDate(),"yyyy-MM-dd");
+            String validStatus = (new Date().before(validDate)) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
+            pcacRiskInfoDTO.setValidStatus(validStatus);
+            pcacRiskInfoDTO.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(pcacRiskInfoDTO.getLegDocType()));
+            pcacRiskInfoDTO.setDocType(DocTypeEnum.getDocTypeDesc(pcacRiskInfoDTO.getDocType()));
+            pcacRiskInfoDTO.setCusType(CusTypeEnum.getCusTypeEnum(pcacRiskInfoDTO.getCusType()));
+            pcacRiskInfoDTO.setRiskType(RiskTypeEnum.getRiskTypeDesc(pcacRiskInfoDTO.getRiskType()));
+            pcacRiskInfoDTO.setLevel(LevelCodeEnum.getLevelDesc(pcacRiskInfoDTO.getLevel()));
         }
         List<String> ids = new ArrayList<>();
         for (PcacRiskInfoDTO pcacRiskInfoDTO : pcacRiskInfos) {

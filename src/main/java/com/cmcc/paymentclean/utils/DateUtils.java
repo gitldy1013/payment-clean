@@ -23,6 +23,20 @@ public class DateUtils {
         return simpleDateFormat.format(date);
     }
 
+    public static Date stringToDate(String str, String pattern) {
+        if (pattern == null) {
+            pattern = FORMAT_TIME;
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(str);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 }
 
 
