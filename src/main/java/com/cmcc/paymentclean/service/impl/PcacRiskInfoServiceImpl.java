@@ -8,13 +8,7 @@ import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Document;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.*;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
@@ -38,10 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * <p>
@@ -195,60 +186,75 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         Head respHead = respone.getHead();
         String secretKey = respHead.getSecretKey();
         Body respBody = respone.getBody();
-        //这里的RiskType为申请补发类型， 01 黑名单 02 风险提示信息
-        String pushListType = respBody.getQueryInfo().getRiskType();
+
         RespInfo respInfo = respBody.getRespInfo();
         if ("S00000".equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
             PcacList pcacList = respBody.getPcacList();
 
-            if (null == pcacList || pcacList.getRiskInfo().size() == 0) {
-                return new ResultBean(ResultBean.SUCCESS_CODE, "该日期无需要补发数据");
-            } else {
-                ArrayList<PcacRiskInfo> pcacRiskInfoList = new ArrayList<>();
-                for (RiskInfo riskInfo : pcacList.getRiskInfo()) {
-                    log.debug("协会补发风险信息：{}", riskInfo);
-                    //对关键字进行解密，证件号码和银行卡号加密
-                    //商户简称
-                    String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
-                    riskInfo.setCusName(decryptCusName);
-                    //商户名称
-                    String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
-                    riskInfo.setRegName(decryptRegName);
-                    //法人证件号码
-                    String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
-                    riskInfo.setCusCode(decryptDocCode);
-                    //法定代表人姓名
-                    String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
-                    riskInfo.setLegDocName(decryptLegDocName);
-                    //法定代表人证件号码
-                    String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
-                    String encryptLegDocCode = null;
-                    //判断证件类型是身份证就进行内部加密
-                    if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
-                        encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+
+
+                if (null == pcacList || pcacList.getRiskInfo().size() == 0) {
+                    return new ResultBean(ResultBean.SUCCESS_CODE, "该日期无需要补发数据");
+                } else {
+                    QueryInfo queryInfo = respBody.getQueryInfo();
+                    //这里的RiskType为申请补发类型， 01 黑名单 02 风险提示信息
+                    String pushListType = queryInfo.getRiskType();
+
+                    //补发申请成功后，为确保库里存储数据不重复，需要先将库里与补发数据相同日期的数据删除，并且还需要确认补发数据的类型相同
+                    HashMap<String, String> deleteMap = new HashMap<>();
+                    deleteMap.put("pushListType", pushListType);
+                    deleteMap.put("reqDate", queryInfo.getReqDate());
+                    if (null !=queryInfo.getReqDateEnd()) {
+                        deleteMap.put("reqDateEnd", queryInfo.getReqDateEnd());
+                        pcacRiskInfoMapper.deleteByDelMap(deleteMap);
+                    }else
+                        pcacRiskInfoMapper.deleteByDayMap(deleteMap);
+                    ArrayList<PcacRiskInfo> pcacRiskInfoList = new ArrayList<>();
+                    for (RiskInfo riskInfo : pcacList.getRiskInfo()) {
+                        log.debug("协会补发风险信息：{}", riskInfo);
+                        //对关键字进行解密，证件号码和银行卡号加密
+                        //商户简称
+                        String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
+                        riskInfo.setCusName(decryptCusName);
+                        //商户名称
+                        String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
+                        riskInfo.setRegName(decryptRegName);
+                        //法人证件号码
+                        String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
+                        riskInfo.setCusCode(decryptDocCode);
+                        //法定代表人姓名
+                        String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
+                        riskInfo.setLegDocName(decryptLegDocName);
+                        //法定代表人证件号码
+                        String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
+                        String encryptLegDocCode = null;
+                        //判断证件类型是身份证就进行内部加密
+                        if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
+                            encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+                        }
+                        riskInfo.setLegDocCode(encryptLegDocCode);
+                        String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
+                        riskInfo.setBankNo(encryptBankNo);
+                        PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
+                        BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
+                        log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
+                        pcacRiskInfo.setUpDate(riskInfo.getPushDate());
+                        //设置类型01为黑名单,02为风险提示信息
+                        pcacRiskInfo.setPushListType(pushListType);
+                        pcacRiskInfoList.add(pcacRiskInfo);
+
+
                     }
-                    riskInfo.setLegDocCode(encryptLegDocCode);
-                    String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
-                    riskInfo.setBankNo(encryptBankNo);
-                    PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
-                    BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
-                    log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
-                    pcacRiskInfo.setUpDate(riskInfo.getPushDate());
-                    //设置类型01为黑名单,02为风险提示信息
-                    pcacRiskInfo.setPushListType(pushListType);
-                    pcacRiskInfoList.add(pcacRiskInfo);
-
-
+                    log.debug("需要入库风险信息：", pcacRiskInfoList);
+                    pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
+                    return new ResultBean(ResultBean.SUCCESS_CODE, "信息补发成功");
                 }
-                log.debug("需要入库风险信息：", pcacRiskInfoList);
-                pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
-                return new ResultBean(ResultBean.SUCCESS_CODE, "信息补发成功");
+
             }
-
-
-        } else {
+             else {
             return new ResultBean(ResultBean.UNSPECIFIED_CODE, "风险信息补发失败");
         }
+
 
     }
 

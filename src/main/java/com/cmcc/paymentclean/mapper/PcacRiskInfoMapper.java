@@ -10,7 +10,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -30,4 +32,9 @@ public interface PcacRiskInfoMapper extends BaseMapper<PcacRiskInfo> {
     void insertBatchPcacRiskInfo(@Param("items") ArrayList<PcacRiskInfo> pcacRiskInfoList);
 
     void updatePushStatus(@Param("ids")List<String> ids);
+
+    //删除一日期范围内数据
+    void deleteByDelMap(Map<String, String> deleteMap);
+   //删除推送日一天数据
+    void deleteByDayMap(Map<String,String> deleteMap);
 }

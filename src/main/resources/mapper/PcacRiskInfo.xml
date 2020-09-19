@@ -84,4 +84,19 @@
         </foreach>
         and push_status = "0"
     </update>
+
+    <delete id="deleteByDelMap" parameterType="java.util.Map">
+
+        delete from pcac_risk_info
+        where
+         push_list_type = #{pushListType} and date(up_date) between date(#{reqDate}) and  date( #{reqDateEnd})
+    </delete>
+
+    <delete id="deleteByDayMap" parameterType="java.util.Map">
+
+        delete from pcac_risk_info
+        where
+         push_list_type = #{pushListType} and up_date = #{reqDate}
+    </delete>
+
 </mapper>
