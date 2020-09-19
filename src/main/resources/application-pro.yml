@@ -34,3 +34,4 @@ sftp:
   queryPcacMerchantRiskInfoFileNamePrefix: Risk_
   pcacRiskInfoFileNamePrefix: Black_
   businessInfoFileNamePrefix: Business_
+  businessInfoBlackFileNamePrefix: Business_Black_

@@ -14,16 +14,8 @@ import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BlackList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Condition;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ConditionList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.CurSignList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.HisSignList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.LegBlackList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.LegWarningList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.*;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ResultCondition;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ResultInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.WarningList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
@@ -37,7 +29,6 @@ import com.cmcc.paymentclean.utils.HttpClientUtils;
 import com.cmcc.paymentclean.utils.SFTPUtils;
 import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -323,43 +314,39 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     @Override
     public ResultBean<?> getBusinessInfoXML(String xml) {
         log.info("接收的xml:{}", xml);
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body.class, xml);
+        //pcac.ries.032
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class, xml);
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
             List<Condition> conditions = conditionLists.getCondition();
+            List<BusinessInfo> businessInfos = new ArrayList<>();
             for (int i = 0; i < conditions.size(); i++) {
                 Condition condition = conditions.get(i);
                 //返回记录总数
-                int count = Integer.valueOf(condition.getCount());
-                ResultCondition resultCondition = condition.getResultCondition();
-                List<ResultInfo> resultInfos = resultCondition.getResultInfo();
-                ResultInfo resultInfo = resultInfos.get(i);
-                com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.getBaseInfo();
-                //待补充落表逻辑
-                List<HisSignList> hisSignList = resultInfo.getHisSignList();
-                List<CurSignList> curSignList = resultInfo.getCurSignList();
-                List<BlackList> blackList = resultInfo.getBlackList();
-                List<WarningList> warningList = resultInfo.getWarningList();
-                List<LegBlackList> legBlackList = resultInfo.getLegBlackList();
-                List<LegWarningList> legWarningList = resultInfo.getLegWarningList();
-                SXSSFWorkbook sxssfWorkbook = new SXSSFWorkbook();
-                String fileName = sftpConfig.getBusinessInfoFileNamePrefix() + "Back_" + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
-                try {
-                    //文件名
-                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook, "BaseInfo", Lists.newArrayList(baseInfo), BaseInfo.class);
-                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook, "HisSignList", hisSignList, HisSignList.class);
-                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook, "HisSignList", curSignList, CurSignList.class);
-                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook, "HisSignList", blackList, BlackList.class);
-                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook, "HisSignList", warningList, WarningList.class);
-                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook, "HisSignList", legBlackList, LegBlackList.class);
-                    sxssfWorkbook = this.getSxssfWorkbook(sxssfWorkbook, "LegWarningList", legWarningList, LegWarningList.class);
-                    FileOutputStream fos = new FileOutputStream(sftpConfig.getModDir() + fileName);
-                    sxssfWorkbook.write(fos);
-                    sxssfWorkbook.dispose();
-                    fos.close();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                ResultInfo resultInfo = condition.getResultInfo();
+                com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.BaseInfo baseInfo = resultInfo.getBaseInfo();
+                //待补充落表逻辑 需求不清晰，东阳建议全部按一条数据来处理汇总一条BusinessInfo 数据
+                SingInfo hisSingInfo = resultInfo.getHisSignList().get(0).getSingInfo().get(0);
+                SingInfo curSingInfo = resultInfo.getCurSignList().get(0).getSingInfo().get(0);
+                RiskInfo blackRiskInfo = resultInfo.getBlackList().get(0).getRiskInfo().get(0);
+                RiskInfo warningRiskInfo = resultInfo.getWarningList().get(0).getRiskInfo().get(0);
+                BusinessInfo businessInfo = new BusinessInfo();
+                BeanUtils.copyProperties(curSingInfo, businessInfo);
+                BeanUtils.copyProperties(blackRiskInfo, businessInfo);
+                businessInfos.add(businessInfo);
+            }
+            String fileName = sftpConfig.getBusinessInfoBlackFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+            ExcelUtils excelUtils = new ExcelUtils();
+            try {
+                //文件名
+                SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(businessInfos, BusinessInfo.class);
+                FileOutputStream fos = new FileOutputStream(sftpConfig.getModDir() + fileName);
+                sxssfWorkbook.write(fos);
+                // dispose of temporary files backing this workbook on disk -> 处理SXSSFWorkbook导出excel时，产生的临时文件
+                sxssfWorkbook.dispose();
+                fos.close();
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
         }
         ResultBean resultBean = new ResultBean();

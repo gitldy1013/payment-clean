@@ -18,4 +18,5 @@ public class SftpConfig {
     private String queryPcacMerchantRiskInfoFileNamePrefix;
     private String pcacRiskInfoFileNamePrefix;
     private String businessInfoFileNamePrefix;
+    private String businessInfoBlackFileNamePrefix;
 }
