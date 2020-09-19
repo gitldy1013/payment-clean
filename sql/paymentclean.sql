@@ -2,15 +2,21 @@ CREATE DATABASE if not exists `paymentclean` /*!40100 DEFAULT CHARACTER SET utf8
 
 drop table if exists pcac_assistance_info;
 
+/*==============================================================*/
+/* Table: pcac_assistance_info                                  */
+/*==============================================================*/
 create table pcac_assistance_info
 (
-    pcac_assistance_info_id                   int(64) not null auto_increment comment 'id序号',
-    up_date              date comment '推送日期',
-    cus_code             varchar(64) comment '商户代码',
-    reg_name             varchar(64) comment '商户名称',
-    leg_doc_name         varchar(128) comment '法定代表人（负责人）姓名',
-    primary key (pcac_assistance_info_id)
-) comment '商户信息比对协查信息表';
+   pcac_assistance_info_id int(63) not null auto_increment comment 'id序号',
+   up_date              varchar(10) comment '推送日期',
+   cus_code             varchar(64) comment '商户代码',
+   reg_name             varchar(128) comment '商户名称',
+   leg_doc_name         varchar(64) comment '法定代表人（负责人）姓名',
+   dif_cus_code         varchar(64) comment '商户代码',
+   dif_reg_name         varchar(128) comment '商户名称',
+   dif_leg_doc_name     varchar(64) comment '法定代表人（负责人）姓名',
+   primary key (pcac_assistance_info_id)
+)comment '商户信息比对协查信息表';
 
 drop table if exists pcac_opt_log;
 create table pcac_opt_log
