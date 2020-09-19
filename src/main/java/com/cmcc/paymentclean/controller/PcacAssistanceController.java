@@ -10,6 +10,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.service.PcacAssistanceInfoService;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,7 @@ public class PcacAssistanceController {
      * 商户信息比对协查推送
      * 需要解密关键字：商户信息比对协查：商户代码、商户名称、法定代表人姓名
      */
+    @ApiOperation(value = "商户信息比对协查推送", notes = "商户信息比对协查推送")
     @RequestMapping(value = "/assistanceInfo", method = RequestMethod.POST)
     @ResponseBody
     public String assistanceInfo(@RequestParam(value = "xml") String xmlStr) {
