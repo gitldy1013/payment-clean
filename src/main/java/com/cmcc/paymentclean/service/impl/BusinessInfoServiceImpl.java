@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.config.SftpConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
@@ -77,6 +76,18 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         List<String> stringList = new ArrayList<>();
         for (BusinessInfoResp businessInfoResp : businessInfoResps) {
             stringList.add(businessInfoResp.getBusinessInfoId());
+            businessInfoResp.setDocType(DocTypeEnum.getDocTypeDesc(businessInfoResp.getDocType()));
+            businessInfoResp.setChageType(ChageTypeEnum.getChageTypeDesc(businessInfoResp.getChageType()));
+            businessInfoResp.setOutServiceCardType(DocTypeEnum.getDocTypeDesc(businessInfoResp.getOutServiceCardType()));
+            businessInfoResp.setOutServiceLegCardType(LegDocTypeEnum.getLegDocTypeDesc(businessInfoResp.getOutServiceLegCardType()));
+            businessInfoResp.setUnitProp(UnitPropEnum.getUnitPropEnum(businessInfoResp.getUnitProp()));
+            businessInfoResp.setOpenType(OpenTypeEnum.getOpenTypeDesc(businessInfoResp.getOpenType()));
+            businessInfoResp.setAccountType(AccountTypeEnum.getAccountTypeDesc(businessInfoResp.getAccountType()));
+            businessInfoResp.setExpandType(ExpandTypeEnum.getExpandTypeDesc(businessInfoResp.getExpandType()));
+            businessInfoResp.setStatus(StatusEnum.getStatusDesc(businessInfoResp.getStatus()));
+            businessInfoResp.setRiskStatus(RiskTypeEnum.getRiskTypeDesc(businessInfoResp.getRiskStatus()));
+            businessInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(businessInfoResp.getLegDocType()));
+            businessInfoResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(businessInfoResp.getSubmitStatus()));
         }
 
         //生成excel文件
