@@ -66,7 +66,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
     public void submit() {
         List<PcacPersonRiskSubmitInfo> pcacPersonRiskList = pcacPersonRiskSubmitInfoMapper.selectPcacPersonRiskSubmitInfoList();
         Date date = new Date();
-        log.debug("查询个人风险信息结果：{}", pcacPersonRiskList);
+        log.info("查询个人风险信息结果：{}", pcacPersonRiskList);
         if (pcacPersonRiskList.size() == 0) {
             log.info("当前没有可上报的个人风险信息");
             return;
@@ -77,16 +77,21 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
         log.debug("-------开始封装xml报文实体对象------");
         ArrayList<RiskInfo> riskInfos = new ArrayList<>();
+        ArrayList<BankInfo> bankInfos = new ArrayList<>();
         for (PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo : pcacPersonRiskList) {
 
             //判断是身份证类型需要先进行内部解密，再进行清算协会加密
             String encryptDocCode = null;
             String encryptBankNo = null;
-            if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getDocType()) && DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())) {
+            if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())) {
                 //内部解密
                 String docCode = InnerCipherUtils.decryptUserData(pcacPersonRiskSubmitInfo.getDocCode());
                 //协会加密
                 encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded, docCode);
+            }else {
+                //不是身份证号就可以直接加密了
+                //协会加密
+                encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getDocCode());
             }
             if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getBankNo())) {
                 //内部解密
@@ -105,13 +110,10 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
 
             RiskInfo riskInfo = new RiskInfo();
-            BeanUtils.copyProperties(pcacPersonRiskSubmitInfo, riskInfo);
-            //validDate、repDate在两个对象中类型不同，所以无法复制属性，需要自己set
-            Date validDate = pcacPersonRiskSubmitInfo.getValidDate();
-            String validDateStr = DateUtils.formatTime(validDate, "yyyy-MM-dd");
-            riskInfo.setValidDate(validDateStr);
-            String repDateStr = DateUtils.formatTime(date, "yyyy-MM-dd HH:mm:ss");
-            riskInfo.setRepDate(repDateStr);
+            BeanUtilsEx.copyProperties(riskInfo,pcacPersonRiskSubmitInfo);
+            //上报日期库里有就不加了，没有的再自己生成
+            /*String repDateStr = DateUtils.formatTime(date, "yyyy-MM-dd HH:mm:ss");
+            riskInfo.setRepDate(repDateStr);*/
             log.info("riskInfo复制的对象属性包括：{}", riskInfo);
 
             BankList bankList = new BankList();
@@ -123,6 +125,8 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             bankInfo.setBankNo("");
             bankInfo.setOpenBank("");*/
             BeanUtilsEx.copyProperties(bankInfo, pcacPersonRiskSubmitInfo);
+            bankInfos.add(bankInfo);
+            bankList.setBankInfo(bankInfos);
             bankList.setCount("1");
             riskInfo.setBankList(bankList);
             riskInfos.add(riskInfo);
