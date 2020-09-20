@@ -233,7 +233,7 @@ public class CFCACipherUtils {
     public static String getInnerToCFCA(String docType, String docCode, byte[] symmetrickeyencoded) {
         if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {
             //内部解密
-            docCode = InnerCipherUtils.decryptUserData(docCode);
+            //docCode = InnerCipherUtils.decryptUserData(docCode);
         }
         //协会加密
         return CFCACipherUtils.encrypt(symmetrickeyencoded, docCode);

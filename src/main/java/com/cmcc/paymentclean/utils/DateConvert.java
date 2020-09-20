@@ -4,6 +4,8 @@ import org.apache.commons.beanutils.Converter;
 
 import java.util.Date;
 
+import static com.cmcc.paymentclean.utils.DateUtils.FORMAT_DATE;
+
 /**
  * 扩展BeanUtils.copyProperties支持data类型
  */
@@ -14,7 +16,7 @@ public class DateConvert implements Converter {
             return null;
         }
         if (value instanceof Date) {
-            return DateUtils.formatTime((Date) value, null);
+            return DateUtils.formatTime((Date) value, FORMAT_DATE);
         }
         /*if (value instanceof Long) {
             return new Date((Long) value);
