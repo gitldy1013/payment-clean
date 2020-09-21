@@ -17,6 +17,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -77,7 +78,7 @@ public class CFCACipherUtils {
             PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
 
             Signature sigUtil = new Signature();
-            byte[] signature = sigUtil.p1SignMessage(Mechanism.SHA1_RSA, srcData.getBytes("UTF8"), priKey, session);
+            byte[] signature = sigUtil.p1SignMessage(Mechanism.SHA1_RSA, srcData.getBytes(StandardCharsets.UTF_8), priKey, session);
             /********注意***********/
             // 签名结果已经做过Base64编码
             encodedSignature = new String(signature);

@@ -63,9 +63,9 @@ public class RiskInfo {
     @XmlElement(name = "RegName", required = true)
     protected String regName;
     @XmlElement(name = "Currency", required = true)
-    protected Object currency;
+    protected String currency = "CNY";
     @XmlElement(name = "Amount", required = true)
-    protected Object amount;
+    protected String amount;
     @XmlElement(name = "DocType", required = true)
     protected String docType;
     @XmlElement(name = "DocCode", required = true)
@@ -128,10 +128,10 @@ public class RiskInfo {
      *
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link String }
      *
      */
-    public Object getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
@@ -140,10 +140,10 @@ public class RiskInfo {
      *
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link String }
      *
      */
-    public void setCurrency(Object value) {
+    public void setCurrency(String value) {
         this.currency = value;
     }
 
@@ -152,10 +152,10 @@ public class RiskInfo {
      *
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link String }
      *
      */
-    public Object getAmount() {
+    public String getAmount() {
         return amount;
     }
 
@@ -164,10 +164,10 @@ public class RiskInfo {
      *
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link String }
      *
      */
-    public void setAmount(Object value) {
+    public void setAmount(String value) {
         this.amount = value;
     }
 

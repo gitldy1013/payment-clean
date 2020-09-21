@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * <p>
@@ -97,10 +98,10 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
     private String level;
 
     @ApiModelProperty(value = "风险事件发生时间")
-    private LocalDate occurtimeb;
+    private Date occurtimeb;
 
     @ApiModelProperty(value = "风险事件结束时间")
-    private LocalDate occurtimee;
+    private Date occurtimee;
 
     @ApiModelProperty(value = "风险事件发生渠道")
     private String occurchan;
@@ -133,7 +134,7 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
     private String otherNum;
 
     @ApiModelProperty(value = "风险事件发现时间")
-    private LocalDate riskFindTime;
+    private Date riskFindTime;
 
     @ApiModelProperty(value = "交易金额")
     private String amount;
@@ -157,7 +158,7 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
     private String note;
 
     @ApiModelProperty(value = "有效期")
-    private LocalDate validDate;
+    private Date validDate;
 
     @ApiModelProperty(value = "商户注册国家或地区")
     private String registeredArea;

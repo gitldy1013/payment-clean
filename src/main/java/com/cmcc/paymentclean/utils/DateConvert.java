@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.Converter;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import static com.cmcc.paymentclean.utils.DateUtils.FORMAT_DATE;
 /**
  * 扩展BeanUtils.copyProperties支持data类型
  */
+@Slf4j
 public class DateConvert implements Converter {
     @Override
     public Object convert(Class class1, Object value) {

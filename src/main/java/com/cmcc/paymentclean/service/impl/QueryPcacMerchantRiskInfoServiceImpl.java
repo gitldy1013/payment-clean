@@ -73,10 +73,15 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "");
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "QR0003");
         //设置报文体
         String resCode = "01";
         String resMsg = "查询成功！";
+        if(queryPcacMerchantRiskReqs.size()==0){
+            resultBean.setResMsg("参数为空");
+            resultBean.setResCode("100");
+            return resultBean;
+        }
         for (int i = 0; i < queryPcacMerchantRiskReqs.size(); i++) {
             QueryPcacMerchantRiskReq queryPcacMerchantRiskReq = queryPcacMerchantRiskReqs.get(i);
             com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body();
@@ -85,6 +90,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
             body.setInfos(queryPcacMerchantRiskReq.getInfos());
             request.setBody(body);
             document.setRequest(request);
+            //加签
+            XmlJsonUtils.doSignature(document);
             //报文转换
             String xml = XmlJsonUtils.convertObjectToXmlStr(document);
             log.info("获取到的xml数据:{}", xml);
@@ -116,17 +123,20 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
     }
 
     private Body pushQueryPcacMerchantRiskReqToPcac(String xml) {
+        log.info("请求报文：{}",XmlJsonUtils.formatXml(xml));
         //上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+        log.info("响应报文：{}",XmlJsonUtils.formatXml(xml));
         log.info("url:{}", pcacConfig.getUrl());
-        Body resBody = (Body) XmlJsonUtils.convertXmlStrToObject(Body.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        Body resBody = resDoc.getRespone().getBody();
         log.info("pcac.ries.005 协会返回数据对象:{}", resBody);
         PcacList pcacList = resBody.getPcacList();
         List<RiskInfo> riskInfos = pcacList.getRiskInfo();
         for (RiskInfo riskInfo : riskInfos) {
-            BankInfo bankInfo = riskInfo.getBankInfo();
-            BankList bankList = riskInfo.getBankList();
-            BenList benList = riskInfo.getBenList();
+            BankInfo bankInfo = riskInfo.getBankInfo()!=null?riskInfo.getBankInfo():new BankInfo();
+            BankList bankList = riskInfo.getBankList()!=null?riskInfo.getBankList():new BankList();
+            BenList benList = riskInfo.getBenList()!=null?riskInfo.getBenList():new BenList();
             QueryPcacMerchantRiskInfo queryPcacMerchantRiskInfo = new QueryPcacMerchantRiskInfo();
             BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, bankInfo);
             BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, bankList);

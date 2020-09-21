@@ -191,10 +191,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         body.setPcacList(pcacList);
         request.setBody(body);
         document.setRequest(request);
-        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
-        //加签
-        String doSignature = CFCACipherUtils.doSignature(xml);
-        document.setSignature(doSignature);
+        XmlJsonUtils.doSignature(document);
         return document;
     }
 

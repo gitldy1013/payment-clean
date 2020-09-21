@@ -32,6 +32,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.cmcc.paymentclean.entity.dto.ResultBean.PARAM_ERR;
+import static javax.swing.UIManager.get;
+
 /**
  * <p>
  * 本地关联风险商户信息表  服务实现类
@@ -84,57 +87,68 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
     }
 
     @Override
-    public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> localAssociatedRiskMerchantInfoBack(List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReq) {
+    public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> localAssociatedRiskMerchantInfoBack(List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReqs) {
         ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> resultBean = new ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body>();
 //        if(true){
 //            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
 //            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
 //            return resultBean;
 //        }
-
-        QueryWrapper<LocalAssociatedRiskMerchantInfo> wrapper = new QueryWrapper<>();
-        wrapper.eq("", "");
-        LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfoMapper.selectOne(wrapper);
         //拼装报文
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         Document document = new Document();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "");
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "UP0006");
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
-        pcacList.setCount(associatedRiskMerchantInfoBackReq.size() + "");
+        pcacList.setCount(associatedRiskMerchantInfoBackReqs.size() + "");
         List<RiskInfo> riskInfos = new ArrayList<>();
-        for (int i = 0; i < associatedRiskMerchantInfoBackReq.size(); i++) {
-            AssociatedRiskMerchantInfoBackReq armbr = associatedRiskMerchantInfoBackReq.get(i);
+        LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = new LocalAssociatedRiskMerchantInfo();
+        for (int i = 0; i < associatedRiskMerchantInfoBackReqs.size(); i++) {
+            QueryWrapper<LocalAssociatedRiskMerchantInfo> wrapper = new QueryWrapper<>();
+            AssociatedRiskMerchantInfoBackReq armbr = associatedRiskMerchantInfoBackReqs.get(i);
+            wrapper.eq("doc_type", armbr.getDocType());
+            wrapper.eq("doc_code", armbr.getDocCode());
+            List<LocalAssociatedRiskMerchantInfo> localAssociatedRiskMerchantInfos = localAssociatedRiskMerchantInfoMapper.selectList(wrapper);
+            if (localAssociatedRiskMerchantInfos.size() > 0) {
+                localAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfos.get(0);
+            }
             RiskInfo riskInfo = new RiskInfo();
-            riskInfos.add(riskInfo);
             riskInfo.setCusType(localAssociatedRiskMerchantInfo.getCusType());
-            riskInfo.setRegName(localAssociatedRiskMerchantInfo.getRegName());
-            riskInfo.setCurrency("人民币");
+            riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, localAssociatedRiskMerchantInfo.getRegName()));
+            riskInfo.setCurrency("CNY");
             riskInfo.setAmount(armbr.getAmount());
             riskInfo.setDocType(armbr.getDocType());
-            riskInfo.setDocCode(armbr.getDocCode());
+            riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, armbr.getDocCode()));
             riskInfo.setHandleResult(armbr.getHandleResult());
-            riskInfo.setHandleTime(DateUtils.formatTime(new Date(), null));
+            riskInfo.setHandleTime(DateUtils.formatTime(new Date(), DateUtils.FORMAT_DATE));
+            riskInfos.add(riskInfo);
             pcacList.setRiskInfo(riskInfos);
             body.setPcacList(pcacList);
             request.setBody(body);
         }
         document.setRequest(request);
+        //加签
+        XmlJsonUtils.doSignature(document);
         //发起反馈
         String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);
-        boolean validateXML = ValidateUtils.validateXML(xmlStr, "");
+        boolean validateXML = ValidateUtils.validateXML(xmlStr, "pcac.ries.046");
         if (!validateXML) {
             log.info("XSD校验失败{}", xmlStr);
+            resultBean.setResCode(PARAM_ERR);
+            resultBean.setResMsg("XSD校验失败:" + XmlJsonUtils.formatXml(xmlStr));
             return resultBean;
         }
+        log.info("反馈数据：{}",XmlJsonUtils.formatXml(xmlStr));
         //解析响应
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xmlStr);
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
+        log.info("响应数据：{}",XmlJsonUtils.formatXml(post));
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = resDoc.getRespone().getBody();
         resultBean.setData(resBody);
         resultBean.setResCode(resBody.getRespInfo().getResultCode());
-        if (resBody.getRespInfo().getMsgDetail().isEmpty()) {
+        if (resBody.getRespInfo().getMsgDetail() != null) {
             resultBean.setResMsg(resBody.getRespInfo().getResultStatus());
         } else {
             resultBean.setResMsg(resBody.getRespInfo().getMsgDetail());
