@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="BusinessInfo对象", description="企业商户信息表 ")
+@ApiModel(value = "BusinessInfo对象", description = "企业商户信息表 ")
 public class BusinessInfo extends Model<BusinessInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -93,7 +93,7 @@ public class BusinessInfo extends Model<BusinessInfo> {
 
     @ExcelExportField(name = "上报日期", index = 16)
     @ApiModelProperty(value = "上报日期")
-    private LocalDateTime repDate;
+    private Date repDate;
 
     @ExcelExportField(name = "上传方式", index = 17)
     @ApiModelProperty(value = "上传方式")

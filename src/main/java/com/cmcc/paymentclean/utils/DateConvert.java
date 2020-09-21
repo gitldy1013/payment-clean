@@ -3,9 +3,13 @@ package com.cmcc.paymentclean.utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.Converter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.cmcc.paymentclean.utils.DateUtils.FORMAT_DATE;
+import static com.cmcc.paymentclean.utils.DateUtils.FORMAT_DATE_PCAC;
+import static com.cmcc.paymentclean.utils.DateUtils.FORMAT_TIME;
 
 /**
  * 扩展BeanUtils.copyProperties支持data类型
@@ -19,6 +23,24 @@ public class DateConvert implements Converter {
         }
         if (value instanceof Date) {
             return DateUtils.formatTime((Date) value, FORMAT_DATE);
+        }
+        if(class1.getTypeName().equals(Date.class.getTypeName())){
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_TIME);
+                return dateFormat.parse(value.toString());
+            } catch (ParseException e) {
+                try {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE);
+                    return dateFormat.parse(value.toString());
+                } catch (ParseException ex) {
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE_PCAC);
+                        return dateFormat.parse(value.toString());
+                    } catch (ParseException exc) {
+                        log.info("解析String转换Date类型出错。");
+                    }
+                }
+            }
         }
         /*if (value instanceof Long) {
             return new Date((Long) value);

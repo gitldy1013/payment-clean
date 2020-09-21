@@ -27,5 +27,5 @@ public class QueryPcacMerchantRiskInfoBackReq implements Serializable {
     private String handleTime;
 
     @ApiModelProperty(value = "交易币种 CNY:人民币 USD:美元 EUR:欧元 GBP:英镑 AUD:澳元 ……")
-    private String currency;
+    private String currency = "CNY";
 }
