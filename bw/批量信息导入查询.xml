@@ -1,0 +1,115 @@
+<!--请求报文:-->
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009219528049770</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QR0003</TrnxCode>
+            <TrnxTime>20200921173630</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>RCyd7WCgM/qgIx+r/ldTTsFCfD+Dl8aZKN8f4qmDTUk5wdJ5/CnmwRUMiuvaU/5NBB7tr0Zt3JOTGtg0+aYE6Ts/sQp/d1KdurEETwvmOi0sLHAgYGMIxawgf0pbuzBj8+yJMDzoaat9LnrXrNFaNxR404OI048Gb1pvkr9SxzpznfdOoZo04vnDSfYFlMzrwDLqniHF+MhFoKBspQRL1njWfhsVjn9HJKsQfqsNyeDgcBl98GAmgeiAVg8RvIduF8DbXK4P1MRm997S6gUrC5mTc0v63ntm+RN0QZLf5jmCeZRe7BfC8TKUYbyjLyz/rx2/WiYTJtcxDWKZfwp9qg==</SecretKey>
+        </Head>
+        <Body>
+            <CusProperty>02</CusProperty>
+            <KeyWord>01</KeyWord>
+            <Infos>123,223</Infos>
+        </Body>
+    </Request>
+    <Signature>GxXxEoqU6wANH8GBQkCmLWecONj5f9tvDpmtS7/czutgZxpMta8n1jdjhQkZF/4CZas8XUBn5fySuh4azP+Kiw66Vn9HMmRRcCyo5NiOxAscfgk+UhNTI9t7VdaE5ZAoD+8WVlg49ertoGUMVYqToIqlBlIaWq5kBtYjrMYTCQQKWJorTh/aMxrkgKRGOPBJR88lA263toVP2V4ak0zlY94cPXs2hNDc54aX4e8EuhLXgQoprRigZH10sY3Bjvve9qVywM/kBIAbXFCADQMuNMHqV1YwzwtId3ibuTuFe6afro1yx+sHz/67+1C/QrHJQvlU74T3hbzUGCEuE4zs5w==</Signature>
+</Document>
+<!--响应报文:-->
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+<Respone>
+    <Head>
+        <Version>V1.3.0</Version>
+        <Identification>202009218132948231</Identification>
+        <OrigSender>Z2004343000017</OrigSender>
+        <OrigSenderSID>zf_sysstem</OrigSenderSID>
+        <RecSystemId>R0001</RecSystemId>
+        <TrnxCode>QR0003</TrnxCode>
+        <TrnxTime>20200921174002</TrnxTime>
+        <SecretKey>qW5ea3ZeJU+4e3UbfeOOfOtgup5atlcHhbJi2Ki6enP2oA6pZZLoVCzdQpzXAjVF9n/ZglBmaozFi1e76YHBaGzkwj7hoOGeROIGeYVnX6WdDuAvZ16qtAugrtL4NG6camoK64UkyqYLHXP//vkHQeRkb0SCEeo+sSF9RAhQVZrnVn358DizrWVnlU+IXQlvRP3uVKbE5uFb+MQ9SLJ0sc1ttXj/2uxRfDEh9DRDWvS3r28Rq8Wajn/WnhlmyzlcK5E/IH6Q3880F+HHQZLiduKB6X2NzrOHe3Nqnywvz/w+myFdmZi8H+BDd5PP4pY5B968Qdhy0re6f2JxC/dHDQ==</SecretKey>
+    </Head>
+    <Body>
+        <RespInfo>
+            <ResultStatus>01</ResultStatus>
+            <ResultCode>S00000</ResultCode>
+        </RespInfo>
+        <QueryInfo>
+            <CusProperty>02</CusProperty>
+            <KeyWord>01</KeyWord>
+            <Infos>123,223</Infos>
+        </QueryInfo>
+        <PcacList>
+            <Count>1</Count>
+            <RiskInfo>
+                <Id>3x8ae3vrm/WYX3+pbmaz4w==</Id>
+                <CusType>02</CusType>
+                <CusProperty>02</CusProperty>
+                <RiskType>01</RiskType>
+                <CusNature>01</CusNature>
+                <CusName>+vpHCx6bf6xtMp7AphXJyQ==</CusName>
+                <RegName>0UucG+7Y/O/c87D84YACgw==</RegName>
+                <CusCode>67IZCoJQLxfPv2YxnuxIJA==</CusCode>
+                <DocType>01</DocType>
+                <DocCode>td4xEPUEnG74FYJsAJabtQ==</DocCode>
+                <LegRepName>Nj22ePwx/jBDTF7NqIO7jQ==</LegRepName>
+                <LegDocType>01</LegDocType>
+                <LegDocCode>iOpm6UIvnL1S8iLc8tG+x4yVu44ocy8hq33ctTR035E=</LegDocCode>
+                <BankList>
+                    <Count>1</Count>
+                    <BankInfo>
+                        <IsTransfer>0</IsTransfer>
+                        <BankNo>303222000008</BankNo>
+                        <OpenBank>光大银行北京分行</OpenBank>
+                    </BankInfo>
+                </BankList>
+                <Url>I4s6WDkkwW504swuub37RQ==</Url>
+                <ServerIp>3wI02INHcPjh8XNyuIUjBg==</ServerIp>
+                <MobileNo>Wbi1o1FJwhK8Uq94skjVKg==</MobileNo>
+                <Address>沙河</Address>
+                <Icp>Tob48Pqfr/o/kW/IfEfh8Q==</Icp>
+                <Level>03</Level>
+                <Occurtimeb>2020-08-17</Occurtimeb>
+                <Occurtimee>2020-08-23</Occurtimee>
+                <Occurchan>02</Occurchan>
+                <Occurarea>110100</Occurarea>
+                <Note>1452</Note>
+                <ValidDate>2020-12-31</ValidDate>
+                <ValidStatus>01</ValidStatus>
+                <StopNum>0</StopNum>
+                <RefuseNum>0</RefuseNum>
+                <UseRiseNum>0</UseRiseNum>
+                <FrozenNum>0</FrozenNum>
+                <AdjustmentCycleNum>0</AdjustmentCycleNum>
+                <DelayNum>0</DelayNum>
+                <QuotaNum>0</QuotaNum>
+                <SuspendNum>0</SuspendNum>
+                <CloseNum>0</CloseNum>
+                <FollowNum>0</FollowNum>
+                <AntiMoneyNum>0</AntiMoneyNum>
+                <OtherNum>0</OtherNum>
+                <RegisteredArea>CN</RegisteredArea>
+                <RegisteredCode>E4DxFFDDfvvvqkVZ5cGnDg==</RegisteredCode>
+                <SourceChannel>GA</SourceChannel>
+                <Currency>CNY</Currency>
+                <Amount>100.00</Amount>
+                <RiskFindTime>2020-08-20</RiskFindTime>
+                <LegControlName>嘿嘿</LegControlName>
+                <LegControlCardType>01</LegControlCardType>
+                <LegControlCardCode>iOpm6UIvnL1S8iLc8tG+xxckdvXr39yEIRXZNYgnqc0=</LegControlCardCode>
+                <Remarks/>
+                <BenList>
+                    <Count>0</Count>
+                </BenList>
+            </RiskInfo>
+        </PcacList>
+    </Body>
+</Respone>
+<Signature>A4wUzPjtYIw2CxXCdGJbcvywD7vxPdhzP7o0uGrAVEthO84TmCDVQU1b9NPoqxfhl2eNYTaIZ+7dYbJHMG4nlu18cgn4Z42AxTZWZeqHqI8PgRgM9YZ1KzrOybNsC55bfxasLfJVe4WJTJwoGz77foV9kXk9J4/HyZqWoOm3YUsS30t6G5vPh+skCmiIvhYPS+V7EfVhIr0tGQI9Scb2I6JZ0Dlfv94YPMy1GkpmtkYfqVG6GJSiFCm6ZsfVJ8FqrRJKDF9SIqlLvCfRg7Mlu32WxLFPg+TL10EVSR/6UMtlJE7Hauu7nxzuRN7+WLiW86nEeQ6VXETr3jJwJYpUmQ==</Signature>
+</Document>

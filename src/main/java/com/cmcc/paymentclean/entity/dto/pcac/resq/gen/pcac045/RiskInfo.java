@@ -62,7 +62,7 @@ public class RiskInfo {
     @XmlElement(name = "HandleTime", required = true)
     protected String handleTime;
     @XmlElement(name = "HandleNote", required = true)
-    protected String handleNote;
+    protected String handleNote = "";
     @XmlElement(name = "Currency", required = true)
     protected String currency;
     @XmlElement(name = "Amount", required = true)

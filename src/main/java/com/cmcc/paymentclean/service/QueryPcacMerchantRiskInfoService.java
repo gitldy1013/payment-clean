@@ -22,10 +22,10 @@ public interface QueryPcacMerchantRiskInfoService {
 
     /**
      * 批量商户风险信息导入查询
-     * @param queryPcacMerchantRiskReq
+     * @param queryPcacMerchantRiskReqs
      * @return
      */
-    ResultBean<Body> batchQueryPcacMerchantRisk(List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReq);
+    ResultBean<Body> batchQueryPcacMerchantRisk(List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReqs);
 
     ResultBean<Page<QueryPcacMerchantRiskInfoResp>> pageLocalAssociatedRiskMerchantInfo(QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq);
 
@@ -33,8 +33,8 @@ public interface QueryPcacMerchantRiskInfoService {
 
     /**
      * 批量商户风险信息查询使用情况反馈
-     * @param queryPcacMerchantRiskInfoBackReq
+     * @param queryPcacMerchantRiskInfoBackReqs
      * @return
      */
-    ResultBean<Body> queryPcacMerchantRiskInfoBack(List<QueryPcacMerchantRiskInfoBackReq> queryPcacMerchantRiskInfoBackReq);
+    ResultBean<Body> queryPcacMerchantRiskInfoBack(List<QueryPcacMerchantRiskInfoBackReq> queryPcacMerchantRiskInfoBackReqs);
 }
