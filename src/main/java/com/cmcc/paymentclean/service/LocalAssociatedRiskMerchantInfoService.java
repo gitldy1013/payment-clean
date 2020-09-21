@@ -28,7 +28,7 @@ public interface LocalAssociatedRiskMerchantInfoService {
     ResultBean<Page<AssociatedRiskMerchantInfoResp>> pageLocalAssociatedRiskMerchantInfo(AssociatedRiskMerchantInfoReq associatedRiskMerchantInfoReq);
 
     /**
-     * 协会风险商户反馈请求接口
+     * 协会风险商户反馈请求接口&商户黑名单信息反馈
      * @param associatedRiskMerchantInfoBackReq 反馈信息
      * @return 反馈状态信息
      */

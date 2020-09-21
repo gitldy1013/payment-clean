@@ -149,12 +149,36 @@ public class XmlJsonUtils {
 
     }
 
+    /**
+     * 生成指定位数随机数
+     * @param card_len 位数
+     * @return 随机数
+     */
+    public static String genRandomNum(int card_len){
+        //35是因为数组是从0开始的，26个字母+10个数字
+        final int maxNum = 36;
+        int i; //生成的随机数
+        int count = 0; //生成的密码的长度
+        char[] str = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        StringBuffer pwd = new StringBuffer("");
+        Random r = new Random();
+        while(count < card_len){
+            //生成随机数，取绝对值，防止生成负数
+            i = Math.abs(r.nextInt(maxNum)); //生成的数最大为36-1
+            if (i >= 0 && i < str.length) {
+                pwd.append(str[i]);
+                count ++;
+            }
+        }
+        return pwd.toString();
+    }
+
     public static Request getRequest(byte[] symmetricKeyEncoded, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document document, PcacConfig pcacConfig, String trnxCode) {
         document.setSignature(null);
         Request request = new Request();
         Head head = new Head();
         head.setVersion(pcacConfig.getVersion());
-        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + "100"+new Random().nextInt(1000) + 1000));
+        head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + genRandomNum(10)));
         head.setOrigSender(pcacConfig.getOrigSender());
         head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
         head.setRecSystemId("R0001");
@@ -166,10 +190,18 @@ public class XmlJsonUtils {
         return request;
     }
 
+    public static void doSignature(com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document document) {
+        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+        log.info("加签之前的XML数据: {}",xml);
+        //加签
+        String doSignature = CFCACipherUtils.doSignature(xml);
+        document.setSignature(doSignature);
+    }
+
     private static String convertFromXml(String str) {
         boolean flag = true;
         boolean quotesFlag = true;
-        StringBuffer ans = new StringBuffer();
+        StringBuilder ans = new StringBuilder();
         String tmp = "";
         for (int i = 0; i < str.length(); i++) {
             if ('"' == str.charAt(i)) {
