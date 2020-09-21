@@ -109,7 +109,7 @@
     <update id="updateByPcacPersonRiskSubmitInfo" parameterType="com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo">
 
         update  pcac_person_risk_submit_info <set>
-        submit_time = #{submitTime},submit_status = #{submitStatus},result_status = #{resultStatus},result_code = #{resultCode},msg_detail=#{msgDetail}
+        submit_time = #{submitTime},submit_status = #{submitStatus},result_status = #{resultStatus},result_code = #{resultCode},msg_detail=#{msgDetail},rep_date=#{repDate}
     </set>  <where>
         submit_status = '0'
     </where>

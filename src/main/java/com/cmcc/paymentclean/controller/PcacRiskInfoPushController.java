@@ -2,6 +2,7 @@ package com.cmcc.paymentclean.controller;
 
 import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.Body;
@@ -21,10 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,24 +44,89 @@ public class PcacRiskInfoPushController {
      * 协会推送风险提示信息
      * 风险提示信息关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
      */
-    @RequestMapping(value = "/riskTipsInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/blackListAndTipsInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String riskTipsInfo(@RequestParam(value = "xml") String xmlStr) {
-        log.debug("接收协会风险提示信息报文：{}", xmlStr);
-        String pushListType = IsBlackEnum.ISBLACKE_02.getCode();
+    public String blackListAndTipsInfo(@RequestParam(value = "xml") String xmlStr) {
+        log.debug("接收协会黑名单或者风险提示信息报文：{}", xmlStr);
+        //String pushListType = IsBlackEnum.ISBLACKE_02.getCode();
 
-        String doXml = saveRiskInfo(xmlStr, pushListType);
+        String doXml = saveRiskInfo(xmlStr);
 
         return doXml;
     }
 
+    private String saveRiskInfo(String xmlStr) {
+        String doXml = null;
+        String pushListType = null;
+        Document document = (Document) XmlJsonUtils.convertXmlStrToObject(Document.class, xmlStr);
+        String signature = document.getSignature();
+        document.setSignature(null);
+        String noSignatureXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        log.debug("验签使用的原数据xml：{}", noSignatureXml);
+        boolean isSign = CFCACipherUtils.verifySignature(noSignatureXml, signature);
+        log.info("-------风险信息推送验证签名结果为：{}", isSign);
+        Request request = document.getRequest();
+        Head head = request.getHead();
+        String trnxCode = head.getTrnxCode();
+        if (TrnxCodeEnum.BLACKLIST_PUSH.getCode().equals(trnxCode)){
+            pushListType = IsBlackEnum.ISBLACKE_01.getCode();
+        }
+        if (TrnxCodeEnum.RISK_TIPS_INFO_PUSH.getCode().equals(trnxCode)){
+            pushListType = IsBlackEnum.ISBLACKE_02.getCode();
+        }
+        log.info("清算协会推送的风险类型是：{}",pushListType);
+        String secretKey = head.getSecretKey();
+        Body body = (Body) request.getBody();
+        PcacList pcacList = body.getPcacList();
+        String upDate = pcacList.getUpDate();
+        List<RiskInfo> riskInfoList = pcacList.getRiskInfo();
+        ArrayList<PcacRiskInfo> pcacRiskInfoList = new ArrayList<>();
+        for (RiskInfo riskInfo : riskInfoList) {
+            log.debug("协会返回风险信息：{}", riskInfo);
+            //对关键字进行解密，证件号码和银行卡号加密
+            //商户简称
+            String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
+            riskInfo.setCusName(decryptCusName);
+            //商户名称
+            String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
+            riskInfo.setRegName(decryptRegName);
+            //法人证件号码
+            String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
+            riskInfo.setDocCode(decryptDocCode);
+            //法定代表人姓名
+            String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
+            riskInfo.setLegDocName(decryptLegDocName);
+            //法定代表人证件号码
+            String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
+            String encryptLegDocCode = null;
+            //判断证件类型是身份证就进行内部加密
+            if (!StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
+                encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+            }
+
+            riskInfo.setLegDocCode(encryptLegDocCode);
+            String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
+            riskInfo.setBankNo(encryptBankNo);
+            PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
+            BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
+            log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
+            pcacRiskInfo.setUpDate(upDate);
+            //设置类型01为黑名单,02为风险提示信息
+            pcacRiskInfo.setPushListType(pushListType);
+            pcacRiskInfoList.add(pcacRiskInfo);
+
+        }
+        log.debug("需要入库风险信息：{}", pcacRiskInfoList);
+        doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
+        return doXml;
+    }
 
 
     /**
      * 协会推送黑名单信息
      * 黑名单推送关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
      */
-    @RequestMapping(value = "/blackList", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/blackList", method = RequestMethod.POST)
     @ResponseBody
     public String blackList(@RequestParam(value = "xml") String xmlStr) {
         log.debug("接收协会黑名单报文：{}", xmlStr);
@@ -72,11 +135,11 @@ public class PcacRiskInfoPushController {
         String doXml = saveRiskInfo(xmlStr, pushListType);
 
         return doXml;
-    }
+    }*/
 
     @RequestMapping(value = "/localRiskMsg", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoReq) {
+    public ResultBean reissueRiskInfo(@RequestBody @Validated ReissueRiskInfoReq reissueRiskInfoReq) {
         log.info("补发请求入参是：{}", reissueRiskInfoReq);
         /*if (StringUtils.isEmpty(reissueRiskInfoReq.getRiskType())){
             return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
@@ -91,16 +154,16 @@ public class PcacRiskInfoPushController {
             return new ResultBean(ResultBean.PARAM_ERR, "日期格式为YYYY-MM-DD");
         }*/
         //风控测试用逻辑
-        ResultBean resultBean = new ResultBean("补发信息成功",ResultBean.SUCCESS_CODE);
+        //ResultBean resultBean = new ResultBean("补发信息成功",ResultBean.SUCCESS_CODE);
 
 
-        //ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
+        ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
         log.info("请求补发返回结果信息：{}",resultBean);
         return resultBean;
     }
 
 
-    private String saveRiskInfo(String xmlStr, String pushListType) {
+    /*private String saveRiskInfo(String xmlStr, String pushListType) {
         String doXml = null;
         Document document = (Document) XmlJsonUtils.convertXmlStrToObject(Document.class, xmlStr);
         String signature = document.getSignature();
@@ -155,5 +218,5 @@ public class PcacRiskInfoPushController {
         log.debug("需要入库风险信息：{}", pcacRiskInfoList);
         doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
         return doXml;
-    }
+    }*/
 }
