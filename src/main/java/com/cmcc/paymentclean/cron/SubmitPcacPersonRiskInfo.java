@@ -112,8 +112,8 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             RiskInfo riskInfo = new RiskInfo();
             BeanUtilsEx.copyProperties(riskInfo,pcacPersonRiskSubmitInfo);
             //上报日期库里有就不加了，没有的再自己生成
-            /*String repDateStr = DateUtils.formatTime(date, "yyyy-MM-dd HH:mm:ss");
-            riskInfo.setRepDate(repDateStr);*/
+            String repDateStr = DateUtils.formatTime(date, "yyyy-MM-dd HH:mm:ss");
+            riskInfo.setRepDate(repDateStr);
             log.info("riskInfo复制的对象属性包括：{}", riskInfo);
 
             BankList bankList = new BankList();
@@ -175,6 +175,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
                         pcacPersonRiskSubmitInfo.setSubmitTime(date);
                         pcacPersonRiskSubmitInfo.setSubmitStatus("1");
                         pcacPersonRiskSubmitInfo.setMsgDetail("已上报");
+                        pcacPersonRiskSubmitInfo.setRepDate(date);
                         log.info("更新数据库表时间和状态信息：{}", pcacPersonRiskSubmitInfo);
                         pcacPersonRiskSubmitInfoMapper.updateByPcacPersonRiskSubmitInfo(pcacPersonRiskSubmitInfo);
 
