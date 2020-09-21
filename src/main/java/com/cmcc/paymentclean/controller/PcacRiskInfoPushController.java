@@ -95,7 +95,7 @@ public class PcacRiskInfoPushController {
 
 
         //ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
-
+        log.info("请求补发返回结果信息：{}",resultBean);
         return resultBean;
     }
 
