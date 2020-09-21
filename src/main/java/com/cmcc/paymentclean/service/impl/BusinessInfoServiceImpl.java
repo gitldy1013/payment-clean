@@ -7,6 +7,7 @@ import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.config.SftpConfig;
 import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.BusinessInfo;
+import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
@@ -21,6 +22,7 @@ import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
+import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.ExcelUtils;
@@ -63,6 +65,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     @Autowired
     private BusinessInfoMapper businessInfoMapper;
 
+    @Autowired
+    private SysLanService sysLanService;
+
     @Override
     public ResultBean<Body> exportExcel() {
         ResultBean resultBean = new ResultBean();
@@ -88,6 +93,10 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             businessInfoResp.setRiskStatus(RiskTypeEnum.getRiskTypeDesc(businessInfoResp.getRiskStatus()));
             businessInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(businessInfoResp.getLegDocType()));
             businessInfoResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(businessInfoResp.getSubmitStatus()));
+            SysLan sysLan = sysLanService.getLanInfoById(businessInfoResp.getOccurarea());
+            if(null != sysLan){
+                businessInfoResp.setOccurarea(sysLan.getLanName());
+            }
         }
 
         //生成excel文件

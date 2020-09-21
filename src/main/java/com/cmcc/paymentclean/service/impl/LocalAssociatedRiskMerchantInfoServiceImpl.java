@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
+import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList;
@@ -18,6 +19,7 @@ import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
+import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
@@ -53,6 +55,9 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
     @Autowired
     private PcacConfig pcacConfig;
 
+    @Autowired
+    private SysLanService sysLanService;
+
     @Override
     public ResultBean<Page<AssociatedRiskMerchantInfoResp>> pageLocalAssociatedRiskMerchantInfo(AssociatedRiskMerchantInfoReq associatedRiskMerchantInfoReq) {
         log.info("pageLocalAssociatedRiskMerchantInfo req={}", com.alibaba.fastjson.JSON.toJSON(associatedRiskMerchantInfoReq));
@@ -77,6 +82,10 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
                 associatedRiskMerchantInfoResp.setHandleResult(HandleResultEnum.getHandleResultDesc(associatedRiskMerchantInfoResp.getHandleResult()));
                 associatedRiskMerchantInfoResp.setCusType(CusTypeEnum.getCusTypeEnum(associatedRiskMerchantInfoResp.getCusType()));
                 associatedRiskMerchantInfoResp.setStatus(StatusEnum.getStatusDesc(associatedRiskMerchantInfoResp.getStatus()));
+                SysLan sysLan = sysLanService.getLanInfoById(associatedRiskMerchantInfoResp.getOccurarea());
+                if(null != sysLan){
+                    associatedRiskMerchantInfoResp.setOccurarea(sysLan.getLanName());
+                }
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

@@ -18,7 +18,7 @@ public class SysLanServiceImpl extends ServiceImpl<SysLanMapper, SysLan> impleme
     @Override
     public SysLan getLanInfoById(String lanId) {
         if(StringUtils.isEmpty(lanId)){
-            return new SysLan();
+            return null;
         }
         QueryWrapper<SysLan> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("lan_id",lanId);

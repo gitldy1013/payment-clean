@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
+import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BankInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BankList;
@@ -21,6 +22,7 @@ import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
+import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -55,6 +57,9 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
     @Autowired
     private PcacConfig pcacConfig;
 
+    @Autowired
+    private SysLanService sysLanService;
+
     @Override
     public ResultBean<Page<RiskMerchantResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
         log.info("pageRiskMerchant req={}", com.alibaba.fastjson.JSON.toJSON(riskMerchantReq));
@@ -78,6 +83,10 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                 riskMerchantResp.setDocType(DocTypeEnum.getDocTypeDesc(riskMerchantResp.getDocType()));
                 riskMerchantResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskMerchantResp.getRiskType()));
                 riskMerchantResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(riskMerchantResp.getCusProperty()));
+                SysLan sysLan = sysLanService.getLanInfoById(riskMerchantResp.getOccurarea());
+                if(null != sysLan){
+                    riskMerchantResp.setOccurarea(sysLan.getLanName());
+                }
             }
         }
         resultBean.setData(pagePcacMerchantRiskSubmitInfo);
