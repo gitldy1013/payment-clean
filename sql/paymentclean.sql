@@ -462,3 +462,19 @@ create table business_info
    result_code          varchar(6) comment '交易返回码',
    primary key (business_info_id)
 )comment = '企业商户信息表 ';
+
+
+drop table if exists sys_lan;
+
+/*==============================================================*/
+/* Table: sys_lan                                         */
+/*==============================================================*/
+
+CREATE TABLE  sys_lan  (
+   lan_id  varchar(30) NOT NULL COMMENT '城市ID',
+   lan_name  varchar(256) DEFAULT NULL COMMENT '城市名',
+   lan_code  varchar(30) DEFAULT NULL COMMENT '商户英文名称',
+   province_id  varchar(32) DEFAULT NULL COMMENT '省份ID',
+  PRIMARY KEY ( lan_id )
+) comment = '地域编码字典表';
+

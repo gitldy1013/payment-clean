@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cmcc.paymentclean.mapper.SysLanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.SysLan">
+        <id column="lan_Id" property="lanId" />
+        <result column="lan_Name" property="lanName" />
+        <result column="lan_Code" property="lanCode" />
+        <result column="province_Id" property="provinceId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        lan_Id, lan_Name, lan_Code, province_Id
+    </sql>
+
+</mapper>
