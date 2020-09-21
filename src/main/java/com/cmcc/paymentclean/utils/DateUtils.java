@@ -37,6 +37,11 @@ public class DateUtils {
         }
         return date;
     }
+
+    public static String curDateString(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_TIME_PCAC);
+        return simpleDateFormat.format(new Date());
+    }
 }
 
 

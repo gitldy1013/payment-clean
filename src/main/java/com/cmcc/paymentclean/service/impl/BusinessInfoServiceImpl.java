@@ -92,7 +92,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
 
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = sftpConfig.getBusinessInfoFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+        String fileName = sftpConfig.getBusinessInfoFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
         try {
             //文件名
             SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(businessInfoResps, BusinessInfoResp.class);
@@ -346,7 +346,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 BeanUtils.copyProperties(blackRiskInfo, businessInfo);
                 businessInfos.add(businessInfo);
             }
-            String fileName = sftpConfig.getBusinessInfoBlackFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+            String fileName = sftpConfig.getBusinessInfoBlackFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
             ExcelUtils excelUtils = new ExcelUtils();
             try {
                 //文件名

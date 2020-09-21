@@ -56,7 +56,7 @@ public class SftpPcacRiskInfo {
         }
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = sftpConfig.getPcacRiskInfoFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+        String fileName = sftpConfig.getPcacRiskInfoFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
         try {
             //文件名
             SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(pcacRiskInfos, PcacRiskInfoDTO.class);
