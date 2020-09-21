@@ -42,8 +42,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     @ResponseBody
     public ResultBean handlerBindException(BindException e) {
-        ResultBean resultBean = new ResultBean(ResultBean.PARAM_ERR,
-                e.getBindingResult().getFieldError().getDefaultMessage());
+        ResultBean resultBean = new ResultBean(
+                e.getBindingResult().getFieldError().getDefaultMessage(),ResultBean.PARAM_ERR);
         log.error("响应码:{},响应信息:{}", resultBean.getResCode(), resultBean.getResMsg());
         return resultBean;
     }
