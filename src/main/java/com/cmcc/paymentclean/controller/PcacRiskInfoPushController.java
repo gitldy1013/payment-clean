@@ -46,7 +46,7 @@ public class PcacRiskInfoPushController {
      */
     @RequestMapping(value = "/blackListAndTipsInfo", method = RequestMethod.POST)
     @ResponseBody
-    public String riskTipsInfo(@RequestParam(value = "xml") String xmlStr) {
+    public String blackListAndTipsInfo(@RequestParam(value = "xml") String xmlStr) {
         log.debug("接收协会黑名单或者风险提示信息报文：{}", xmlStr);
         //String pushListType = IsBlackEnum.ISBLACKE_02.getCode();
 
