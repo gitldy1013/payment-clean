@@ -21,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +73,7 @@ public class PcacRiskInfoPushController {
 
     @RequestMapping(value = "/localRiskMsg", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean reissueRiskInfo(@Validated ReissueRiskInfoReq reissueRiskInfoReq) {
+    public ResultBean reissueRiskInfo(@RequestBody @Validated ReissueRiskInfoReq reissueRiskInfoReq) {
         log.info("补发请求入参是：{}", reissueRiskInfoReq);
         /*if (StringUtils.isEmpty(reissueRiskInfoReq.getRiskType())){
             return new ResultBean(ResultBean.PARAM_ERR,"参数不能为空");
