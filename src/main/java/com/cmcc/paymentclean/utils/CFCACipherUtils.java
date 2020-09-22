@@ -172,6 +172,9 @@ public class CFCACipherUtils {
     public static String encrypt(byte[] symmetricKeyEncoded, String toBeEncData) {
         //AES加密后数据
         String encrytedData = null;
+        if(StringUtils.isEmpty(toBeEncData)){
+            return "";
+        }
 
         Map<String, String> encryptMap = new HashMap<String, String>();
         try {
