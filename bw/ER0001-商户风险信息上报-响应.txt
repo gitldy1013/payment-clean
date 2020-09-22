@@ -1,0 +1,24 @@
+<!--响应报文:-->
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009211537659670</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>ER0001</TrnxCode>
+            <TrnxTime>20200921154124</TrnxTime>
+            <SecretKey>g24vU+lFdVqnoeMEfW3mHFjsY4NLLrTBMnflMgQCqSa2zHGVfGuV6U6ZEEcMJmVEb4gLj0tu/NvQuzcupJoFOrwguAlH0He1b8IM0EFx8RC9GNbLHvJIIswV2t3bTxn9GAyxUB/WC9AovvSTQ8znEiXcxYrvcrx36etXznEmNgmxH5MaU7FBdP0/0DmqK0LuXS+v9VoaqVvSei2r6/GgeKrMA3xiQXkZRr6UR3cYasQb0ZoR6EodgkMM5/+2H+/jyDeIW7RalAuJQSwQR9Fj39+5zaf5slzLX5HxKUvvmbl2tDFPFW2W9CmoNqzgnx4YC1QfkCnufashIa9ji4xyIQ==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>商户风险信息,第1条数据上报成功!商户风险信息,第2条数据上报成功!</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>W/4hru1VpFVRht0RaFmW8UTV4artG0BeuUJ+70eRrAAFyGnHx7207jz5SeUBwJbVJI5p5S1u7rF67HPcWcwsjU0uLnM1DwIe7oJfcevocX0Kct8+z7DFCziCzCWoS4ewIr3emCkRMjlNJPgmlFhBlARV5VQDNGeOrxAOgWynPAAAN6DXw8iHTLiRKWfYpQO4yzqhZd2OYoM5XCOvyWCd7lXfpcvOy/26A8nr64+hKB99sL64lKmqKDKPCWVUQ3dBwRjQuBt8+TiOhC16Of0GyToHaQcaDCFiN+HywOWL0Rx7973RumvLUNgPsDRYtIrld1NvjfSD7OToehGK++VfaA==</Signature>
+</Document>
