@@ -403,6 +403,7 @@ create table query_pcac_merchant_risk_info
    up_date              varchar(20) comment '推送日期',
    merc_ids             varchar(128) comment '商户编号',
    operate_time         date comment '操作时间',
+   merc_ids         varchar(32) DEFAULT NULL comment '商户编号',
    primary key (query_pcac_merchant_risk_info_id)
 )comment = '查询协会商户风险信息表 ';
 
