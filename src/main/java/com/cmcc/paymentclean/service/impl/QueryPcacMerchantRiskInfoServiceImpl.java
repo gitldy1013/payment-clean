@@ -21,6 +21,7 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
+import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.BankInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.BankList;
@@ -37,13 +38,8 @@ import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
 import com.cmcc.paymentclean.mapper.QueryPcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
-import com.cmcc.paymentclean.utils.BeanUtilsEx;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.ExcelUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.SFTPUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.service.SysLanService;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -73,6 +69,9 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
 
     @Autowired
     private PcacConfig pcacConfig;
+
+    @Autowired
+    private SysLanService sysLanService;
 
     @Override
     public ResultBean<Body> batchQueryPcacMerchantRisk(List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReqs) {
@@ -201,6 +200,10 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
                 queryPcacMerchantRiskInfoResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(queryPcacMerchantRiskInfoResp.getCusProperty()));
                 queryPcacMerchantRiskInfoResp.setHandleResult(HandleResultEnum.getHandleResultDesc(queryPcacMerchantRiskInfoResp.getHandleResult()));
                 queryPcacMerchantRiskInfoResp.setOccurchan(OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
+                SysLan sysLan = sysLanService.getLanInfoById(queryPcacMerchantRiskInfoResp.getOccurarea());
+                if(null != sysLan){
+                    queryPcacMerchantRiskInfoResp.setOccurarea(sysLan.getLanName());
+                }
                 //联调测试
 //                queryPcacMerchantRiskInfoResp.setCount("99");
 //                queryPcacMerchantRiskInfoResp.setSubmitAmount("99");
@@ -236,11 +239,27 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
             queryPcacMerchantRiskInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegDocType()));
             queryPcacMerchantRiskInfoResp.setIsTransfer(IsTransferEnum.getIsTransferDesc(queryPcacMerchantRiskInfoResp.getIsTransfer()));
             queryPcacMerchantRiskInfoResp.setLegControlCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegControlCardType()));
+            queryPcacMerchantRiskInfoResp.setDocType(DocTypeEnum.getDocTypeDesc(queryPcacMerchantRiskInfoResp.getDocType()));
+            queryPcacMerchantRiskInfoResp.setCusType(CusTypeEnum.getCusTypeEnum(queryPcacMerchantRiskInfoResp.getCusType()));
+            queryPcacMerchantRiskInfoResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(queryPcacMerchantRiskInfoResp.getRiskType()));
+            queryPcacMerchantRiskInfoResp.setCusNature(CusNatureEnum.getCusNatureEnum(queryPcacMerchantRiskInfoResp.getCusNature()));
+            queryPcacMerchantRiskInfoResp.setSourceChannel(SourChaEnum.getSourChaEnum(queryPcacMerchantRiskInfoResp.getSourceChannel()));
+            queryPcacMerchantRiskInfoResp.setLegControlCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegControlCardType()));
+            queryPcacMerchantRiskInfoResp.setLegBenCardType(LegDocTypeEnum.getLegDocTypeDesc(queryPcacMerchantRiskInfoResp.getLegBenCardType()));
+            queryPcacMerchantRiskInfoResp.setLevel(LevelCodeEnum.getLevelDesc(queryPcacMerchantRiskInfoResp.getLevel()));
+            queryPcacMerchantRiskInfoResp.setFeedbackStatus(FeedbackStatusEnum.getFeedbackStatusDesc(queryPcacMerchantRiskInfoResp.getFeedbackStatus()));
+            queryPcacMerchantRiskInfoResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(queryPcacMerchantRiskInfoResp.getCusProperty()));
+            queryPcacMerchantRiskInfoResp.setHandleResult(HandleResultEnum.getHandleResultDesc(queryPcacMerchantRiskInfoResp.getHandleResult()));
+            queryPcacMerchantRiskInfoResp.setOccurchan(OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
+            SysLan sysLan = sysLanService.getLanInfoById(queryPcacMerchantRiskInfoResp.getOccurarea());
+            if(null != sysLan){
+                queryPcacMerchantRiskInfoResp.setOccurarea(sysLan.getLanName());
+            }
         }
 
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = sftpConfig.getQueryPcacMerchantRiskInfoFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+        String fileName = sftpConfig.getQueryPcacMerchantRiskInfoFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
         try {
             //文件名
             SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(queryPcacMerchantRiskInfoResps, QueryPcacMerchantRiskInfoResp.class);

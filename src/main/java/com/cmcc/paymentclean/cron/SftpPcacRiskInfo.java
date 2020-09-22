@@ -2,8 +2,10 @@ package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.config.SftpConfig;
 import com.cmcc.paymentclean.consts.*;
+import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
+import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.ExcelUtils;
 import com.cmcc.paymentclean.utils.SFTPUtils;
@@ -32,6 +34,9 @@ public class SftpPcacRiskInfo {
     @Autowired
     private SftpConfig sftpConfig;
 
+    @Autowired
+    private SysLanService sysLanService;
+
     public void run() {
         Date startDate = new Date();
         log.info("SftpPcacRiskInfoJob run start.....{}", startDate);
@@ -49,6 +54,10 @@ public class SftpPcacRiskInfo {
             pcacRiskInfoDTO.setCusType(CusTypeEnum.getCusTypeEnum(pcacRiskInfoDTO.getCusType()));
             pcacRiskInfoDTO.setRiskType(RiskTypeEnum.getRiskTypeDesc(pcacRiskInfoDTO.getRiskType()));
             pcacRiskInfoDTO.setLevel(LevelCodeEnum.getLevelDesc(pcacRiskInfoDTO.getLevel()));
+            SysLan sysLan = sysLanService.getLanInfoById(pcacRiskInfoDTO.getOccurarea());
+            if(null != sysLan){
+                pcacRiskInfoDTO.setOccurarea(sysLan.getLanName());
+            }
         }
         List<String> ids = new ArrayList<>();
         for (PcacRiskInfoDTO pcacRiskInfoDTO : pcacRiskInfos) {
@@ -56,7 +65,7 @@ public class SftpPcacRiskInfo {
         }
         //生成excel文件
         ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = sftpConfig.getPcacRiskInfoFileNamePrefix() + System.currentTimeMillis() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+        String fileName = sftpConfig.getPcacRiskInfoFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
         try {
             //文件名
             SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(pcacRiskInfos, PcacRiskInfoDTO.class);

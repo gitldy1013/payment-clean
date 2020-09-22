@@ -48,6 +48,7 @@ public class RiskPersonRiskSyncInfoServiceImpl extends ServiceImpl<RiskPersonRis
                 riskPersonRiskSyncInfo.setRiskType(this.splitStrs(riskPersonRiskSyncInfo.getRiskType()));
                 riskPersonRiskSyncInfo.setSourceChannel(this.splitStrs(riskPersonRiskSyncInfo.getSourceChannel()));
                 riskPersonRiskSyncInfo.setOperateTime(new Date(System.currentTimeMillis()));
+                riskPersonRiskSyncInfo.setOccurarea(this.splitStrs(riskPersonRiskSyncInfo.getOccurarea()));
                 QueryWrapper<RiskPersonRiskSyncInfo> queryWrapper = new QueryWrapper();
                 queryWrapper.eq("usrNo",riskPerson.getUsrNo());
                 RiskPersonRiskSyncInfo riskPerson1 = super.getOne(queryWrapper);

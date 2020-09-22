@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
+import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.BankInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.BankList;
@@ -22,6 +23,7 @@ import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacEnterpriseRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
+import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -56,6 +58,9 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
     @Autowired
     private PcacConfig pcacConfig;
 
+    @Autowired
+    private SysLanService sysLanService;
+
     @Override
     public ResultBean<Page<RiskEnterpriseResp>> pageRiskEnterprise(RiskEnterpriseReq riskEnterpriseReq) {
         log.info("pageRiskEnterprise req={}", com.alibaba.fastjson.JSON.toJSON(riskEnterpriseReq));
@@ -77,6 +82,10 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
                 riskEnterpriseResp.setSourceChannel(SourChaEnum.getSourChaEnum(riskEnterpriseResp.getSourceChannel()));
                 riskEnterpriseResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskEnterpriseResp.getRiskType()));
                 riskEnterpriseResp.setMsgType(MsgTypeEnum.MsgTypeEnum_04.getDesc());
+                SysLan sysLan = sysLanService.getLanInfoById(riskEnterpriseResp.getOccurarea());
+                if(null != sysLan){
+                    riskEnterpriseResp.setOccurarea(sysLan.getLanName());
+                }
             }
         }
         resultBean.setData(pagePcacEnterpriseRiskSubmitInfo);

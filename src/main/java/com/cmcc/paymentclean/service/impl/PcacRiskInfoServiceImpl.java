@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
+import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.*;
@@ -17,6 +18,7 @@ import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
+import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -55,6 +57,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     @Autowired
     private PcacRiskInfoMapper pcacRiskInfoMapper;
 
+    @Autowired
+    private SysLanService sysLanService;
+
     @Override
     public ResultBean<Page<PcacRiskInfoResp>> pagePcacRiskInfo(PcacRiskInfoReq riskInfoReq) {
         log.info("pagePcacRiskInfo req={}", com.alibaba.fastjson.JSON.toJSON(riskInfoReq));
@@ -72,6 +77,10 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
                 riskPersonResp.setLevel(LevelCodeEnum.getLevelDesc(riskPersonResp.getLevel()));
                 riskPersonResp.setPushListType(PushListTypeEnum.getPushListTypeDesc(riskPersonResp.getPushListType()));
+                SysLan sysLan = sysLanService.getLanInfoById(riskPersonResp.getOccurarea());
+                if(null != sysLan){
+                    riskPersonResp.setOccurarea(sysLan.getLanName());
+                }
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
