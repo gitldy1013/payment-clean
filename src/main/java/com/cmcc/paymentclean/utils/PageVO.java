@@ -15,9 +15,9 @@ public class PageVO implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(PageVO.class);
     private static final long serialVersionUID = 1L;
     @ApiModelProperty("页码")
-    private Integer pageNo = Integer.valueOf(1);
+    private Integer pageNo = 1;
     @ApiModelProperty("每页数量")
-    private Integer pageSize = Integer.valueOf(10);
+    private Integer pageSize = 10;
     @ApiModelProperty("排序字段")
     private String sortName;
     @ApiModelProperty("排序方向")
