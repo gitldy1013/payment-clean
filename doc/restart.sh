@@ -24,7 +24,7 @@ if [ ${tpid} ]; then
     echo 'App is already running.'
 else
     echo 'App is NOT running.'
-    nohup java -jar $PROJECT_PATH$PROJECT_NAME >/dev/null 2>&1 &
+    nohup java -Dfile.encoding=utf-8 -jar -Dspring.profiles.active=test $PROJECT_PATH$PROJECT_NAME >/dev/null 2>&1 &
     echo Start Success!
     sleep 3
     tail -f $PROJECT_PATH$PROJECT_ALL_LOG_NAME
