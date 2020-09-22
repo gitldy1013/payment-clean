@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.Date;
  * @author lumma
  * @since 2020-09-08
  * @version v1.0 */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(value = "风险商户查询请求参数")
 public class RiskMerchantReq extends PageVO implements Serializable {

@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -131,7 +132,7 @@ public class HttpClientUtils {
             int statusCode = response.getStatusLine().getStatusCode();
             log.info("HttpClient响应码={}", statusCode);
             if (statusCode == 200) {
-                result = EntityUtils.toString(response.getEntity(), "utf-8");
+                result = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
             } else {
                 log.error("HttpClient请求失败，错误码={}", statusCode);
             }
@@ -196,7 +197,7 @@ public class HttpClientUtils {
         log.info("Post请求params：{}", xml);
         ArrayList<BasicNameValuePair> basicNameValuePairsList = new ArrayList<>();
         basicNameValuePairsList.add(new BasicNameValuePair("xml", xml));
-        UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(basicNameValuePairsList, "UTF-8");
+        UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(basicNameValuePairsList, StandardCharsets.UTF_8);
         HttpPost httpPost = new HttpPost(url);
        // httpPost.addHeader("Content-Type", "application/json; charset=utf-8");
         httpPost.setEntity(urlEncodedFormEntity);

@@ -109,7 +109,7 @@ public class CFCACipherUtils {
             X509Cert cert = new X509Cert(fin);
             Signature sigUtil = new Signature();
             PublicKey pubKey = cert.getPublicKey();
-            if (sigUtil.p1VerifyMessage(Mechanism.SHA1_RSA, srcData.getBytes("UTF-8"), Base64.decode(encodedSignature), pubKey, session)) {
+            if (sigUtil.p1VerifyMessage(Mechanism.SHA1_RSA, srcData.getBytes(StandardCharsets.UTF_8), Base64.decode(encodedSignature), pubKey, session)) {
                 logger.info("RSA P1 verify OK!");
                 return true;
             }
@@ -184,7 +184,7 @@ public class CFCACipherUtils {
 
             // 对称加密
             Cipher cipher = Cipher.getInstance("AES");// 创建密码器
-            byte[] byteContent = toBeEncData.getBytes("UTF-8");
+            byte[] byteContent = toBeEncData.getBytes(StandardCharsets.UTF_8);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] result = cipher.doFinal(byteContent);
 
@@ -225,7 +225,7 @@ public class CFCACipherUtils {
             Cipher cipher = Cipher.getInstance("AES");// 创建密码器
             cipher.init(Cipher.DECRYPT_MODE, symmetricKey);
             byte[] result = cipher.doFinal(Base64.decode(toBeDecStr));
-            decryptedData = new String(result, "UTF-8");
+            decryptedData = new String(result, StandardCharsets.UTF_8);
             logger.info("解密后的原文数据:{}", decryptedData);
 
         } catch (Exception e) {

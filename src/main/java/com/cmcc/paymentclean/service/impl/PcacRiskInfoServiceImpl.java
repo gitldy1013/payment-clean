@@ -114,7 +114,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         if (StringUtils.isEmpty(pushListType)) {
             pushListType = IsBlackEnum.ISBLACKE_01.getCode();
         }
-        QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper();
+        QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper<PcacRiskInfo>();
         queryWrapper.eq("push_List_Type", pushListType);
         queryWrapper.eq("push_status", "0");
         List<PcacRiskInfo> pcacRiskInfos = this.list(queryWrapper);
@@ -176,8 +176,8 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
             body.setReqDateEnd("");
         }
         log.info("请求体body参数：{}", body);
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document();
-        Request request = new Request();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body>();
+        Request<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> request = new Request<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body>();
         request.setHead(head);
         request.setBody(body);
         document.setRequest(request);
@@ -213,7 +213,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     @Override
     public List<PcacRiskInfoDTO> listAll() {
         List<PcacRiskInfoDTO> pcacRiskInfoDTOs = new ArrayList<>();
-        QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper();
+        QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper<PcacRiskInfo>();
         queryWrapper.eq("push_status", "0");
         List<PcacRiskInfo> pcacRiskInfos = this.list(queryWrapper);
         if (!CollectionUtils.isEmpty(pcacRiskInfos)) {

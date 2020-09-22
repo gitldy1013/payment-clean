@@ -34,7 +34,7 @@ public class XmlJsonUtils {
         xmlSerializer.setTypeHintsEnabled(false);
         xmlSerializer.isTrimSpaces();
         xmlSerializer.setRootName("Document");
-        String xml = xmlSerializer.write(JSONSerializer.toJSON(jsonString), "utf-8");
+        String xml = xmlSerializer.write(JSONSerializer.toJSON(jsonString), "UTF-8");
         String resXml = xml.replaceAll("<o>", "")
                 .replaceAll("</o>", "")
                 .replaceAll("<e>", "")
@@ -156,7 +156,7 @@ public class XmlJsonUtils {
         int i; //生成的随机数
         int count = 0; //生成的密码的长度
         char[] str = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        StringBuffer pwd = new StringBuffer("");
+        StringBuilder pwd = new StringBuilder("");
         Random r = new Random();
         while(count < card_len){
             //生成随机数，取绝对值，防止生成负数
