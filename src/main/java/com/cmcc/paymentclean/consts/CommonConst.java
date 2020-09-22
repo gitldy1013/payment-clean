@@ -19,4 +19,9 @@ public class CommonConst {
      * SFTP_FILE_NAME_SUFFIX SFTP文件后缀
      */
     public static String SFTP_FILE_NAME_SUFFIX = ".xlsx";
+
+    /**
+     * SFTP_TXT_FILE_NAME_SUFFIX SFTP_txt文件后缀
+     */
+    public static String SFTP_TXT_FILE_NAME_SUFFIX = ".txt";
 }

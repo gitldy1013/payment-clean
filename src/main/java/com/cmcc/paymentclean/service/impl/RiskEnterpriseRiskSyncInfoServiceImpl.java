@@ -71,7 +71,7 @@ public class RiskEnterpriseRiskSyncInfoServiceImpl extends ServiceImpl<RiskEnter
         if(StringUtils.isEmpty(strings)){
             return strings;
         }
-        String [] strs = strings.split("|");
+        String [] strs = strings.split("\\|");
         return strs[0];
     }
 }

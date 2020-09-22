@@ -19,6 +19,9 @@ public class PcacRiskInfoDTO implements Serializable {
     @ApiModelProperty(value = "id序号")
     private String pcacRiskInfoId;
 
+    @ApiModelProperty(value = "推送名单类型")
+    private String pushListType;
+
     @ExcelExportField(name = "推送日期", index = 1)
     @ApiModelProperty(value = "推送日期")
     private String upDate;
