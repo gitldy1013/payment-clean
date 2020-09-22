@@ -42,10 +42,10 @@ public class CFCACipherUtils {
     //private static String pfxFilePwd = "11111111";
     // 签名证书公钥证书
     //private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac.cer";
-    private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac.cer";
+    private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"cert/pcac.cer";
 
     // 解密证书（带私钥）
-    private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/huiyuan.pfx";
+    private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"cert/huiyuan.pfx";
     // 解密证书保护密码
     private static String encPfxFilePwd = "cfca1234";
     // 加密证书公钥证书
@@ -108,7 +108,7 @@ public class CFCACipherUtils {
             X509Cert cert = new X509Cert(fin);
             Signature sigUtil = new Signature();
             PublicKey pubKey = cert.getPublicKey();
-            if (sigUtil.p1VerifyMessage(Mechanism.SHA1_RSA, srcData.getBytes("UTF8"), Base64.decode(encodedSignature), pubKey, session)) {
+            if (sigUtil.p1VerifyMessage(Mechanism.SHA1_RSA, srcData.getBytes("UTF-8"), Base64.decode(encodedSignature), pubKey, session)) {
                 logger.info("RSA P1 verify OK!");
                 return true;
             }

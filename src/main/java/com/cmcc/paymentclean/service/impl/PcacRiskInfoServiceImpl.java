@@ -172,7 +172,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     }
 
     private ResultBean doReissueRiskInfo(String result) {
-        log.info("信息补发申请清算协会响应xml报文：", result);
+        log.info("信息补发申请清算协会响应xml报文：{}", result);
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                 (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
         String signatureResp = documentResp.getSignature();
@@ -194,7 +194,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
 
                 if (null == pcacList || pcacList.getRiskInfo().size() == 0) {
-                    return new ResultBean(ResultBean.SUCCESS_CODE, "该日期无需要补发数据");
+                    return new ResultBean("该日期无需要补发数据",ResultBean.SUCCESS_CODE);
                 } else {
                     QueryInfo queryInfo = respBody.getQueryInfo();
                     //这里的RiskType为申请补发类型， 01 黑名单 02 风险提示信息
@@ -229,7 +229,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                         String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
                         String encryptLegDocCode = null;
                         //判断证件类型是身份证就进行内部加密
-                        if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
+                        if (!StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
                             encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
                         }
                         riskInfo.setLegDocCode(encryptLegDocCode);
@@ -245,14 +245,14 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
 
                     }
-                    log.debug("需要入库风险信息：", pcacRiskInfoList);
+                    log.info("需要入库风险信息：{}", pcacRiskInfoList);
                     pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
-                    return new ResultBean(ResultBean.SUCCESS_CODE, "信息补发成功");
+                    return new ResultBean("信息补发成功",ResultBean.SUCCESS_CODE);
                 }
 
             }
              else {
-            return new ResultBean(ResultBean.UNSPECIFIED_CODE, "风险信息补发失败");
+            return new ResultBean("风险信息补发失败",ResultBean.UNSPECIFIED_CODE);
         }
 
 
