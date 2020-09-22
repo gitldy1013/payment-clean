@@ -3,6 +3,7 @@ package com.cmcc.paymentclean.utils;
 import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.union.api.UnionCSSP;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 
 import java.nio.charset.Charset;
 
@@ -17,14 +18,14 @@ public class InnerCipherUtils {
 
     private static UnionCSSP cssp = new UnionCSSP();
 
+    private static final String BANKKN = "HX.BANKDATA.zek";
+    private static final String USERKN = "HX.USERDATA.zek";
+
     /**
      * 加密用户身份证号
      * */
     public static String encryptUserData(String message) {
-        String keyName = "HX.USERDATA.zek";
-        String encryptData = encrypt(message, keyName);
-        return encryptData;
-
+        return doCheck(message)?"":encrypt(message, USERKN);
     }
 
    private static String encrypt(String message,String keyName){
@@ -70,19 +71,21 @@ public class InnerCipherUtils {
      * 解密用户身份证号
      * */
     public static String decryptUserData(String message) {
-        String keyName = "HX.USERDATA.zek";
-        String decryptData = decrypt(message, keyName);
-        return decryptData;
+        return doCheck(message)?"":encrypt(message, USERKN);
     }
 
     /**
      * 加密银行卡号
      * */
     public static String encryptBankData(String message ) {
-        String keyName = "HX.BANKDATA.zek";
-        String encryptData = encrypt(message, keyName);
-        return encryptData;
+        return doCheck(message)?"":encrypt(message, BANKKN);
+    }
 
+    private static boolean doCheck(String message) {
+        if(StringUtils.isEmpty(message)){
+            return true;
+        }
+        return false;
     }
 
     private static String decrypt(String message,String keyName ){
@@ -124,9 +127,7 @@ public class InnerCipherUtils {
      * 解密银行卡号
      * */
     public static String decryptBankData(String message) {
-        String keyName = "HX.BANKDATA.zek";
-        String decryptData = decrypt(message, keyName);
-        return decryptData;
+        return doCheck(message)?"":encrypt(message, BANKKN);
     }
 
 
