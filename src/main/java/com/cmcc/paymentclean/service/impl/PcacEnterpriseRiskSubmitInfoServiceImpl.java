@@ -5,7 +5,15 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.*;
+import com.cmcc.paymentclean.consts.CommonConst;
+import com.cmcc.paymentclean.consts.DocTypeEnum;
+import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.MsgDetailEnum;
+import com.cmcc.paymentclean.consts.MsgTypeEnum;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.RiskTypeEnum;
+import com.cmcc.paymentclean.consts.SourChaEnum;
+import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -20,7 +28,6 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
-import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacEnterpriseRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
@@ -130,7 +137,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
                 "        <ResultCode>01</ResultCode>\n" +
                 "    </RespInfo>\n" +
                 "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         log.info("协会返回数据对象:{}", doc);
         for (PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo : PcacEnterpriseRiskSubmitInfos) {
             UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());

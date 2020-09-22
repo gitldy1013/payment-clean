@@ -39,7 +39,14 @@ import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
 import com.cmcc.paymentclean.mapper.QueryPcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
-import com.cmcc.paymentclean.utils.*;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.DateUtils;
+import com.cmcc.paymentclean.utils.ExcelUtils;
+import com.cmcc.paymentclean.utils.HttpClientUtils;
+import com.cmcc.paymentclean.utils.SFTPUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
+import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -139,7 +146,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         log.info("响应报文：{}", XmlJsonUtils.formatXml(post));
         log.info("url:{}", pcacConfig.getUrl());
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         String secretKey = resDoc.getRespone().getHead().getSecretKey();
         Body resBody = resDoc.getRespone().getBody();
         log.info("pcac.ries.005 协会返回数据对象:{}", resBody);
@@ -336,7 +343,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         //上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         log.info("响应报文:{}", XmlJsonUtils.formatXml(post));
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         Body resBody = resDoc.getRespone().getBody();
         log.info("pcac.ries.045 协会返回数据对象:{}", resBody);
         RespInfo respInfo = resBody.getRespInfo();

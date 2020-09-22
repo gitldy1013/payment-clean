@@ -42,10 +42,10 @@ import javax.xml.bind.annotation.XmlType;
     "signature"
 })
 @XmlRootElement(name = "Document")
-public class Document {
+public class Document<T> {
 
     @XmlElement(name = "Request", required = true)
-    protected Request request;
+    protected Request<T> request;
     @XmlElement(name = "Signature", required = true)
     protected String signature;
 
@@ -57,7 +57,7 @@ public class Document {
      *     {@link Request }
      *
      */
-    public Request getRequest() {
+    public Request<T> getRequest() {
         return request;
     }
 
@@ -69,7 +69,7 @@ public class Document {
      *     {@link Request }
      *
      */
-    public void setRequest(Request value) {
+    public void setRequest(Request<T> value) {
         this.request = value;
     }
 

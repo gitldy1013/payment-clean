@@ -5,7 +5,18 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.config.SftpConfig;
-import com.cmcc.paymentclean.consts.*;
+import com.cmcc.paymentclean.consts.AccountTypeEnum;
+import com.cmcc.paymentclean.consts.ChageTypeEnum;
+import com.cmcc.paymentclean.consts.CommonConst;
+import com.cmcc.paymentclean.consts.DocTypeEnum;
+import com.cmcc.paymentclean.consts.ExpandTypeEnum;
+import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.OpenTypeEnum;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.RiskTypeEnum;
+import com.cmcc.paymentclean.consts.StatusEnum;
+import com.cmcc.paymentclean.consts.SubmitStatusEnum;
+import com.cmcc.paymentclean.consts.UnitPropEnum;
 import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -14,8 +25,11 @@ import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.*;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ResultCondition;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Condition;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.ConditionList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.ResultInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.SingInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
@@ -212,7 +226,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                     "        <ResultCode>01</ResultCode>\n" +
                     "    </RespInfo>\n" +
                     "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
+        Body resBody = resDoc.getRespone().getBody();
         log.info("协会返回数据对象:{}", resBody);
         for (BusinessInfo pcacMerchantRiskSubmitInfo : businessInfos) {
             UpdateWrapper<BusinessInfo> updateWrapper = new UpdateWrapper<BusinessInfo>();
@@ -326,7 +341,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                     "        <ResultCode>01</ResultCode>\n" +
                     "    </RespInfo>\n" +
                     "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         log.info("协会返回数据对象:{}", resDoc);
         return resDoc;
     }
@@ -335,7 +350,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     public ResultBean<?> getBusinessInfoXML(String xml) {
         log.info("接收的xml:{}", xml);
         //pcac.ries.032
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class, xml);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body) XmlJsonUtils.convertXmlStrToObject(xml,com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class);
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
             List<Condition> conditions = conditionLists.getCondition();

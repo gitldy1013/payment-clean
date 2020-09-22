@@ -4,18 +4,33 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.*;
+import com.cmcc.paymentclean.consts.CommonConst;
+import com.cmcc.paymentclean.consts.CusTypeEnum;
+import com.cmcc.paymentclean.consts.DocTypeEnum;
+import com.cmcc.paymentclean.consts.IsBlackEnum;
+import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.LevelCodeEnum;
+import com.cmcc.paymentclean.consts.PushListTypeEnum;
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
+import com.cmcc.paymentclean.consts.RiskTypeEnum;
+import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.*;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Head;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.QueryInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
 import com.cmcc.paymentclean.exception.SubmitPCACException;
-import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
@@ -33,8 +48,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 /**
  * <p>
@@ -219,7 +237,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     private ResultBean doReissueRiskInfo(String result) {
         log.info("信息补发申请清算协会响应xml报文：{}", result);
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
-                (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+                (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(result, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         String signatureResp = documentResp.getSignature();
         log.info("响应报文的签名串signature：{}", signatureResp);
         documentResp.setSignature(null);

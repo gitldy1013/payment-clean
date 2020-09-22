@@ -8,9 +8,9 @@ import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.RiskInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document027Wapper;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Request027Wapper;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
@@ -22,7 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,14 +62,14 @@ public class PcacRiskInfoPushController {
     private String saveRiskInfo(String xmlStr) {
         String doXml = null;
         String pushListType = null;
-        Document document = (Document) XmlJsonUtils.convertXmlStrToObject(Document.class, xmlStr);
+        Document027Wapper document = (Document027Wapper) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document027Wapper.class);
         String signature = document.getSignature();
         document.setSignature(null);
         String noSignatureXml = XmlJsonUtils.convertObjectToXmlStr(document);
         log.debug("验签使用的原数据xml：{}", noSignatureXml);
-        boolean isSign = CFCACipherUtils.verifySignature(noSignatureXml, signature);
-        log.info("-------风险信息推送验证签名结果为：{}", isSign);
-        Request request = document.getRequest();
+        //boolean isSign = CFCACipherUtils.verifySignature(noSignatureXml, signature);
+        //log.info("-------风险信息推送验证签名结果为：{}", isSign);
+        Request027Wapper request = document.getRequest();
         Head head = request.getHead();
         String trnxCode = head.getTrnxCode();
         if (TrnxCodeEnum.BLACKLIST_PUSH.getCode().equals(trnxCode)){
@@ -76,7 +80,7 @@ public class PcacRiskInfoPushController {
         }
         log.info("清算协会推送的风险类型是：{}",pushListType);
         String secretKey = head.getSecretKey();
-        Body body = (Body) request.getBody();
+        Body body = request.getBody();
         PcacList pcacList = body.getPcacList();
         String upDate = pcacList.getUpDate();
         List<RiskInfo> riskInfoList = pcacList.getRiskInfo();
@@ -118,7 +122,7 @@ public class PcacRiskInfoPushController {
         }
         log.debug("需要入库风险信息：{}", pcacRiskInfoList);
         doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
-        log.info("响应协会黑名单或者风险提示信息报文",doXml);
+        log.info("响应协会黑名单或者风险提示信息报文:{}",doXml);
         return doXml;
     }
 

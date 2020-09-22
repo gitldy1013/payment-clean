@@ -167,7 +167,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
                 log.info("----------------------------------------------打印个人风险信息响应参数：--------");
                 log.info("个人风险信息上报支付清算协会响应xml报文：", result);
                 com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
-                        (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+                        (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(result,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
                 String signatureResp = documentResp.getSignature();
                 log.info("响应报文的签名串signature：{}", signatureResp);
                 documentResp.setSignature(null);

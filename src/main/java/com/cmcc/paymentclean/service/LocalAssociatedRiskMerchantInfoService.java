@@ -1,7 +1,6 @@
 package com.cmcc.paymentclean.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;

@@ -84,7 +84,7 @@ public class LoginPcacServiceImpl implements LoginPcacService {
             String result = HttpClientUtils.sendHttpsPost(pcacConfig.getLoginUrl(), xml);
             log.info("登录清算协会响应报文：{}", result);
             com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
-                    (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+                    (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(result, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
 
   /*          //添加验签逻辑
             String signature1 = documentResp.getSignature();

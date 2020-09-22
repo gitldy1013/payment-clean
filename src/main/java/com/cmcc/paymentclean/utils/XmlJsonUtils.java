@@ -130,7 +130,7 @@ public class XmlJsonUtils {
     /**
      * 将String类型的xml转换成对象
      */
-    public static Object convertXmlStrToObject(Class clazz, String xmlStr) {
+    public static Object convertXmlStrToObject(String xmlStr,Class... clazz) {
         Object xmlObject = null;
         try {
             JAXBContext context = JAXBContext.newInstance(clazz);
@@ -143,10 +143,6 @@ public class XmlJsonUtils {
             log.info("解析xml报文为对象出错");
         }
         return xmlObject;
-    }
-
-    public static void main(String[] args) {
-
     }
 
     /**

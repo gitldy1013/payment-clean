@@ -50,7 +50,7 @@ public class PcacAssistanceController {
     }
 
     private String saveAssistanceInfo(String xmlStr) {
-        Document document = (Document) XmlJsonUtils.convertXmlStrToObject(Document.class, xmlStr);
+        Document document = (Document) XmlJsonUtils.convertXmlStrToObject(xmlStr,Document.class);
         String signature = document.getSignature();
         document.setSignature(null);
         String noSignatureXml = XmlJsonUtils.convertObjectToXmlStr(document);
