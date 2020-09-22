@@ -214,8 +214,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         documentResp.setSignature(null);
         String noSignXmlResp = XmlJsonUtils.convertObjectToXmlStr(documentResp);
         log.info("不加签名信息的响应报文xml串：{}", noSignXmlResp);
+        //验签失败的原因是去掉signature的document对象转xml串后顺序与协会返回结果串字段不一致
         boolean isSign = CFCACipherUtils.verifySignature(noSignXmlResp, signatureResp);
-        log.info("-------信息补发验证签名结果为：{}", isSign);
+        //log.info("-------信息补发验证签名结果为：{}", isSign);
         Respone respone = documentResp.getRespone();
         Head respHead = respone.getHead();
         String secretKey = respHead.getSecretKey();

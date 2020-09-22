@@ -165,7 +165,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
                 String noSignXmlResp = XmlJsonUtils.convertObjectToXmlStr(documentResp);
                 log.info("不加签名信息的响应报文xml串：{}", noSignXmlResp);
                 boolean isSign = CFCACipherUtils.verifySignature(noSignXmlResp, signatureResp);
-                if (isSign) {
+              //  if (isSign) {
                     Respone respone = documentResp.getRespone();
                     RespInfo respInfo = respone.getBody().getRespInfo();
                     if ("S00000".equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
@@ -181,11 +181,11 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
                     }
 
-                } else {
+              /*  } else {
                     log.info("------响应报文验签失败-------");
                     throw new SubmitPCACException(ResultCodeEnum.SIGNATURE_FALSE.getCode(), ResultCodeEnum.SIGNATURE_FALSE.getDesc());
 
-                }
+                }*/
 
             } else {
                 log.info("----------xsd文件校验xml格式失败-------");
