@@ -1,8 +1,6 @@
 package com.cmcc.paymentclean.utils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -22,7 +20,9 @@ public class TxtFileUtil {
         if (!file.isFile()) {
             file.createNewFile();
         }
-        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+        FileOutputStream writerStream = new FileOutputStream(file);
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(writerStream, "UTF-8"));
+
         for (String l:strings){
             writer.write(l + "\r\n");
         }

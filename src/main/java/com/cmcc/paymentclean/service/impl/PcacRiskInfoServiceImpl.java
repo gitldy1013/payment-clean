@@ -181,6 +181,30 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         return resultBean;
     }
 
+    @Override
+    public List<PcacRiskInfoDTO> listAll() {
+        List<PcacRiskInfoDTO> pcacRiskInfoDTOs = new ArrayList<>();
+        QueryWrapper<PcacRiskInfo> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("push_status", "0");
+        List<PcacRiskInfo> pcacRiskInfos = this.list(queryWrapper);
+        if (!CollectionUtils.isEmpty(pcacRiskInfos)) {
+            for (PcacRiskInfo pcacRiskInfo : pcacRiskInfos) {
+                PcacRiskInfoDTO pcacRiskInfoDTO = new PcacRiskInfoDTO();
+                BeanUtils.copyProperties(pcacRiskInfo, pcacRiskInfoDTO);
+                try {
+                    String regName = new String(pcacRiskInfo.getRegName(), "UTF-8");
+                    pcacRiskInfoDTO.setRegName(regName);
+                    pcacRiskInfoDTO.setPcacRiskInfoId(pcacRiskInfo.getPcacRiskInfoId().toString());
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                pcacRiskInfoDTOs.add(pcacRiskInfoDTO);
+            }
+        }
+
+        return pcacRiskInfoDTOs;
+    }
+
     private ResultBean doReissueRiskInfo(String result) {
         log.info("信息补发申请清算协会响应xml报文：{}", result);
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =

@@ -41,4 +41,6 @@ public interface PcacRiskInfoService {
 
 
     ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq);
+
+    List<PcacRiskInfoDTO> listAll();
 }

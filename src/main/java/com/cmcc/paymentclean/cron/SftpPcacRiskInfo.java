@@ -9,6 +9,7 @@ import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.ExcelUtils;
 import com.cmcc.paymentclean.utils.SFTPUtils;
+import com.cmcc.paymentclean.utils.TxtFileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,41 +43,48 @@ public class SftpPcacRiskInfo {
         Date startDate = new Date();
         log.info("SftpPcacRiskInfoJob run start.....{}", startDate);
         //1.先取出加黑的所有名单数据
-        List<PcacRiskInfoDTO> pcacRiskInfos = pcacRiskInfoService.listByIsBlack(IsBlackEnum.ISBLACKE_01.getCode());
+        List<PcacRiskInfoDTO> pcacRiskInfos = pcacRiskInfoService.listAll();
         if (CollectionUtils.isEmpty(pcacRiskInfos)) {
             return;
         }
+        List<String> fileList = new ArrayList<>();
+//        fileList.add("推送名单类型|推送日期|商户名称|商户简称|法人证件类型|法人证件号码|法定代表人姓名|法定代表人类型|法定代表人（负责人） 证件号码|风险信息等级|" +
+//                "风险类型|有效期|有效性|商户类型|风险事件发生地域|银行结算账户|网址|商户注册号");
+
         for(PcacRiskInfoDTO pcacRiskInfoDTO:pcacRiskInfos){
-            Date validDate = DateUtils.stringToDate(pcacRiskInfoDTO.getValidDate(),"yyyy-MM-dd");
-            String validStatus = (new Date().before(validDate)) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
-            pcacRiskInfoDTO.setValidStatus(validStatus);
-            pcacRiskInfoDTO.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(pcacRiskInfoDTO.getLegDocType()));
-            pcacRiskInfoDTO.setDocType(DocTypeEnum.getDocTypeDesc(pcacRiskInfoDTO.getDocType()));
-            pcacRiskInfoDTO.setCusType(CusTypeEnum.getCusTypeEnum(pcacRiskInfoDTO.getCusType()));
-            pcacRiskInfoDTO.setRiskType(RiskTypeEnum.getRiskTypeDesc(pcacRiskInfoDTO.getRiskType()));
-            pcacRiskInfoDTO.setLevel(LevelCodeEnum.getLevelDesc(pcacRiskInfoDTO.getLevel()));
-            SysLan sysLan = sysLanService.getLanInfoById(pcacRiskInfoDTO.getOccurarea());
-            if(null != sysLan){
-                pcacRiskInfoDTO.setOccurarea(sysLan.getLanName());
-            }
+            String str = "";
+            str = setStr(str,pcacRiskInfoDTO.getPushListType(),true);
+            str = setStr(str,pcacRiskInfoDTO.getUpDate(),true);
+            str = setStr(str, pcacRiskInfoDTO.getRegName(), true);
+            str = setStr(str,pcacRiskInfoDTO.getCusName(),true);
+            str = setStr(str,pcacRiskInfoDTO.getDocType(),true);
+            str = setStr(str,pcacRiskInfoDTO.getDocCode(),true);
+            str =  setStr(str,pcacRiskInfoDTO.getLegDocName(),true);
+            str = setStr(str,pcacRiskInfoDTO.getLegDocType(),true);
+            str = setStr(str,pcacRiskInfoDTO.getLegDocCode(),true);
+            str = setStr(str,pcacRiskInfoDTO.getLevel(),true);
+            str = setStr(str,pcacRiskInfoDTO.getRiskType(),true);
+            str = setStr(str,pcacRiskInfoDTO.getValidDate(),true);
+            str = setStr(str,pcacRiskInfoDTO.getValidStatus(),true);
+            str = setStr(str,pcacRiskInfoDTO.getCusType(),true);
+            str = setStr(str,pcacRiskInfoDTO.getOccurarea(),true);
+            str = setStr(str,pcacRiskInfoDTO.getBankNo(),true);
+            str = setStr(str,pcacRiskInfoDTO.getUrl(),true);
+            str = setStr(str,pcacRiskInfoDTO.getRegisteredCode(),false);
+            fileList.add(str);
         }
         List<String> ids = new ArrayList<>();
         for (PcacRiskInfoDTO pcacRiskInfoDTO : pcacRiskInfos) {
             ids.add(pcacRiskInfoDTO.getPcacRiskInfoId());
         }
-        //生成excel文件
-        ExcelUtils excelUtils = new ExcelUtils();
-        String fileName = sftpConfig.getPcacRiskInfoFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
+
+        //生成txt文件
+        String fileName = sftpConfig.getPcacRiskInfoFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_TXT_FILE_NAME_SUFFIX;
+        //写本地文件
         try {
-            //文件名
-            SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(pcacRiskInfos, PcacRiskInfoDTO.class);
-            FileOutputStream fos = new FileOutputStream(sftpConfig.getModDir() + fileName);
-            sxssfWorkbook.write(fos);
-            // dispose of temporary files backing this workbook on disk -> 处理SXSSFWorkbook导出excel时，产生的临时文件
-            sxssfWorkbook.dispose();
-            fos.close();
-        } catch (Exception e1) {
-            e1.printStackTrace();
+            TxtFileUtil.writeFileContext(fileList, sftpConfig.getModDir() + fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //上传文件

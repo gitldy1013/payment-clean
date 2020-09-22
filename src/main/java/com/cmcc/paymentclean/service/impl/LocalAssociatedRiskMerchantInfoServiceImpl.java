@@ -26,6 +26,7 @@ import com.cmcc.paymentclean.utils.HttpClientUtils;
 import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -128,9 +129,9 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
             riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, localAssociatedRiskMerchantInfo.getRegName()));
             riskInfo.setCurrency("CNY");
             riskInfo.setAmount(armbr.getAmount());
-            riskInfo.setDocType(armbr.getDocType());
+            riskInfo.setDocType(this.splitStrs(armbr.getDocType()));
             riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, armbr.getDocCode()));
-            riskInfo.setHandleResult(armbr.getHandleResult());
+            riskInfo.setHandleResult(this.splitStrs(armbr.getHandleResult()));
             riskInfo.setHandleTime(DateUtils.formatTime(new Date(), DateUtils.FORMAT_DATE));
             riskInfos.add(riskInfo);
             pcacList.setRiskInfo(riskInfos);
@@ -165,4 +166,11 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         return resultBean;
     }
 
+    private String splitStrs(String strings){
+        if(StringUtils.isEmpty(strings)){
+            return strings;
+        }
+        String [] strs = strings.split("\\|");
+        return strs[0];
+    }
 }

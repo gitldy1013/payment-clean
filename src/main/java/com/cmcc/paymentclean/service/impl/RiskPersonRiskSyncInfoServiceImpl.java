@@ -73,7 +73,7 @@ public class RiskPersonRiskSyncInfoServiceImpl extends ServiceImpl<RiskPersonRis
         if(StringUtils.isEmpty(strings)){
             return strings;
         }
-        String [] strs = strings.split("|");
+        String [] strs = strings.split("\\|");
         return strs[0];
     }
 }
