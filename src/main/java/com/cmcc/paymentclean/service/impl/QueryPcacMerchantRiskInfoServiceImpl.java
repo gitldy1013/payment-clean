@@ -205,13 +205,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
                     queryPcacMerchantRiskInfoResp.setOccurarea(sysLan.getLanName());
                 }
                 //联调测试
-//                queryPcacMerchantRiskInfoResp.setCount("99");
-//                queryPcacMerchantRiskInfoResp.setSubmitAmount("99");
-//                queryPcacMerchantRiskInfoResp.setCusCodeCount("99");
-//                queryPcacMerchantRiskInfoResp.setTotalOrganNum("99");
-//                queryPcacMerchantRiskInfoResp.setBenListcount("99");
-//                queryPcacMerchantRiskInfoResp.setOperator("联调测试");
-//                queryPcacMerchantRiskInfoResp.setErrInfo("联调测试");
+                queryPcacMerchantRiskInfoResp.setCount("99");
+                queryPcacMerchantRiskInfoResp.setSubmitAmount("99");
+                queryPcacMerchantRiskInfoResp.setCusCodeCount("99");
+                queryPcacMerchantRiskInfoResp.setTotalOrganNum("99");
+                queryPcacMerchantRiskInfoResp.setBenListcount("99");
+                queryPcacMerchantRiskInfoResp.setOperator("联调测试");
+                queryPcacMerchantRiskInfoResp.setErrInfo("联调测试");
             }
         }
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

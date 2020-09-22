@@ -60,6 +60,7 @@ public class SftpPcacRiskInfo {
             str = setStr(str,pcacRiskInfoDTO.getDocType(),true);
             str = setStr(str,pcacRiskInfoDTO.getDocCode(),true);
             str =  setStr(str,pcacRiskInfoDTO.getLegDocName(),true);
+            str = setStr(str,pcacRiskInfoDTO.getLegDocType(),true);
             str = setStr(str,pcacRiskInfoDTO.getLegDocCode(),true);
             str = setStr(str,pcacRiskInfoDTO.getLevel(),true);
             str = setStr(str,pcacRiskInfoDTO.getRiskType(),true);

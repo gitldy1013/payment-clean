@@ -46,8 +46,8 @@ public class PcacRiskInfoDTO implements Serializable {
     @ApiModelProperty(value = "法定代表人姓名")
     private String legDocName;
 
-    @ExcelExportField(name = "法定代表人姓名", index = 7)
-    @ApiModelProperty(value = "法定代表人姓名")
+    @ExcelExportField(name = "法定代表人类型", index = 7)
+    @ApiModelProperty(value = "法定代表人类型")
     private String legDocType;
 
     @ExcelExportField(name = "法定代表人（负责人） 证件号码", index = 8)
