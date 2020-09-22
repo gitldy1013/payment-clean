@@ -83,6 +83,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                 riskMerchantResp.setDocType(DocTypeEnum.getDocTypeDesc(riskMerchantResp.getDocType()));
                 riskMerchantResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskMerchantResp.getRiskType()));
                 riskMerchantResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(riskMerchantResp.getCusProperty()));
+                riskMerchantResp.setMsgType(MsgTypeEnum.getMsgTypeDesc(riskMerchantResp.getMsgType()));
                 SysLan sysLan = sysLanService.getLanInfoById(riskMerchantResp.getOccurarea());
                 if(null != sysLan){
                     riskMerchantResp.setOccurarea(sysLan.getLanName());

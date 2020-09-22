@@ -93,5 +93,7 @@ public class RiskMerchantResp implements Serializable {
     @ApiModelProperty(value = "失败原因")
     private String failureReason;
 
+    @ApiModelProperty(value = "信息类型")
+    private String msgType;
 
 }
