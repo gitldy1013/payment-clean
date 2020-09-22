@@ -378,9 +378,10 @@ create table query_pcac_merchant_risk_info
    other_num            varchar(10) comment '其他的机构数量',
    risk_find_time       date comment '风险事件发现时间',
    amount               varchar(11) comment '交易金额',
-   suspend_num          varchar(10)  comment '暂停银行卡交易的机构数量',
-   close_num            varchar(10)  comment '收回受理终端 (关闭网络支付接口) 的机构数收回受理终端 (关闭网络支付接口) 的机构数量',
-   follow_num           varchar(10)  comment '暂未采取控制措施,持续关注客户的机构数量',
+   suspend_num          varchar(10) comment '暂停银行卡交易的机构数量',
+   close_num            varchar(10) comment '收回受理终端 (关闭网络支付接口) 的机构数
+            收回受理终端 (关闭网络支付接口) 的机构数量',
+   follow_num           varchar(10) comment '暂未采取控制措施,持续关注客户的机构数量',
    valid_status         varchar(2) comment '有效性',
    occurarea            varchar(256) comment '风险事件发生地域',
    note                 varchar(2048) comment '风险事件描述',
@@ -399,7 +400,9 @@ create table query_pcac_merchant_risk_info
    push_status          varchar(2) default '0' comment '推送状态0为未推送，1为已推送',
    result_status        varchar(2) comment '交易结果',
    result_code          varchar(6) comment '交易返回码',
-    up_date              varchar(20) comment '推送日期',
+   up_date              varchar(20) comment '推送日期',
+   err_info             varchar(128) comment '错误信息',
+   operate_time         date comment '操作时间',
    primary key (query_pcac_merchant_risk_info_id)
 )comment = '查询协会商户风险信息表 ';
 
