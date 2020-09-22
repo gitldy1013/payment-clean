@@ -58,6 +58,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.cmcc.paymentclean.entity.dto.ResultBean.PARAM_ERR;
+
 /**
  * <p>
  * 企业商户信息表  服务实现类
@@ -172,9 +174,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             return resultBean;
         }
         for (BusinessInfoReq businessInfoReq : businessInfoReqs) {
-            if ((StringUtils.isNotEmpty(businessInfoReq.getDocCode()) && StringUtils.isNotEmpty(businessInfoReq.getRegName()))) {
+            if ((StringUtils.isNotEmpty(businessInfoReq.getDocCode()) || StringUtils.isNotEmpty(businessInfoReq.getRegName()))) {
                 continue;
-            } else if (StringUtils.isNotEmpty(businessInfoReq.getLegDocCode()) && StringUtils.isNotEmpty(businessInfoReq.getLegDocType())) {
+            } else if (StringUtils.isNotEmpty(businessInfoReq.getLegDocCode()) && StringUtils.isNotEmpty(businessInfoReq.getLegDocName())) {
                 continue;
             } else {
                 resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
@@ -188,27 +190,26 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         String xml = XmlJsonUtils.convertObjectToXmlStr(document);
         log.info("获取到的xml数据:{}", xml);
         if (StringUtils.isEmpty(xml)) {
-            log.info("xml报文转换失败");
-            resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-            resultBean.setData("xml报文转换失败");
+            log.info("XSD校验失败{}", xml);
+            resultBean.setResCode(PARAM_ERR);
+            resultBean.setResMsg("XSD校验失败:" + XmlJsonUtils.formatXml(xml));
             return resultBean;
         }
         //校验xml报文  企业商户信息上报请求
         boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.044");
         if (!validate) {
-            log.info("XML校验失败");
-            resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-            resultBean.setData("XML校验失败");
+            log.info("XSD校验失败{}", xml);
+            resultBean.setResCode(PARAM_ERR);
+            resultBean.setResMsg("XSD校验失败:" + XmlJsonUtils.formatXml(xml));
             return resultBean;
         }
+        log.info("反馈数据：{}",XmlJsonUtils.formatXml(xml));
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = this.pushToPcacByQuery(xml);
         Respone respone = resDoc.getRespone();
         Body resBody = respone.getBody();
         resultBean.setData(resBody);
         resultBean.setResCode(resBody.getRespInfo().getResultCode());
-        if (resBody.getRespInfo().getMsgDetail().isEmpty()) {
+        if (org.springframework.util.StringUtils.isEmpty(resBody.getRespInfo().getMsgDetail())) {
             resultBean.setResMsg(resBody.getRespInfo().getResultStatus());
         } else {
             resultBean.setResMsg(resBody.getRespInfo().getMsgDetail());
@@ -230,12 +231,14 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         Body resBody = resDoc.getRespone().getBody();
         log.info("协会返回数据对象:{}", resBody);
         for (BusinessInfo pcacMerchantRiskSubmitInfo : businessInfos) {
+            BusinessInfo businessInfo = new BusinessInfo();
+            businessInfo.setSubmitStatus("1");
+            businessInfo.setRepDate(new Date());
+            businessInfo.setResultStatus(resBody.getRespInfo().getResultStatus());
+            businessInfo.setResultCode(resBody.getRespInfo().getResultCode());
             UpdateWrapper<BusinessInfo> updateWrapper = new UpdateWrapper<BusinessInfo>();
-            updateWrapper.eq("submit_status", "1");
-            updateWrapper.eq("rep_date", new Date());
-            updateWrapper.eq("result_status", resBody.getRespInfo().getResultStatus());
-            updateWrapper.eq("result_code", resBody.getRespInfo().getResultCode());
-            businessInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
+            updateWrapper.eq("business_info_id",pcacMerchantRiskSubmitInfo.getBusinessInfoId());
+            businessInfoMapper.update(businessInfo, updateWrapper);
         }
     }
 
@@ -244,7 +247,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         Document document = new Document();
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "");
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "EER001");
         //设置报文体
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.Body();
         PcacList pcacList = new PcacList();
@@ -291,6 +294,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         body.setPcacList(pcacList);
         request.setBody(body);
         document.setRequest(request);
+        //加签
+        XmlJsonUtils.doSignature(document);
         return document;
     }
 
@@ -299,7 +304,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         Document document = new Document();
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "");
+        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "QE0004");
         //设置报文体
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.PcacList();
@@ -312,14 +317,26 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             if (StringUtils.isNotEmpty(businessInfo.getDocCode())) {
                 //法人证件号码
                 baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
-            } else if (StringUtils.isNotEmpty(businessInfo.getRegName())) {
+            }else{
+                baseInfo.setDocCode("");
+            }
+            if (StringUtils.isNotEmpty(businessInfo.getRegName())) {
                 //商户名称
                 baseInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegName()));
-            } else {
+            }else {
+                baseInfo.setRegName("");
+            }
+            if (StringUtils.isNotEmpty(businessInfo.getLegDocName())) {
                 //法定代表人姓名/负责人姓名
                 baseInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
+            }else{
+                baseInfo.setLegDocName("");
+            }
+            if (StringUtils.isNotEmpty(businessInfo.getLegDocCode())) {
                 //法定代表人（负责人）证件号码
                 baseInfo.setLegDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocCode()));
+            }else{
+                baseInfo.setLegDocCode("");
             }
 
             baseInfos.add(baseInfo);
@@ -328,6 +345,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         body.setPcacList(pcacList);
         request.setBody(body);
         document.setRequest(request);
+        //加签
+        XmlJsonUtils.doSignature(document);
         return document;
     }
 
