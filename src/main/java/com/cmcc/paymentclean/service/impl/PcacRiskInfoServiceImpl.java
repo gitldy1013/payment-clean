@@ -278,42 +278,23 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                         log.debug("协会补发风险信息：{}", riskInfo);
                         //对关键字进行解密，证件号码和银行卡号加密
                         //商户简称
-                        if (StringUtils.isNotEmpty(riskInfo.getCusName())){
-
                             String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
                             riskInfo.setCusName(decryptCusName);
-                        }
                         //商户名称
-                        if (StringUtils.isNotEmpty(riskInfo.getRegName())){
-
                             String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
                             riskInfo.setRegName(decryptRegName);
-                        }
-
                         //法人证件号码
-                        if (StringUtils.isNotEmpty(riskInfo.getDocCode())){
-
                             String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
                             riskInfo.setDocCode(decryptDocCode);
-                        }
                         //法定代表人姓名
-                        if (StringUtils.isNotEmpty(riskInfo.getLegDocName())){
-
                             String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
                             riskInfo.setLegDocName(decryptLegDocName);
-                        }
                         //url
-                        if (StringUtils.isNotEmpty( riskInfo.getUrl())){
-
                             String decryptUrl = CFCACipherUtils.decrypt(secretKey, riskInfo.getUrl());
                             riskInfo.setUrl(decryptUrl);
-                        }
                         //商户注册号
-                        if (StringUtils.isNotEmpty( riskInfo.getRegisteredCode())){
-
                             String decryptRegisteredCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegisteredCode());
                             riskInfo.setRegisteredCode(decryptRegisteredCode);
-                        }
                         //法定代表人证件号码
                         String decryptLegDocCode = null;
                         if (StringUtils.isNotEmpty(riskInfo.getLegDocCode())){
@@ -322,15 +303,14 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                             if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())){
                                 String   encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
                                 riskInfo.setLegDocCode(encryptLegDocCode);
-                            }
+                            }else
                             riskInfo.setLegDocCode(decryptLegDocCode);
                         }
 
-                        if (StringUtils.isNotEmpty(riskInfo.getBankNo())){
-
-                            String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
+                        String decryptBankNo = CFCACipherUtils.decrypt(secretKey, riskInfo.getBankNo());
+                        String encryptBankNo = InnerCipherUtils.encryptBankData(decryptBankNo);
                             riskInfo.setBankNo(encryptBankNo);
-                        }
+
 
                         PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
                         BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
