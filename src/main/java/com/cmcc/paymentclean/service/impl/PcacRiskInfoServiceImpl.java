@@ -192,10 +192,10 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 PcacRiskInfoDTO pcacRiskInfoDTO = new PcacRiskInfoDTO();
                 BeanUtils.copyProperties(pcacRiskInfo, pcacRiskInfoDTO);
                 try {
-                    String regName = new String(pcacRiskInfo.getRegName(), "UTF-8");
+                    String regName = pcacRiskInfo.getRegName();
                     pcacRiskInfoDTO.setRegName(regName);
                     pcacRiskInfoDTO.setPcacRiskInfoId(pcacRiskInfo.getPcacRiskInfoId().toString());
-                } catch (UnsupportedEncodingException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 pcacRiskInfoDTOs.add(pcacRiskInfoDTO);
