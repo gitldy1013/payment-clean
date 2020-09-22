@@ -156,6 +156,7 @@ public class PcacRiskInfoPushController {
         }*/
         //风控测试用逻辑
         //ResultBean resultBean = new ResultBean("补发信息成功",ResultBean.SUCCESS_CODE);
+        //如果ReqDateEnd为null，那么xsd文件校验会失败，所以需要设置为空串
 
 
         ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);

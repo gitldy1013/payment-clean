@@ -154,6 +154,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body();
         BeanUtilsEx.copyProperties(body, reissueRiskInfoReq);
+        if (StringUtils.isEmpty(body.getReqDateEnd())){
+            body.setReqDateEnd("");
+        }
         log.info("请求体body参数：{}", body);
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document();
         Request request = new Request();
@@ -168,8 +171,16 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         log.info("信息补发申请请求清算协会报文：{}", doXml);
         boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.029");
         if (validate) {
+            log.info("----------------------------------------------打印风险信息补发-时间段请求参数：--------");
+            String s = XmlJsonUtils.formatXml(doXml);
+            log.info(s);
+            log.info("----------------------------------------------打印风险信息补发-时间段请求参数：--------");
             //String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
             String result = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), doXml);
+            log.info("----------------------------------------------打印风险信息补发-时间段响应参数：--------");
+            String ss = XmlJsonUtils.formatXml(result);
+            log.info(ss);
+            log.info("----------------------------------------------打印风险信息补发-时间段响应参数：--------");
              resultBean = doReissueRiskInfo(result);
 
 
@@ -239,7 +250,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                     HashMap<String, String> deleteMap = new HashMap<>();
                     deleteMap.put("pushListType", pushListType);
                     deleteMap.put("reqDate", queryInfo.getReqDate());
-                    if (null !=queryInfo.getReqDateEnd()) {
+                    if (!"".equals(queryInfo.getReqDateEnd())) {
                         deleteMap.put("reqDateEnd", queryInfo.getReqDateEnd());
                         pcacRiskInfoMapper.deleteByDelMap(deleteMap);
                     }else
