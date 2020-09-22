@@ -97,8 +97,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
             Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "QR0003");
             QueryPcacMerchantRiskReq queryPcacMerchantRiskReq = queryPcacMerchantRiskReqs.get(i);
             com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body();
-            body.setCusProperty(queryPcacMerchantRiskReq.getCusProperty());
-            body.setKeyWord(queryPcacMerchantRiskReq.getKeyWord());
+            body.setCusProperty(this.splitStrs(queryPcacMerchantRiskReq.getCusProperty()));
+            body.setKeyWord(this.splitStrs(queryPcacMerchantRiskReq.getKeyWord()));
             body.setInfos(queryPcacMerchantRiskReq.getInfos());
             request.setBody(body);
             document.setRequest(request);
@@ -301,6 +301,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         for (int i = 0; i < queryPcacMerchantRiskInfoBackReqs.size(); i++) {
             com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo riskInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo();
             BeanUtilsEx.copyProperties(riskInfo, queryPcacMerchantRiskInfoBackReqs.get(i));
+            riskInfo.setCusType(this.splitStrs(riskInfo.getCusType()));
+            riskInfo.setHandleResult(this.splitStrs(riskInfo.getHandleResult()));
             riskInfos.add(riskInfo);
         }
         pcacList.setRiskInfo(riskInfos);
@@ -357,5 +359,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl extends ServiceImpl<QueryPcacM
         resultBean.setResCode(resultCode);
         resultBean.setResMsg(resultStatus);
         return resultBean;
+    }
+
+    private String splitStrs(String strings){
+        if(StringUtils.isEmpty(strings)){
+            return strings;
+        }
+        String [] strs = strings.split("\\|");
+        return strs[0];
     }
 }

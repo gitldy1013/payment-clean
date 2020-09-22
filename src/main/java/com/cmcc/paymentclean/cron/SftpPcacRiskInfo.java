@@ -48,8 +48,8 @@ public class SftpPcacRiskInfo {
             return;
         }
         List<String> fileList = new ArrayList<>();
-        fileList.add("推送名单类型|推送日期|商户名称|商户简称|法人证件类型|法人证件号码|法定代表人姓名|法定代表人类型|法定代表人（负责人） 证件号码|风险信息等级|" +
-                "风险类型|有效期|有效性|商户类型|风险事件发生地域|银行结算账户|网址|商户注册号");
+//        fileList.add("推送名单类型|推送日期|商户名称|商户简称|法人证件类型|法人证件号码|法定代表人姓名|法定代表人类型|法定代表人（负责人） 证件号码|风险信息等级|" +
+//                "风险类型|有效期|有效性|商户类型|风险事件发生地域|银行结算账户|网址|商户注册号");
 
         for(PcacRiskInfoDTO pcacRiskInfoDTO:pcacRiskInfos){
             String str = "";
