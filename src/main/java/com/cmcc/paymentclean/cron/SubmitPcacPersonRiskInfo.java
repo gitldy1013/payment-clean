@@ -77,7 +77,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
 
         log.debug("-------开始封装xml报文实体对象------");
         ArrayList<RiskInfo> riskInfos = new ArrayList<>();
-        ArrayList<BankInfo> bankInfos = new ArrayList<>();
+
         for (PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo : pcacPersonRiskList) {
 
             //判断是身份证类型需要先进行内部解密，再进行清算协会加密
@@ -125,6 +125,7 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
             bankInfo.setBankNo("");
             bankInfo.setOpenBank("");*/
             BeanUtilsEx.copyProperties(bankInfo, pcacPersonRiskSubmitInfo);
+            ArrayList<BankInfo> bankInfos = new ArrayList<>();
             bankInfos.add(bankInfo);
             bankList.setBankInfo(bankInfos);
             bankList.setCount("1");
@@ -154,8 +155,16 @@ public class SubmitPcacPersonRiskInfo /*implements Job*/ {
         try {
             boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.001");
             if (validate) {
+                log.info("----------------------------------------------打印个人风险信息上报参数：--------");
+                String s = XmlJsonUtils.formatXml(doXml);
+                log.info(s);
+                log.info("----------------------------------------------打印个人风险信息上报参数：--------");
                 //String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
                 String result = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), doXml);
+                log.info("----------------------------------------------打印个人风险信息响应参数：--------");
+                String ss = XmlJsonUtils.formatXml(result);
+                log.info(ss);
+                log.info("----------------------------------------------打印个人风险信息响应参数：--------");
                 log.info("个人风险信息上报支付清算协会响应xml报文：", result);
                 com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);

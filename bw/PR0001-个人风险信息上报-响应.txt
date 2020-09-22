@@ -1,0 +1,24 @@
+----------------------------------------------打印个人风险信息响应参数：--------
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009221000001272</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>PR0001</TrnxCode>
+            <TrnxTime>20200922133635</TrnxTime>
+            <SecretKey>hYsbLTYQvpF+gPpwozOpkznkM7DgVu/eEWwoBnWu3r7yvJP1J8oCcCEYMiuwHWgy92BRgaHLUwyAWaynDFNjEWZzXZKKwK/quIzxNyoAlbwR5UY63QXvoZ+IgOZUcw1B7h3IdpKFejIIc4lb5DkOp3ZThbxa4BgGQB7Nj4idPpkmAo6Py0RjMcCpBLGu+Wml27cIKC7ycC0ta++sYTYka/x0M6CrzFL0ZU03iiDtU51uQYdk90DQFoB+QUKqROylFXfDa6mc0usw3TmnuKZt6+fZgy0dIdvtwncHGDyCkoscrEeLQ8Kinanf6WR3nstpAC+F7nCgCa+MLaZqZT4N8A==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>个人风险信息,第1条数据:上报成功。个人风险信息,第2条数据:上报成功。个人风险信息,第3条数据:上报成功。个人风险信息,第4条数据:上报成功。</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>KQUyrp6gpnBcQnk7hWkBOhpO/E7p7Ys4mir69AQB9WKXxGHAWn/S6I2ms9g5lBoKoblRb/p3SzyJ1BxvzdvUJSmsMoCfXBcK6ZxG7RXu3RE/3qWIicJwMuyjOJ5r8zxBxQqBrYA7jc0FrUF1MWTcJDBI77QcnCM1ehAGZuGp7uiouY25gd9+EVeishcwRx+5Dbf/WMVe6lpc6plP7FAe7QDb9UJed45PLPvqSq+oJyHr9cvGxLtC0BklWe+GftDzgC7FMZE+bJQGkqO6hSqbwWfMJj9Ir0AiFpF0MA3O/+9D3iHNnsFBC9DWwKEEiUA0Yl0tqRpaXlJk6m1Q5/gbZA==</Signature>
+</Document>
