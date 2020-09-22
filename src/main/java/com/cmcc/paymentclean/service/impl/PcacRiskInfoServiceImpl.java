@@ -105,10 +105,10 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                 PcacRiskInfoDTO pcacRiskInfoDTO = new PcacRiskInfoDTO();
                 BeanUtils.copyProperties(pcacRiskInfo, pcacRiskInfoDTO);
                 try {
-                    String regName = new String(pcacRiskInfo.getRegName(), "UTF-8");
+                    String regName = pcacRiskInfo.getRegName();
                     pcacRiskInfoDTO.setRegName(regName);
                     pcacRiskInfoDTO.setPcacRiskInfoId(pcacRiskInfo.getPcacRiskInfoId().toString());
-                } catch (UnsupportedEncodingException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 pcacRiskInfoDTOs.add(pcacRiskInfoDTO);
@@ -150,6 +150,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
     @Override
     public ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq) {
+        ResultBean resultBean = null;
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body();
         BeanUtilsEx.copyProperties(body, reissueRiskInfoReq);
@@ -169,7 +170,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         if (validate) {
             //String result = HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet", doXml);
             String result = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), doXml);
-            ResultBean resultBean = doReissueRiskInfo(result);
+             resultBean = doReissueRiskInfo(result);
 
 
         } else {
@@ -177,7 +178,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
             throw new SubmitPCACException(ResultCodeEnum.XSD_FILE_VALID_FALSE.getCode(), ResultCodeEnum.XSD_FILE_VALID_FALSE.getDesc());
         }
 
-        return null;
+        return resultBean;
     }
 
     private ResultBean doReissueRiskInfo(String result) {
@@ -223,27 +224,60 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                         log.debug("协会补发风险信息：{}", riskInfo);
                         //对关键字进行解密，证件号码和银行卡号加密
                         //商户简称
-                        String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
-                        riskInfo.setCusName(decryptCusName);
-                        //商户名称
-                        String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
-                        riskInfo.setRegName(decryptRegName);
-                        //法人证件号码
-                        String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
-                        riskInfo.setCusCode(decryptDocCode);
-                        //法定代表人姓名
-                        String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
-                        riskInfo.setLegDocName(decryptLegDocName);
-                        //法定代表人证件号码
-                        String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
-                        String encryptLegDocCode = null;
-                        //判断证件类型是身份证就进行内部加密
-                        if (!StringUtils.isEmpty(riskInfo.getLegDocCode()) && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
-                            encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+                        if (StringUtils.isNotEmpty(riskInfo.getCusName())){
+
+                            String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
+                            riskInfo.setCusName(decryptCusName);
                         }
-                        riskInfo.setLegDocCode(encryptLegDocCode);
-                        String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
-                        riskInfo.setBankNo(encryptBankNo);
+                        //商户名称
+                        if (StringUtils.isNotEmpty(riskInfo.getRegName())){
+
+                            String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
+                            riskInfo.setRegName(decryptRegName);
+                        }
+
+                        //法人证件号码
+                        if (StringUtils.isNotEmpty(riskInfo.getDocCode())){
+
+                            String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
+                            riskInfo.setDocCode(decryptDocCode);
+                        }
+                        //法定代表人姓名
+                        if (StringUtils.isNotEmpty(riskInfo.getLegDocName())){
+
+                            String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
+                            riskInfo.setLegDocName(decryptLegDocName);
+                        }
+                        //url
+                        if (StringUtils.isNotEmpty( riskInfo.getUrl())){
+
+                            String decryptUrl = CFCACipherUtils.decrypt(secretKey, riskInfo.getUrl());
+                            riskInfo.setUrl(decryptUrl);
+                        }
+                        //商户注册号
+                        if (StringUtils.isNotEmpty( riskInfo.getRegisteredCode())){
+
+                            String decryptRegisteredCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegisteredCode());
+                            riskInfo.setRegisteredCode(decryptRegisteredCode);
+                        }
+                        //法定代表人证件号码
+                        String decryptLegDocCode = null;
+                        if (StringUtils.isNotEmpty(riskInfo.getLegDocCode())){
+                            decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
+                            //判断证件类型是身份证就进行内部加密
+                            if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())){
+                                String   encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+                                riskInfo.setLegDocCode(encryptLegDocCode);
+                            }
+                            riskInfo.setLegDocCode(decryptLegDocCode);
+                        }
+
+                        if (StringUtils.isNotEmpty(riskInfo.getBankNo())){
+
+                            String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
+                            riskInfo.setBankNo(encryptBankNo);
+                        }
+
                         PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
                         BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
                         log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);

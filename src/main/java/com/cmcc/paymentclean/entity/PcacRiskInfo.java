@@ -36,7 +36,7 @@ public class PcacRiskInfo extends Model<PcacRiskInfo> {
     private String upDate;
 
     @ApiModelProperty(value = "商户名称")
-    private byte[] regName;
+    private String regName;
 
     @ApiModelProperty(value = "商户简称")
     private String cusName;
