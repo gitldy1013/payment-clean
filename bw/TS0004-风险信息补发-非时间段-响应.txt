@@ -1,5 +1,5 @@
 ----------------------------------------------打印风险信息补发-非时间段响应参数：--------
-2020-09-22 15:46:49.521 [ INFO] 25044 --- [           main] c.c.p.s.i.PcacRiskInfoServiceImpl        : <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <Document>
     <Respone>
