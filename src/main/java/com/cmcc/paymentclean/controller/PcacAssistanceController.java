@@ -40,7 +40,7 @@ public class PcacAssistanceController {
      * 需要解密关键字：商户信息比对协查：商户代码、商户名称、法定代表人姓名
      */
     @ApiOperation(value = "商户信息比对协查推送", notes = "商户信息比对协查推送")
-    @RequestMapping(value = "/assistanceInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/assistanceInfo", method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String assistanceInfo(@RequestParam(value = "xml") String xmlStr) {
         log.debug("接收协会比对协查信息报文：{}", xmlStr);

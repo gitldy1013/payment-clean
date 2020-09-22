@@ -44,7 +44,7 @@ public class PcacRiskInfoPushController {
      * 协会推送风险提示信息
      * 风险提示信息关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
      */
-    @RequestMapping(value = "/blackListAndTipsInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/blackListAndTipsInfo", method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String blackListAndTipsInfo(@RequestParam(value = "xml") String xmlStr) {
         log.info("接收协会黑名单或者风险提示信息报文：{}", xmlStr);
