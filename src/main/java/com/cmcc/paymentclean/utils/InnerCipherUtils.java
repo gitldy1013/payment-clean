@@ -25,7 +25,7 @@ public class InnerCipherUtils {
      * 加密用户身份证号
      * */
     public static String encryptUserData(String message) {
-        return doCheck(message)?"":encrypt(message, USERKN);
+        return StringUtils.isEmpty(message)?"":encrypt(message, USERKN);
     }
 
    private static String encrypt(String message,String keyName){
@@ -71,21 +71,14 @@ public class InnerCipherUtils {
      * 解密用户身份证号
      * */
     public static String decryptUserData(String message) {
-        return doCheck(message)?"":encrypt(message, USERKN);
+        return StringUtils.isEmpty(message)?"":encrypt(message, USERKN);
     }
 
     /**
      * 加密银行卡号
      * */
     public static String encryptBankData(String message ) {
-        return doCheck(message)?"":encrypt(message, BANKKN);
-    }
-
-    private static boolean doCheck(String message) {
-        if(StringUtils.isEmpty(message)){
-            return true;
-        }
-        return false;
+        return StringUtils.isEmpty(message)?"":encrypt(message, BANKKN);
     }
 
     private static String decrypt(String message,String keyName ){
@@ -127,7 +120,7 @@ public class InnerCipherUtils {
      * 解密银行卡号
      * */
     public static String decryptBankData(String message) {
-        return doCheck(message)?"":encrypt(message, BANKKN);
+        return StringUtils.isEmpty(message)?"":encrypt(message, BANKKN);
     }
 
 
