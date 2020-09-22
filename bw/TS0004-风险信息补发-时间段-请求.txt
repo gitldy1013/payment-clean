@@ -1,23 +1,23 @@
 ----------------------------------------------打印风险信息补发-时间段请求参数：--------
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Document>
     <Request>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009221000001695</Identification>
+            <Identification>202009221000001646</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>TS0004</TrnxCode>
-            <TrnxTime>20200922135340</TrnxTime>
+            <TrnxTime>20200922155317</TrnxTime>
             <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
-            <SecretKey>ji+LcTZELnt3eTZAIEAy3LVYQ1779yxwlG4IRFIo8fv4bFXlUBEpa04QHiAQo4DYpe4IQAS8QVti54xrg6iDaKaJr08gZhsyhBuQXpl23bjBRwHFksrPCd9QMSltCAUJREoGnCuu7N+xy2bCTOE5OTuR3d+zrZ6t5Ag0ZzR6XY2Nx0TEPUyzrsHEXaXavfel4BxAHteUxEeDXo+CZcPfc78p+Vfhx2oZsdgd23yCXhA3nwMXO4ea17dOcUy1QMw99XRTFzz0hYMCjGpM8QqkfacVQBs+HBVWu/3jMFfnHLUcBSZCEiLxKNWnaI3Ln/vdPjmqxQtyksFnPeHtlRhrNg==</SecretKey>
+            <SecretKey>XaCF6yUFioTF1JwDerMx9if9zG7gufxftH5eHf2G1eOwMYHPvndVApXuok0ysZ28GXpDX4pwORV3Xebpjkr5bSPxeABm39sX1qNppn6rEhB/Qp3465yXYGIA8oZbDh/cSQAP2jT8mVxm3LhpjzVlU0HvkSmyCb/vz6NbkxjgujCECoYwVAxHtF8lRvRYnMGgLSOWYOfV64ymMd/pUe9E7GVNMMIG3VrXs6mrpooK6ivRm/mzGM4TYdYfyqNXb09fxqXw9wqGDz3bLo13K2vyIufp9HJybFI+TNwAGHQrPxJOwHeLdEsgfjWRQUoqALhshZPJE9Kh0TXN7/kh1VIRSw==</SecretKey>
         </Head>
         <Body>
-            <RiskType>01</RiskType>
+            <RiskType>02</RiskType>
             <ReqDate>2020-09-01</ReqDate>
             <ReqDateEnd>2020-09-05</ReqDateEnd>
         </Body>
     </Request>
-    <Signature>E3sOWwtnNYeQ3hpmx+o6XOcBM8Ax1KWJoFLzQyw1ZeNtqMTwmg/Vraz6iDd1mnSVhvlZYMqGG92Tr3Wvg67sk1teV/9V/fDwzgJ8HOqkgyn3f7pcMhprBbcVo45A6ezn7d+4G5npu81O7WDkcXIyrjpFHZF3HZehC8c0XLmfcDlPHUHegldpgHb28er9XYwkO76Sqx41JOhI0eKPpeI2Si3L41iAzFkNRNvhHvzeLi+4jgIZNu57Esd/rXXgei8x4y3ZymVer4KkR0DKKCCYh4jVoDnd6Tb0jCjNLg7YqMSPRlBCTPxqZABn0u2AiT2+6tE42+PL9Kk5xJirqTKkLg==</Signature>
+    <Signature>JqbVMptGBFeFgICXyV8jh+rMzH+42Wn1OEz6+8rJC3RAD2ycJEMMiDzcRRqF+V0p/Omc+5RgF+JMsVuy9rXG0bIUJH8D1rx+l81aPpV1OB8GDUFa7XisIlM/rapUaCvbsK98f+bsrD9YdKKcYBu4S/b/+ZRdlzOm4Nv1CoMgtaDvd/TiqVTPylGYHVn7/U+mkH9D7f2AXRHALR6ezhmvBZQ3RZgwVSQhJt8yN5PAscBnArErkaHP6Sny/vVRKeATL1TKsKiJQdlh7NJLseNzWbZtQxCbUeIW9Gy6iqQ8NIFPTUxsvE7z9Hjwt937+GlI4FKEP138b4cT2pgkSh4MTA==</Signature>
 </Document>

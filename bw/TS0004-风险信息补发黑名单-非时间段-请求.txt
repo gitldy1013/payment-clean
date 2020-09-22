@@ -1,0 +1,23 @@
+----------------------------------------------打印风险信息补发-非时间段请求参数：--------
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009221000001274</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>TS0004</TrnxCode>
+            <TrnxTime>20200922141252</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>pPgTKCqC0RnCsvmyYbBpoW33lUfcEWdn0U7VCFcNACe6kqsG8T6usvH3ZofnLNGGvTEfJbaBP2wWCctoLxrZDS+0LNwEWPQu5U7TEogy2nuqvSoYZFE7zWA6jwFJNgh5x643S+EojvaRxlcgp8aUiS/C688nCl2pBq2scDZTYicGcmnYJHLZN17oWOgCA9iYxK81wUhhsonucTDWgrb2UOK3G3VrZQagPWOI8kp2xlWf9kxMdp1GHrRzrxw5iuGikPGuDGmkTzB/FJF48pcSZrTttI1CDzN8SOMOj1uepiNdd6znY/JtAwy3IOpTM0Rz/lQ+770NrHonL9Qx3BEpZw==</SecretKey>
+        </Head>
+        <Body>
+            <RiskType>01</RiskType>
+            <ReqDate>2020-09-01</ReqDate>
+            <ReqDateEnd></ReqDateEnd>
+        </Body>
+    </Request>
+    <Signature>DjSQrQ9JJoFhPgD5Y/r6Rg+dMPKvTo+HqDg4RyxfzkWRJZdfGjLdaIQWCcIMeimYDAYyCUax7TAbcgqV9+DPnBHi6JmLkFcY47nxIrV/prysbrysQdIG6tZZF1diuvoFS28r1R/1R5ixlFhLeOLrxxWTAf+XDROXNIC8fa0fBQmzRb4jshFigAmiyHhDrwYFGOCM9NCx5ICbBq3az/HHRxZJP9Hvh3yS1E5+PA5RIBzr7OX55TgfHfusFvlI3mcE5lTNkhSNlSD6HElSgYvLQc3Ix2m/VkuKL0aaQ/aCIAdy7dmG5Gs0aLZ6cbFbJUAnZ6u2Sy1CQhWs5Mb2Aqgw1Q==</Signature>
+</Document>
