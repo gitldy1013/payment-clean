@@ -2,13 +2,11 @@ package com.cmcc.paymentclean.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.RiskPersonRiskSyncInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskPersonRiskSyncInfoReq;
-import com.cmcc.paymentclean.exception.bizException.BizException;
 import com.cmcc.paymentclean.mapper.RiskPersonRiskSyncInfoMapper;
 import com.cmcc.paymentclean.service.RiskPersonRiskSyncInfoService;
 import lombok.extern.slf4j.Slf4j;

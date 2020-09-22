@@ -1,24 +1,18 @@
 package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.config.SftpConfig;
-import com.cmcc.paymentclean.consts.*;
-import com.cmcc.paymentclean.entity.SysLan;
+import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.ExcelUtils;
 import com.cmcc.paymentclean.utils.SFTPUtils;
 import com.cmcc.paymentclean.utils.TxtFileUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
