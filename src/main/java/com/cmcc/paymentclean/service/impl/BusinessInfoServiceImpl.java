@@ -212,7 +212,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                     "        <ResultCode>01</ResultCode>\n" +
                     "    </RespInfo>\n" +
                     "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resp.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
+        Body resBody = resDoc.getRespone().getBody();
         log.info("协会返回数据对象:{}", resBody);
         for (BusinessInfo pcacMerchantRiskSubmitInfo : businessInfos) {
             UpdateWrapper<BusinessInfo> updateWrapper = new UpdateWrapper<BusinessInfo>();
@@ -326,7 +327,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                     "        <ResultCode>01</ResultCode>\n" +
                     "    </RespInfo>\n" +
                     "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Body.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         log.info("协会返回数据对象:{}", resDoc);
         return resDoc;
     }
@@ -335,7 +336,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     public ResultBean<?> getBusinessInfoXML(String xml) {
         log.info("接收的xml:{}", xml);
         //pcac.ries.032
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class, xml);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body) XmlJsonUtils.convertXmlStrToObject(xml,com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class);
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
             List<Condition> conditions = conditionLists.getCondition();

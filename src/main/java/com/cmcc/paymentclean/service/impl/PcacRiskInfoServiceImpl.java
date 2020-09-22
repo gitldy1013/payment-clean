@@ -219,7 +219,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     private ResultBean doReissueRiskInfo(String result) {
         log.info("信息补发申请清算协会响应xml报文：{}", result);
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
-                (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, result);
+                (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(result, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         String signatureResp = documentResp.getSignature();
         log.info("响应报文的签名串signature：{}", signatureResp);
         documentResp.setSignature(null);

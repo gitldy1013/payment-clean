@@ -130,7 +130,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
                 "        <ResultCode>01</ResultCode>\n" +
                 "    </RespInfo>\n" +
                 "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         log.info("协会返回数据对象:{}", doc);
         for (PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo : PcacEnterpriseRiskSubmitInfos) {
             UpdateWrapper<PcacEnterpriseRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacEnterpriseRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());

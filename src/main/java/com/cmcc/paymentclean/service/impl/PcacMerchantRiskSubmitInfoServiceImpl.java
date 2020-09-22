@@ -128,7 +128,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         log.info("url:{}", pcacConfig.getUrl());
         log.info("协会返回数据字符串:{}", XmlJsonUtils.formatXml(post));
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         log.info("协会返回数据对象:{}", doc);
         for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
             UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());

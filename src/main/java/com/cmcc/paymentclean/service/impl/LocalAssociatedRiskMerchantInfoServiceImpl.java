@@ -154,7 +154,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         //解析响应
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xmlStr);
         log.info("响应数据：{}",XmlJsonUtils.formatXml(post));
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class, post);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = resDoc.getRespone().getBody();
         resultBean.setData(resBody);
         resultBean.setResCode(resBody.getRespInfo().getResultCode());

@@ -6,7 +6,7 @@
 //
 
 
-package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin;
+package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper;
 
 import lombok.Data;
 
@@ -42,59 +42,11 @@ import javax.xml.bind.annotation.XmlType;
     "signature"
 })
 @XmlRootElement(name = "Document")
-public class Document<T> {
+public class Document027Wapper {
 
     @XmlElement(name = "Request", required = true)
-    protected Request<T> request;
+    protected Request027Wapper request;
     @XmlElement(name = "Signature", required = true)
     protected String signature;
-
-    /**
-     * 获取request属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link Request }
-     *
-     */
-    public Request<T> getRequest() {
-        return request;
-    }
-
-    /**
-     * 设置request属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Request }
-     *
-     */
-    public void setRequest(Request<T> value) {
-        this.request = value;
-    }
-
-    /**
-     * 获取signature属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getSignature() {
-        return signature;
-    }
-
-    /**
-     * 设置signature属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setSignature(String value) {
-        this.signature = value;
-    }
 
 }
