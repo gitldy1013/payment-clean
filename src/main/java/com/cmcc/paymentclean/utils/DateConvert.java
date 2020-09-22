@@ -19,7 +19,7 @@ public class DateConvert implements Converter {
     @Override
     public Object convert(Class class1, Object value) {
         if (value == null) {
-            return null;
+            return "";
         }
         if (value instanceof Date) {
             return DateUtils.formatTime((Date) value, FORMAT_DATE);
