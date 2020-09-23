@@ -170,8 +170,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         ResultBean resultBean = new ResultBean();
         if (CollectionUtils.isEmpty(businessInfoReqs)) {
             resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-            resultBean.setData("入参为空");
+            resultBean.setResMsg("入参为空");
             return resultBean;
         }
         for (BusinessInfoReq businessInfoReq : businessInfoReqs) {
@@ -181,8 +180,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 continue;
             } else {
                 resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-                resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-                resultBean.setData("查询条件组合中选择一种进行查询：企业商户法人名称;法人证件号码;法定代表人（负责人）证件号码+法定代表人姓名");
+                resultBean.setResMsg("查询条件组合中选择一种进行查询：企业商户法人名称;法人证件号码;法定代表人（负责人）证件号码+法定代表人姓名");
                 return resultBean;
             }
         }
