@@ -41,15 +41,15 @@ import javax.xml.bind.annotation.XmlType;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "orgName",
-    "status",
-    "startTime",
-    "endTime",
-    "riskStatus",
-    "openType"
+        "orgName",
+        "status",
+        "startTime",
+        "endTime",
+        "riskStatus",
+        "openType"
 })
-@XmlRootElement(name = "SingInfo")
-public class SingInfo {
+@XmlRootElement(name = "SignInfo")
+public class SignInfo {
 
     @XmlElement(name = "OrgName", required = true)
     protected String orgName;
