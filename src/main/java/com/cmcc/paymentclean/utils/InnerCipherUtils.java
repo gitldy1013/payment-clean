@@ -71,7 +71,7 @@ public class InnerCipherUtils {
      * 解密用户身份证号
      * */
     public static String decryptUserData(String message) {
-        return StringUtils.isEmpty(message)?"":encrypt(message, USERKN);
+        return StringUtils.isEmpty(message)?"":decrypt(message, USERKN);
     }
 
     /**
@@ -120,7 +120,7 @@ public class InnerCipherUtils {
      * 解密银行卡号
      * */
     public static String decryptBankData(String message) {
-        return StringUtils.isEmpty(message)?"":encrypt(message, BANKKN);
+        return StringUtils.isEmpty(message)?"":decrypt(message, BANKKN);
     }
 
 
