@@ -25,12 +25,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Condition;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ConditionList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ResultCondition;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ResultInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.RiskInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.SingInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.*;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
@@ -396,14 +391,19 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.get(0).getBaseInfo();
                 List<ResultInfo> resultInfos = condition.getResultCondition().getResultInfo();
                 //待补充落表逻辑 需求不清晰，东阳建议全部按一条数据来处理汇总一条BusinessInfo 数据
-                SingInfo hisSingInfo = resultInfo.get(0).getHisSignList().get(0).getSingInfo().get(0);
-                SingInfo curSingInfo = resultInfo.get(0).getCurSignList().get(0).getSingInfo().get(0);
+                SignInfo hisSignInfo = resultInfo.get(0).getHisSignList().get(0).getSignInfo().get(0);
+                SignInfo curSignInfo = resultInfo.get(0).getCurSignList().get(0).getSignInfo().get(0);
                 RiskInfo blackRiskInfo = resultInfo.get(0).getBlackList().get(0).getRiskInfo().get(0);
                 RiskInfo warningRiskInfo = resultInfo.get(0).getWarningList().get(0).getRiskInfo().get(0);
+                RiskInfo legBlackRiskInfo = resultInfo.get(0).getLegBlackList().get(0).getRiskInfo().get(0);
+                RiskInfo legWarningRiskInfo = resultInfo.get(0).getLegWarningList().get(0).getRiskInfo().get(0);
                 BusinessInfo businessInfo = new BusinessInfo();
-                BeanUtils.copyProperties(curSingInfo, businessInfo);
+                BeanUtils.copyProperties(hisSignInfo, businessInfo);
+                BeanUtils.copyProperties(curSignInfo, businessInfo);
                 BeanUtils.copyProperties(blackRiskInfo, businessInfo);
-                businessInfos.add(businessInfo);
+                BeanUtils.copyProperties(warningRiskInfo, businessInfo);
+                BeanUtils.copyProperties(legBlackRiskInfo, businessInfo);
+                BeanUtils.copyProperties(legWarningRiskInfo, businessInfo);
             }
             String fileName = sftpConfig.getBusinessInfoBlackFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
             ExcelUtils excelUtils = new ExcelUtils();
@@ -418,6 +418,10 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+
+            //上传文件
+            SFTPUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
+                    sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
         }
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig);
         return XmlJsonUtils.convertObjectToXmlStr(document);
