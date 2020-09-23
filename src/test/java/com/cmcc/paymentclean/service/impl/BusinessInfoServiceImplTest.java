@@ -20,7 +20,7 @@ import java.util.List;
 @SpringBootTest
 @Slf4j
 @ActiveProfiles("dev")
-public class BusinessInfoServiceImplTest {
+class BusinessInfoServiceImplTest {
 
     @Autowired
     private BusinessInfoService businessInfoService;

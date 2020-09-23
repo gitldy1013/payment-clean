@@ -12,8 +12,8 @@ import com.cmcc.paymentclean.consts.CusTypeEnum;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
-import com.cmcc.paymentclean.consts.MsgDetailEnum;
 import com.cmcc.paymentclean.consts.MsgTypeEnum;
+import com.cmcc.paymentclean.consts.PcacResultCode;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
@@ -97,7 +97,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
                 riskMerchantResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(riskMerchantResp.getCusProperty()));
                 riskMerchantResp.setMsgType(MsgTypeEnum.MsgTypeEnum_02.getDesc());
                 SysLan sysLan = sysLanService.getLanInfoById(riskMerchantResp.getOccurarea());
-                if(null != sysLan){
+                if (null != sysLan) {
                     riskMerchantResp.setOccurarea(sysLan.getLanName());
                 }
             }
@@ -110,7 +110,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
     @Override
     public void queryRiskMerchantAndPushPcac() {
         //获取未上报的数据
-        QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper = new QueryWrapper<PcacMerchantRiskSubmitInfo>().like("msg_detail", MsgDetailEnum.MSGDETAILENUM_00.getDesc());
+        QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper = new QueryWrapper<PcacMerchantRiskSubmitInfo>().like("submit_status", SubmitStatusEnum.ISBLACKENUM_0.getCode());
         List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos = pcacMerchantRiskSubmitInfoMapper.selectList(queryWrapper);
         if (pcacMerchantRiskSubmitInfos.size() == 0) {
             log.info("当前没有可上报的风险商户信息");
@@ -140,11 +140,16 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         log.info("url:{}", pcacConfig.getUrl());
         log.info("协会返回数据字符串:{}", XmlJsonUtils.formatXml(post));
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         log.info("协会返回数据对象:{}", doc);
-        for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
-            UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
-            //pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
+        if (doc.getRespone().getBody().getRespInfo().getResultCode().equals(PcacResultCode.S00000.getCode())) {
+            for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
+                UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
+                updateWrapper.set("submit_status", SubmitStatusEnum.ISBLACKENUM_1.getCode());
+                pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
+            }
+        } else {
+            log.info("返回状态码及信息：{}:{}", doc.getRespone().getBody().getRespInfo().getResultCode(), doc.getRespone().getBody().getRespInfo().getMsgDetail());
         }
     }
 
@@ -217,11 +222,11 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         return document;
     }
 
-    private String splitStrs(String strings){
-        if(StringUtils.isEmpty(strings)){
+    private String splitStrs(String strings) {
+        if (StringUtils.isEmpty(strings)) {
             return strings;
         }
-        String [] strs = strings.split("\\|");
+        String[] strs = strings.split("\\|");
         return strs[0];
     }
 }

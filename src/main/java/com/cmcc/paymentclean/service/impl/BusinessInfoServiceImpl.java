@@ -141,7 +141,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     @Override
     public void queryBusinessInfoAndPushPcac() {
         //获取未上报的数据
-        QueryWrapper<BusinessInfo> queryWrapper = new QueryWrapper<BusinessInfo>().like("submit_status", "0");
+        QueryWrapper<BusinessInfo> queryWrapper = new QueryWrapper<BusinessInfo>().like("submit_status", SubmitStatusEnum.ISBLACKENUM_0.getCode());
         List<BusinessInfo> businessInfos = businessInfoMapper.selectList(queryWrapper);
         if (businessInfos.size() == 0) {
             log.info("当前没有可上报的企业商户信息");
@@ -250,10 +250,10 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, "EER001");
         //设置报文体
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.Body();
+        ArrayList<BaseInfo> baseInfos = new ArrayList<BaseInfo>();
         PcacList pcacList = new PcacList();
+        pcacList.setCount(businessInfos.size() + "");
         for (int i = 0; i < businessInfos.size(); i++) {
-            pcacList.setCount(businessInfos.size() + "");
-            ArrayList<BaseInfo> baseInfos = new ArrayList<BaseInfo>();
             BaseInfo baseInfo = new BaseInfo();
             BusinessInfo businessInfo = businessInfos.get(i);
             BeanUtils.copyProperties(businessInfo, baseInfo);
@@ -277,6 +277,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
             //法定代表人姓名/负责人姓名
             baseInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
+            //法定代表人证件号码
+            baseInfo.setLegDocCode(CFCACipherUtils.getInnerToCFCA(businessInfo.getLegDocType(), businessInfo.getLegDocCode(), symmetricKeyEncoded));
             //商户代码
             baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusCode()));
             //收款账\卡号
@@ -326,9 +328,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         //设置报文体
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.PcacList();
+        ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo> baseInfos = new ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo>();
+        pcacList.setCount(businessInfoReqs.size() + "");
         for (int i = 0; i < businessInfoReqs.size(); i++) {
-            pcacList.setCount(businessInfoReqs.size() + "");
-            ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo> baseInfos = new ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo>();
             com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo();
             BusinessInfoReq businessInfo = businessInfoReqs.get(i);
             BeanUtils.copyProperties(businessInfo, baseInfo);
@@ -356,10 +358,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             }else{
                 baseInfo.setLegDocCode("");
             }
-
             baseInfos.add(baseInfo);
-            pcacList.setBaseInfo(baseInfos);
         }
+        pcacList.setBaseInfo(baseInfos);
         body.setPcacList(pcacList);
         request.setBody(body);
         document.setRequest(request);

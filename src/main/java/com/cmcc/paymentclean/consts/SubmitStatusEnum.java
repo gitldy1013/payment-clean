@@ -6,8 +6,8 @@ import org.springframework.util.StringUtils;
  * Created by lumma on 2020/9/12.
  */
 public enum SubmitStatusEnum {
-    ISBLACKENUM_0("0", "已报送"),
-    ISBLACKENUM_1("1", "未报送");
+    ISBLACKENUM_0("0", "未报送"),
+    ISBLACKENUM_1("1", "已报送");
 
 
     private final String code;
