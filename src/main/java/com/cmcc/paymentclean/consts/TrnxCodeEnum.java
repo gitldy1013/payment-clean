@@ -13,9 +13,13 @@ public enum  TrnxCodeEnum {
     PERSON_RISK_INFO_SUBMIT("PR0001","个人风险信息上报"),
     MERCHANT_RISK_INFO_SUBMIT("ER0001","商户风险信息上报"),
     ENTERPRISE_RISK_INFO_SUBMIT("BR0001","企业风险信息上报"),
+    BUSINESS_INFO_SUBMIT("EER001","企业商户信息上报"),
     BLACKLIST_PUSH("TS0001","黑名单推送请求"),
     RISK_TIPS_INFO_PUSH("TS0002","风险提示信息推送"),
     RISK_INFO_REISSUE("TS0004","风险信息补发"),
+    LOCAL_ASSOCIATED_RISK_INFO_BACK("UP0006","商户黑名单信息反馈"),
+    QUERY_MERCHANT_RISK_INFO_BACK("UP0005","批量商户风险信息查询使用情况反馈"),
+    QUERY_MERCHANT_RISK_INFO("QR0003","批量查询商户风险信息"),
     BUSINESS_INFO_REQ("QE0004","企业商户批量查询请求");
 
     private final String code;
