@@ -156,8 +156,8 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
         Body body = new Body();
         PcacList pcacList = new PcacList();
         ArrayList<RiskInfo> riskInfos = new ArrayList<>();
+        pcacList.setCount(PcacEnterpriseRiskSubmitInfos.size()+"");
         for (int i = 0; i < PcacEnterpriseRiskSubmitInfos.size(); i++) {
-            pcacList.setCount(PcacEnterpriseRiskSubmitInfos.size()+"");
             RiskInfo riskInfo = new RiskInfo();
             PcacEnterpriseRiskSubmitInfo PcacEnterpriseRiskSubmitInfo = PcacEnterpriseRiskSubmitInfos.get(i);
             BeanUtilsEx.copyProperties(riskInfo, PcacEnterpriseRiskSubmitInfo);
