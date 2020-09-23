@@ -2,6 +2,7 @@ package com.cmcc.paymentclean.controller;
 
 import com.cmcc.paymentclean.entity.PcacAssistanceInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac028.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac028.Differents;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac028.EntInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac028.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head;
@@ -45,7 +46,7 @@ public class PcacAssistanceController {
     public String assistanceInfo(@RequestParam(value = "xml") String xmlStr) {
         log.info("接收协会比对协查信息请求报文：{}", xmlStr);
         String doXml = saveAssistanceInfo(xmlStr);
-        log.info("接收协会比对协查信息响应报文：{}",doXml);
+        log.info("接收协会比对协查信息响应报文：{}", doXml);
         return doXml;
     }
 
@@ -64,21 +65,31 @@ public class PcacAssistanceController {
         PcacList pcacList = body.getPcacList();
         String upDate = pcacList.getUpDate();
         List<EntInfo> entInfoList = pcacList.getEntInfo();
-        ArrayList<PcacAssistanceInfo> assistanceInfoList = new ArrayList<>();
+        ArrayList<PcacAssistanceInfo> pcacAssistanceInfoList = new ArrayList<>();
         for (EntInfo entInfo : entInfoList) {
-            log.debug("协会返回比对协查信息：{}", entInfo);
-            PcacAssistanceInfo pcacAssistanceInfo = new PcacAssistanceInfo();
-            //对关键字进行解密
-            pcacAssistanceInfo.setCusCode(CFCACipherUtils.decrypt(secretKey, entInfo.getCusCode()));
-            pcacAssistanceInfo.setRegName(CFCACipherUtils.decrypt(secretKey, entInfo.getRegName()));
-            pcacAssistanceInfo.setLegDocName(CFCACipherUtils.decrypt(secretKey, entInfo.getLegDocName()));
-            pcacAssistanceInfo.setDifCusCode(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().get(0).getCusCode()));
-            pcacAssistanceInfo.setDifRegName(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().get(0).getRegName()));
-            pcacAssistanceInfo.setDifLegDocName(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().get(0).getLegDocName()));
-            pcacAssistanceInfo.setUpDate(upDate);
-            assistanceInfoList.add(pcacAssistanceInfo);
+            log.info("协会返回比对协查信息：{}", entInfo);
+            List<Differents> differents = entInfo.getDifferents();
+            if (differents.size() > 0) {
+
+                for (Differents different : differents) {
+                    PcacAssistanceInfo  pcacAssistanceInfo = new PcacAssistanceInfo();
+                    //对关键字进行解密
+                    pcacAssistanceInfo.setCusCode(CFCACipherUtils.decrypt(secretKey, entInfo.getCusCode()));
+                    pcacAssistanceInfo.setRegName(CFCACipherUtils.decrypt(secretKey, entInfo.getRegName()));
+                    pcacAssistanceInfo.setLegDocName(CFCACipherUtils.decrypt(secretKey, entInfo.getLegDocName()));
+                    pcacAssistanceInfo.setDifCusCode(CFCACipherUtils.decrypt(secretKey, different.getCusCode()));
+                    pcacAssistanceInfo.setDifRegName(CFCACipherUtils.decrypt(secretKey, different.getRegName()));
+                    pcacAssistanceInfo.setDifLegDocName(CFCACipherUtils.decrypt(secretKey, different.getLegDocName()));
+                    pcacAssistanceInfo.setUpDate(upDate);
+                    pcacAssistanceInfoList.add(pcacAssistanceInfo);
+                }
+            }
+
+
         }
 
-        return pcacAssistanceInfoService.saveAssistanceInfo(assistanceInfoList);
+        return pcacAssistanceInfoService.saveAssistanceInfo(pcacAssistanceInfoList);
     }
+
+
 }
