@@ -200,7 +200,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             //法定代表人（负责人）手机号
             riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getMobileNo()));
             //网址
-            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl() + "1"));
+            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()));
             //服务器 ip
             riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
             //ICP 备案编号
