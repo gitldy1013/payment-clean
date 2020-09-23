@@ -259,13 +259,20 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             BusinessInfo businessInfo = businessInfos.get(i);
             BeanUtils.copyProperties(businessInfo, baseInfo);
             baseInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
-            baseInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, businessInfo.getBankNo()));
-
+            
             //解密风控加密协会 商户上报：
 //            企业商户信息关键字：商户名称、商户简称、商户英文名称、法人证件号码、法定代表人姓名、
 //            法定代表人证件号码、商户代码、收款账\卡号、商户注册地址、商户经营地址、网址、服务器 IP、
 //            ICP 备案编号、商户联系人、商户联系电话、股东信息、外包服务机构名称、外包服务机构法人证
 //            件号码、外包服务机构法定代表人证件号码。
+
+            //ICP 备案编号
+           //baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, businessInfo.getIcp()));
+            baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegName()));
+            //法人证件号码
+            // baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
+            baseInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(businessInfo.getDocType(), businessInfo.getDocCode(), symmetricKeyEncoded));
+
             //商户名称
             baseInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegName()));
             //商户简称
@@ -274,8 +281,6 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             baseInfo.setCusNameEn(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusNameEn()));
             //商户代码
             baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusCode()));
-            //法人证件号码
-            baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
             //法定代表人姓名/负责人姓名
             baseInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
             //法定代表人证件号码
@@ -292,8 +297,6 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             baseInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getUrl()));
             //服务器 ip
             baseInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getServerIp()));
-            //ICP 备案编号
-            baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, businessInfo.getIcp()));
             //商户联系人
             baseInfo.setContName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContName()));
             //商户联系电话
@@ -307,8 +310,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             //外包服务机构法定代表人证件号码"
             baseInfo.setOutServiceLegCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
 
-            baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegName()));
-            baseInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(businessInfo.getDocType(), businessInfo.getDocCode(), symmetricKeyEncoded));
+
             baseInfos.add(baseInfo);
             pcacList.setBaseInfo(baseInfos);
         }
