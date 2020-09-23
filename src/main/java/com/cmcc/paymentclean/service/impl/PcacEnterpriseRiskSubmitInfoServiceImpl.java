@@ -184,8 +184,6 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusName()));
             //商户代码
             riskInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusCode()));
-            //法人证件号码
-            riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getDocCode()));
             //法定代表人姓名/负责人姓名
             riskInfo.setLegRepName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
             //法定代表人（负责人）证件号码
@@ -196,8 +194,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl extends ServiceImpl<PcacEnt
             riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()));
             //服务器 ip
             riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
-            //ICP 备案编号
-            riskInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, PcacEnterpriseRiskSubmitInfo.getRegName()));
+            //法人证件号码
             riskInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(PcacEnterpriseRiskSubmitInfo.getDocType(), PcacEnterpriseRiskSubmitInfo.getDocCode(), symmetricKeyEncoded));
             riskInfo.setBenList(benList);
             riskInfos.add(riskInfo);
