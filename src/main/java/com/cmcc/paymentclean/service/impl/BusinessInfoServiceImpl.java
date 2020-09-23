@@ -111,7 +111,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             businessInfoResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(businessInfoResp.getLegDocType()));
             businessInfoResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(businessInfoResp.getSubmitStatus()));
             SysLan sysLan = sysLanService.getLanInfoById(businessInfoResp.getOccurarea());
-            if(null != sysLan){
+            if (null != sysLan) {
                 businessInfoResp.setOccurarea(sysLan.getLanName());
             }
         }
@@ -204,7 +204,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             resultBean.setResMsg("XSD校验失败:" + XmlJsonUtils.formatXml(xml));
             return resultBean;
         }
-        log.info("反馈数据：{}",XmlJsonUtils.formatXml(xml));
+        log.info("反馈数据：{}", XmlJsonUtils.formatXml(xml));
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = this.pushToPcacByQuery(xml);
         Respone respone = resDoc.getRespone();
         Body resBody = respone.getBody();
@@ -228,7 +228,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                     "        <ResultCode>01</ResultCode>\n" +
                     "    </RespInfo>\n" +
                     "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         Body resBody = resDoc.getRespone().getBody();
         log.info("协会返回数据对象:{}", resBody);
         for (BusinessInfo pcacMerchantRiskSubmitInfo : businessInfos) {
@@ -238,7 +238,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             businessInfo.setResultStatus(resBody.getRespInfo().getResultStatus());
             businessInfo.setResultCode(resBody.getRespInfo().getResultCode());
             UpdateWrapper<BusinessInfo> updateWrapper = new UpdateWrapper<BusinessInfo>();
-            updateWrapper.eq("business_info_id",pcacMerchantRiskSubmitInfo.getBusinessInfoId());
+            updateWrapper.eq("business_info_id", pcacMerchantRiskSubmitInfo.getBusinessInfoId());
             businessInfoMapper.update(businessInfo, updateWrapper);
         }
     }
@@ -307,8 +307,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             //外包服务机构法定代表人证件号码"
             baseInfo.setOutServiceLegCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
 
-            baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegName()));
-            baseInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(businessInfo.getDocType(), businessInfo.getDocCode(), symmetricKeyEncoded));
+            baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getIcp()));
+            baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
             baseInfos.add(baseInfo);
             pcacList.setBaseInfo(baseInfos);
         }
@@ -338,25 +338,25 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             if (StringUtils.isNotEmpty(businessInfo.getDocCode())) {
                 //法人证件号码
                 baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
-            }else{
+            } else {
                 baseInfo.setDocCode("");
             }
             if (StringUtils.isNotEmpty(businessInfo.getRegName())) {
                 //商户名称
                 baseInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegName()));
-            }else {
+            } else {
                 baseInfo.setRegName("");
             }
             if (StringUtils.isNotEmpty(businessInfo.getLegDocName())) {
                 //法定代表人姓名/负责人姓名
                 baseInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
-            }else{
+            } else {
                 baseInfo.setLegDocName("");
             }
             if (StringUtils.isNotEmpty(businessInfo.getLegDocCode())) {
                 //法定代表人（负责人）证件号码
                 baseInfo.setLegDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocCode()));
-            }else{
+            } else {
                 baseInfo.setLegDocCode("");
             }
             baseInfos.add(baseInfo);
@@ -380,7 +380,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                     "        <ResultCode>01</ResultCode>\n" +
                     "    </RespInfo>\n" +
                     "</Body>";*/
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         log.info("协会返回数据对象:{}", resDoc);
         return resDoc;
     }
@@ -389,7 +389,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     public ResultBean<?> getBusinessInfoXML(String xml) {
         log.info("接收的xml:{}", xml);
         //pcac.ries.032
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body) XmlJsonUtils.convertXmlStrToObject(xml,com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class);
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
             List<Condition> conditions = conditionLists.getCondition();
