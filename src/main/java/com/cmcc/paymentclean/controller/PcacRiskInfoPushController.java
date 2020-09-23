@@ -100,6 +100,12 @@ public class PcacRiskInfoPushController {
             //法定代表人姓名
             String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
             riskInfo.setLegDocName(decryptLegDocName);
+            //url
+            String decryptUrl = CFCACipherUtils.decrypt(secretKey, riskInfo.getUrl());
+            riskInfo.setUrl(decryptUrl);
+            //商户注册号
+            String decryptRegisteredCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegisteredCode());
+            riskInfo.setRegisteredCode(decryptRegisteredCode);
             //法定代表人证件号码
             String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
             String encryptLegDocCode = null;
