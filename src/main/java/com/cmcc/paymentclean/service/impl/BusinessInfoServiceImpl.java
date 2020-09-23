@@ -384,7 +384,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     public ResultBean<?> getBusinessInfoXML(String xml) {
         log.info("接收的xml:{}", xml);
         //pcac.ries.032
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body.class);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper.class);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = resDoc.getRequest().getBody();
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
             List<Condition> conditions = conditionLists.getCondition();
