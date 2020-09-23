@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009239274253230</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>EER001</TrnxCode>
+            <TrnxTime>20200923130848</TrnxTime>
+            <SecretKey>jYJex/iEu7RZ+X29EXxoq3mwOCkHnYaxo/onWlyLiVNqHLsp1PId4ILrOeue6ES6RabqFpD2u3vW+Dru8glpKDHpNngdPWpYmpOpzU+zlDLM0q4aRsT+0hSGF8FnbXcCGpjK2IG5q8oh0oGdtczSk3cnVB0a9RwfHL6ORaUb+5r/dzf7x4vRZmmNTkj4WtIMMzdYiAKpnuKDMUfkaRz0CCtwCc4zh2yTZEbrmYTfvYNDYs0LshnR0TNLBSYVVIgFjNDFzjdGYC1eRnTHem7rRfctYnCAbb7ziy8iq9SJiPnK0kWdqsAhV6lOhb3cIg3DWwxBin+YYcLOUkywAgXxHw==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>企业特约商户信息第1条,上报成功!企业特约商户信息第2条,上报成功!</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>JPrssBKRG42/f16Ehg7xg92qPS5JjO6AgA1wxYg9DI0vjWj0BL7ZryuxV0CoI2PendXnl2IDiLF0THsMYi5xpWbJeA5XZ6W25ig9fZnukZv2JTL8bz3RCuHlmE3Ef9SP6lpqiBGJtMOuD/hQtPQiUmSu9wZrMFUwquKiqJHxxGCvHVkezCkhmXc7CQID1a6UIaQ6Iyupju+vGOHQvwpbo6MpZcNfN3bcXicb2gozTrZDEP4/6dM0TxYqJ9E1Ois/8Qlu5Hpj+GftZpLMk6+/ZJTE6Zc8V4/owLonjqn51jojuE8o2s2Ee2FpR2E2lvhBFMMObfijVtw0X1nO5NrixQ==</Signature>
+</Document>
