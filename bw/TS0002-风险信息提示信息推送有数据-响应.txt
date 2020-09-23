@@ -1,0 +1,23 @@
+---------------接收协会风险提示信息推送响应报文------------
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Respone>
+    <Head>
+      <Version>V1.3.0</Version>
+      <Identification>202009231000001214</Identification>
+      <OrigSender>Z2004343000017</OrigSender>
+      <OrigSenderSID>zf_sysstem</OrigSenderSID>
+      <RecSystemId>R0001</RecSystemId>
+      <TrnxCode/>
+      <TrnxTime>20200923132133</TrnxTime>
+      <SecretKey/>
+    </Head>
+    <Body>
+      <RespInfo>
+        <ResultStatus>01</ResultStatus>
+        <ResultCode>S00000</ResultCode>
+      </RespInfo>
+    </Body>
+  </Respone>
+  <Signature>cl/9CJqrCqYkl1w0kklJlvXUJl4svqAXmUKu0xL3wVy0W+aKu8rs5QKGT5jUW3mbPKP8+fcCgrRmWIfQQmV0I3Q9qQQjhcs7HvWm5QFZNcjQWONYKehYhakVxeotkNu349lFzl2CPke2ygV+V3SCW5ZABiqGFnCdjFfMD6jfB2WgUacQGy2zaEiHPakXSOfQznf6CQIfAjrLSgVeQDYzDDCqxzyZTpFaGrYTYG+6+8Uj/Uy0GI5jZ7tMi25E9jS2lD7TJZIG+e4+cbCc/UTMZeRfaC0H6UJCJ8dFzR9d9pfQ3ejCQeHlLdWDjf+KKm4SpBAUECkFb59W7QfYHWdi6Q==</Signature>
+</Document>

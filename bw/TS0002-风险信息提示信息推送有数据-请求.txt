@@ -1,0 +1,42 @@
+---------------接收协会风险提示信息推送报文------------
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Request>
+    <Head>
+      <Version>V1.3.0</Version>
+      <Identification>202009233837256758</Identification>
+      <OrigSender>Z2004343000017</OrigSender>
+      <OrigSenderSID>Z2004343000017</OrigSenderSID>
+      <RecSystemId>R0001</RecSystemId>
+      <TrnxCode>TS0002</TrnxCode>
+      <TrnxTime>20200923131038</TrnxTime>
+      <UserToken>pcac</UserToken>
+      <SecretKey>BUUH1gyYGPkIpsAsr0MOkuWkfjlHuQ5J1BvEXBWIS4GKVzOHNklPp2JXOkuFeJA2zZgaCW7BY5vJYhq+GzP68g4ALyohbd2pJbkM8maeLrZmIVSKUD+yrHJ0DjNKMTesa1zVBbjDF9b1tJLFwXdvak7p5T/bRGUYdUQTsQMoU5OFSYzEtByAaSZlp3GJIYXHBzoY8RzUiCpzynm+kM3CfeWrR+7IfUyUYZJFBQpYNzahvFdBdTmOTLNHYQVeourGqhKgliMvoCvkpI5xG0sCdpFQg2tONpf6QYD/HievrEL7kdblpR7K0U7TkNuwA3OAc+ZQZzFzaOYzi7c246/AfA==</SecretKey>
+    </Head>
+    <Body>
+      <PcacList>
+        <Count>1</Count>
+        <UpDate>2020-09-23</UpDate>
+        <RiskInfo>
+          <RegName>niskt7uSzWn0vjPNvN9cMjXhruxg6TORb4cfIT8I4bc=</RegName>
+          <CusName>jDvYgoRWvXcPHAITKd7Q7g==</CusName>
+          <DocType>01</DocType>
+          <DocCode>QF8fGlpthxphjtfCtbl3uw==</DocCode>
+          <LegDocName>dZqqMPc3BcgargCFhuzCfw==</LegDocName>
+          <LegDocType>02</LegDocType>
+          <LegDocCode>KGaeGQMz7bkb5Sklgh5llw==</LegDocCode>
+          <Level>01</Level>
+          <RiskType>24</RiskType>
+          <ValidDate>2020-09-30</ValidDate>
+          <ValidStatus>01</ValidStatus>
+          <CusType>03</CusType>
+          <Occurarea>511800</Occurarea>
+          <BankNo>0pRSWpCCoUuNl2w0K6bJzw==</BankNo>
+          <Url>5dTXTqHFGKzSOgOXz0pw7Q==</Url>
+          <RegisteredCode/>
+        </RiskInfo>
+      </PcacList>
+    </Body>
+  </Request>
+  <Signature>hMSrUqPolBvHtnc+xWOhtSomo9ZrIJH0j/H7V4eUlqhbVq5VDhgabyFOrkN9xrVTrTsPwhGVh4/2Mv/Av6XYYOZIDz/f6+hNRupRJO9vygE9EKfk8hJdt2VM6icy42VxbA8axV2hy1pqodIIjcQjXJDG+C75VlOSwuEXSAK5HvSuEWOeLRWjWR4ar3xzrcz1/jCIBtYdcktX1OR5OJxRsUzwfvhnWEJBWjeGLEzzyNUqWxy8qXlEn7L2mJ5qqzhXsRcRhGhNRDQ4YhsW2b75NFLjXle5NzaoNTtBgSIoyvkrw0qP61FuaJYa3vZt/8DyHkzN4POgIdGipHfo9rVfoQ==</Signature>
+</Document>

@@ -1,0 +1,24 @@
+---------------接收协会黑名单推送响应报文------------
+<?xml version="1.0" encoding="utf-8"?>
+
+<Document>
+  <Respone>
+    <Head>
+      <Version>V1.3.0</Version>
+      <Identification>202009231000001820</Identification>
+      <OrigSender>Z2004343000017</OrigSender>
+      <OrigSenderSID>zf_sysstem</OrigSenderSID>
+      <RecSystemId>R0001</RecSystemId>
+      <TrnxCode/>
+      <TrnxTime>20200923132154</TrnxTime>
+      <SecretKey/>
+    </Head>
+    <Body>
+      <RespInfo>
+        <ResultStatus>01</ResultStatus>
+        <ResultCode>S00000</ResultCode>
+      </RespInfo>
+    </Body>
+  </Respone>
+  <Signature>k1Z3Auwpo6XbK9BRZrDRlXFgqHlxA2ESqaxwGF12lY3pMnQLCqB7EQx286Ep3t1IJr+3uw39+qsa/DED7stiS2rpoHkC4QWp1u4hlVldOxK3kdBfZ3C1RxLa5F/iPtkXPlYftQMv5S/JDTNM/QEvzDXu8bj+IqgBsI5WpHE65p/ewfuaFCbdWKc5loIKW7lNsgRrB19riCO8tv4oDwUXDzOiFXrfoIpM2kn3iungfMJu4dtk/fwMLkAD6LIlkqQSS3UFVQvxvMeltIp5c8mQOKsFxqbg3m6a6Yg1hyjzb5y6WPc5RJAptdNF621GZRsPyeWSHXKyrJAlKx4ezWpiCA==</Signature>
+</Document>
