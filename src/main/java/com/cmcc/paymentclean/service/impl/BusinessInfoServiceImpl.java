@@ -27,7 +27,9 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.*;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Request033Wapper;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
@@ -380,6 +382,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body resBody = resDoc.getRequest().getBody();
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
+            Request033Wapper request = resDoc.getRequest();
+            Head head = request.getHead();
+            String secretKey = head.getSecretKey();
             List<Condition> conditions = conditionLists.getCondition();
             List<BusinessInfo> businessInfos = new ArrayList<>();
             for (int i = 0; i < conditions.size(); i++) {
@@ -404,7 +409,13 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 BeanUtils.copyProperties(warningRiskInfo, businessInfo);
                 BeanUtils.copyProperties(legBlackRiskInfo, businessInfo);
                 BeanUtils.copyProperties(legWarningRiskInfo, businessInfo);
+                //对关键字进行解密
+                businessInfo = this.decryptBusinessInfo(businessInfo, secretKey);
+                businessInfos.add(businessInfo);
             }
+            //入库
+            this.saveBatch(businessInfos);
+
             String fileName = sftpConfig.getBusinessInfoBlackFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
             ExcelUtils excelUtils = new ExcelUtils();
             try {
@@ -425,6 +436,90 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         }
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig);
         return XmlJsonUtils.convertObjectToXmlStr(document);
+    }
+
+    private BusinessInfo decryptBusinessInfo(BusinessInfo businessInfo, String secretKey) {
+        //商户名称
+        if(StringUtils.isNotEmpty(businessInfo.getRegName())){
+            businessInfo.setRegName(CFCACipherUtils.decrypt(secretKey, businessInfo.getRegName()));
+        }
+        //商户简称
+        if(StringUtils.isNotEmpty(businessInfo.getCusName())){
+            businessInfo.setCusName(CFCACipherUtils.decrypt(secretKey, businessInfo.getCusName()));
+        }
+        //商户英文名称
+        if(StringUtils.isNotEmpty(businessInfo.getCusNameEn())){
+            businessInfo.setCusNameEn(CFCACipherUtils.decrypt(secretKey, businessInfo.getCusNameEn()));
+        }
+        //商户代码
+        if(StringUtils.isNotEmpty(businessInfo.getCusCode())){
+            businessInfo.setCusCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getCusCode()));
+        }
+        //法定代表人姓名/负责人姓名
+        if(StringUtils.isNotEmpty(businessInfo.getLegDocName())){
+            businessInfo.setLegDocName(CFCACipherUtils.decrypt(secretKey, businessInfo.getLegDocName()));
+        }
+        //法定代表人证件号码
+        if(StringUtils.isNotEmpty(businessInfo.getLegDocCode())){
+            businessInfo.setLegDocCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getLegDocCode()));
+        }
+        //商户代码
+        if(StringUtils.isNotEmpty(businessInfo.getCusCode())){
+            businessInfo.setCusCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getCusCode()));
+        }
+        //收款账\卡号
+        if(StringUtils.isNotEmpty(businessInfo.getBankNo())){
+            businessInfo.setBankNo(CFCACipherUtils.decrypt(secretKey, businessInfo.getBankNo()));
+        }
+        //商户注册地址
+        if(StringUtils.isNotEmpty(businessInfo.getRegAddrDetail())){
+            businessInfo.setRegAddrDetail(CFCACipherUtils.decrypt(secretKey, businessInfo.getRegAddrDetail()));
+        }
+        //商户注册地址
+        if(StringUtils.isNotEmpty(businessInfo.getAddrDetail())){
+            businessInfo.setAddrDetail(CFCACipherUtils.decrypt(secretKey, businessInfo.getAddrDetail()));
+        }
+        //网址
+        if(StringUtils.isNotEmpty(businessInfo.getUrl())){
+            businessInfo.setUrl(CFCACipherUtils.decrypt(secretKey, businessInfo.getUrl()));
+        }
+        //服务器 ip
+        if(StringUtils.isNotEmpty(businessInfo.getServerIp())){
+            businessInfo.setServerIp(CFCACipherUtils.decrypt(secretKey, businessInfo.getServerIp()));
+        }
+        //商户联系人
+        if(StringUtils.isNotEmpty(businessInfo.getContName())){
+            businessInfo.setContName(CFCACipherUtils.decrypt(secretKey, businessInfo.getContName()));
+        }
+        //商户联系电话
+        if(StringUtils.isNotEmpty(businessInfo.getContPhone())){
+            businessInfo.setContPhone(CFCACipherUtils.decrypt(secretKey, businessInfo.getContPhone()));
+        }
+        //商户联系电话
+        if(StringUtils.isNotEmpty(businessInfo.getShareHolder())){
+            businessInfo.setShareHolder(CFCACipherUtils.decrypt(secretKey, businessInfo.getShareHolder()));
+        }
+        //商户联系电话
+        if(StringUtils.isNotEmpty(businessInfo.getOutServiceName())){
+            businessInfo.setOutServiceName(CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceName()));
+        }
+        //商户联系电话
+        if(StringUtils.isNotEmpty(businessInfo.getOutServiceCardCode())){
+            businessInfo.setOutServiceCardCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceCardCode()));
+        }
+        //外包服务机构法定代表人证件号码"
+        if(StringUtils.isNotEmpty(businessInfo.getOutServiceLegCardCode())){
+            businessInfo.setOutServiceLegCardCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceLegCardCode()));
+        }
+        //ICP
+        if(StringUtils.isNotEmpty(businessInfo.getIcp())){
+            businessInfo.setIcp(CFCACipherUtils.decrypt(secretKey, businessInfo.getIcp()));
+        }
+        //doccode
+        if(StringUtils.isNotEmpty(businessInfo.getDocCode())){
+            businessInfo.setDocCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getDocCode()));
+        }
+        return businessInfo;
     }
 
     private SXSSFWorkbook getSxssfWorkbook(SXSSFWorkbook sxssfWorkbook, String sheetName, List list, Class c) {
