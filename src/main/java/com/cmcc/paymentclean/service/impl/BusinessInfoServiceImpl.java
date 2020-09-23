@@ -420,8 +420,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             }
         }
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig);
-        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        return doXml;
+        return XmlJsonUtils.convertObjectToXmlStr(document);
     }
 
     private SXSSFWorkbook getSxssfWorkbook(SXSSFWorkbook sxssfWorkbook, String sheetName, List list, Class c) {

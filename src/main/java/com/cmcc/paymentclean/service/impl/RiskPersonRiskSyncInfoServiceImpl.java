@@ -34,7 +34,7 @@ public class RiskPersonRiskSyncInfoServiceImpl extends ServiceImpl<RiskPersonRis
     @Override
     public ResultBean<Boolean> addRiskPerson(List<RiskPersonRiskSyncInfoReq> riskPersonList) {
         log.info("addRiskPerson req={}", com.alibaba.fastjson.JSON.toJSON(riskPersonList));
-        ResultBean resultBean = new ResultBean();
+        ResultBean<Boolean> resultBean = new ResultBean<>();
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         if(!CollectionUtils.isEmpty(riskPersonList)){
@@ -47,7 +47,7 @@ public class RiskPersonRiskSyncInfoServiceImpl extends ServiceImpl<RiskPersonRis
                 riskPersonRiskSyncInfo.setSourceChannel(this.splitStrs(riskPersonRiskSyncInfo.getSourceChannel()));
                 riskPersonRiskSyncInfo.setOperateTime(new Date(System.currentTimeMillis()));
                 riskPersonRiskSyncInfo.setOccurarea(this.splitStrs(riskPersonRiskSyncInfo.getOccurarea()));
-                QueryWrapper<RiskPersonRiskSyncInfo> queryWrapper = new QueryWrapper();
+                QueryWrapper<RiskPersonRiskSyncInfo> queryWrapper = new QueryWrapper<>();
                 queryWrapper.eq("usrNo",riskPerson.getUsrNo());
                 RiskPersonRiskSyncInfo riskPerson1 = super.getOne(queryWrapper);
                 if(null!=riskPerson1){

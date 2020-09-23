@@ -72,7 +72,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
     @Override
     public ResultBean<Page<AssociatedRiskMerchantInfoResp>> pageLocalAssociatedRiskMerchantInfo(AssociatedRiskMerchantInfoReq associatedRiskMerchantInfoReq) {
         log.info("pageLocalAssociatedRiskMerchantInfo req={}", com.alibaba.fastjson.JSON.toJSON(associatedRiskMerchantInfoReq));
-        ResultBean<Page<AssociatedRiskMerchantInfoResp>> resultBean = new ResultBean();
+        ResultBean<Page<AssociatedRiskMerchantInfoResp>> resultBean = new ResultBean<>();
         Page<AssociatedRiskMerchantInfoResp> page = new Page<>(associatedRiskMerchantInfoReq.getPageNo(), associatedRiskMerchantInfoReq.getPageSize());
         Page<AssociatedRiskMerchantInfoResp> pageLocalAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfoMapper.pageLocalAssociatedRiskMerchantInfo(page, associatedRiskMerchantInfoReq);
         List<AssociatedRiskMerchantInfoResp> associatedRiskMerchantInfoResps = pageLocalAssociatedRiskMerchantInfo.getRecords();
@@ -94,7 +94,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
                 associatedRiskMerchantInfoResp.setCusType(CusTypeEnum.getCusTypeEnum(associatedRiskMerchantInfoResp.getCusType()));
                 associatedRiskMerchantInfoResp.setStatus(StatusEnum.getStatusDesc(associatedRiskMerchantInfoResp.getStatus()));
                 SysLan sysLan = sysLanService.getLanInfoById(associatedRiskMerchantInfoResp.getOccurarea());
-                if(null != sysLan){
+                if (null != sysLan) {
                     associatedRiskMerchantInfoResp.setOccurarea(sysLan.getLanName());
                 }
             }
@@ -108,7 +108,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
 
     @Override
     public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> localAssociatedRiskMerchantInfoBack(List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReqs) {
-        ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> resultBean = new ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body>();
+        ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> resultBean = new ResultBean<>();
 //        if(true){
 //            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
 //            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
@@ -116,20 +116,19 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
 //        }
         //拼装报文
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
-        Document document = new Document();
+        Document<Body> document = new Document<>();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, TrnxCodeEnum.LOCAL_ASSOCIATED_RISK_INFO_BACK.getCode());
+        Request<Body> request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, TrnxCodeEnum.LOCAL_ASSOCIATED_RISK_INFO_BACK.getCode());
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
         pcacList.setCount(associatedRiskMerchantInfoBackReqs.size() + "");
         List<RiskInfo> riskInfos = new ArrayList<>();
         LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = new LocalAssociatedRiskMerchantInfo();
-        for (int i = 0; i < associatedRiskMerchantInfoBackReqs.size(); i++) {
+        for (AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq : associatedRiskMerchantInfoBackReqs) {
             QueryWrapper<LocalAssociatedRiskMerchantInfo> wrapper = new QueryWrapper<>();
-            AssociatedRiskMerchantInfoBackReq armbr = associatedRiskMerchantInfoBackReqs.get(i);
-            wrapper.eq("doc_type", armbr.getDocType());
-            wrapper.eq("doc_code", armbr.getDocCode());
+            wrapper.eq("doc_type", associatedRiskMerchantInfoBackReq.getDocType());
+            wrapper.eq("doc_code", associatedRiskMerchantInfoBackReq.getDocCode());
             List<LocalAssociatedRiskMerchantInfo> localAssociatedRiskMerchantInfos = localAssociatedRiskMerchantInfoMapper.selectList(wrapper);
             if (localAssociatedRiskMerchantInfos.size() > 0) {
                 localAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfos.get(0);
@@ -138,10 +137,10 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
             riskInfo.setCusType(localAssociatedRiskMerchantInfo.getCusType());
             riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, localAssociatedRiskMerchantInfo.getRegName()));
             riskInfo.setCurrency("CNY");
-            riskInfo.setAmount(armbr.getAmount());
-            riskInfo.setDocType(this.splitStrs(armbr.getDocType()));
-            riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, armbr.getDocCode()));
-            riskInfo.setHandleResult(this.splitStrs(armbr.getHandleResult()));
+            riskInfo.setAmount(associatedRiskMerchantInfoBackReq.getAmount());
+            riskInfo.setDocType(this.splitStrs(associatedRiskMerchantInfoBackReq.getDocType()));
+            riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, associatedRiskMerchantInfoBackReq.getDocCode()));
+            riskInfo.setHandleResult(this.splitStrs(associatedRiskMerchantInfoBackReq.getHandleResult()));
             riskInfo.setHandleTime(DateUtils.formatTime(new Date(), DateUtils.FORMAT_DATE));
             riskInfos.add(riskInfo);
             pcacList.setRiskInfo(riskInfos);
@@ -160,11 +159,11 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
             resultBean.setResMsg("XSD校验失败:" + XmlJsonUtils.formatXml(xmlStr));
             return resultBean;
         }
-        log.info("反馈数据：{}",XmlJsonUtils.formatXml(xmlStr));
+        log.info("反馈数据：{}", XmlJsonUtils.formatXml(xmlStr));
         //解析响应
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xmlStr);
-        log.info("响应数据：{}",XmlJsonUtils.formatXml(post));
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post,com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
+        log.info("响应数据：{}", XmlJsonUtils.formatXml(post));
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = resDoc.getRespone().getBody();
         resultBean.setData(resBody);
         resultBean.setResCode(resBody.getRespInfo().getResultCode());
@@ -176,11 +175,11 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         return resultBean;
     }
 
-    private String splitStrs(String strings){
-        if(StringUtils.isEmpty(strings)){
+    private String splitStrs(String strings) {
+        if (StringUtils.isEmpty(strings)) {
             return strings;
         }
-        String [] strs = strings.split("\\|");
+        String[] strs = strings.split("\\|");
         return strs[0];
     }
 }

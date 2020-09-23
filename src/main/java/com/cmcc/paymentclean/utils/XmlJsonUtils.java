@@ -133,7 +133,8 @@ public class XmlJsonUtils {
     /**
      * 将String类型的xml转换成对象
      */
-    public static Object convertXmlStrToObject(String xmlStr,Class... clazz) {
+    @SafeVarargs
+    public static<T> Object convertXmlStrToObject(String xmlStr, Class<T>... clazz) {
         Object xmlObject = null;
         try {
             JAXBContext context = JAXBContext.newInstance(clazz);
@@ -172,9 +173,9 @@ public class XmlJsonUtils {
         return pwd.toString();
     }
 
-    public static Request getRequest(byte[] symmetricKeyEncoded, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document document, PcacConfig pcacConfig, String trnxCode) {
+    public static<T> Request<T> getRequest(byte[] symmetricKeyEncoded, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<T> document, PcacConfig pcacConfig, String trnxCode) {
         document.setSignature(null);
-        Request request = new Request();
+        Request<T> request = new Request<T>();
         Head head = new Head();
         head.setVersion(pcacConfig.getVersion());
         head.setIdentification(DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + genRandomNum(10)));
@@ -189,7 +190,7 @@ public class XmlJsonUtils {
         return request;
     }
 
-    public static void doSignature(com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document document) {
+    public static<T> void doSignature(com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<T> document) {
         String xml = XmlJsonUtils.convertObjectToXmlStr(document);
         log.info("加签之前的XML数据: {}",xml);
         //加签

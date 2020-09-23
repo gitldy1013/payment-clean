@@ -78,7 +78,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     @Override
     public ResultBean<Page<PcacRiskInfoResp>> pagePcacRiskInfo(PcacRiskInfoReq riskInfoReq) {
         log.info("pagePcacRiskInfo req={}", com.alibaba.fastjson.JSON.toJSON(riskInfoReq));
-        ResultBean<Page<PcacRiskInfoResp>> resultBean = new ResultBean();
+        ResultBean<Page<PcacRiskInfoResp>> resultBean = new ResultBean<>();
         Page<PcacRiskInfoResp> page = new Page<>(riskInfoReq.getPageNo(), riskInfoReq.getPageSize());
         Page<PcacRiskInfoResp> pcacPersonRiskSubmitInfoPage = pcacRiskInfoMapper.pagePcacRiskInfo(page, riskInfoReq);
         List<PcacRiskInfoResp> riskPersonResps = pcacPersonRiskSubmitInfoPage.getRecords();
@@ -138,8 +138,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
 
         Document document = XmlJsonUtils.getRespDocument(pcacConfig);
-        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        return doXml;
+        return XmlJsonUtils.convertObjectToXmlStr(document);
 
     }
 
@@ -149,10 +148,10 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     }
 
     @Override
-    public ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq) {
-        ResultBean resultBean = null;
+    public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq) {
+        ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> resultBean = null;
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body>();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<>();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> request = XmlJsonUtils.getRequest(symmetricKeyEncoded,document,pcacConfig,TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body();
         BeanUtilsEx.copyProperties(body, reissueRiskInfoReq);

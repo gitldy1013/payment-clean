@@ -117,7 +117,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             log.info("当前没有可上报的风险商户信息");
             return;
         }
-        Document document = getDocument(pcacMerchantRiskSubmitInfos);
+        Document<Body> document = getDocument(pcacMerchantRiskSubmitInfos);
         //报文转换
         String xml = XmlJsonUtils.convertObjectToXmlStr(document);
         log.info("获取到的xml数据:{}", xml);
@@ -154,23 +154,23 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         }
     }
 
-    private Document getDocument(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos) {
+    private Document<Body> getDocument(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos) {
         //拼装报文
-        Document document = new Document();
+        Document<Body> document = new Document<>();
         byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         //设置报文头
-        Request request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, TrnxCodeEnum.MERCHANT_RISK_INFO_SUBMIT.getCode());
+        Request<Body> request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, TrnxCodeEnum.MERCHANT_RISK_INFO_SUBMIT.getCode());
         //设置报文体
         Body body = new Body();
         PcacList pcacList = new PcacList();
-        ArrayList<RiskInfo> riskInfos = new ArrayList<RiskInfo>();
+        ArrayList<RiskInfo> riskInfos = new ArrayList<>();
         for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
             pcacList.setCount(pcacMerchantRiskSubmitInfos.size() + "");
             RiskInfo riskInfo = new RiskInfo();
             PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
             BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
             BankList bankList = new BankList();
-            List<BankInfo> bankInfos = new ArrayList<BankInfo>();
+            List<BankInfo> bankInfos = new ArrayList<>();
             BankInfo bankInfo = new BankInfo();
             BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
             //银行结算账号
@@ -222,11 +222,4 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         return document;
     }
 
-    private String splitStrs(String strings) {
-        if (StringUtils.isEmpty(strings)) {
-            return strings;
-        }
-        String[] strs = strings.split("\\|");
-        return strs[0];
-    }
 }

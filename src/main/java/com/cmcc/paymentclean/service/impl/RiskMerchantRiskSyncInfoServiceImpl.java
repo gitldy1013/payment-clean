@@ -34,7 +34,7 @@ public class RiskMerchantRiskSyncInfoServiceImpl extends ServiceImpl<RiskMerchan
     @Override
     public ResultBean<Boolean> addMerchant(List<RiskMerchantRiskSyncInfoReq> riskMerchantList) {
         log.info("addMerchant req={}", com.alibaba.fastjson.JSON.toJSON(riskMerchantList));
-        ResultBean resultBean = new ResultBean();
+        ResultBean<Boolean> resultBean = new ResultBean<>();
         resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
         resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
         List<RiskMerchantRiskSyncInfo> newRiskMerchantList = new ArrayList<>();
@@ -50,7 +50,7 @@ public class RiskMerchantRiskSyncInfoServiceImpl extends ServiceImpl<RiskMerchan
             riskMerchantRiskSyncInfo.setCusType(this.splitStrs(riskMerchantRiskSyncInfo.getCusType()));
             riskMerchantRiskSyncInfo.setCusNature(this.splitStrs(riskMerchantRiskSyncInfo.getCusNature()));
             riskMerchantRiskSyncInfo.setLevel(this.splitStrs(riskMerchantRiskSyncInfo.getLevel()));
-            QueryWrapper<RiskMerchantRiskSyncInfo> queryWrapper = new QueryWrapper();
+            QueryWrapper<RiskMerchantRiskSyncInfo> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("cus_code", riskMerchant.getCusCode());
             RiskMerchantRiskSyncInfo riskMerchant1 = super.getOne(queryWrapper);
             if (null != riskMerchant1) {
