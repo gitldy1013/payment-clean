@@ -22,15 +22,16 @@ import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Condition;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.ConditionList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.ResultInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.RiskInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.SingInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Condition;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ConditionList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ResultInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.SingInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
@@ -58,6 +59,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static com.cmcc.paymentclean.entity.dto.ResultBean.PARAM_ERR;
 
@@ -379,11 +381,11 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     }
 
     @Override
-    public ResultBean<?> getBusinessInfoXML(String xml) {
+    public String getBusinessInfoXML(String xml) {
         log.info("接收的xml:{}", xml);
-        //pcac.ries.032
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper.class);
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = resDoc.getRequest().getBody();
+        //pcac.ries.033
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper.class);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body resBody = resDoc.getRequest().getBody();
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
             List<Condition> conditions = conditionLists.getCondition();
@@ -391,8 +393,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             for (int i = 0; i < conditions.size(); i++) {
                 Condition condition = conditions.get(i);
                 //返回记录总数
-                ResultInfo resultInfo = condition.getResultInfo();
-                com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.BaseInfo baseInfo = resultInfo.getBaseInfo();
+                List<ResultInfo> resultInfos = condition.getResultCondition().getResultInfo();
+                ResultInfo resultInfo = resultInfos.get(0);
+                com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.getBaseInfo();
                 //待补充落表逻辑 需求不清晰，东阳建议全部按一条数据来处理汇总一条BusinessInfo 数据
                 SingInfo hisSingInfo = resultInfo.getHisSignList().get(0).getSingInfo().get(0);
                 SingInfo curSingInfo = resultInfo.getCurSignList().get(0).getSingInfo().get(0);
@@ -417,14 +420,52 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 e1.printStackTrace();
             }
         }
-        ResultBean resultBean = new ResultBean();
 
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Body respBody = new com.cmcc.paymentclean.entity.dto.pcac.resp.Body();
+        //返回响应
+        Body body = new Body();
         RespInfo respInfo = new RespInfo();
-        respInfo.setResultCode("01");
-        respInfo.setResultStatus("已接收");
-        respBody.setRespInfo(respInfo);
-        return resultBean;
+        //返回成功的状态码
+        respInfo.setResultStatus("01");
+        respInfo.setResultCode("S00000");
+        body.setRespInfo(respInfo);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resp.Document();
+        Respone respone = new Respone();
+        respone.setBody(body);
+        String trnxCode = "";
+        Head head = getRespHead(trnxCode);
+        respone.setHead(head);
+        document.setRespone(respone);
+        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        String signature = CFCACipherUtils.doSignature(noSignXml);
+        document.setSignature(signature);
+        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        return doXml;
+
+    }
+
+    /**
+     * 组装响应报文头的信息
+     */
+    private Head getRespHead(String trnxCode) {
+        Date date = new Date();
+        Head head = new Head();
+        head.setVersion(pcacConfig.getVersion());
+        //报文唯一标识（8 位日期+10 顺序号）
+        int random = new Random().nextInt(1000) + 1000;
+        String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;
+        head.setIdentification(identification);
+        //收单机构收单机构机构号（字母、数字、下划线）
+        head.setOrigSender(pcacConfig.getOrigSender());
+        //收单机构收单机构发送系统号（字母、数字、下划线）
+        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
+        //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
+        head.setRecSystemId("SECB01");
+        //交易码，见 5.1 报文分类列表（数字、字母）-----企业商户批量查询结果 推送响应TrnxCode为空
+        head.setTrnxCode(trnxCode);
+        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
+        head.setTrnxTime(trnxTime);
+        head.setSecretKey("");
+        return head;
     }
 
     private SXSSFWorkbook getSxssfWorkbook(SXSSFWorkbook sxssfWorkbook, String sheetName, List list, Class c) {
