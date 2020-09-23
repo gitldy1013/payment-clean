@@ -35,7 +35,8 @@ public class Swagger2Configuration {
                 .title("支付清算相关服务") //设置文档的标题
                 .description("支付清算相关服务 API 接口文档") // 设置文档的描述
                 .version(VERSION) // 设置文档的版本信息-> 1.0.0 Version information
-                .termsOfServiceUrl("http://www.baidu.com") // 设置文档的License信息->1.3 License information
+                .licenseUrl("https://www.zybuluo.com/qq1126176532/note/1744422")
+                .termsOfServiceUrl("https://www.zybuluo.com/qq1126176532/note/1453897") // 设置文档的License信息->1.3 License information
                 .build();
     }
 }
