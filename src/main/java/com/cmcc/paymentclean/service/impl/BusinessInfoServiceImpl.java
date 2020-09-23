@@ -22,15 +22,15 @@ import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.PcacList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Condition;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.ConditionList;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.ResultInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.RiskInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.SingInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Condition;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ConditionList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ResultCondition;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.ResultInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.RiskInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.SingInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
@@ -381,11 +381,10 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     }
 
     @Override
-    public ResultBean<?> getBusinessInfoXML(String xml) {
+    public String getBusinessInfoXML(String xml) {
         log.info("接收的xml:{}", xml);
-        //pcac.ries.032
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document032Wapper.class);
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body resBody = resDoc.getRequest().getBody();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper.class);
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body resBody = resDoc.getRequest().getBody();
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
             List<Condition> conditions = conditionLists.getCondition();
@@ -393,13 +392,15 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             for (int i = 0; i < conditions.size(); i++) {
                 Condition condition = conditions.get(i);
                 //返回记录总数
-                ResultInfo resultInfo = condition.getResultInfo();
-                com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.BaseInfo baseInfo = resultInfo.getBaseInfo();
+                ResultCondition resultCondition = condition.getResultCondition();
+                List<ResultInfo> resultInfo = resultCondition.getResultInfo();
+                String count = condition.getCount();
+                com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.get(0).getBaseInfo();
                 //待补充落表逻辑 需求不清晰，东阳建议全部按一条数据来处理汇总一条BusinessInfo 数据
-                SingInfo hisSingInfo = resultInfo.getHisSignList().get(0).getSingInfo().get(0);
-                SingInfo curSingInfo = resultInfo.getCurSignList().get(0).getSingInfo().get(0);
-                RiskInfo blackRiskInfo = resultInfo.getBlackList().get(0).getRiskInfo().get(0);
-                RiskInfo warningRiskInfo = resultInfo.getWarningList().get(0).getRiskInfo().get(0);
+                SingInfo hisSingInfo = resultInfo.get(0).getHisSignList().get(0).getSingInfo().get(0);
+                SingInfo curSingInfo = resultInfo.get(0).getCurSignList().get(0).getSingInfo().get(0);
+                RiskInfo blackRiskInfo = resultInfo.get(0).getBlackList().get(0).getRiskInfo().get(0);
+                RiskInfo warningRiskInfo = resultInfo.get(0).getWarningList().get(0).getRiskInfo().get(0);
                 BusinessInfo businessInfo = new BusinessInfo();
                 BeanUtils.copyProperties(curSingInfo, businessInfo);
                 BeanUtils.copyProperties(blackRiskInfo, businessInfo);
@@ -419,14 +420,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 e1.printStackTrace();
             }
         }
-        ResultBean resultBean = new ResultBean();
-
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Body respBody = new com.cmcc.paymentclean.entity.dto.pcac.resp.Body();
-        RespInfo respInfo = new RespInfo();
-        respInfo.setResultCode("01");
-        respInfo.setResultStatus("已接收");
-        respBody.setRespInfo(respInfo);
-        return resultBean;
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig);
+        String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        return doXml;
     }
 
     private SXSSFWorkbook getSxssfWorkbook(SXSSFWorkbook sxssfWorkbook, String sheetName, List list, Class c) {

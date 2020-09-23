@@ -1,6 +1,9 @@
 package com.cmcc.paymentclean.utils;
 
 import com.cmcc.paymentclean.config.PcacConfig;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import lombok.extern.slf4j.Slf4j;
@@ -224,4 +227,50 @@ public class XmlJsonUtils {
         }
         return ans.toString();
     }
+
+    public static com.cmcc.paymentclean.entity.dto.pcac.resp.Document getRespDocument(PcacConfig pcacConfig) {
+        Body body = new Body();
+        RespInfo respInfo = new RespInfo();
+        //返回成功的状态码
+        respInfo.setResultStatus("01");
+        respInfo.setResultCode("S00000");
+        body.setRespInfo(respInfo);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = new com.cmcc.paymentclean.entity.dto.pcac.resp.Document();
+        Respone respone = new Respone();
+        respone.setBody(body);
+        String trnxCode = "";
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Head head = getRespHead(trnxCode,pcacConfig);
+        respone.setHead(head);
+        document.setRespone(respone);
+        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
+        String signature = CFCACipherUtils.doSignature(noSignXml);
+        document.setSignature(signature);
+        return document;
+    }
+
+    /**
+     * 组装响应报文头的信息
+     */
+    public static com.cmcc.paymentclean.entity.dto.pcac.resp.Head getRespHead(String trnxCode, PcacConfig pcacConfig) {
+        Date date = new Date();
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resp.Head();
+        head.setVersion(pcacConfig.getVersion());
+        //报文唯一标识（8 位日期+10 顺序号）
+        int random = new Random().nextInt(1000) + 1000;
+        String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;
+        head.setIdentification(identification);
+        //收单机构收单机构机构号（字母、数字、下划线）
+        head.setOrigSender(pcacConfig.getOrigSender());
+        //收单机构收单机构发送系统号（字母、数字、下划线）
+        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
+        //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
+        head.setRecSystemId("R0001");
+        //交易码，见 5.1 报文分类列表（数字、字母）-----商户信息比对协查推送响应TrnxCode为空
+        head.setTrnxCode(trnxCode);
+        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
+        head.setTrnxTime(trnxTime);
+        head.setSecretKey("");
+        return head;
+    }
+
 }

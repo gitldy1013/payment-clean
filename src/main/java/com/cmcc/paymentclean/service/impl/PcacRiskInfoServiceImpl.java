@@ -26,7 +26,6 @@ import com.cmcc.paymentclean.entity.dto.pcac.resp.QueryInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.PcacRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.PcacRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
@@ -36,7 +35,6 @@ import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
 import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import com.cmcc.paymentclean.utils.ValidateUtils;
@@ -52,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
  * <p>
@@ -140,22 +137,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     public String insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList) {
         pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
 
-        Body body = new Body();
-        RespInfo respInfo = new RespInfo();
-        //返回成功的状态码
-        respInfo.setResultStatus("01");
-        respInfo.setResultCode("S00000");
-        body.setRespInfo(respInfo);
-        Document document = new Document();
-        Respone respone = new Respone();
-        respone.setBody(body);
-        String trnxCode = "";
-        Head head = getRespHead(trnxCode);
-        respone.setHead(head);
-        document.setRespone(respone);
-        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
-        String signature = CFCACipherUtils.doSignature(noSignXml);
-        document.setSignature(signature);
+        Document document = XmlJsonUtils.getRespDocument(pcacConfig);
         String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
         return doXml;
 
@@ -169,16 +151,15 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     @Override
     public ResultBean reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq) {
         ResultBean resultBean = null;
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = getResqHead(TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
+        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body>();
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> request = XmlJsonUtils.getRequest(symmetricKeyEncoded,document,pcacConfig,TrnxCodeEnum.RISK_INFO_REISSUE.getCode());
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body();
         BeanUtilsEx.copyProperties(body, reissueRiskInfoReq);
         if (StringUtils.isEmpty(body.getReqDateEnd())){
             body.setReqDateEnd("");
         }
         log.info("请求体body参数：{}", body);
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> document = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body>();
-        Request<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> request = new Request<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body>();
-        request.setHead(head);
         request.setBody(body);
         document.setRequest(request);
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
@@ -333,61 +314,6 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         }
 
 
-    }
-
-    /**
-     * 组装响应报文头的信息
-     */
-    private Head getRespHead(String trnxCode) {
-        Date date = new Date();
-        Head head = new Head();
-        head.setVersion(pcacConfig.getVersion());
-        //报文唯一标识（8 位日期+10 顺序号）
-        int random = new Random().nextInt(1000) + 1000;
-        String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;
-        head.setIdentification(identification);
-        //收单机构收单机构机构号（字母、数字、下划线）
-        head.setOrigSender(pcacConfig.getOrigSender());
-        //收单机构收单机构发送系统号（字母、数字、下划线）
-        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
-        //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
-        head.setRecSystemId("R0001");
-        //交易码，见 5.1 报文分类列表（数字、字母）-----黑名单推送响应TrnxCode为空
-        head.setTrnxCode(trnxCode);
-        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
-        head.setTrnxTime(trnxTime);
-        head.setSecretKey("");
-        return head;
-    }
-
-    /**
-     * 组装请求报文头的信息
-     */
-    private com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head getResqHead(String trnxCode) {
-        //没有需要加密的字段，但是xsd文件校验secretKey长度必须大于1
-        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
-        String secretKey = CFCACipherUtils.getSecretKey(symmetricKeyEncoded);
-        Date date = new Date();
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head();
-        head.setVersion(pcacConfig.getVersion());
-        //报文唯一标识（8 位日期+10 顺序号）
-        int random = new Random().nextInt(1000) + 1000;
-        String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;
-        head.setIdentification(identification);
-        //收单机构收单机构机构号（字母、数字、下划线）
-        head.setOrigSender(pcacConfig.getOrigSender());
-        //收单机构收单机构发送系统号（字母、数字、下划线）
-        head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
-        //协会系统编号， 特约商户信息上报和删除请求时填 SECB01，其余均为 R0001
-        head.setRecSystemId("R0001");
-        //交易码，见 5.1 报文分类列表（数字、字母）-----黑名单推送响应TrnxCode为空
-        head.setTrnxCode(trnxCode);
-        String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
-        head.setTrnxTime(trnxTime);
-        head.setUserToken(pcacConfig.getUserToken());
-        //head.setSecretKey("");
-        head.setSecretKey(secretKey);
-        return head;
     }
 
 }

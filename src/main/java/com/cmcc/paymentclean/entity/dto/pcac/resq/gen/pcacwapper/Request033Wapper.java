@@ -8,7 +8,7 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper;
 
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac032.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head;
 import lombok.Data;
 
@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
         "body"
 })
 @XmlRootElement(name = "Request")
-public class Request032Wapper {
+public class Request033Wapper {
 
     @XmlElement(name = "Head", required = true)
     protected Head head;

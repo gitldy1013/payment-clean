@@ -44,7 +44,7 @@ public class BusinessInfoController {
      */
     @ApiOperation(value = "批量查询企业信息结果推送", notes = "批量查询企业信息结果推送")
     @RequestMapping(value = "/getBusinessInfoXML",method = {RequestMethod.POST,RequestMethod.GET})
-    public ResultBean<?> getBusinessInfoXML(@RequestBody String xml) {
+    public String getBusinessInfoXML(@RequestBody String xml) {
 
         return  businessInfoService.getBusinessInfoXML(xml);
 
