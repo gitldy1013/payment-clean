@@ -170,8 +170,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         ResultBean resultBean = new ResultBean();
         if (CollectionUtils.isEmpty(businessInfoReqs)) {
             resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-            resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-            resultBean.setData("入参为空");
+            resultBean.setResMsg("入参为空");
             return resultBean;
         }
         for (BusinessInfoReq businessInfoReq : businessInfoReqs) {
@@ -181,8 +180,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 continue;
             } else {
                 resultBean.setResCode(ResultCodeEnum.ERROR.getCode());
-                resultBean.setResMsg(ResultCodeEnum.ERROR.getDesc());
-                resultBean.setData("查询条件组合中选择一种进行查询：企业商户法人名称;法人证件号码;法定代表人（负责人）证件号码+法定代表人姓名");
+                resultBean.setResMsg("查询条件组合中选择一种进行查询：企业商户法人名称;法人证件号码;法定代表人（负责人）证件号码+法定代表人姓名");
                 return resultBean;
             }
         }
@@ -396,6 +394,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 List<ResultInfo> resultInfo = resultCondition.getResultInfo();
                 String count = condition.getCount();
                 com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.get(0).getBaseInfo();
+                List<ResultInfo> resultInfos = condition.getResultCondition().getResultInfo();
+                ResultInfo resultInfo = resultInfos.get(0);
+                com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.getBaseInfo();
                 //待补充落表逻辑 需求不清晰，东阳建议全部按一条数据来处理汇总一条BusinessInfo 数据
                 SingInfo hisSingInfo = resultInfo.get(0).getHisSignList().get(0).getSingInfo().get(0);
                 SingInfo curSingInfo = resultInfo.get(0).getCurSignList().get(0).getSingInfo().get(0);

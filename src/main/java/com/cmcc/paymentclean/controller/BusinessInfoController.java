@@ -23,7 +23,7 @@ import java.util.List;
  * @version v1.0
  */
 @RestController
-@RequestMapping("/business/businessInfo")
+@RequestMapping("/specReg/specRegCom")
 public class BusinessInfoController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class BusinessInfoController {
      * 批量企业商户查询请求接口
      */
     @ApiOperation(value = "批量企业商户查询请求接口", notes = "批量企业商户查询请求接口")
-    @RequestMapping(value = "/batchQuery",method = RequestMethod.POST)
+    @RequestMapping(value = "/query",method = RequestMethod.POST)
     public ResultBean<?> batchQuery(@RequestBody List<BusinessInfoReq> businessInfoReqs) {
 
        return businessInfoService.batchQuery(businessInfoReqs);
