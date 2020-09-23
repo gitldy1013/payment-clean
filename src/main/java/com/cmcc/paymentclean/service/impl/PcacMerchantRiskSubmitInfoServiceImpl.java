@@ -126,9 +126,9 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
             return;
         }
         //校验xml报文
-//        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
         log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
-        boolean validate = ValidateUtils.validateXML(XmlJsonUtils.formatXml(xml), "pcac.ries.013");
+//        boolean validate = ValidateUtils.validateXML(XmlJsonUtils.formatXml(xml), "pcac.ries.013");
         if (!validate) {
             log.info("XML校验失败");
             return;

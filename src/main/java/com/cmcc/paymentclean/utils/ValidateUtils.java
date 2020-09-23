@@ -18,9 +18,7 @@ import javax.xml.validation.Validator;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-
-import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_MAPPER_ROOT;
-import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
+import java.util.Objects;
 
 /**
  * xml校验工具类  schema验证
@@ -28,19 +26,16 @@ import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
 @Slf4j
 public class ValidateUtils {
 
-    public static final String XSD_DIR = PROJECT_PATH + BASE_MAPPER_ROOT + "xsds/";
-
-
     /**
      * 通过XSD(XML Schema)校验XML PCAC
      */
-    public static boolean validateXMLByXSD(String xml, String xsdFIleName) {
+    public static boolean validateXMLByXSD(String xml, String xsdFileName) {
         try {
             //建立schema工厂
             SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
             //建立验证文档文件对象，利用此文件对象所封装的文件进行schema验证
-            log.info("文件路径：{}", XSD_DIR + xsdFIleName + ".xsd");
-            File schemaFile = new File(XSD_DIR + xsdFIleName + ".xsd");
+            log.info("文件路径：{}", "xsds/" + xsdFileName + ".xsd");
+            File schemaFile = ResourcesFileUtils.getResourcesFile("xsds/" + xsdFileName + ".xsd");
             //利用schema工厂，接收验证文档文件对象生成Schema对象
             Schema schema = schemaFactory.newSchema(schemaFile);
             //通过Schema产生针对于此Schema的验证器，利用schenaFile进行验证
@@ -80,7 +75,7 @@ public class ValidateUtils {
                     "http://www.w3.org/2001/XMLSchema");
             parser.setProperty(
                     "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                    "file:" + XSD_DIR + xsdFileName + ".xsd");
+                    "file:" + Objects.requireNonNull(ResourcesFileUtils.getResourcesFile("xsds/" + xsdFileName + ".xsd")).getAbsolutePath());
             //创建一个SAXValidator校验工具，并设置校验工具的属性
             SAXValidator validator = new SAXValidator(parser.getXMLReader());
             //设置校验工具的错误处理器，当发生错误时，可以从处理器对象中得到错误信息。

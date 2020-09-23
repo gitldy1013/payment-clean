@@ -153,7 +153,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         XmlJsonUtils.doSignature(document);
         //发起反馈
         String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);
-        boolean validateXML = ValidateUtils.validateXML(xmlStr, "pcac.ries.046");
+        boolean validateXML = ValidateUtils.validateXMLByXSD(xmlStr, "pcac.ries.046");
         if (!validateXML) {
             log.info("XSD校验失败{}", xmlStr);
             resultBean.setResCode(PARAM_ERR);

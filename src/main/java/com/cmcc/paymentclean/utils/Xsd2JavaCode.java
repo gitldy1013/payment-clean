@@ -4,13 +4,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_MAPPER_ROOT;
 import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_SRC_ROOT;
 import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
-import static com.cmcc.paymentclean.utils.ValidateUtils.XSD_DIR;
 
 public class Xsd2JavaCode {
 
     private static final String BASE_PACKAGE = "com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac";
+
+    public static final String XSD_DIR = PROJECT_PATH + BASE_MAPPER_ROOT + "xsds/";
 
 
     public static void main(String[] args) {
