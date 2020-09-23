@@ -395,8 +395,6 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 String count = condition.getCount();
                 com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.get(0).getBaseInfo();
                 List<ResultInfo> resultInfos = condition.getResultCondition().getResultInfo();
-                ResultInfo resultInfo = resultInfos.get(0);
-                com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.getBaseInfo();
                 //待补充落表逻辑 需求不清晰，东阳建议全部按一条数据来处理汇总一条BusinessInfo 数据
                 SingInfo hisSingInfo = resultInfo.get(0).getHisSignList().get(0).getSingInfo().get(0);
                 SingInfo curSingInfo = resultInfo.get(0).getCurSignList().get(0).getSingInfo().get(0);
