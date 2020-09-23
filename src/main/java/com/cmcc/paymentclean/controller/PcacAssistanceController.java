@@ -72,14 +72,13 @@ public class PcacAssistanceController {
             pcacAssistanceInfo.setCusCode(CFCACipherUtils.decrypt(secretKey, entInfo.getCusCode()));
             pcacAssistanceInfo.setRegName(CFCACipherUtils.decrypt(secretKey, entInfo.getRegName()));
             pcacAssistanceInfo.setLegDocName(CFCACipherUtils.decrypt(secretKey, entInfo.getLegDocName()));
-            pcacAssistanceInfo.setDifCusCode(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().getCusCode()));
-            pcacAssistanceInfo.setDifRegName(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().getRegName()));
-            pcacAssistanceInfo.setDifLegDocName(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().getLegDocName()));
+            pcacAssistanceInfo.setDifCusCode(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().get(0).getCusCode()));
+            pcacAssistanceInfo.setDifRegName(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().get(0).getRegName()));
+            pcacAssistanceInfo.setDifLegDocName(CFCACipherUtils.decrypt(secretKey, entInfo.getDifferents().get(0).getLegDocName()));
             pcacAssistanceInfo.setUpDate(upDate);
             assistanceInfoList.add(pcacAssistanceInfo);
         }
 
-        String doXml = pcacAssistanceInfoService.saveAssistanceInfo(assistanceInfoList);
-        return doXml;
+        return pcacAssistanceInfoService.saveAssistanceInfo(assistanceInfoList);
     }
 }
