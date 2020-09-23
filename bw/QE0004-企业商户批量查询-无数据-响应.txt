@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009239127249186</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QE0004</TrnxCode>
+            <TrnxTime>20200923144315</TrnxTime>
+            <SecretKey>mPPqC6sFbDFOJdH3mxVP4MvMliNrfzWgT5aOKgM7HK8cTeP2Hv3sH3JIwspkGnEfSPLbFcMRgARJKaKvZlJ8xOwj8f9rGvX9LtDq7V/RFsOwDd3EipYyHgxo/Ve589j0Cqh8dF3IeEd/5MpUVMG2sf0YL5/idbiLcfAq2aX2w9waLrX6/O7jhB1hc3jPswj7wddUuTMHWVFYC7mKPdF2ZW7o2tQzOwQprhDy9zL8fGrjG5Y0ACjt1rwwM6pT1NFFJRGkGIoCqj7XW7Cpt5VW3L9GaNc+x3vo9P2uucZPiDGR/q++MlwVvsvbZgXcFK/YIIFfc2GrogGxf0vZjywOyA==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>02</ResultStatus>
+                <ResultCode>BX0003</ResultCode>
+                <MsgDetail>第1条错误如下:企业商户法人名称或法人证件号码或法定代表人（负责人）证件号码+法定代表人姓名三个组合查询条件中必须并且只能录入一组！</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>VuN+ZCXchb0Kzrz4WGX7Rxm+wyVui/Ons1gcNDmJv715aMJDTPnZVHmnxQ+fQj7Hdkrfvp+pZalUWlpWVpk41j1RTvjfWGTCaZu6dwMl3KBVUWE8c1bXG8ZqE1s+Rx7388Zr/95NiaJII1ndAUaXSYenvmAWKvVv8VC/mMB9JSIPE5gfgx8TwtCgDP6vKVYiDtNVEr4uADYw2kIOeZaefWpXxHf85CCORsPa/64TqvPRYujzr6ZFIbpMVjlURr/Vh+F1I91W6KGS7atPdaVlCIbWpW1mfwqNV+57J+arTTprB3vCve/Kmj6w2cr0qSJENr6VwifzuVnAJqg789DA7Q==</Signature>
+</Document>
