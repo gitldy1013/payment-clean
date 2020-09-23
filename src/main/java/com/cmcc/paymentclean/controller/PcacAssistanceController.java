@@ -43,9 +43,9 @@ public class PcacAssistanceController {
     @RequestMapping(value = "/assistanceInfo", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public String assistanceInfo(@RequestParam(value = "xml") String xmlStr) {
-        log.debug("接收协会比对协查信息报文：{}", xmlStr);
+        log.info("接收协会比对协查信息请求报文：{}", xmlStr);
         String doXml = saveAssistanceInfo(xmlStr);
-
+        log.info("接收协会比对协查信息响应报文：{}",doXml);
         return doXml;
     }
 
