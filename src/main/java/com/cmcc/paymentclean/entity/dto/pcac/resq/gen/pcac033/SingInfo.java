@@ -48,8 +48,8 @@ import javax.xml.bind.annotation.XmlType;
         "riskStatus",
         "openType"
 })
-@XmlRootElement(name = "SignInfo")
-public class SignInfo {
+@XmlRootElement(name = "SingInfo")
+public class SingInfo {
 
     @XmlElement(name = "OrgName", required = true)
     protected String orgName;
@@ -209,3 +209,4 @@ public class SignInfo {
     }
 
 }
+

@@ -396,15 +396,15 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.get(0).getBaseInfo();
                 List<ResultInfo> resultInfos = condition.getResultCondition().getResultInfo();
                 //待补充落表逻辑 需求不清晰，东阳建议全部按一条数据来处理汇总一条BusinessInfo 数据
-                SignInfo hisSignInfo = resultInfo.get(0).getHisSignList().get(0).getSignInfo().get(0);
-                SignInfo curSignInfo = resultInfo.get(0).getCurSignList().get(0).getSignInfo().get(0);
+                SingInfo hisSingInfo = resultInfo.get(0).getHisSignList().get(0).getSingInfo().get(0);
+                SingInfo curSingInfo = resultInfo.get(0).getCurSignList().get(0).getSingInfo().get(0);
                 RiskInfo blackRiskInfo = resultInfo.get(0).getBlackList().get(0).getRiskInfo().get(0);
                 RiskInfo warningRiskInfo = resultInfo.get(0).getWarningList().get(0).getRiskInfo().get(0);
                 RiskInfo legBlackRiskInfo = resultInfo.get(0).getLegBlackList().get(0).getRiskInfo().get(0);
                 RiskInfo legWarningRiskInfo = resultInfo.get(0).getLegWarningList().get(0).getRiskInfo().get(0);
                 BusinessInfo businessInfo = new BusinessInfo();
-                BeanUtils.copyProperties(hisSignInfo, businessInfo);
-                BeanUtils.copyProperties(curSignInfo, businessInfo);
+                BeanUtils.copyProperties(hisSingInfo, businessInfo);
+                BeanUtils.copyProperties(curSingInfo, businessInfo);
                 BeanUtils.copyProperties(blackRiskInfo, businessInfo);
                 BeanUtils.copyProperties(warningRiskInfo, businessInfo);
                 BeanUtils.copyProperties(legBlackRiskInfo, businessInfo);

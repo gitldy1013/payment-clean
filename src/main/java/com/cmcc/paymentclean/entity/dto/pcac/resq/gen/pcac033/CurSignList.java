@@ -28,7 +28,7 @@ import java.util.List;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}SignInfo" maxOccurs="unbounded"/>
+ *         &lt;element ref="{}SingInfo" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,41 +38,41 @@ import java.util.List;
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "signInfo"
+    "singInfo"
 })
 @XmlRootElement(name = "CurSignList")
 public class CurSignList {
 
-    @XmlElement(name = "SignInfo", required = true)
-    protected List<SignInfo> signInfo;
+    @XmlElement(name = "SingInfo", required = true)
+    protected List<SingInfo> singInfo;
 
     /**
-     * Gets the value of the signInfo property.
+     * Gets the value of the singInfo property.
      *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the signInfo property.
+     * This is why there is not a <CODE>set</CODE> method for the singInfo property.
      *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getSignInfo().add(newItem);
+     *    getSingInfo().add(newItem);
      * </pre>
      *
      *
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link SignInfo }
+     * {@link SingInfo }
      *
      *
      */
-    public List<SignInfo> getSignInfo() {
-        if (signInfo == null) {
-            signInfo = new ArrayList<SignInfo>();
+    public List<SingInfo> getSingInfo() {
+        if (singInfo == null) {
+            singInfo = new ArrayList<SingInfo>();
         }
-        return this.signInfo;
+        return this.singInfo;
     }
 
 }
