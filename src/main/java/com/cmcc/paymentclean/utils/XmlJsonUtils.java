@@ -229,7 +229,7 @@ public class XmlJsonUtils {
         return ans.toString();
     }
 
-    public static com.cmcc.paymentclean.entity.dto.pcac.resp.Document getRespDocument(PcacConfig pcacConfig) {
+    public static com.cmcc.paymentclean.entity.dto.pcac.resp.Document getRespDocument(PcacConfig pcacConfig,String identification) {
         Body body = new Body();
         RespInfo respInfo = new RespInfo();
         //返回成功的状态码
@@ -240,7 +240,7 @@ public class XmlJsonUtils {
         Respone respone = new Respone();
         respone.setBody(body);
         String trnxCode = "";
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Head head = getRespHead(trnxCode,pcacConfig);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Head head = getRespHead(trnxCode,pcacConfig,identification);
         respone.setHead(head);
         document.setRespone(respone);
         String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
@@ -252,13 +252,13 @@ public class XmlJsonUtils {
     /**
      * 组装响应报文头的信息
      */
-    public static com.cmcc.paymentclean.entity.dto.pcac.resp.Head getRespHead(String trnxCode, PcacConfig pcacConfig) {
+    public static com.cmcc.paymentclean.entity.dto.pcac.resp.Head getRespHead(String trnxCode, PcacConfig pcacConfig,String identification) {
         Date date = new Date();
         com.cmcc.paymentclean.entity.dto.pcac.resp.Head head = new com.cmcc.paymentclean.entity.dto.pcac.resp.Head();
         head.setVersion(pcacConfig.getVersion());
         //报文唯一标识（8 位日期+10 顺序号）
-        int random = new Random().nextInt(1000) + 1000;
-        String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;
+        /*int random = new Random().nextInt(1000) + 1000;
+        String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;*/
         head.setIdentification(identification);
         //收单机构收单机构机构号（字母、数字、下划线）
         head.setOrigSender(pcacConfig.getOrigSender());
