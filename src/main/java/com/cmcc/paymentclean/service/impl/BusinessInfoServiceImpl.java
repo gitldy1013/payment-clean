@@ -35,13 +35,7 @@ import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.ExcelUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.SFTPUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -288,11 +282,11 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             baseInfo.setContName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContName()));
             //商户联系电话
             baseInfo.setContPhone(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContPhone()));
-            //商户联系电话
+            //股东信息
             baseInfo.setShareHolder(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getShareHolder()));
-            //商户联系电话
+            //外包服务机构名称
             baseInfo.setOutServiceName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceName()));
-            //商户联系电话
+            //外包服务机构法人证件号码
             baseInfo.setOutServiceCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceCardCode()));
             //外包服务机构法定代表人证件号码"
             baseInfo.setOutServiceLegCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
@@ -463,7 +457,13 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         }
         //法定代表人证件号码
         if(StringUtils.isNotEmpty(businessInfo.getLegDocCode())){
-            businessInfo.setLegDocCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getLegDocCode()));
+            String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, businessInfo.getLegDocCode());
+            if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(businessInfo.getLegDocType())){
+                String encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+                businessInfo.setLegDocCode(encryptLegDocCode);
+            }else{
+                businessInfo.setLegDocCode(decryptLegDocCode);
+            }
         }
         //商户代码
         if(StringUtils.isNotEmpty(businessInfo.getCusCode())){
@@ -471,7 +471,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         }
         //收款账\卡号
         if(StringUtils.isNotEmpty(businessInfo.getBankNo())){
-            businessInfo.setBankNo(CFCACipherUtils.decrypt(secretKey, businessInfo.getBankNo()));
+            String decryptBankNo = CFCACipherUtils.decrypt(secretKey, businessInfo.getBankNo());
+            businessInfo.setBankNo(InnerCipherUtils.encryptUserData(decryptBankNo));
         }
         //商户注册地址
         if(StringUtils.isNotEmpty(businessInfo.getRegAddrDetail())){
@@ -497,21 +498,28 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         if(StringUtils.isNotEmpty(businessInfo.getContPhone())){
             businessInfo.setContPhone(CFCACipherUtils.decrypt(secretKey, businessInfo.getContPhone()));
         }
-        //商户联系电话
+        //股东信息
         if(StringUtils.isNotEmpty(businessInfo.getShareHolder())){
             businessInfo.setShareHolder(CFCACipherUtils.decrypt(secretKey, businessInfo.getShareHolder()));
         }
-        //商户联系电话
+        //外包服务机构名称
         if(StringUtils.isNotEmpty(businessInfo.getOutServiceName())){
             businessInfo.setOutServiceName(CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceName()));
         }
-        //商户联系电话
+        //外包服务机构法人证件号码
         if(StringUtils.isNotEmpty(businessInfo.getOutServiceCardCode())){
             businessInfo.setOutServiceCardCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceCardCode()));
         }
-        //外包服务机构法定代表人证件号码"
+
+        //外包服务机构法定代表人证件号码
         if(StringUtils.isNotEmpty(businessInfo.getOutServiceLegCardCode())){
-            businessInfo.setOutServiceLegCardCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceLegCardCode()));
+            String decryptOutServiceLegCardCode = CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceLegCardCode());
+            if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(businessInfo.getOutServiceLegCardType())){
+                String encryptOutServiceLegCardCode = InnerCipherUtils.encryptUserData(decryptOutServiceLegCardCode);
+                businessInfo.setOutServiceLegCardCode(encryptOutServiceLegCardCode);
+            }else{
+                businessInfo.setOutServiceLegCardCode(decryptOutServiceLegCardCode);
+            }
         }
         //ICP
         if(StringUtils.isNotEmpty(businessInfo.getIcp())){
