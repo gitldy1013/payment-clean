@@ -377,6 +377,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
 
     @Override
     public String getBusinessInfoXML(String xml) {
+        String identification =null;
         log.info("接收的xml:{}", xml);
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper.class);
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body resBody = resDoc.getRequest().getBody();
@@ -385,6 +386,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             Request033Wapper request = resDoc.getRequest();
             Head head = request.getHead();
             String secretKey = head.getSecretKey();
+            identification = head.getIdentification();
             List<Condition> conditions = conditionLists.getCondition();
             List<BusinessInfo> businessInfos = new ArrayList<>();
             for (int i = 0; i < conditions.size(); i++) {
@@ -434,7 +436,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             SFTPUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
                     sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
         }
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig,identification);
         return XmlJsonUtils.convertObjectToXmlStr(document);
     }
 
