@@ -1,24 +1,23 @@
 ----------------------------------------------打印风险信息补发-非时间段请求参数：--------
-2020-09-22 15:46:49.279 [ INFO] 25044 --- [           main] c.c.p.s.i.PcacRiskInfoServiceImpl        : <?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <Document>
     <Request>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009221000001732</Identification>
+            <Identification>202009240587629914</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>TS0004</TrnxCode>
-            <TrnxTime>20200922154648</TrnxTime>
+            <TrnxTime>20200924123227</TrnxTime>
             <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
-            <SecretKey>Vx8E/jo2o1ioWDKsou50VGCUQsqyjRBkRQbD5cWa7H1LzbOn8aLzlkCsmLlcC4TIv59gsl0lEyCKibyYem6lDucRe1iVWHHw6fRu9DXTguYlXHOgUZRUQAYAcJL6m5I2LyRTT7seB9wxj5K/Z+diSUB7aAD9zLSvjGrOCzLoKW+3h49pWQ+8c7LNPgZYcMTv5uRxrwlqn+j52YrmEAfRdszhZx24PkNeTSJBYw6UR2mgF3+gRjVeVxQSu8VRUJ9lG/fXIbOFgb4lkOSV/alM5f/WXmRyVMXrGVdr8BPj8Sm2MTKijboBHIni4lbLhoj30BTRkmWqQFOjF4aTBXpfbg==</SecretKey>
+            <SecretKey>cbH/rQ6sF6JDkwX22EDwE3hExzVEdNbaCm8aPT/fX+h7yhjwLIPbZQAntZtjVcN03eoFGFIEAy+MHDAnGQzhkss1Rh/+CqIiNcc5bzFPax9gDZIX6vIanL6HfmG+iKmmv6nSWREPPEuIyAWNzvbF7dRXOjVBYY+e8an1npLhNSRoZ2UF1IKshhZhBev69PBqKIKfqAa4WcrQNU+oqaVpUB4PW1/VqZ6HQcHsvjdcN85ssPIevnpRqGk+emHuMuCPXkKUNk/XtmRS6My7Dk3vir0FdWO3vHtl7Apxtgd0Ycavc9kFHo2uyn/Kzk9dEyevZAv7FOgkCfhfBMv23xgcfw==</SecretKey>
         </Head>
         <Body>
             <RiskType>02</RiskType>
             <ReqDate>2020-09-01</ReqDate>
-            <ReqDateEnd></ReqDateEnd>
+            <ReqDateEnd>2020-09-01</ReqDateEnd>
         </Body>
     </Request>
-    <Signature>RqteFNka45dy2L9uFrN5giOw1dtVk4ZitmnxsXk/8ns63GFE4MS8m2J1/3iP5//1vF59qEZ8WZWR9ibMWe8ac3ZG3PpYh+llbXYtqwiwwcRPq5R5EyaoC7fCGXQjt5VmEC8R/pzNyOauZfoyyjaLI6Dtl4bPVoQ0AmZRrTCZxjKd3Xm+gWhLZVe3/jmilDnUM4wK34kyFbyyVyhxI0giVfda/oL0tgOiHkFDSTHXH/E0Jo0PxYaHf3D/9Tqa3w+tOlvBMe+Kg/IerANR/0Qenkw3IY6egYgKg6fbBOFi2/QEnPbzo8aBNvuc/EbDm8ubWCLwJlDSeuRS6xwOIjElCg==</Signature>
+    <Signature>aww2AdbZNtvuKWaex+pWvXRoVQOl5Z+748rXd6DMxYHq3bQ2b2v6ltCvQVGE1fm3JS6mtZRZuHugN4MyHl+qoo6y2cnmtWruyToDK2J8LdDg3b8ZwbDyUdehSvmgLShRG1BwGHQg/Fru5u9EPJJaeNzOvAj0vZK6rUN8HuZb1wjqrcNKEbx8kVSPg7fbWHsIfgGjnGCnzEfayhLfYVhT89ESYVKTW2SKf6PwM+hrTeMYjMfivdGy7xk5vO6JW+u5ohRtWAIlEh7RMiJ0dKxKTRtlunXCWcE40P+wSKS89N9CuzXliUO5BHJjQq4z5BARfU6oCeIRGwQ1oKJ3Raix9g==</Signature>
 </Document>

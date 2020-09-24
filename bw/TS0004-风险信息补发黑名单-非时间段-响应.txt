@@ -4,13 +4,13 @@
     <Respone>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009221000001274</Identification>
+            <Identification>202009248947198164</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>TS0004</TrnxCode>
-            <TrnxTime>20200922141253</TrnxTime>
-            <SecretKey>mW2NerSnGDWU78SWkBGld7GrmIdvM6CUhR9urEC4RT29bSLqvDZOWAmAjKKKQzPyqM882H4kXFiCK9+fkOOFK5sy5+CUx9Gs6dsbP+VDG+yK/PoW1lC7R4YBDmGLA4CLRS8tVMfjJ2WL35G4ZfzXFxjxrDOjJyGJi8B3CQJVeh7GhjBsoyJKmC4qcC48VBCjKAmQV5aGm1AJgu5I6g2xDRg8SyIfRGinQpBR5qnjP7UGnPtWwYPwmvZj2uKTPuzesfuJdj1DtHG6v8S3+rtL2GPlV+GDH2oGvUdfIzBWsBLFvrqc1s4zGWloz4FJ7nfQwJoKTQ2Wwo5cf4gXd44e0g==</SecretKey>
+            <TrnxTime>20200924122409</TrnxTime>
+            <SecretKey>N9JpBX6eGCOfp4PSHoVRqgZfXy4h/0ICIqzTrnzQHx2vFVJ8IKcmOCOsPIVuCdVJqM0uSErUKvhu69961jYYd6UfpWGYOBI8KL2NOy/76sweTiSWVr56BbY7qkanvbFLYlIo4RzHCDzGLkhnkrzC8EiNfkOoAOYwKZ6aU9P92ufBYwFRKozAVSGRKHzCsxzfVZvhqed3w88v/7oRB0y6KtnLVuCxY0mQucxfe+VQY0MrDn1X4WhNTwf86mVIs8c2S+bK16i5m+aCnYXP3h/AoeQGfTuENk15am1N0hvi8cuTR8NYVBBcZ+ZsdNdUccLKCOLXMurYptwYeob0XEkGaA==</SecretKey>
         </Head>
         <Body>
             <RespInfo>
@@ -20,183 +20,183 @@
             <QueryInfo>
                 <RiskType>01</RiskType>
                 <ReqDate>2020-09-01</ReqDate>
-                <ReqDateEnd></ReqDateEnd>
+                <ReqDateEnd>2020-09-01</ReqDateEnd>
             </QueryInfo>
             <PcacList>
                 <Count>9</Count>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>b6dktnSzaasaB16ZbdMsv+dHso2PFIUaK/zTki47UpU=</RegName>
-                    <CusName>UXqEAREzLF6XHGvpVDDFJA==</CusName>
+                    <RegName>YQb/tP46rsDhxK3nVgpJ3jtuXB2WOJUwmkYCBNU/VhY=</RegName>
+                    <CusName>ISyW79UYPR3leytCctnIHQ==</CusName>
                     <DocType>01</DocType>
-                    <DocCode>gGV6XSVzFY43+dvKTeS6OQ==</DocCode>
-                    <LegDocName>tkLRCMdxXJ91ahSqSqVohQ==</LegDocName>
+                    <DocCode>2J20VCrv7XnGwd0F1tXAaw==</DocCode>
+                    <LegDocName>5jDBN3cXdY/qdAgWbF3wYA==</LegDocName>
                     <LegDocType>01</LegDocType>
-                    <LegDocCode>dEshToWuehOE9q/6q2maQw5VBJIbnkTqBexhRLiq36A=</LegDocCode>
+                    <LegDocCode>Op8ZsANbejoiTDQtYqlTR+yjZaW4cOspJQ6rHX0CZck=</LegDocCode>
                     <Level>01</Level>
                     <RiskType>01</RiskType>
                     <ValidDate>2020-12-12</ValidDate>
                     <ValidStatus>01</ValidStatus>
                     <CusType>01</CusType>
                     <Occurarea>659000</Occurarea>
-                    <BankNo>d3ZkNaeul3trd/SB/jnHuywc65a6EJphn52xXIu2HE4=</BankNo>
-                    <Url>gsLuuLUzZXjz1lwE2a4B2jQ6SN/eeXw20XLbhZcnhloU2C/ncuSSUnEehyu+shre</Url>
-                    <RegisteredCode>rtG711n04u4QbF/TsZsLXw==</RegisteredCode>
+                    <BankNo>lVOdzkWm9sZKQbyfnSHqhKgZ08FtPDy202CkwAJ8Q8M=</BankNo>
+                    <Url>vZ367SJ2Cthn6JB/rFAS+svAs+oDbr5ZQ3dWrG1iZQGirrqxKn6leIlSDsh2pvG4</Url>
+                    <RegisteredCode>NyMGb0oqhel1c2Hz/ict8A==</RegisteredCode>
                 </RiskInfo>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>b6dktnSzaasaB16ZbdMsv+dHso2PFIUaK/zTki47UpU=</RegName>
-                    <CusName>G3f7Y7KBcQC+TRSzjEEERg==</CusName>
+                    <RegName>YQb/tP46rsDhxK3nVgpJ3jtuXB2WOJUwmkYCBNU/VhY=</RegName>
+                    <CusName>qcfLdjwwOHZMPmnluwh2Ww==</CusName>
                     <DocType>01</DocType>
-                    <DocCode>gGV6XSVzFY43+dvKTeS6OQ==</DocCode>
-                    <LegDocName>tkLRCMdxXJ91ahSqSqVohQ==</LegDocName>
+                    <DocCode>2J20VCrv7XnGwd0F1tXAaw==</DocCode>
+                    <LegDocName>5jDBN3cXdY/qdAgWbF3wYA==</LegDocName>
                     <LegDocType>01</LegDocType>
-                    <LegDocCode>dEshToWuehOE9q/6q2maQw5VBJIbnkTqBexhRLiq36A=</LegDocCode>
+                    <LegDocCode>Op8ZsANbejoiTDQtYqlTR+yjZaW4cOspJQ6rHX0CZck=</LegDocCode>
                     <Level>01</Level>
                     <RiskType>12</RiskType>
                     <ValidDate>2020-12-12</ValidDate>
                     <ValidStatus>01</ValidStatus>
                     <CusType>01</CusType>
                     <Occurarea>659000</Occurarea>
-                    <BankNo>d3ZkNaeul3trd/SB/jnHuywc65a6EJphn52xXIu2HE4=</BankNo>
-                    <Url>gsLuuLUzZXjz1lwE2a4B2jQ6SN/eeXw20XLbhZcnhloU2C/ncuSSUnEehyu+shre</Url>
-                    <RegisteredCode>rtG711n04u4QbF/TsZsLXw==</RegisteredCode>
+                    <BankNo>lVOdzkWm9sZKQbyfnSHqhKgZ08FtPDy202CkwAJ8Q8M=</BankNo>
+                    <Url>vZ367SJ2Cthn6JB/rFAS+svAs+oDbr5ZQ3dWrG1iZQGirrqxKn6leIlSDsh2pvG4</Url>
+                    <RegisteredCode>NyMGb0oqhel1c2Hz/ict8A==</RegisteredCode>
                 </RiskInfo>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>HDQbirUt305MOgBRWnftZQ==</RegName>
-                    <CusName>HDQbirUt305MOgBRWnftZQ==</CusName>
+                    <RegName>HyTCq2eQppCDYnU3NciNxA==</RegName>
+                    <CusName>HyTCq2eQppCDYnU3NciNxA==</CusName>
                     <DocType>99</DocType>
-                    <DocCode>qtMNhgJsWA+Sr5ItWNV4q7+BOwFkSIN4jb8+Ba9mt34=</DocCode>
-                    <LegDocName>B4/dyIQjYsIyZ4sK2SWNBw==</LegDocName>
+                    <DocCode>YL6OzsNWNq5nW4MM/orSp0c6Ldyp8/2YALMDJTPKAkQ=</DocCode>
+                    <LegDocName>/HQX3qEWnkSbbFpcgansPA==</LegDocName>
                     <LegDocType>01</LegDocType>
-                    <LegDocCode>qtMNhgJsWA+Sr5ItWNV4q7+BOwFkSIN4jb8+Ba9mt34=</LegDocCode>
+                    <LegDocCode>YL6OzsNWNq5nW4MM/orSp0c6Ldyp8/2YALMDJTPKAkQ=</LegDocCode>
                     <Level>01</Level>
                     <RiskType>01</RiskType>
                     <ValidDate>2020-09-03</ValidDate>
                     <ValidStatus>01</ValidStatus>
                     <CusType>01</CusType>
                     <Occurarea>340000</Occurarea>
-                    <BankNo>LaR7PGU8/2Luyik4lHHBjjoHu7CfXPxlLAdBvoQMngw=</BankNo>
-                    <Url>hE3klZAffWkDlnh2//Ev4A==</Url>
+                    <BankNo>Neu6qqhoB3aNSHDSi0gTnJUmkQ1BWp5i/4GadNAxcbw=</BankNo>
+                    <Url>TE/YefFNL9zmCpC1afG/8g==</Url>
                     <RegisteredCode/>
                 </RiskInfo>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>B2WI0v/MQ4il6q5elSSlUg==</RegName>
-                    <CusName>lqEt7RiPg4lVn+MoAfbEKQ==</CusName>
+                    <RegName>tR5BbNGraf+NXA9J9EXDSA==</RegName>
+                    <CusName>uEh4o9mu5p5GsS/z4rsvpQ==</CusName>
                     <DocType>03</DocType>
-                    <DocCode>lnOb2U/m2L0eUuYyJ/zh3Q==</DocCode>
-                    <LegDocName>J/ukaWfx66JGdEtwsyQZtQ==</LegDocName>
+                    <DocCode>WngLKOpedH2ic61mKgPsDg==</DocCode>
+                    <LegDocName>09Uumai+0Cr0w1CAMho3AQ==</LegDocName>
                     <LegDocType>02</LegDocType>
-                    <LegDocCode>pQjQENdIAp5CVvY0gKf1j/EeyupOWmpUSMZULU4wGNM=</LegDocCode>
+                    <LegDocCode>nD0d3kWwvF0b4B+wwijTjIqUjEtp9/vn4E55FIrdDmQ=</LegDocCode>
                     <Level>01</Level>
                     <RiskType>01</RiskType>
                     <ValidDate>2020-09-30</ValidDate>
                     <ValidStatus>01</ValidStatus>
                     <CusType>02</CusType>
                     <Occurarea>360000,360100</Occurarea>
-                    <BankNo>JxHEtvb0lVBm/L6ehh/WKg==</BankNo>
+                    <BankNo>9l9QjInL6dqW23jK/GY6rg==</BankNo>
                     <Url/>
                     <RegisteredCode/>
                 </RiskInfo>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>a/iirMc1op4uqml4gKZ+S3mVXv4PIguis1zzqlV4kuI=</RegName>
-                    <CusName>a/iirMc1op4uqml4gKZ+S3mVXv4PIguis1zzqlV4kuI=</CusName>
+                    <RegName>+6qTR6TynetuFmnaWFi5x+nz3QxBCieYP2BhjNhKEqo=</RegName>
+                    <CusName>+6qTR6TynetuFmnaWFi5x+nz3QxBCieYP2BhjNhKEqo=</CusName>
                     <DocType>01</DocType>
-                    <DocCode>zVVVn04xpcM6G1R0Y4ZbzQ==</DocCode>
-                    <LegDocName>RXXQWthmOnlH7ZwPSTayiw==</LegDocName>
+                    <DocCode>gizLE+Jn2n8dVeHO1edZIQ==</DocCode>
+                    <LegDocName>FdGKzx+w8tA2u7/2c7J+PQ==</LegDocName>
                     <LegDocType>01</LegDocType>
-                    <LegDocCode>2Nm0ab6xHzaKi7h58H0RHHozatpeQDlCVbKtREYDTTY=</LegDocCode>
+                    <LegDocCode>Vpy7AZ8Oj+gYmrkcxoA0uTRHwRpX1TZWVL5dvmAfNao=</LegDocCode>
                     <Level>01</Level>
                     <RiskType>20</RiskType>
                     <ValidDate>2020-10-17</ValidDate>
                     <ValidStatus>01</ValidStatus>
                     <CusType>04</CusType>
                     <Occurarea>659000</Occurarea>
-                    <BankNo>11jC0HwUia7x5SJgki0UjCwc65a6EJphn52xXIu2HE4=</BankNo>
-                    <Url>gNQCa9kd2CIflawXgjc8qVP98kYb0PiEeS5xkWnDZIeGLaOSAQWcAtX7Ivl6nfzM</Url>
-                    <RegisteredCode>9fhb/8NBBWqHF8v5EwpT6joHu7CfXPxlLAdBvoQMngw=</RegisteredCode>
+                    <BankNo>RQAyXyUjevIhCRlDyqnzG6gZ08FtPDy202CkwAJ8Q8M=</BankNo>
+                    <Url>1wMPBQ5O4t2Vy7l4SbFSessZpyUBkEZVlTWxEz2/HNuUHvBk+vGG016pVPBnRMe9</Url>
+                    <RegisteredCode>RDdo3vWeiNRUTI566bYqX5UmkQ1BWp5i/4GadNAxcbw=</RegisteredCode>
                 </RiskInfo>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>lvmH1Iu6/gwWWZYaQbgBOg==</RegName>
-                    <CusName>25IEQ2vIunHzemWfym0u+A==</CusName>
+                    <RegName>1JkxEzWX7j8ys9omRbo99w==</RegName>
+                    <CusName>pVlW5pSSAnoVm2m41C9qCA==</CusName>
                     <DocType>02</DocType>
-                    <DocCode>E7IltdRLR9kV906MF5LCPtRNjlNa/qR6+HzWY2bJnWo=</DocCode>
-                    <LegDocName>yd+dJ5L5VV8U++dJMAnzow==</LegDocName>
+                    <DocCode>DnYKugXiFfvwIqlTaUeluNbPRowAtetR2hZGcRrHIsU=</DocCode>
+                    <LegDocName>lI/rIx6GuvOw4qEJhbA4pg==</LegDocName>
                     <LegDocType>01</LegDocType>
-                    <LegDocCode>IQ+Ghjc0ayudBmzNrvCSeRK4OhOwDved548ks7CB684=</LegDocCode>
+                    <LegDocCode>d/8R1FhnWltdu2fAGYjpszIvv/0DZCurJThyiwgxq/Q=</LegDocCode>
                     <Level>01</Level>
                     <RiskType>13</RiskType>
                     <ValidDate>2020-09-30</ValidDate>
                     <ValidStatus>01</ValidStatus>
                     <CusType>04</CusType>
                     <Occurarea>140000,140100</Occurarea>
-                    <BankNo>tKsvVhQfwZSfPz7H8zf1IA==</BankNo>
+                    <BankNo>rcn5m3uJVjFK+0mUyGeuIA==</BankNo>
                     <Url/>
                     <RegisteredCode/>
                 </RiskInfo>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>UG9CaobObuCBjR1wpoxROU9GchoW7oRe6+ZgHu3fyEI=</RegName>
-                    <CusName>fI6eD8ij5bDhjIxNCRS80Q==</CusName>
+                    <RegName>gkyDeDJaugjtm7dsbnP1KILm8meYqzXDJbCz03RlNmA=</RegName>
+                    <CusName>cYsW8VNI8RqbRk5AeZBGnA==</CusName>
                     <DocType>02</DocType>
-                    <DocCode>CHTsaDDYHetqg3TceSQjjih7DMKp6RhuHL0bMmhrPOw=</DocCode>
-                    <LegDocName>xvBTPNZcUD0sruzr/br6aQ==</LegDocName>
+                    <DocCode>3nBHIs3McItZdIbNMzniO4iNj3eRsT0zcilBXgM466U=</DocCode>
+                    <LegDocName>IOihLolE0nSNA6O18P+YTQ==</LegDocName>
                     <LegDocType>01</LegDocType>
-                    <LegDocCode>CHTsaDDYHetqg3TceSQjjih7DMKp6RhuHL0bMmhrPOw=</LegDocCode>
+                    <LegDocCode>3nBHIs3McItZdIbNMzniO4iNj3eRsT0zcilBXgM466U=</LegDocCode>
                     <Level>02</Level>
                     <RiskType>03</RiskType>
                     <ValidDate>2020-09-20</ValidDate>
                     <ValidStatus>01</ValidStatus>
                     <CusType>01</CusType>
                     <Occurarea>130000</Occurarea>
-                    <BankNo>g9WRmEQsA5z2jsuGCKAYDfBkHxMqlRpxG4Y7ff/64rA=</BankNo>
-                    <Url>xc6iNSMln22SieC4U0gZCQ==</Url>
+                    <BankNo>vG5c48jU48RSMxN91W2VyNCW9lm0RPKmckj8x0rsTNo=</BankNo>
+                    <Url>xS4NvbVTZzMUnTlQ+2mWPw==</Url>
                     <RegisteredCode/>
                 </RiskInfo>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>PuPUdsUQ81ICUAW1yu3OtQ==</RegName>
-                    <CusName>EdXh++UFBI0y7OXa5+A/yw==</CusName>
+                    <RegName>9ZRWYwG99+Iu6dxMya+jYw==</RegName>
+                    <CusName>EOT0hFeXclp3pDdBUGVwog==</CusName>
                     <DocType>03</DocType>
-                    <DocCode>F/H0wFdx/sCkAMLCvyllVw==</DocCode>
-                    <LegDocName>qpe6tKHGGiELkOszaUhIeQ==</LegDocName>
+                    <DocCode>xWs/3msuIU2hHEAUdF/bQQ==</DocCode>
+                    <LegDocName>agbDqgvr0nwr7D/ifHNRaw==</LegDocName>
                     <LegDocType>03</LegDocType>
-                    <LegDocCode>cJJLO8ZkFRhJEIiQX99N9A==</LegDocCode>
+                    <LegDocCode>qpQ5qCJy0UZNR7jmIok7bA==</LegDocCode>
                     <Level>02</Level>
                     <RiskType>13</RiskType>
                     <ValidDate>2022-08-31</ValidDate>
                     <ValidStatus>01</ValidStatus>
                     <CusType>03</CusType>
                     <Occurarea>120000</Occurarea>
-                    <BankNo>TgnScPyheCUdNydHwakjiA==</BankNo>
-                    <Url>vdX42Sjo9PDTqA8itjEHjw==</Url>
+                    <BankNo>tyx14O7jMi5UTfI0Yj9QYg==</BankNo>
+                    <Url>AHBfIaYBEXtgPgAOHfnzsA==</Url>
                     <RegisteredCode/>
                 </RiskInfo>
                 <RiskInfo>
                     <PushDate>2020-09-01</PushDate>
-                    <RegName>MRXog0/JPEUHFxZIco9STOO1TtxeMI63xnyN4zEzGyM=</RegName>
-                    <CusName>MRXog0/JPEUHFxZIco9STOO1TtxeMI63xnyN4zEzGyM=</CusName>
+                    <RegName>403d4L2WqLgdnN8ol4q0MhQoDg0GgSYh94bTFKqGLvY=</RegName>
+                    <CusName>403d4L2WqLgdnN8ol4q0MhQoDg0GgSYh94bTFKqGLvY=</CusName>
                     <DocType>02</DocType>
-                    <DocCode>pdTOSGGn3ozLk5WNJ6n7o7ELcNCiVH88DV1+XT7JBJM=</DocCode>
-                    <LegDocName>0AHQ4zjVBrZm70INVHWUvg==</LegDocName>
+                    <DocCode>kxwghHTsLqtnYZifmkeMu/H8kAs7sjcCrtBT5x+7vmY=</DocCode>
+                    <LegDocName>YOTaTZ0BF495bcQlGtuvxQ==</LegDocName>
                     <LegDocType>01</LegDocType>
-                    <LegDocCode>ioNrrtQ5br0E1SfR11QSqlbVjtH8GOyVqIfX9ZqIotw=</LegDocCode>
+                    <LegDocCode>tR4EC/l5POH1rEOOeZNzPdVgmEOSKLto9ei2ND1AI+4=</LegDocCode>
                     <Level>01</Level>
                     <RiskType>04</RiskType>
                     <ValidDate>2020-12-11</ValidDate>
                     <ValidStatus>02</ValidStatus>
                     <CusType>02</CusType>
                     <Occurarea>320100</Occurarea>
-                    <BankNo>44wC5g9bsCbP9OylPO/A0g==</BankNo>
-                    <Url>eGHUMPqbWz1nJAd19rvnG3OqshtAb+0mtaqztCByikA=</Url>
+                    <BankNo>Gidu0kyDswNlZ/GFT0GPUQ==</BankNo>
+                    <Url>fdOKDgXZYtonJY4Q8bmZhyk33GRBI3m4ibI7/qS4N8A=</Url>
                     <RegisteredCode/>
                 </RiskInfo>
             </PcacList>
         </Body>
     </Respone>
-    <Signature>KHFdCefyGL4ruW0C4UEo7WGwMPQZ41x98e0nzsFr5fZGeSkPRWLIfA3F1ttkdCUpARiw5APRB+VKgqFbK27OkG7wTlAhI0DO2LMGlrsyzU3f8nnOZ9un/Umb72lewYslF1baAmjvj78XXIQNcvww/MyalvEUsKPRq9OYJlMc24nM6ep/9OtKx2HRWO6ytFAYvpD1xothiyLtyEAMbHeuIosXswpCycpfZHqDsh9G8/XCR5xuAueAWf60rrD1/B3ovcaNQ5THmnIRBI8CAAaz7J2s6HHAE7fOK3xpG+IUNJB1rcz0dm8niOl0Oe5cPxxRfkuP29BsIB0SSn9fSyuUmg==</Signature>
+    <Signature>PdmK5v25RIzc1QWYf26rcwp1VCggYjlWqWI12qwv2cNMxiGXu5Ninf74dJj7x9m8pbc6h4Ug/PqgrAft9VfNoBfrkO6n9Of8DEvkyVrVkF764r9e3lHV+brZk9EYh2zVw7iMj9EO5ouzR3WHEQp+3AdVlq2aDutU43/VxJgc5Uxroz+fBEw2pYcRSlL5RVV8KzWA5EsOUDYZf+R83Ry66iWJx7R0ju6NeGS357ElJ/aD57qWbsyiP1UGssMHYBQZZIVINvGn+WWl+v+saymgi0glBgPZxqtaeU1/Wg9wO9ia4KWe3FLtFBoFT0fOwSPlM40xiTd0Q07HfyRDlFZDww==</Signature>
 </Document>
