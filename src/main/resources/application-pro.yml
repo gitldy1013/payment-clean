@@ -11,26 +11,27 @@ spring:
     username: zfqs
     password: Zaq!@#123
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://172.16.48.224/zfqs?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://172.27.132.239/zfqs?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&serverTimezone=Asia/Shanghai
 
 server:
   port: 8081
 
-
 pcac:
-  url: https://localhost:8081/pcac
+  url: http://210.12.239.161:10001/ries_interface/httpServlet
   version: V1.3.0
-  orig-sender: 收单机构号
-  orig-sender-sid: 收单机构收单机构发送系统号
+  orig-sender: Z2004343000017
+  orig-sender-sid: zf_sysstem
+  login-url: http://210.12.239.161:10001/ries_interface/loginServlet
+  user-token: Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I
 
 sftp:
-  host: 172.16.48.89
+  host: 172.27.132.71
   port: 22
   username: zfqs
   password: Root@123
   modDir: /tmp/
-  remotePathUpload: /ftp_data/zfqs/input/
-  remotePathDownload: /ftp_data/zfqs/output/
+  remotePathUpload: /app/zfqs/input/
+  remotePathDownload: /app/zfqs/output/
   queryPcacMerchantRiskInfoFileNamePrefix: Risk_
   pcacRiskInfoFileNamePrefix: Black_
   businessInfoFileNamePrefix: Business_
