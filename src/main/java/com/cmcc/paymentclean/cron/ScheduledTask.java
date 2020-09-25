@@ -3,6 +3,7 @@ package com.cmcc.paymentclean.cron;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
+import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class ScheduledTask {
 
     @Autowired
-    private SubmitPcacPersonRiskInfo submitPcacPersonRiskInfo;
+    private PcacPersonRiskSubmitInfoService pcacPersonRiskSubmitInfoService;
 
     @Autowired
     private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
@@ -41,7 +42,7 @@ public class ScheduledTask {
     @Scheduled(cron = "0 0 23 ? * *")
     public void  submitPcacPersonRiskInfoJob(){
         log.info("每天23:00执行上报个人风险信息到清算协会任务==START==");
-        submitPcacPersonRiskInfo.submit();
+        pcacPersonRiskSubmitInfoService.submit();
         log.info("每天23:00执行上报个人风险信息到清算协会任务==END==");
     }
 

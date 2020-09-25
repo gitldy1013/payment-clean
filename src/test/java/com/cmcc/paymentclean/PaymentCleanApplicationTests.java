@@ -2,11 +2,11 @@ package com.cmcc.paymentclean;
 
 import com.cmcc.paymentclean.controller.PcacAssistanceController;
 import com.cmcc.paymentclean.controller.PcacRiskInfoPushController;
-import com.cmcc.paymentclean.cron.SubmitPcacPersonRiskInfo;
 import com.cmcc.paymentclean.entity.LoginResult;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
 import com.cmcc.paymentclean.service.LoginPcacService;
+import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
 import com.cmcc.paymentclean.utils.DateUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.Random;
 class PaymentCleanApplicationTests {
 
     @Autowired
-    private SubmitPcacPersonRiskInfo submitPcacPersonRiskInfo;
+    private PcacPersonRiskSubmitInfoService pcacPersonRiskSubmitInfoService;
     @Autowired
     private LoginPcacService loginPcacService;
 
@@ -41,7 +41,7 @@ class PaymentCleanApplicationTests {
      */
     @Test
     public void test01() {
-        submitPcacPersonRiskInfo.submit();
+        pcacPersonRiskSubmitInfoService.submit();
     }
 
 
