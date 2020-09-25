@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: payment-clean
+  profiles:
+    active: dev
+  mvc:
+    throw-exception-if-no-handler-found: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+
+
+pcac:
+  url: https://localhost:8080/pcac
+  version: V1.3.0
+  orig-sender: pcac10086
+  orig-sender-sid: pcac10086

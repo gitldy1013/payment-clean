@@ -1,0 +1,95 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="Document">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Respone"/>
+				<xs:element ref="Signature"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Respone">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Head"/>
+				<xs:element ref="Body"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Head">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Version" type="xs:string"/>
+				<xs:element name="Identification" type="xs:string"/>
+				<xs:element name="OrigSender" type="xs:string"/>
+				<xs:element name="OrigSenderSID" type="xs:string"/>
+				<xs:element name="RecSystemId" type="xs:string"/>
+				<xs:element name="TrnxCode" type="xs:string"/>
+				<xs:element name="TrnxTime" type="xs:string"/>
+				<xs:element name="SecretKey" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RespInfo"/>
+				<xs:element ref="QueryInfo" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="PcacList" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RespInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ResultStatus"/>
+				<xs:element ref="ResultCode"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="QueryInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="DocType" type="xs:string"/>
+				<xs:element name="DocCode" type="xs:string"/>
+				<xs:element name="RegName" type="xs:string"/>
+				<xs:element name="LegDocCode" type="xs:string"/>
+				<xs:element name="LegDocName" type="xs:string"/>
+				<xs:element name="ResultSequence" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PcacList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Count" type="xs:string"/>
+				<xs:element ref="ResultInfo" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ResultInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RegName" type="xs:string"/>
+				<xs:element name="DocType" type="xs:string"/>
+				<xs:element name="DocCode" type="xs:string"/>
+				<xs:element name="ResultSequence" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Signature" type="xs:string"/>
+	<xs:element name="ResultStatus">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="01|02|03"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="ResultCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:maxLength value="6"/>
+				<xs:pattern value="[0-9A-Za-z]{6}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>
