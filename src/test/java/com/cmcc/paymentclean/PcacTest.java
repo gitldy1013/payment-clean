@@ -66,7 +66,6 @@ public class PcacTest<T> {
         //校验xml报文
         boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries."+code);
         log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
-//        boolean validate = ValidateUtils.validateXML(XmlJsonUtils.formatXml(xml), "pcac.ries." + code);
         if (!validate) {
             log.info("XML校验失败");
             return;

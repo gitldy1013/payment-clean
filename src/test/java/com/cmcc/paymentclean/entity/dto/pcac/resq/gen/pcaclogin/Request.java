@@ -55,7 +55,19 @@ import javax.xml.bind.annotation.XmlType;
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body.class,
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.Body.class,})
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac003.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac009.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac011.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac015.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac017.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_1.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_2.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.Body.class,
+        })
 public class Request <T>{
 
     @XmlElement(name = "Head", required = true)
