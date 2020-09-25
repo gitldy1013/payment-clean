@@ -4,20 +4,20 @@
     <Request>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009221000001274</Identification>
+            <Identification>202009248947198164</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>TS0004</TrnxCode>
-            <TrnxTime>20200922141252</TrnxTime>
+            <TrnxTime>20200924122407</TrnxTime>
             <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
-            <SecretKey>pPgTKCqC0RnCsvmyYbBpoW33lUfcEWdn0U7VCFcNACe6kqsG8T6usvH3ZofnLNGGvTEfJbaBP2wWCctoLxrZDS+0LNwEWPQu5U7TEogy2nuqvSoYZFE7zWA6jwFJNgh5x643S+EojvaRxlcgp8aUiS/C688nCl2pBq2scDZTYicGcmnYJHLZN17oWOgCA9iYxK81wUhhsonucTDWgrb2UOK3G3VrZQagPWOI8kp2xlWf9kxMdp1GHrRzrxw5iuGikPGuDGmkTzB/FJF48pcSZrTttI1CDzN8SOMOj1uepiNdd6znY/JtAwy3IOpTM0Rz/lQ+770NrHonL9Qx3BEpZw==</SecretKey>
+            <SecretKey>dCKR34CXmFWgZVK50BXOAoNzrk6YMbEztOKNEdKo0Cj8e4BXEjQj2R2MMllLiCuzuGY2jh+L/Nbss9m/w5mO7t3m3bQ5vjY1BMCBiXmLz9RGcKcYY3M+TrJwBFFO+Ua0DyhsYUtW2Pcozxr7QWrkA9WPD1zjepeJIQxp2dC5BYxEoJmoZCV+BwEqM9aCRM3cdLTLsaNhbP5msh84HZzT1ieixwf0pjCHqsHyJ4EqW/ml0PNzSwsACm26PAnfv1bIAm2Wj1EjXkXfcnnZA/aM9BgIjZxCLBgOLhXnBy/PFD6HSBlZHT1MR50NofuXSf6KFs80677n1plLVsWF9Gr0uw==</SecretKey>
         </Head>
         <Body>
             <RiskType>01</RiskType>
             <ReqDate>2020-09-01</ReqDate>
-            <ReqDateEnd></ReqDateEnd>
+            <ReqDateEnd>2020-09-01</ReqDateEnd>
         </Body>
     </Request>
-    <Signature>DjSQrQ9JJoFhPgD5Y/r6Rg+dMPKvTo+HqDg4RyxfzkWRJZdfGjLdaIQWCcIMeimYDAYyCUax7TAbcgqV9+DPnBHi6JmLkFcY47nxIrV/prysbrysQdIG6tZZF1diuvoFS28r1R/1R5ixlFhLeOLrxxWTAf+XDROXNIC8fa0fBQmzRb4jshFigAmiyHhDrwYFGOCM9NCx5ICbBq3az/HHRxZJP9Hvh3yS1E5+PA5RIBzr7OX55TgfHfusFvlI3mcE5lTNkhSNlSD6HElSgYvLQc3Ix2m/VkuKL0aaQ/aCIAdy7dmG5Gs0aLZ6cbFbJUAnZ6u2Sy1CQhWs5Mb2Aqgw1Q==</Signature>
+    <Signature>KywlQPUNFiURFW86dDfN+I3ylkSuV3VbbU9u/QlUpW1OQ15E19iXPlc1M1Kom1Et2tjVCyAddN7dcfrLP1/m7s/UkxwNGfhBmihUvghUST4bfdn0CV6JGB9z3OhuvUUQsYuZg1D8ETlB/brUrb61m7RcSvo80BYfygA8EyA2gYkYmqRFsmZa85+PyBgwgDoh+ZTPGWINUGJaaklHuun7mF14GcakFnMyocXMcfVy0kVjb8/QcHOZvBIM0sCIXVGHzlS2HDNdfV5pscluTHetKttWgWa5RQTmXz96rgyPTLfRJtDYTUTe6OBPr+5EGs10aCsqV1tQeMZT0MYMfg33LQ==</Signature>
 </Document>

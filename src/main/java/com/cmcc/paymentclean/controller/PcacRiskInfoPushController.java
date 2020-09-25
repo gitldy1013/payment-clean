@@ -80,6 +80,9 @@ public class PcacRiskInfoPushController {
         }
         log.info("清算协会推送的风险类型是：{}",pushListType);
         String secretKey = head.getSecretKey();
+        //获取报文唯一表示，响应清算协会时需使用
+        String identification = head.getIdentification();
+        log.info("报文唯一表示：{}",identification);
         Body body = request.getBody();
         PcacList pcacList = body.getPcacList();
         String upDate = pcacList.getUpDate();
@@ -127,7 +130,7 @@ public class PcacRiskInfoPushController {
 
         }
         log.debug("需要入库风险信息：{}", pcacRiskInfoList);
-        doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
+        doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList,identification);
         log.info("响应协会黑名单或者风险提示信息报文:{}",doXml);
         return doXml;
     }

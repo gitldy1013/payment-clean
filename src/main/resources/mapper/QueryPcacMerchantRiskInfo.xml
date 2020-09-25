@@ -76,7 +76,7 @@
     <select id="pageLocalAssociatedRiskMerchantInfo" resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
             parameterType="com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq">
         SELECT
-        <include refid="Base_Column_List"/>, t.result_status as handleResult, t.result_code as feedbackStatus, DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate
+        <include refid="Base_Column_List"/>, t.result_status as handleResult, t.push_status as feedbackStatus, DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate
         FROM
         query_pcac_merchant_risk_info t
         WHERE
@@ -91,7 +91,7 @@
             and t.cus_Type=#{req.cusType}
         </if>
         <if test="req.feedbackStatus !=null and req.feedbackStatus !=''">
-            and t.result_code=#{req.feedbackStatus}
+            and t.push_status=#{req.feedbackStatus}
         </if>
         <if test="req.feedbackStartDate!=null ">
             <![CDATA[  and DATE_FORMAT(t.up_date, '%Y-%m-%d') >= DATE_FORMAT(#{req.feedbackStartDate}, '%Y-%m-%d')  ]]>

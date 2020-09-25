@@ -35,7 +35,7 @@ public interface PcacRiskInfoService {
      */
     List<PcacRiskInfoDTO> listByIsBlack(String pushListType);
 
-    String insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList);
+    String insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList,String identification);
 
     void updatePushStatus(List<String> ids);
 

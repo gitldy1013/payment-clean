@@ -27,19 +27,15 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.*;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Request033Wapper;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.ExcelUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.SFTPUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -286,11 +282,11 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             baseInfo.setContName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContName()));
             //商户联系电话
             baseInfo.setContPhone(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContPhone()));
-            //商户联系电话
+            //股东信息
             baseInfo.setShareHolder(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getShareHolder()));
-            //商户联系电话
+            //外包服务机构名称
             baseInfo.setOutServiceName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceName()));
-            //商户联系电话
+            //外包服务机构法人证件号码
             baseInfo.setOutServiceCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceCardCode()));
             //外包服务机构法定代表人证件号码"
             baseInfo.setOutServiceLegCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
@@ -375,11 +371,16 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
 
     @Override
     public String getBusinessInfoXML(String xml) {
+        String identification =null;
         log.info("接收的xml:{}", xml);
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper.class);
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body resBody = resDoc.getRequest().getBody();
         ConditionList conditionLists = resBody.getConditionList();
         if (conditionLists != null) {
+            Request033Wapper request = resDoc.getRequest();
+            Head head = request.getHead();
+            String secretKey = head.getSecretKey();
+            identification = head.getIdentification();
             List<Condition> conditions = conditionLists.getCondition();
             List<BusinessInfo> businessInfos = new ArrayList<>();
             for (int i = 0; i < conditions.size(); i++) {
@@ -391,20 +392,26 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.BaseInfo baseInfo = resultInfo.get(0).getBaseInfo();
                 List<ResultInfo> resultInfos = condition.getResultCondition().getResultInfo();
                 //待补充落表逻辑 需求不清晰，东阳建议全部按一条数据来处理汇总一条BusinessInfo 数据
-                SignInfo hisSignInfo = resultInfo.get(0).getHisSignList().get(0).getSignInfo().get(0);
-                SignInfo curSignInfo = resultInfo.get(0).getCurSignList().get(0).getSignInfo().get(0);
+                SingInfo hisSingInfo = resultInfo.get(0).getHisSignList().get(0).getSingInfo().get(0);
+                SingInfo curSingInfo = resultInfo.get(0).getCurSignList().get(0).getSingInfo().get(0);
                 RiskInfo blackRiskInfo = resultInfo.get(0).getBlackList().get(0).getRiskInfo().get(0);
                 RiskInfo warningRiskInfo = resultInfo.get(0).getWarningList().get(0).getRiskInfo().get(0);
                 RiskInfo legBlackRiskInfo = resultInfo.get(0).getLegBlackList().get(0).getRiskInfo().get(0);
                 RiskInfo legWarningRiskInfo = resultInfo.get(0).getLegWarningList().get(0).getRiskInfo().get(0);
                 BusinessInfo businessInfo = new BusinessInfo();
-                BeanUtils.copyProperties(hisSignInfo, businessInfo);
-                BeanUtils.copyProperties(curSignInfo, businessInfo);
+                BeanUtils.copyProperties(hisSingInfo, businessInfo);
+                BeanUtils.copyProperties(curSingInfo, businessInfo);
                 BeanUtils.copyProperties(blackRiskInfo, businessInfo);
                 BeanUtils.copyProperties(warningRiskInfo, businessInfo);
                 BeanUtils.copyProperties(legBlackRiskInfo, businessInfo);
                 BeanUtils.copyProperties(legWarningRiskInfo, businessInfo);
+                //对关键字进行解密
+                businessInfo = this.decryptBusinessInfo(businessInfo, secretKey);
+                businessInfos.add(businessInfo);
             }
+            //入库
+            this.saveBatch(businessInfos);
+
             String fileName = sftpConfig.getBusinessInfoBlackFileNamePrefix() + DateUtils.curDateString() + CommonConst.SFTP_FILE_NAME_SUFFIX;
             ExcelUtils excelUtils = new ExcelUtils();
             try {
@@ -423,8 +430,106 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             SFTPUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
                     sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
         }
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig);
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig,identification);
         return XmlJsonUtils.convertObjectToXmlStr(document);
+    }
+
+    private BusinessInfo decryptBusinessInfo(BusinessInfo businessInfo, String secretKey) {
+        //商户名称
+        if(StringUtils.isNotEmpty(businessInfo.getRegName())){
+            businessInfo.setRegName(CFCACipherUtils.decrypt(secretKey, businessInfo.getRegName()));
+        }
+        //商户简称
+        if(StringUtils.isNotEmpty(businessInfo.getCusName())){
+            businessInfo.setCusName(CFCACipherUtils.decrypt(secretKey, businessInfo.getCusName()));
+        }
+        //商户英文名称
+        if(StringUtils.isNotEmpty(businessInfo.getCusNameEn())){
+            businessInfo.setCusNameEn(CFCACipherUtils.decrypt(secretKey, businessInfo.getCusNameEn()));
+        }
+        //商户代码
+        if(StringUtils.isNotEmpty(businessInfo.getCusCode())){
+            businessInfo.setCusCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getCusCode()));
+        }
+        //法定代表人姓名/负责人姓名
+        if(StringUtils.isNotEmpty(businessInfo.getLegDocName())){
+            businessInfo.setLegDocName(CFCACipherUtils.decrypt(secretKey, businessInfo.getLegDocName()));
+        }
+        //法定代表人证件号码
+        if(StringUtils.isNotEmpty(businessInfo.getLegDocCode())){
+            String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, businessInfo.getLegDocCode());
+            if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(businessInfo.getLegDocType())){
+                String encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+                businessInfo.setLegDocCode(encryptLegDocCode);
+            }else{
+                businessInfo.setLegDocCode(decryptLegDocCode);
+            }
+        }
+        //商户代码
+        if(StringUtils.isNotEmpty(businessInfo.getCusCode())){
+            businessInfo.setCusCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getCusCode()));
+        }
+        //收款账\卡号
+        if(StringUtils.isNotEmpty(businessInfo.getBankNo())){
+            String decryptBankNo = CFCACipherUtils.decrypt(secretKey, businessInfo.getBankNo());
+            businessInfo.setBankNo(InnerCipherUtils.encryptUserData(decryptBankNo));
+        }
+        //商户注册地址
+        if(StringUtils.isNotEmpty(businessInfo.getRegAddrDetail())){
+            businessInfo.setRegAddrDetail(CFCACipherUtils.decrypt(secretKey, businessInfo.getRegAddrDetail()));
+        }
+        //商户注册地址
+        if(StringUtils.isNotEmpty(businessInfo.getAddrDetail())){
+            businessInfo.setAddrDetail(CFCACipherUtils.decrypt(secretKey, businessInfo.getAddrDetail()));
+        }
+        //网址
+        if(StringUtils.isNotEmpty(businessInfo.getUrl())){
+            businessInfo.setUrl(CFCACipherUtils.decrypt(secretKey, businessInfo.getUrl()));
+        }
+        //服务器 ip
+        if(StringUtils.isNotEmpty(businessInfo.getServerIp())){
+            businessInfo.setServerIp(CFCACipherUtils.decrypt(secretKey, businessInfo.getServerIp()));
+        }
+        //商户联系人
+        if(StringUtils.isNotEmpty(businessInfo.getContName())){
+            businessInfo.setContName(CFCACipherUtils.decrypt(secretKey, businessInfo.getContName()));
+        }
+        //商户联系电话
+        if(StringUtils.isNotEmpty(businessInfo.getContPhone())){
+            businessInfo.setContPhone(CFCACipherUtils.decrypt(secretKey, businessInfo.getContPhone()));
+        }
+        //股东信息
+        if(StringUtils.isNotEmpty(businessInfo.getShareHolder())){
+            businessInfo.setShareHolder(CFCACipherUtils.decrypt(secretKey, businessInfo.getShareHolder()));
+        }
+        //外包服务机构名称
+        if(StringUtils.isNotEmpty(businessInfo.getOutServiceName())){
+            businessInfo.setOutServiceName(CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceName()));
+        }
+        //外包服务机构法人证件号码
+        if(StringUtils.isNotEmpty(businessInfo.getOutServiceCardCode())){
+            businessInfo.setOutServiceCardCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceCardCode()));
+        }
+
+        //外包服务机构法定代表人证件号码
+        if(StringUtils.isNotEmpty(businessInfo.getOutServiceLegCardCode())){
+            String decryptOutServiceLegCardCode = CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceLegCardCode());
+            if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(businessInfo.getOutServiceLegCardType())){
+                String encryptOutServiceLegCardCode = InnerCipherUtils.encryptUserData(decryptOutServiceLegCardCode);
+                businessInfo.setOutServiceLegCardCode(encryptOutServiceLegCardCode);
+            }else{
+                businessInfo.setOutServiceLegCardCode(decryptOutServiceLegCardCode);
+            }
+        }
+        //ICP
+        if(StringUtils.isNotEmpty(businessInfo.getIcp())){
+            businessInfo.setIcp(CFCACipherUtils.decrypt(secretKey, businessInfo.getIcp()));
+        }
+        //doccode
+        if(StringUtils.isNotEmpty(businessInfo.getDocCode())){
+            businessInfo.setDocCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getDocCode()));
+        }
+        return businessInfo;
     }
 
     private SXSSFWorkbook getSxssfWorkbook(SXSSFWorkbook sxssfWorkbook, String sheetName, List list, Class c) {

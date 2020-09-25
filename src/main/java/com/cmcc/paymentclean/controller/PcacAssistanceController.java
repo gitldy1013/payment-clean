@@ -61,6 +61,9 @@ public class PcacAssistanceController {
         Request028Wapper request = document.getRequest();
         Head head = request.getHead();
         String secretKey = head.getSecretKey();
+        //获取报文唯一表示，响应清算协会时需使用
+        String identification = head.getIdentification();
+        log.info("报文唯一表示：{}",identification);
         Body body = request.getBody();
         PcacList pcacList = body.getPcacList();
         String upDate = pcacList.getUpDate();
@@ -88,7 +91,7 @@ public class PcacAssistanceController {
 
         }
 
-        return pcacAssistanceInfoService.saveAssistanceInfo(pcacAssistanceInfoList);
+        return pcacAssistanceInfoService.saveAssistanceInfo(pcacAssistanceInfoList,identification);
     }
 
 

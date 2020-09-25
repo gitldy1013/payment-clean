@@ -31,9 +31,9 @@ public class PcacAssistanceInfoServiceImpl extends ServiceImpl<PcacAssistanceInf
     private PcacConfig pcacConfig;
 
     @Override
-    public String saveAssistanceInfo(ArrayList<PcacAssistanceInfo> assistanceInfoList) {
+    public String saveAssistanceInfo(ArrayList<PcacAssistanceInfo> assistanceInfoList,String identification) {
         pcacAssistanceInfoMapper.insertBatchAssistanceInfo(assistanceInfoList);
-        Document document = XmlJsonUtils.getRespDocument(pcacConfig);
+        Document document = XmlJsonUtils.getRespDocument(pcacConfig,identification);
         String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
         return doXml;
     }
