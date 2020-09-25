@@ -1,4 +1,4 @@
-CREATE DATABASE if not exists `paymentclean` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE if not exists `zfqs` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 drop table if exists pcac_assistance_info;
 
