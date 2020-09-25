@@ -18,6 +18,7 @@ import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.StatusEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
+import com.cmcc.paymentclean.entity.PcacRiskInfo;
 import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body;
@@ -29,6 +30,7 @@ import com.cmcc.paymentclean.entity.dto.response.AssociatedRiskMerchantInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
 import com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper;
+import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
@@ -62,6 +64,9 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
 
     @Autowired
     private LocalAssociatedRiskMerchantInfoMapper localAssociatedRiskMerchantInfoMapper;
+
+    @Autowired
+    private PcacRiskInfoMapper pcacRiskInfoMapper;
 
     @Autowired
     private PcacConfig pcacConfig;
@@ -124,18 +129,22 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl extends ServiceImpl<Loca
         PcacList pcacList = new PcacList();
         pcacList.setCount(associatedRiskMerchantInfoBackReqs.size() + "");
         List<RiskInfo> riskInfos = new ArrayList<>();
-        LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo = new LocalAssociatedRiskMerchantInfo();
+        PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
         for (AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq : associatedRiskMerchantInfoBackReqs) {
-            QueryWrapper<LocalAssociatedRiskMerchantInfo> wrapper = new QueryWrapper<>();
+            QueryWrapper<PcacRiskInfo> wrapper = new QueryWrapper<>();
             wrapper.eq("doc_type", associatedRiskMerchantInfoBackReq.getDocType());
             wrapper.eq("doc_code", associatedRiskMerchantInfoBackReq.getDocCode());
-            List<LocalAssociatedRiskMerchantInfo> localAssociatedRiskMerchantInfos = localAssociatedRiskMerchantInfoMapper.selectList(wrapper);
-            if (localAssociatedRiskMerchantInfos.size() > 0) {
-                localAssociatedRiskMerchantInfo = localAssociatedRiskMerchantInfos.get(0);
+            List<PcacRiskInfo> pcacRiskInfos = pcacRiskInfoMapper.selectList(wrapper);
+            if (pcacRiskInfos.size() > 0) {
+                pcacRiskInfo = pcacRiskInfos.get(0);
+            }else {
+                resultBean.setResMsg("反馈数据异常，未查到对应的反馈信息！");
+                resultBean.setResCode(PARAM_ERR);
+                return resultBean;
             }
             RiskInfo riskInfo = new RiskInfo();
-            riskInfo.setCusType(localAssociatedRiskMerchantInfo.getCusType());
-            riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, localAssociatedRiskMerchantInfo.getRegName()));
+            riskInfo.setCusType(pcacRiskInfo.getCusType());
+            riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacRiskInfo.getRegName()));
             riskInfo.setCurrency("CNY");
             riskInfo.setAmount(associatedRiskMerchantInfoBackReq.getAmount());
             riskInfo.setDocType(this.splitStrs(associatedRiskMerchantInfoBackReq.getDocType()));
