@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009277705444836</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QR0001</TrnxCode>
+            <TrnxTime>20200927150748</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>eds3UCd1D8AdOd3f0KA0L3YUua6rvN2txFC/fQWDsxjuAlqOYiu43nmsHI4EQjIFOrkeh8If4EkAudRJrBlX1Nd1b9oZf/YApn4OtykQieLPOxTWaeJESN8TE49m7MzX06YTdW99lmmFgup/0WDuW6gEIWgfzFzupO3M2uwEDi1XTcadEs/zH5fN5WqQP92eDmOHljb9vrkeFVS9yi5FQ1/poQsGDqEqd1WQHeIsk0mOTUC7cMlWh0Pp4q0/fIWPJQVjtvIySTGVcVQubeB7U1XbGlz9zYjkIJYL5hM9OEWBsLPiW/FqGirhv1Fm+5ShZvNTYwbn1BTCuhlC5iSczg==</SecretKey>
+        </Head>
+        <Body>
+            <RiskType>01</RiskType>
+            <MobileNo>01</MobileNo>
+            <Mac>01:01:01:01:01:01</Mac>
+            <Imei>01</Imei>
+            <BankNo>01</BankNo>
+            <OpenBank>01</OpenBank>
+            <CusName>01</CusName>
+            <DocType>01</DocType>
+            <DocCode>211324199110105617</DocCode>
+            <Ip>https://localhost:80801/zfqs</Ip>
+            <Address>01</Address>
+            <Telephone>0421-12341234</Telephone>
+            <RecBankNo>01</RecBankNo>
+            <RecOpenBank>01</RecOpenBank>
+            <Email>123@183.com</Email>
+            <Occurtimeb>2011-01-01</Occurtimeb>
+            <Occurtimee>2020-09-09</Occurtimee>
+            <Occurchan>01</Occurchan>
+            <Occurarea>659000</Occurarea>
+            <RecHostArea>AD</RecHostArea>
+            <Scope>01</Scope>
+            <ValidStatus>01</ValidStatus>
+        </Body>
+    </Request>
+    <Signature>xIWm4u0/VujUuJ0ksox2a9mejI6xusdjsS9BH8xagUq8e0mUDiEDQ2JEDylikrL44r7iXvJqOf6JKzlDvrRiIpboQXeLTHedsYk4m6/h6foCvqQjHwwdM0gOq3WhmH8A/MzEOfQcjNsTvogNPN8EUM0a1FWMQsKSi7A2iLU2hfCz+Pi8GjsMbYDpPKzfjIkYh6EnPzFt3CkuYhYAVmGL7f4YJhJAXgHJP2mqXJXXwYsgMlQnnp9nGQQ+hbZNoQQyO7jPjgfBDO0LtlXqGOW9rThp4rfC7H5/cefko727wYUAc6W6dYSogExLpKoexU+QLGLBFpRl5IEsvUfbTHYHsQ==</Signature>
+</Document>

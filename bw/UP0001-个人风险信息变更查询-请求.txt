@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009276922235367</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0001</TrnxCode>
+            <TrnxTime>20200927151506</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>phSKRU9mFF1M5RuOfWDk/Ae5Wwe392dwnwOYDF1mJEJ6UQQZF+gBg7LkHvKyjY9kQYBb9HrgRF8WR75ZhHt+Qfqn7AQkeQvySGtl6HvPmLonLA+H+Db83SSfCLlf1FMRaVbGeyYjAQHABY15Iq4LSG/5VIrPvvBQkOmO00+g2XlLGVdyK+qpDedWg/bCI/6X1X9DyDKOgHxeMNkapU7gdnL5fot+wRGDASgfRypjI/n3CpbCzE64+zhkUn1yA7RhGsWaUjSwd3vKXe8acEHG8vlTdbX7n1Y6o4AsZBP8Je2rjWRyFD06S4cRAioSACcw5Mx6Mv4OMDxemUVG/1weDQ==</SecretKey>
+        </Head>
+        <Body>
+            <RiskType>01</RiskType>
+            <MobileNo>13566666666</MobileNo>
+            <Mac>XX:XX:XX:XX:XX:XX</Mac>
+            <Imei>01</Imei>
+            <BankNo>01</BankNo>
+        </Body>
+    </Request>
+    <Signature>THtb1vhFBcB10sycZ/IayFVKQIC/CkNirAjs9F0dQFeARIbeskS9fZtO7g884st5sg6kDWoRrWYWh4h/OtHPMywJY/7KsNCZOnxlGjRiEHIbdCxjOZF7EMytMMMtxkhViAvVseI1ULqnnWAPzWu+9C0n/QTUSHOgk2/ERZ9tW2hYw5HSGlSxMuThFN856v+PbYD5sN4+73pA9JoPULshx73Wsob7mneF997WSs2p/jkn+q7ONhBgPaZMFdtaOyifsIxlv8OJusJjNs+DLQ/2u+6Uuwa4DI+TV1neofGENlmembtXPPfaZ1vevHWrRhTMJrJqHgVk45lPqrS8eVcHRQ==</Signature>
+</Document>
