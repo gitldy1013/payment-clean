@@ -17,9 +17,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.util.FileCopyUtils;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
 
 @SpringBootTest
 @ActiveProfiles("dev")
@@ -28,34 +35,47 @@ public class PcacTest<T> {
     @Autowired
     private PcacConfig pcacConfig;
 
+    private byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+
+    public static void creatFile(String xml, String fileName) {
+        Writer write;
+        try {
+            write = new FileWriter(new File(PROJECT_PATH + "/bw/" + fileName + ".txt"));
+            FileCopyUtils.copy(xml, write);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     void QR0001() {
         //拼装Body QR0001-个人风险信息查询
         Body body = new Body();
-        body.setRiskType("123");
-        body.setMobileNo("123");
-        body.setMac("123");
-        body.setImei("123");
-        body.setBankNo("123");
-        body.setOpenBank("123");
-        body.setCusName("123");
-        body.setDocType("123");
-        body.setDocCode("123");
-        body.setIp("123");
-        body.setAddress("123");
-        body.setTelephone("123");
-        body.setRecBankNo("123");
-        body.setRecOpenBank("123");
-        body.setEmail("123");
-        body.setOccurtimeb("123");
-        body.setOccurtimee("123");
-        body.setOccurchan("123");
-        body.setOccurarea("123");
-        body.setRecHostArea("123");
-        body.setScope("123");
-        body.setValidStatus("123");
-        String QR0001 = pushPcac((T) body, "003", "QR0001");
-        log.info(QR0001);
+        body.setRiskType("01");
+        body.setMobileNo("01");
+        body.setMac("01:01:01:01:01:01");
+        body.setImei("01");
+        body.setBankNo("01");
+        body.setOpenBank("01");
+        body.setCusName("01");
+        body.setDocType("01");
+        body.setDocCode("211324199110105617");
+        body.setIp("https://localhost:80801/zfqs");
+        body.setAddress("01");
+        body.setTelephone("0421-12341234");
+        body.setRecBankNo("01");
+        body.setRecOpenBank("01");
+        body.setEmail("123@183.com");
+        body.setOccurtimeb("2011-01-01");
+        body.setOccurtimee("2020-09-09");
+        body.setOccurchan("01");
+        body.setOccurarea("659000");
+        body.setRecHostArea("AD");
+        body.setScope("01");
+        body.setValidStatus("01");
+        String[] QR0001 = pushPcac((T) body, "003", "QR0001");
+        creatFile(QR0001[0], "QR0001-个人风险信息查询-请求");
+        creatFile(QR0001[1], "QR0001-个人风险信息查询-响应");
     }
 
     @Test
@@ -87,8 +107,7 @@ public class PcacTest<T> {
         body.setValidStatus("");
         body.setRegisteredArea("");
         body.setRegisteredCode("");
-        String QR0002 = pushPcac((T) body, "015", "QR0002");
-        log.info(QR0002);
+        String[] QR0002 = pushPcac((T) body, "015", "QR0002");
     }
 
     @Test
@@ -98,8 +117,7 @@ public class PcacTest<T> {
         body.setCusProperty("");
         body.setKeyWord("");
         body.setInfos("");
-        String QR0003 = pushPcac((T) body, "005", "QR0003");
-        log.info(QR0003);
+        String[] QR0003 = pushPcac((T) body, "005", "QR0003");
     }
 
     @Test
@@ -111,8 +129,7 @@ public class PcacTest<T> {
         body.setMac("");
         body.setImei("");
         body.setBankNo("");
-        String UP0001 = pushPcac((T) body, "009", "UP0001");
-        log.info(UP0001);
+        String[] UP0001 = pushPcac((T) body, "009", "UP0001");
     }
 
     @Test
@@ -126,8 +143,7 @@ public class PcacTest<T> {
         list.add(riskInfo);
         pcacList.setRiskInfo(list);
         body.setPcacList(pcacList);
-        String UP0002BG = pushPcac((T) body, "011", "UP0002");
-        log.info(UP0002BG);
+        String[] UP0002BG = pushPcac((T) body, "011", "UP0002");
     }
 
     @Test
@@ -141,8 +157,7 @@ public class PcacTest<T> {
         list.add(riskInfo);
         pcacList.setRiskInfo(list);
         body.setPcacList(pcacList);
-        String UP0002SX = pushPcac((T) body, "011", "UP0002");
-        log.info(UP0002SX);
+        String[] UP0002SX = pushPcac((T) body, "011", "UP0002");
     }
 
     @Test
@@ -155,8 +170,7 @@ public class PcacTest<T> {
         body.setDocCode("");
         body.setLegRepName("");
         body.setLegDocCode("");
-        String UP0003 = pushPcac((T) body, "017", "UP0003");
-        log.info(UP0003);
+        String[] UP0003 = pushPcac((T) body, "017", "UP0003");
     }
 
     @Test
@@ -170,8 +184,7 @@ public class PcacTest<T> {
         riskInfos.add(riskInfo);
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
-        String UP0004 = pushPcac((T) body, "019-1", "UP0004");
-        log.info(UP0004);
+        String[] UP0004 = pushPcac((T) body, "019-1", "UP0004");
     }
 
     @Test
@@ -216,8 +229,7 @@ public class PcacTest<T> {
         riskInfos.add(riskInfo);
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
-        String UP0004 = pushPcac((T) body, "019", "UP0004");
-        log.info(UP0004);
+        String[] UP0004 = pushPcac((T) body, "019", "UP0004");
     }
 
     @Test
@@ -231,8 +243,7 @@ public class PcacTest<T> {
         riskInfos.add(riskInfo);
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
-        String UP0004 = pushPcac((T) body, "019-2", "UP0004");
-        log.info(UP0004);
+        String[] UP0004 = pushPcac((T) body, "019-2", "UP0004");
     }
 
     @Test
@@ -242,8 +253,7 @@ public class PcacTest<T> {
         body.setCusProperty("");
         body.setKeyWord("");
         body.setInfos("");
-        String UP0005 = pushPcac((T) body, "005", "UP0005");
-        log.info(UP0005);
+        String[] UP0005 = pushPcac((T) body, "005", "UP0005");
     }
 
     @Test
@@ -267,11 +277,10 @@ public class PcacTest<T> {
         riskInfos.add(riskInfo);
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
-        String UP0005 = pushPcac((T) body, "005", "UP0005");
-        log.info(UP0005);
+        String[] UP0005 = pushPcac((T) body, "005", "UP0005");
     }
 
-    public String pushPcac(T body, String code, String trnxCode) {
+    public String[] pushPcac(T body, String code, String trnxCode) {
 
         Document<T> document = getDocument(body, trnxCode);
         //报文转换
@@ -279,13 +288,13 @@ public class PcacTest<T> {
         log.info("请求xml数据: {}", XmlJsonUtils.formatXml(xml));
         if (StringUtils.isEmpty(xml)) {
             log.info("xml报文转换失败");
-            return "";
+            return null;
         }
         //校验xml报文
         boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries." + code);
         if (!validate) {
             log.info("XML校验失败");
-            return "";
+            return null;
         }
         //上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
@@ -293,13 +302,12 @@ public class PcacTest<T> {
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         String formatXml = XmlJsonUtils.formatXml(XmlJsonUtils.convertObjectToXmlStr(doc));
         log.info("协会返回数据对象:{}", formatXml);
-        return formatXml;
+        return new String[]{xml, formatXml};
     }
 
     private Document<T> getDocument(T body, String trnxCode) {
         //拼装报文
         Document<T> document = new Document<>();
-        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
         //设置报文头
         Request<T> request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, trnxCode);
         //设置报文体

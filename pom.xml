@@ -296,7 +296,7 @@
         <pluginRepository>
             <id>maven-net-cn</id>
             <name>MavenChinaMirror</name>
-            <url>http://mvnrepository.com/</url>
+            <url>https://repo.spring.io/plugins-release/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

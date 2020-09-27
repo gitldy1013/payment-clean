@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009274875409585</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QR0001</TrnxCode>
+            <TrnxTime>20200927145051</TrnxTime>
+            <SecretKey>dV+WIowYG00KOSF7PN+dmT7kJWt5N97k/SxVV4ZzGRTMZwuP/6W8ohsgWv+q5uJbKXN+bZ8pkcQN++S0GRf8LaRnsiZsHY2SN+wWOJvu/14Ej1WphQ9/JJt3OCDA/nXi4Q35ixLF15W/SwtdgDcwE8v7MpjDtJHoitIVrLRRwJlrdwHD/aBFMh7lxmfpjEchDL4+OAIkk6ZLv5w6+ltODNcc+1Vkx7ijn44X1S0BJVEvW1CWCKmuE91R4Q/IEyK8//Kfj0yB5umHLwztIEQ88rqDDUkkOQUBdqRqAY5NerpcZu/hyA9U1M+6xsHRAYxcJkEFoYFyHmBM4TpIcAD8AQ==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00001</ResultCode>
+                <MsgDetail>查询无此记录</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>X8EY8MqCwtSfiEGzYOetbFGgJSPyNHSuxe0om68ydEXztJZUhulvjr6DHTqwN0enc+Y7O1RXSK+ka3XkXJCkBxElf4hviHCUR5BF+HDrVDcmCpsQWI6HPXaL86/mDUqKs3j5v045qQLhFefDJO7r25ucpdIaDGdGN8O3cUrYz3uzxmenklrfPzNj1pL8W9gbdVvN2r5BZ0C+aeysPIp+S5OJ43MT+deDWL5ZNSKNzlcgtsraWxUFyUZgEb4lMeqIUBbZJRSk6b5dICqA92ss972g7bawar1p1lO/1XZo8mXnUr72Sa+evZfuoB1ZVvaIO0+A/rBS+bgA2bS8Ey0JOA==</Signature>
+</Document>
