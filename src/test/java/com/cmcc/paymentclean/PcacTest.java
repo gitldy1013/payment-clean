@@ -28,6 +28,8 @@ public class PcacTest<T> {
     @Autowired
     private PcacConfig pcacConfig;
 
+    byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+
     @Test
     void QR0001() {
         //拼装Body QR0001-个人风险信息查询
@@ -246,28 +248,33 @@ public class PcacTest<T> {
         log.info(UP0005);
     }
 
+
+    /**
+     * 收单机构对协会系统推送的或主动从协会系统获取的企业商户黑名单（商户类型为 04） 进行相关处
+     * 理
+     * */
     @Test
     void UP0011() {
         //拼装Body UP0011-跨境商户黑名单信息反馈
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.Body();
         PcacList pcacList = new PcacList();
-        pcacList.setCount("");
+        pcacList.setCount("1");
         List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.RiskInfo> riskInfos = new ArrayList<>();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.RiskInfo riskInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.RiskInfo();
-        riskInfo.setRegName("");
-        riskInfo.setCurrency("");
-        riskInfo.setAmount("");
-        riskInfo.setLegDocName("");
-        riskInfo.setDocCode("");
-        riskInfo.setBankNo("");
-        riskInfo.setUrl("");
-        riskInfo.setRegisteredCode("");
-        riskInfo.setHandleResult("");
-        riskInfo.setHandleTime("");
+        riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"恒黑04"));
+        riskInfo.setCurrency("CNY");
+        riskInfo.setAmount("10000.00");
+        riskInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"恒黑4"));
+        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"231025198212261526"));
+        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"6663636263646472778"));
+        riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded,"www.qpay.com"));
+        riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"9221379179"));
+        riskInfo.setHandleResult("03");
+        riskInfo.setHandleTime("2020-09-27");
         riskInfos.add(riskInfo);
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
-        String UP0005 = pushPcac((T) body, "005", "UP0005");
+        String UP0005 = pushPcac((T) body, "058", "UP0011");
         log.info(UP0005);
     }
 
@@ -299,7 +306,7 @@ public class PcacTest<T> {
     private Document<T> getDocument(T body, String trnxCode) {
         //拼装报文
         Document<T> document = new Document<>();
-        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+
         //设置报文头
         Request<T> request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, trnxCode);
         //设置报文体
