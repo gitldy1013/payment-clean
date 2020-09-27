@@ -277,7 +277,7 @@ public class PcacTest<T> {
         riskInfos.add(riskInfo);
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
-        String[] UP0005 = pushPcac((T) body, "005", "UP0005");
+        String[] UP0011 = pushPcac((T) body, "005", "UP0011");
     }
 
     public String[] pushPcac(T body, String code, String trnxCode) {
