@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009280013311198</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0004</TrnxCode>
+            <TrnxTime>20200928150625</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>ibvwKopfZNNErEEIyZyGexgn+W1xZoV8T2wov92FdcJuZzBOg8f+PbTRRHoMS1mOgmo3NrT+dsTVxefNjieMqqsEBKXEDsadYN/+P9B9Fun7mP+AehptiqR0Tp7JnS95decVH1wTTJ0eHDMfZIJ19I30e+Mqldh8bql01VzU57heopnxDIzjypkC806mAIUZp1mX8uF8LiAEIBnstuLF84bW12VpB6B5Jx1RjmGtG7CaxtPKMp00tE4RUchtFzXVCQzbVJXHMX7+9TJYkMuSjoLMmVFE/tKV2SBYgccZqEaG6+iA7tQ7yJPx4D/fDtjDKqIcSykPcBnOrrL77qsJLA==</SecretKey>
+        </Head>
+        <Body>
+            <PcacList>
+                <Count>1</Count>
+                <RiskInfo>
+                    <Id>693530</Id>
+                    <UpdateType>02</UpdateType>
+                    <CaseDesc>测试商户风险信息失效</CaseDesc>
+                </RiskInfo>
+            </PcacList>
+        </Body>
+    </Request>
+    <Signature>xk4V9R3NkFGW4jnifY+CO80M3dTOIFKDcFopMOl0E4bg9LY+r1r1rPQXok6vBzdMqsUWPIeTLE7aUJZKfejuGw9ERdf6/T0V5MDoXIHFlHMGS/AMTxgd7wwqTUcnWEcVLT15rI82IsGDEpxmFLYGvphAcm5iocPze2jHGB0Jfe5RFdCz1BB+DPe6SNK5NNhgsXRf/pqE+VIHdoiwzssmvW/RFL1Gnc80OxKYL/1Px9LLEZr20Ew7mCPbfwuL6ZWG+gklASe5WXp5pnW/uUeYt7DKrChV8xJk8dbuOFahtmliEIH8Jbc3E9WHYx+zt1mReMG/owctgkDHEx0LxcDSTg==</Signature>
+</Document>

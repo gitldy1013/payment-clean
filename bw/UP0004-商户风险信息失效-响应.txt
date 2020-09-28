@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009280013311198</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0004</TrnxCode>
+            <TrnxTime>20200928150627</TrnxTime>
+            <SecretKey>ibvwKopfZNNErEEIyZyGexgn+W1xZoV8T2wov92FdcJuZzBOg8f+PbTRRHoMS1mOgmo3NrT+dsTVxefNjieMqqsEBKXEDsadYN/+P9B9Fun7mP+AehptiqR0Tp7JnS95decVH1wTTJ0eHDMfZIJ19I30e+Mqldh8bql01VzU57heopnxDIzjypkC806mAIUZp1mX8uF8LiAEIBnstuLF84bW12VpB6B5Jx1RjmGtG7CaxtPKMp00tE4RUchtFzXVCQzbVJXHMX7+9TJYkMuSjoLMmVFE/tKV2SBYgccZqEaG6+iA7tQ7yJPx4D/fDtjDKqIcSykPcBnOrrL77qsJLA==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>企业风险信息失效第1条数据，上报成功！</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>iFQob+QhoNqfKzb6nYt1umHGFAcXTHXm+o4wl5YNyny/NTDP2Z0nKi7A8lUqW5mBvhO6abpXZQPKndvFGhjfLNlMj4NOBq0TEUMqVYJ6hm4RfG2DeuqB+k5zupM1dQEg3OOJah+ZLw4722YAMLwjG64lONejneHDej6ElVmofscjvKtTHeuT3c17fSYWRpgIfj98+VoDXx3M519/gzxVRdqk1X71hND4OnDvjf4UQvrUiDFxTHNheJZ6wKOLEDJLfnakif97s6N2KEif34w3vhy29VzX5TB/7Val5h62QJzjIB8fc/YqHwhumcsaE0cDpFqsKKO7LWA2euB36b+n/w==</Signature>
+</Document>

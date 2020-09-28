@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009286639511186</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0004</TrnxCode>
+            <TrnxTime>20200928165449</TrnxTime>
+            <SecretKey>gcZuUpzhIt48whED5Gzs6HeKkr7T0wjFu9xjHo4LZWK5/KktKZT1t1zzBthg3bmFCulbjAAuRU99m6+PlZcUMUw/ZQpHNKFuyD6/tRLXfQWHETErfzAOQUaGqUceMvZ78/FR1t2taVxtzHneS1uGeElivjn53mzAGy5zhV963p53K7/+JDpmQ0aXbigkSE5oILfBFonFYiyw9BMzgh/P4FFXIKzpCZbnpWB9goTDdMFbm0CMOdqt7EByeHgE7Ju/OkLKi3nfdQiWG8Dcp6wB1Qs3FfBPTP9BoYFLx7CE2795S1NOpnisu5bQkm4xHCa7z3YzIC+d3CImtba3UEtqIw==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>企业风险信息,第1条数据，变更补录成功!</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>rYIDlJvIuLINYwbePlJV3sVWfOU2ym3URGBRJxfJxzbr2ZPkPcH9VMR1NklZalXYEjBO7CA2cI7bVGyxxTQiZOfrUCAjnP4gdEHKFhY7hIZki8eBHiExZPjfMi9v+r1qWOJi9IzlDYRZIDvZU8+ojFkYfnQD7lwG14Y1izsAvzfycmqeDJqUHPSnBfn+DJe3M4YgZNzJ+5/EXsWbz+NQSpEDU8NSUacJJYKgnwNTv1/aq1ZThrjis03vkNBNypafex9C2TSjaVbUbtndnZQyALjlkOAC3regBZN1d1b8FE23o0pyg63Dij7Y63lRTYnD56PVxEAju1ioDN3pVDIJ4g==</Signature>
+</Document>
