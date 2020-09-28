@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009287586017972</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0002</TrnxCode>
+            <TrnxTime>20200928122131</TrnxTime>
+            <SecretKey>P7uHRF3HQrPnax843dl2KDqryofMJyfSvTrIvedBRJpTYbutFAPPJL4biMcqLj7rggc1P+369rd6bsqDyyHt5TtNuj1hO0vwGkQtEKaAcRsP7MWoxvkFrPqfsIRIDWuFhsYT/aLnAEQ/1hHDTacwOPQcdRi5J4m+sZr6WnQPHf+uXqg7zYfmM6FLYozgVY9og5AyQApYv+WMwVsdXVyiIHzWL8wRmwu6b7G4k6hNeMKq94Btv0zer024PomEogR0ATnMoxN58EnuUn6KeaOhneBCXVqhI5OedmTOYsob3BvJ0rpBLygLiVDe7YelnjpIvSzsp4/leSIDnaOPXkkVzw==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>个人风险信息变更,第1条数据更新成功！</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>OOpYsAAsgbWDdpwuZQckwv9TU8cAIoCEUz1zOQ+HRDLw1A2iOOyrokeSxEbc3+ZaurphCa0Vu9a7L6iBtDDpWyyX/hIYAxfZkXeIf82H1uN3DKSzCN+ZiTOH2TYw7dKHNm1J/jslOp25DR/G83KXGvH0xgy0bSWLktged6cKNH4RyU1hutMw4VBV4Rhb/iVpIRUbj8PfNJp01ssQCHjft/ilJEWzAhVNZ07+tL0tx6QRDlB9fBbtj6qbolp+F41fcF4B2FQlaTswWrNffA5rtwAoNQhWFdWZXqTbCSt6Vu9YWhfzfsGgJotZnFpThRlRAlzy57kjDL7AwV9Q2UvUSQ==</Signature>
+</Document>

@@ -128,11 +128,11 @@ public class InnerCipherUtils {
     public static void main(String[] args) {
         String encrypt = encryptUserData("110225199111182217");
         System.out.println(encrypt);
-        String decrypt = decryptUserData(encrypt);
+        String decrypt = decryptUserData("59FAB6FD10695433E244BAB9172E4DAE032C3658D53A991CAC0DFD07FF417952");
         System.out.println(decrypt);
         String s = encryptBankData("67213131");
         System.out.println(s);
-        String s1 = decryptBankData(s);
+        String s1 = decryptBankData("32DB835BDCF8E8C812F6630E43A4A641");
         System.out.println(s1);
 
     }
