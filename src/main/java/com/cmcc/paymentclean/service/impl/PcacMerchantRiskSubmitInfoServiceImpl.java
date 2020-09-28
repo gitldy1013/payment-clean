@@ -145,8 +145,13 @@ public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerch
         log.info("协会返回数据对象:{}", doc);
         if (doc.getRespone().getBody().getRespInfo().getResultCode().equals(PcacResultCode.S00000.getCode())) {
             for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
-                UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>().set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
+                UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>();
+                updateWrapper.set("submit_time",new Date());
                 updateWrapper.set("submit_status", SubmitStatusEnum.ISBLACKENUM_1.getCode());
+                updateWrapper.set("result_status",doc.getRespone().getBody().getRespInfo().getResultStatus());
+                updateWrapper.set("result_code",doc.getRespone().getBody().getRespInfo().getResultCode());
+                updateWrapper.set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
+                updateWrapper.set("rep_date",new Date());
                 pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
             }
         } else {
