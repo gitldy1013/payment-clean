@@ -78,8 +78,8 @@ public class PcacTest<T> {
         body.setScope("01");
         body.setValidStatus("01");
         String[] QR0001 = pushPcac((T) body, "003", "QR0001");
-        creatFile(QR0001[0], "QR0001-个人风险信息查询-请求");
-        creatFile(QR0001[1], "QR0001-个人风险信息查询-响应");
+//        creatFile(QR0001[0], "QR0001-个人风险信息查询-请求");
+//        creatFile(QR0001[1], "QR0001-个人风险信息查询-响应");
     }
 
     @Test
@@ -113,8 +113,8 @@ public class PcacTest<T> {
         body.setRegisteredArea("CN");
         body.setRegisteredCode("1231");
         String[] QR0002 = pushPcac((T) body, "015", "QR0002");
-        creatFile(QR0002[0], "QR0002-商户风险信息查询-请求");
-        creatFile(QR0002[1], "QR0002-商户风险信息查询-响应");
+//        creatFile(QR0002[0], "QR0002-商户风险信息查询-请求");
+//        creatFile(QR0002[1], "QR0002-商户风险信息查询-响应");
     }
 
     @Test
@@ -125,8 +125,8 @@ public class PcacTest<T> {
         body.setKeyWord("01");
         body.setInfos("13900000001");
         String[] QR0003 = pushPcac((T) body, "005", "QR0003");
-        creatFile(QR0003[0], "QR0003-风险信息批量导入查询-个人-请求");
-        creatFile(QR0003[1], "QR0003-风险信息批量导入查询-个人-响应");
+//        creatFile(QR0003[0], "QR0003-风险信息批量导入查询-个人-请求");
+//        creatFile(QR0003[1], "QR0003-风险信息批量导入查询-个人-响应");
     }
 
 
@@ -141,8 +141,8 @@ public class PcacTest<T> {
         body.setImei("0000001");
         body.setBankNo("6000100010002");
         String[] UP0001 = pushPcac((T) body, "009", "UP0001");
-        creatFile(UP0001[0], "UP0001-个人风险信息变更查询-请求");
-        creatFile(UP0001[1], "UP0001-个人风险信息变更查询-响应");
+//        creatFile(UP0001[0], "UP0001-个人风险信息变更查询-请求");
+//        creatFile(UP0001[1], "UP0001-个人风险信息变更查询-响应");
     }
 
     @Test
@@ -202,8 +202,8 @@ public class PcacTest<T> {
         pcacList.setRiskInfo(list);
         body.setPcacList(pcacList);
         String[] UP0002BG = pushPcac((T) body, "011", "UP0002");
-       creatFile(UP0002BG[0], "UP0002-个人风险信息变更-请求");
-       creatFile(UP0002BG[1], "UP0002-个人风险信息变更-响应");
+//       creatFile(UP0002BG[0], "UP0002-个人风险信息变更-请求");
+//       creatFile(UP0002BG[1], "UP0002-个人风险信息变更-响应");
     }
 
     @Test
@@ -263,8 +263,8 @@ public class PcacTest<T> {
         pcacList.setRiskInfo(list);
         body.setPcacList(pcacList);
         String[] UP0002SX = pushPcac((T) body, "011", "UP0002");
-        creatFile(UP0002SX[0], "UP0002-个人风险信息失效-请求");
-        creatFile(UP0002SX[1], "UP0002-个人风险信息失效-响应");
+//        creatFile(UP0002SX[0], "UP0002-个人风险信息失效-请求");
+//        creatFile(UP0002SX[1], "UP0002-个人风险信息失效-响应");
     }
 
     @Test
@@ -278,9 +278,11 @@ public class PcacTest<T> {
         body.setLegRepName("法定代表人T1");
         body.setLegDocCode("211111111122335");
         String[] UP0003 = pushPcac((T) body, "017", "UP0003");
-        creatFile(UP0003[0], "UP0003-商户风险信息变更查询-请求");
-        creatFile(UP0003[1], "UP0003-商户风险信息变更查询-响应");
+//        creatFile(UP0003[0], "UP0003-商户风险信息变更查询-请求");
+//        creatFile(UP0003[1], "UP0003-商户风险信息变更查询-响应");
     }
+
+
 
     @Test
     void UP0004SX() {
@@ -297,8 +299,8 @@ public class PcacTest<T> {
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
         String[] UP0004 = pushPcac((T) body, "019-1", "UP0004");
-        creatFile(UP0004[0], "UP0004-商户风险信息失效-请求");
-        creatFile(UP0004[1], "UP0004-商户风险信息失效-响应");
+//        creatFile(UP0004[0], "UP0004-商户风险信息失效-请求");
+//        creatFile(UP0004[1], "UP0004-商户风险信息失效-响应");
     }
 
     @Test
@@ -367,10 +369,24 @@ public class PcacTest<T> {
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
         String[] UP0004 = pushPcac((T) body, "019", "UP0004");
-        creatFile(UP0004[0], "UP0004-商户风险信息补录-请求");
-        creatFile(UP0004[1], "UP0004-商户风险信息补录-响应");
+//        creatFile(UP0004[0], "UP0004-商户风险信息补录-请求");
+//        creatFile(UP0004[1], "UP0004-商户风险信息补录-响应");
     }
 
+
+    @Test
+    void UP0003111111111() {
+        //为了测试UP0004-商户风险信息降级获取id号使用，不要执行创建命令
+        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac017.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac017.Body();
+        body.setRiskType("01");
+        body.setCusName("中移动");
+        body.setDocType("01");
+        body.setDocCode("222000399940408");
+        body.setLegRepName("刘东");
+        body.setLegDocCode("229339029203948764");
+        String[] UP0003 = pushPcac((T) body, "017", "UP0003");
+
+    }
     @Test
     void UP0004JJ() {
         //拼装Body UP0004-商户风险信息降级
@@ -379,7 +395,7 @@ public class PcacTest<T> {
         pcacList.setCount(1);
         ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_2.RiskInfo> riskInfos = new ArrayList<>();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_2.RiskInfo riskInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_2.RiskInfo();
-        riskInfo.setId("693463");
+        riskInfo.setId("694154");
         riskInfo.setUpdateType("03");
         riskInfo.setLevel("03");
         riskInfo.setCaseDesc("测试商户风险信息降级");
@@ -387,8 +403,8 @@ public class PcacTest<T> {
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
         String[] UP0004 = pushPcac((T) body, "019-2", "UP0004");
-        /*creatFile(UP0004[0], "UP0004-商户风险信息降级-请求");
-        creatFile(UP0004[1], "UP0004-商户风险信息降级-响应");*/
+//        creatFile(UP0004[0], "UP0004-商户风险信息降级-请求");
+//        creatFile(UP0004[1], "UP0004-商户风险信息降级-响应");
     }
 
     @Test
@@ -410,8 +426,8 @@ public class PcacTest<T> {
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
         String[] UP0005 = pushPcac((T) body, "045", "UP0005");
-        creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
-        creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
+//        creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
+//        creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
     }
 
     @Test
@@ -422,20 +438,28 @@ public class PcacTest<T> {
         pcacList.setCount("1");
         List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.RiskInfo> riskInfos = new ArrayList<>();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.RiskInfo riskInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.RiskInfo();
-        riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移动电子商务有限公司"));
         riskInfo.setCurrency("CNY");
-        riskInfo.setAmount("10000.00");
+        riskInfo.setAmount("999.99");
+/*        riskInfo.setRegName("");
+        riskInfo.setLegDocName("");
+        riskInfo.setDocCode("");
+        riskInfo.setBankNo("");
+        riskInfo.setUrl("");
+        riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"132312321"));*/
+        riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移动电子商务有限公司"));
         riskInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"刘东"));
-        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"222000399940408"));
-        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"abc123123123123"));
+        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"229339029203948764"));
+        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"8q/HMqAepL9Ob3ZEhLQEhg=="));
         riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded,"www.chinamobile.com"));
         riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"1231"));
         riskInfo.setHandleResult("03");
-        riskInfo.setHandleTime("2020-09-28");
+        riskInfo.setHandleTime("2020-09-30");
         riskInfos.add(riskInfo);
         pcacList.setRiskInfo(riskInfos);
         body.setPcacList(pcacList);
         String[] UP0011 = pushPcac((T) body, "058", "UP0011");
+//        creatFile(UP0011[0], "UP0011-跨境商户黑名单信息反馈-请求");
+//        creatFile(UP0011[1], "UP0011-跨境商户黑名单信息反馈-响应");
     }
 
     public String[] pushPcac(T body, String code, String trnxCode) {
