@@ -18,12 +18,14 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document028Wapp
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Request027Wapper;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Request028Wapper;
 import com.cmcc.paymentclean.entity.dto.resquest.ReissueRiskInfoReq;
+import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.service.PcacAssistanceInfoService;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,12 +53,15 @@ public class PcacRiskInfoPushController {
     private PcacRiskInfoService pcacRiskInfoService;
     @Autowired
     private PcacAssistanceInfoService pcacAssistanceInfoService;
+    @Autowired
+    private BusinessInfoService businessInfoService;
 
 
     /**
      * 统一接收协会推送数据接口
      *
      */
+    @ApiOperation(value = "协会推送数据接口", notes = "协会推送数据接口")
     @RequestMapping(value = "/pcacPushInfo", method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String pcacPushInfo(@RequestParam(value = "xml") String xmlStr) {
@@ -77,6 +82,10 @@ public class PcacRiskInfoPushController {
             log.info("接收协会比对协查信息请求报文：{}", xmlStr);
             doXml = saveAssistanceInfo(xmlStr);
             log.info("响应协会比对协查信息报文：{}", doXml);
+        }else if (TrnxCodeEnum.BUSINESS_INFO_BATCH_QUERY_RESULT_PUSH.getCode().equals(trnxCode)){
+            log.info("接收协会企业商户批量查询结果推送请求报文：{}", xmlStr);
+            doXml = businessInfoService.getBusinessInfoXML(xmlStr);
+            log.info("响应协会企业商户批量查询结果推送报文：{}", doXml);
         }
 
         return doXml;

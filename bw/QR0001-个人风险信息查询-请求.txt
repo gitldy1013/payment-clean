@@ -4,39 +4,39 @@
     <Request>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009277705444836</Identification>
+            <Identification>202009298444843597</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>QR0001</TrnxCode>
-            <TrnxTime>20200927150748</TrnxTime>
+            <TrnxTime>20200929110746</TrnxTime>
             <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
-            <SecretKey>eds3UCd1D8AdOd3f0KA0L3YUua6rvN2txFC/fQWDsxjuAlqOYiu43nmsHI4EQjIFOrkeh8If4EkAudRJrBlX1Nd1b9oZf/YApn4OtykQieLPOxTWaeJESN8TE49m7MzX06YTdW99lmmFgup/0WDuW6gEIWgfzFzupO3M2uwEDi1XTcadEs/zH5fN5WqQP92eDmOHljb9vrkeFVS9yi5FQ1/poQsGDqEqd1WQHeIsk0mOTUC7cMlWh0Pp4q0/fIWPJQVjtvIySTGVcVQubeB7U1XbGlz9zYjkIJYL5hM9OEWBsLPiW/FqGirhv1Fm+5ShZvNTYwbn1BTCuhlC5iSczg==</SecretKey>
+            <SecretKey>SCgSdpoQ3OXWiIIheXiSgXs60E3fXe762+oa8VcV4bHCzq/pxi4nX3SEY9KlPJcollEzRADbAIoKSFu7TyOVkvlvJu8irZVbV2Ar/rIlovLWkVpoTXLxunVJ2WsIGUDNnjP3B0xS2M8L/h4+LZ61B+xEtPrwaa6yKsigZ5Q0pgxbviulygbbzR8AmZDMtoVcsWI1URYk6gO6USselfdH26gMW2JGCqsYG2bJCX44ONPDG6c4YXe0K5zL8S/dO/TxhGIJ2pFv4TDR6YjFbfMpSik5Zu5lzSM+IejYNGy2T7aCKE+4zWuDPBZ/NFADMHNtI2VPMlHzSDr6hY8FGNKPlA==</SecretKey>
         </Head>
         <Body>
             <RiskType>01</RiskType>
-            <MobileNo>01</MobileNo>
-            <Mac>01:01:01:01:01:01</Mac>
-            <Imei>01</Imei>
-            <BankNo>01</BankNo>
-            <OpenBank>01</OpenBank>
-            <CusName>01</CusName>
-            <DocType>01</DocType>
-            <DocCode>211324199110105617</DocCode>
-            <Ip>https://localhost:80801/zfqs</Ip>
-            <Address>01</Address>
-            <Telephone>0421-12341234</Telephone>
-            <RecBankNo>01</RecBankNo>
-            <RecOpenBank>01</RecOpenBank>
-            <Email>123@183.com</Email>
-            <Occurtimeb>2011-01-01</Occurtimeb>
-            <Occurtimee>2020-09-09</Occurtimee>
-            <Occurchan>01</Occurchan>
-            <Occurarea>659000</Occurarea>
-            <RecHostArea>AD</RecHostArea>
+            <MobileNo>13900000001</MobileNo>
+            <Mac>82:0F:17:C7:A4:C0</Mac>
+            <Imei>0000001</Imei>
+            <BankNo>6000100010002</BankNo>
+            <OpenBank>1</OpenBank>
+            <CusName>个人姓名1</CusName>
+            <DocType>02</DocType>
+            <DocCode>600010001000212345</DocCode>
+            <Ip>192.168.0.1</Ip>
+            <Address>收货地址1</Address>
+            <Telephone>010-67891234</Telephone>
+            <RecBankNo>6000100010002</RecBankNo>
+            <RecOpenBank>工商银行</RecOpenBank>
+            <Email>qq@126.com</Email>
+            <Occurtimeb>2019-08-12</Occurtimeb>
+            <Occurtimee>2020-09-30</Occurtimee>
+            <Occurchan>03</Occurchan>
+            <Occurarea>430000</Occurarea>
+            <RecHostArea>CN</RecHostArea>
             <Scope>01</Scope>
             <ValidStatus>01</ValidStatus>
         </Body>
     </Request>
-    <Signature>xIWm4u0/VujUuJ0ksox2a9mejI6xusdjsS9BH8xagUq8e0mUDiEDQ2JEDylikrL44r7iXvJqOf6JKzlDvrRiIpboQXeLTHedsYk4m6/h6foCvqQjHwwdM0gOq3WhmH8A/MzEOfQcjNsTvogNPN8EUM0a1FWMQsKSi7A2iLU2hfCz+Pi8GjsMbYDpPKzfjIkYh6EnPzFt3CkuYhYAVmGL7f4YJhJAXgHJP2mqXJXXwYsgMlQnnp9nGQQ+hbZNoQQyO7jPjgfBDO0LtlXqGOW9rThp4rfC7H5/cefko727wYUAc6W6dYSogExLpKoexU+QLGLBFpRl5IEsvUfbTHYHsQ==</Signature>
+    <Signature>O/fJhfM96JYBQPQqEbk5NizfyP5JJNIqBU2qMzCiPhtIV839H4QN+XBTd2P2yJpT9qcag6DO3nsE68KKfB71AkeEZfvB3OZ+tDxnwxZO4Q0glnJhucPtKWXx69KIrhRgBt/gymmKzy/WQbZ5XYSQ19d41hu4K2OdHiFpoc6ACK4dkmPDn2BsAPH1l7/ScL9BPRTcIG+NZThNDnvlXX7rFEbbZsuQskifNP3lF7UTWVxTR1KzGwNL63Qb14c4OdiAU6/Zk1KHd5zefeDUR76iAxoSQWYW5R2Eib1YZwuTydsfpipLLFG0GuDDJaoYTthWAjPgO/1VO4lxG5+T8uyLlQ==</Signature>
 </Document>
