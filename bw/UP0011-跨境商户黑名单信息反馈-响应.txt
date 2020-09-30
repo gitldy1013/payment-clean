@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009302410522093</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0011</TrnxCode>
+            <TrnxTime>20200930170749</TrnxTime>
+            <SecretKey>FSiptJDHFqS4+UvfdykKnt5Afp0j2ZOlmL9rePMpD86JX/Lp3Tr8hrb2gpyFCaPjzsQE1X3KuKvROfpX1mr1pcMjuqBzdJQAGn93imqXeo67kp1toZiv4RdR0qungEvTWug26idgC56GSZ64omTHKXgFYuYGpLZHUeZlkWG5nLrew1jP+C9L2S5ORsxx7Ebixb0GDrqQJ16PI+TZ4AjRR6UvxoFdZhF3IDEZRJfgR3XLhQzGxHbpsuD6tOr16ePENEhQBaNdL26ofCGTMFUpPYi3RHCjZMnfxm9fFIAFe2VESr0sbRzdSHm9a/7bKuYWzCcdI3TuhtiuuULePGhY0w==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>交易处理成功</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>opozaXM40IoYdAG19aqoYulU8IU6NytRtj4GKqv1QrZ87G7fIWW8BcVUkYDP4tb8KEhaa/bhs00FO/arNT++gvjjqCRpM3AknyU5U8qoVYxfq22Iesu+V8y7G+521nV4rubvCeiEwEzqVUScDw4p7Aoup6758UwM/+DUfqmWjMlyG+qJ/jxfhW9blFHMBTvIwtE+XiuXpRQOe2lz38YRIVSZgN7SbPyvCE5L/b9cneLME58ezboWY5GNc2gyB7Ww2Fse321TqoVRo1LED+ja88Q5PFyrJzlbcPlka/p5gHYcCv2uFmPL5tE+5JhOT0Kd8xFLKmisaHWr3mcMEVsAew==</Signature>
+</Document>

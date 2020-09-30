@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202009302410522093</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0011</TrnxCode>
+            <TrnxTime>20200930170746</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>FSiptJDHFqS4+UvfdykKnt5Afp0j2ZOlmL9rePMpD86JX/Lp3Tr8hrb2gpyFCaPjzsQE1X3KuKvROfpX1mr1pcMjuqBzdJQAGn93imqXeo67kp1toZiv4RdR0qungEvTWug26idgC56GSZ64omTHKXgFYuYGpLZHUeZlkWG5nLrew1jP+C9L2S5ORsxx7Ebixb0GDrqQJ16PI+TZ4AjRR6UvxoFdZhF3IDEZRJfgR3XLhQzGxHbpsuD6tOr16ePENEhQBaNdL26ofCGTMFUpPYi3RHCjZMnfxm9fFIAFe2VESr0sbRzdSHm9a/7bKuYWzCcdI3TuhtiuuULePGhY0w==</SecretKey>
+        </Head>
+        <Body>
+            <PcacList>
+                <Count>1</Count>
+                <RiskInfo>
+                    <RegName>vgtBysugQDkvddaeomWLCMvJNfKxVruYkHqhzyGsLt3n5Pko09BL1mk6nSk9KM+v</RegName>
+                    <Currency>CNY</Currency>
+                    <Amount>999.99</Amount>
+                    <LegDocName>Id6iYEhD265Tb3DrjmdiUg==</LegDocName>
+                    <DocCode>Q1yoUMmcuJmx+gyp6TrdwC3j8Z0/Ay/EmPhBKTf/O7s=</DocCode>
+                    <BankNo>XeRnAiR6dvlVHkUnTTAHueThYZtMRaQBcAz+PlUSM68=</BankNo>
+                    <Url>KAXf44VIOpo/O5p6oCAF/9gzXwBaNGbeJb+tSSOUcXo=</Url>
+                    <RegisteredCode>Rd3vdq8DbQx8ku3gBoSjDQ==</RegisteredCode>
+                    <HandleResult>03</HandleResult>
+                    <HandleTime>2020-09-30</HandleTime>
+                </RiskInfo>
+            </PcacList>
+        </Body>
+    </Request>
+    <Signature>utzWPmlzWJkpEjleMZJc/XY22rIRlnyTFrzxIPFjWpbcs3kjNJ9GvGKYpT3YeivOmgHbSFFjAP1muPr6VXaHVB0Xy0os9Pfbdoi7AeyxQk5QLsm1WBAh8OyuyPEr0rhVr5LG3DIdUX17XMRSrZM2qLQ00/0V2Zh3oN/8+SXZdBP1fn9Oc/Rhp8EkpJimd717yvV1tIVDi1fDxpmiaNs3AjWjhbmU8lMYuIgyF5F3y2Aw5jjxcwTSgCSvxM6EF6c2R9ir4GJl0AcwSinOyfKohwuNCCxViDonltJ+XTrRLiYyWU5+DJGH5DGEcNQddw69X/Hj41NDGzKqzIgs2MmZ3w==</Signature>
+</Document>
