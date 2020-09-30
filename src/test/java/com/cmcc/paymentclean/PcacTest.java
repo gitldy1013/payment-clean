@@ -86,34 +86,35 @@ public class PcacTest<T> {
     void QR0002() {
         //拼装Body QR0002-商户风险信息查询
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac015.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac015.Body();
-        body.setRiskType("03");
+        body.setRiskType("01");
         body.setCusNature("01");
-        body.setCusName("T2");
-        body.setRegName("秦汉新城陈东升百货店");
-        body.setCusCode("888200700371624");
+        body.setCusName("中移动");
+        body.setRegName("中移动电子商务有限公司");
+        body.setCusCode("888200700999999");
         body.setDocType("01");
         body.setDocCode("222000399940408");
-        body.setLegRepName("法定代表人T2");
-        body.setLegDocCode("T2");
-        body.setBankNo("abc123123123123");
-        body.setOpenBank("支付账户开立机构");
-        body.setUrl("www.abc.124");
-        body.setServerIp("192.168.1.2");
-        body.setMobileNo("法定代表人T2");
-        body.setAddress("长沙");
-        body.setIcp("ICP 备案编号02");
-        body.setLevel("02");
+        body.setLegRepName("刘东");
+        body.setLegDocCode("229339029203948764");
+        //银行卡号协会好像没有加密，但是东阳的代码应该是加密了，之后需要确认
+        body.setBankNo("8q/HMqAepL9Ob3ZEhLQEhg==");
+        body.setOpenBank("大型支行");
+        body.setUrl("www.chinamobile.com");
+        body.setServerIp("192.168.3.2");
+        body.setMobileNo("12345678909");
+        body.setAddress("北京");
+        body.setIcp("ICP 备案编号009");
+        body.setLevel("01");
         body.setOccurtimeb("2020-07-06");
         body.setOccurtimee("2099-12-30");
         body.setOccurchan("01");
-        body.setOccurarea("长沙");
+        body.setOccurarea("659000");
         body.setScope("01");
         body.setValidStatus("01");
-        body.setRegisteredArea("1");
-        body.setRegisteredCode("1");
+        body.setRegisteredArea("CN");
+        body.setRegisteredCode("1231");
         String[] QR0002 = pushPcac((T) body, "015", "QR0002");
-//        creatFile(QR0002[0], "QR0002-商户风险信息查询-请求");
-//        creatFile(QR0002[1], "QR0002-商户风险信息查询-响应");
+        creatFile(QR0002[0], "QR0002-商户风险信息查询-请求");
+        creatFile(QR0002[1], "QR0002-商户风险信息查询-响应");
     }
 
     @Test
@@ -122,11 +123,13 @@ public class PcacTest<T> {
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body();
         body.setCusProperty("01");
         body.setKeyWord("01");
-        body.setInfos("123");
+        body.setInfos("13900000001");
         String[] QR0003 = pushPcac((T) body, "005", "QR0003");
-        creatFile(QR0003[0], "QR0003-风险信息批量导入查询-请求");
-        creatFile(QR0003[1], "QR0003-风险信息批量导入查询-响应");
+        creatFile(QR0003[0], "QR0003-风险信息批量导入查询-个人-请求");
+        creatFile(QR0003[1], "QR0003-风险信息批量导入查询-个人-响应");
     }
+
+
 
     @Test
     void UP0001() {
