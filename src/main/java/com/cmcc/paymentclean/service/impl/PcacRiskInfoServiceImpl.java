@@ -135,9 +135,16 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
     @Override
     public String insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList,String identification) {
-        pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
+        Document document =null;
+        try {
+            pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
 
-        Document document = XmlJsonUtils.getRespDocument(pcacConfig,identification);
+            document = XmlJsonUtils.getRespDocument(pcacConfig,identification);
+        }catch (Exception e){
+            e.printStackTrace();
+            return e.getMessage();
+        }
+
         return XmlJsonUtils.convertObjectToXmlStr(document);
 
     }
