@@ -370,7 +370,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     }
 
     @Override
-    public String getBusinessInfoXML(String xml) {
+    public void getBusinessInfoXML(String xml) {
         String identification =null;
         log.info("接收的xml:{}", xml);
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper resDoc = (com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper) XmlJsonUtils.convertXmlStrToObject(xml, com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Document033Wapper.class);
@@ -430,8 +430,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             SFTPUtils.operateSFTP(sftpConfig.getUsername(), sftpConfig.getHost(), sftpConfig.getPort(), sftpConfig.getPassword(),
                     sftpConfig.getRemotePathUpload(), fileName, sftpConfig.getModDir(), fileName, SFTPUtils.OPERATE_UPLOAD);
         }
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig,identification);
-        return XmlJsonUtils.convertObjectToXmlStr(document);
+        //com.cmcc.paymentclean.entity.dto.pcac.resp.Document document = XmlJsonUtils.getRespDocument(pcacConfig,identification);
+        //return XmlJsonUtils.convertObjectToXmlStr(document);
     }
 
     private BusinessInfo decryptBusinessInfo(BusinessInfo businessInfo, String secretKey) {

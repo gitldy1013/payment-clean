@@ -31,5 +31,9 @@ public interface BusinessInfoService {
     /**
      * 批量查询企业信息结果推送
      */
-    String getBusinessInfoXML(String xml);
+    //String getBusinessInfoXML(String xml);
+    /**
+     * 批量查询企业信息结果推送
+     */
+    void getBusinessInfoXML(String xml);
 }

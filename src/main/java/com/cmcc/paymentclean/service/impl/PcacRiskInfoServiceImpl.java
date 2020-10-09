@@ -133,7 +133,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         return pcacRiskInfoDTOs;
     }
 
-    @Override
+ /*   @Override
     public String insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList,String identification) {
         Document document =null;
         try {
@@ -146,6 +146,18 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
         }
 
         return XmlJsonUtils.convertObjectToXmlStr(document);
+
+    }*/
+    @Override
+    public void insertBatchPcacRiskInfo(ArrayList<PcacRiskInfo> pcacRiskInfoList) {
+
+        try {
+            pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
 
     }
 

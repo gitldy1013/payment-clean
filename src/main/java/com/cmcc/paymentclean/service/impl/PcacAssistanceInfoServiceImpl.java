@@ -30,7 +30,7 @@ public class PcacAssistanceInfoServiceImpl extends ServiceImpl<PcacAssistanceInf
     @Autowired
     private PcacConfig pcacConfig;
 
-    @Override
+/*    @Override
     public String saveAssistanceInfo(ArrayList<PcacAssistanceInfo> assistanceInfoList,String identification) {
         try {
             pcacAssistanceInfoMapper.insertBatchAssistanceInfo(assistanceInfoList);
@@ -40,6 +40,17 @@ public class PcacAssistanceInfoServiceImpl extends ServiceImpl<PcacAssistanceInf
         }catch (Exception e){
             e.printStackTrace();
             return e.getMessage();
+        }
+
+    }*/
+    @Override
+    public void saveAssistanceInfo(ArrayList<PcacAssistanceInfo> assistanceInfoList) {
+        try {
+            pcacAssistanceInfoMapper.insertBatchAssistanceInfo(assistanceInfoList);
+
+        }catch (Exception e){
+            e.printStackTrace();
+
         }
 
     }

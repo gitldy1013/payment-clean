@@ -60,7 +60,7 @@ public class PcacRiskInfoPushController {
     @Autowired
     private BusinessInfoService businessInfoService;
 
-    private static ExecutorService executor = Executors.newFixedThreadPool(10);
+    private static ExecutorService executor = Executors.newSingleThreadExecutor();
     @Autowired
     private PcacConfig pcacConfig;
     /**
@@ -111,19 +111,18 @@ public class PcacRiskInfoPushController {
                 if (TrnxCodeEnum.BLACKLIST_PUSH.getCode().equals(trnxCode)||TrnxCodeEnum.RISK_TIPS_INFO_PUSH.getCode().equals(trnxCode)){
                     log.info("接收协会黑名单或者风险提示信息报文：{}", xmlStr);
                     saveRiskInfo(xmlStr);
-                    //log.info("响应协会黑名单或者风险提示信息报文:{}",doXml);
                 }
                 else if (TrnxCodeEnum.MERCHANT_INFO_ASSISTANCE_PUSH.getCode().equals(trnxCode)){
                     log.info("接收协会比对协查信息请求报文：{}", xmlStr);
                     saveAssistanceInfo(xmlStr);
-                    //log.info("响应协会比对协查信息报文：{}", doXml);
                 }else if (TrnxCodeEnum.BUSINESS_INFO_BATCH_QUERY_RESULT_PUSH.getCode().equals(trnxCode)){
                     log.info("接收协会企业商户批量查询结果推送请求报文：{}", xmlStr);
                     businessInfoService.getBusinessInfoXML(xmlStr);
-                    //log.info("响应协会企业商户批量查询结果推送报文：{}", doXml);
+
                 }
             }
         });
+
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document respDocument = XmlJsonUtils.getRespDocument(pcacConfig, identification);
         doXml = XmlJsonUtils.convertObjectToXmlStr(respDocument);
         log.info("----------------------响应协会推送报文-------------------------：{}", doXml);
@@ -135,7 +134,7 @@ public class PcacRiskInfoPushController {
      * 黑名单和风险提示信息推送
      * 风险提示信息关键字：商户名称、商户简称、 法人证件号码、法定代表人姓名、法定代表人证件号码
      * */
-    private String saveRiskInfo(String xmlStr) {
+    private void saveRiskInfo(String xmlStr) {
 
         String doXml = null;
         String pushListType = null;
@@ -207,9 +206,9 @@ public class PcacRiskInfoPushController {
 
         }
         log.debug("需要入库风险信息：{}", pcacRiskInfoList);
-        doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList,identification);
-
-        return doXml;
+        //doXml = pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList,identification);
+        pcacRiskInfoService.insertBatchPcacRiskInfo(pcacRiskInfoList);
+        //return doXml;
     }
 
 
@@ -228,7 +227,7 @@ public class PcacRiskInfoPushController {
     * 商户信息比对协查推送
      * 需要解密关键字：商户信息比对协查：商户代码、商户名称、法定代表人姓名
     * */
-    private String saveAssistanceInfo(String xmlStr) {
+    private void saveAssistanceInfo(String xmlStr) {
         Document028Wapper document = (Document028Wapper) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document028Wapper.class);
         String signature = document.getSignature();
         document.setSignature(null);
@@ -269,7 +268,8 @@ public class PcacRiskInfoPushController {
 
         }
 
-        return pcacAssistanceInfoService.saveAssistanceInfo(pcacAssistanceInfoList,identification);
+        //return pcacAssistanceInfoService.saveAssistanceInfo(pcacAssistanceInfoList,identification);
+         pcacAssistanceInfoService.saveAssistanceInfo(pcacAssistanceInfoList);
     }
 
 

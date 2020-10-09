@@ -16,5 +16,6 @@ import java.util.ArrayList;
 @Service
 public interface PcacAssistanceInfoService {
 
-    String saveAssistanceInfo(ArrayList<PcacAssistanceInfo> assistanceInfoList,String identification);
+    //String saveAssistanceInfo(ArrayList<PcacAssistanceInfo> assistanceInfoList,String identification);
+    void saveAssistanceInfo(ArrayList<PcacAssistanceInfo> assistanceInfoList);
 }
