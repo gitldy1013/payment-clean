@@ -1,16 +1,17 @@
 ---------------接收协会风险提示信息推送响应报文------------
 <?xml version="1.0" encoding="utf-8"?>
+
 <Document>
   <Respone>
     <Head>
       <Version>V1.3.0</Version>
-      <Identification>202009241467252382</Identification>
+      <Identification>202010094413222648</Identification>
       <OrigSender>Z2004343000017</OrigSender>
       <OrigSenderSID>zf_sysstem</OrigSenderSID>
       <RecSystemId>R0001</RecSystemId>
-      <TrnxCode></TrnxCode>
-      <TrnxTime>20200924162224</TrnxTime>
-      <SecretKey></SecretKey>
+      <TrnxCode/>
+      <TrnxTime>20201009160039</TrnxTime>
+      <SecretKey/>
     </Head>
     <Body>
       <RespInfo>
@@ -19,5 +20,5 @@
       </RespInfo>
     </Body>
   </Respone>
-  <Signature>aJVkB4IiY89aZH5fGID861xBna3Hn2CCxEAPD6mRbnwMlponvbb/BhfoVONvSVTQgRHBQooPFZQPoOqHlFtz0xjbU3I/C5aokJGMQm3IliJufnqdHE7yIZBjj/qazIT3Z2oDVsPdHcc9O12r429O0ZwKTMOFWODmDkEKgoOZuXVAUYjg7lpA8lflYQypyBNjrys35/p5A+DZEgK/1O3MeGrYOxlH66umPJfvpG0NfUiPilS2JK0HyrFVSeKpL0/sLbjm9m3zsIR9XnX2BSePFhwFvAIj104ZgDToAPnJ9aa3lrKJFXyC16wfWN+LAmjVxNPCxe6NTFaFthA6xbU62A==</Signature>
+  <Signature>LJ/Hs0nv7RllUbGR494gO/ZOLSA3rR1QL0gEWhlFcB6x2ISNIQy+XAaRc4ai+/Bd3GUk32W2xd/RBNG3DfJa12QRk83nuzIW+faivZ/+wCth91ZdIcHjf8CQiAV2i69wVO4l5skIkoX7XlKQji+D4D67sZpxmegAbIEjYYWyk+ikydg2MJUv1cbDQy3LEEykZn/AW8cTKaC93cklSJu8XPTgTHgifHm3Fq+wqshUrkRxfj496F8Mm8iQ/zmDJrajMRhSF8veJKLutEgt2wHoMVGlb0s1xLF3i6NkXkAq+Cw9OjAWV//Ttlg2+n+BzEWk16zi58qwWs1bKopHCAGaPw==</Signature>
 </Document>

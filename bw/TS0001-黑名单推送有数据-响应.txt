@@ -1,16 +1,17 @@
 ---------------接收协会黑名单推送响应报文------------
 <?xml version="1.0" encoding="utf-8"?>
+
 <Document>
   <Respone>
     <Head>
       <Version>V1.3.0</Version>
-      <Identification>202009240614028485</Identification>
+      <Identification>202010095586035807</Identification>
       <OrigSender>Z2004343000017</OrigSender>
       <OrigSenderSID>zf_sysstem</OrigSenderSID>
       <RecSystemId>R0001</RecSystemId>
-      <TrnxCode></TrnxCode>
-      <TrnxTime>20200924152139</TrnxTime>
-      <SecretKey></SecretKey>
+      <TrnxCode/>
+      <TrnxTime>20201009153036</TrnxTime>
+      <SecretKey/>
     </Head>
     <Body>
       <RespInfo>
@@ -19,6 +20,7 @@
       </RespInfo>
     </Body>
   </Respone>
-  <Signature>mUXU2Ra5O8SpsVotwtSo89/jYlhv5DeiihMkldnHspWKXuDdMnyy11/WDA1Qi2Yr8jmsyDXXRhoFDfEQoAxbuz1mVz36xHZE/PQDb/fdR0mxBQ8OTrsqwSn+WVWvaljkN4DhItxIBmww2oPRzoMTJL8At2EH1qdjXb4tf3SRXl7jl7wOGKgt/efQPNsL3cMLzQ0+bzRqkPcfpoYr4jSsajRCCPz0DHx01HMtg5QgaUWJduIJahDr0dS1ef1dbbMoTUXKg/BdohsgQA/2I3MIVsObbmjrC3x6tcWc5X1NyM4BMmj7/fYARDGVDHVZKlBfoni8DS7FVSSt/U6WgsKQUA==</Signature>
+  <Signature>UN6u/3jBh+7rdQ6/RQIGIv/AWwcX45QodL+WLEjmvTVlZzRJP2ABW9eJ5iXsZSZnGedzAiKpO1EiT40akNOc7Ci6m3kxBOnrEx1Lo3StNNoUmDSwRJX8lPlMGdFuZwpUG8WTW+g51SQNqBXrAA/5T31DCTkLxsvC9+WMpjV3tumEJ6Ms23+6xx3ldCsXYlYH8c+IUmIfAILG9N+7Ry5ajoei50fdafe1PnzaDmWzz9cClJyghY/T6tnxWWX0ZUT1zuK8kblH4B1MnVq31m27C999yQOocbkwEVFt/aRb5d2syEWtc4iZPLTdp06/Wqh49w0oQEiPnxdaFk0DJoypbw==</Signature>
 </Document>
+
 
