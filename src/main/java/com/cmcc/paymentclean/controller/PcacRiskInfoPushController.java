@@ -65,33 +65,6 @@ public class PcacRiskInfoPushController {
       method = {RequestMethod.POST, RequestMethod.GET})
   @ResponseBody
   public String pcacPushInfo(/*@Required*/ @RequestParam(value = "xml") String xmlStr) {
-    /* String doXml =null;
-    log.info("协会推送信息报文：{}",xmlStr);
-    //获取协会推送数据的交易码
-    */
-    /*String trnxCode = xmlStr.substring(xmlStr.indexOf("<TrnxCode>")+10, xmlStr.indexOf("<TrnxCode>") + 16);*/
-    /*
-    Document document = (Document)XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
-    String trnxCode = document.getRequest().getHead().getTrnxCode();
-    log.info("----------协会推送交易类型:{}，{}",trnxCode,TrnxCodeEnum.getTrnxCodeEnum(trnxCode));
-
-    if (TrnxCodeEnum.BLACKLIST_PUSH.getCode().equals(trnxCode)||TrnxCodeEnum.RISK_TIPS_INFO_PUSH.getCode().equals(trnxCode)){
-        log.info("接收协会黑名单或者风险提示信息报文：{}", xmlStr);
-        doXml = saveRiskInfo(xmlStr);
-        log.info("响应协会黑名单或者风险提示信息报文:{}",doXml);
-    }
-    else if (TrnxCodeEnum.MERCHANT_INFO_ASSISTANCE_PUSH.getCode().equals(trnxCode)){
-        log.info("接收协会比对协查信息请求报文：{}", xmlStr);
-        doXml = saveAssistanceInfo(xmlStr);
-        log.info("响应协会比对协查信息报文：{}", doXml);
-    }else if (TrnxCodeEnum.BUSINESS_INFO_BATCH_QUERY_RESULT_PUSH.getCode().equals(trnxCode)){
-        log.info("接收协会企业商户批量查询结果推送请求报文：{}", xmlStr);
-        doXml = businessInfoService.getBusinessInfoXML(xmlStr);
-        log.info("响应协会企业商户批量查询结果推送报文：{}", doXml);
-    }
-
-    return doXml;*/
-
     String doXml = null;
     log.info("协会推送信息报文：{}", xmlStr);
     Document document = (Document) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
@@ -210,10 +183,10 @@ public class PcacRiskInfoPushController {
 
   @RequestMapping(value = "/localRiskMsg", method = RequestMethod.POST)
   @ResponseBody
-  public ResultBean reissueRiskInfo(@RequestBody @Validated ReissueRiskInfoReq reissueRiskInfoReq) {
+  public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> reissueRiskInfo(@RequestBody @Validated ReissueRiskInfoReq reissueRiskInfoReq) {
     log.info("补发请求入参是：{}", reissueRiskInfoReq);
 
-    ResultBean resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
+    ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
     log.info("请求补发返回结果信息：{}", resultBean);
     return resultBean;
   }

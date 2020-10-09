@@ -28,7 +28,6 @@ import java.util.Random;
 
 @Slf4j
 public class XmlJsonUtils {
-
   /** JSON(数组)字符串转换成XML字符串 */
   public static String json2xml4pcac(String jsonString) {
     XMLSerializer xmlSerializer = new XMLSerializer();
@@ -141,10 +140,10 @@ public class XmlJsonUtils {
   /**
    * 生成指定位数随机数
    *
-   * @param card_len 位数
+   * @param cardLen 位数
    * @return 随机数
    */
-  public static String genRandomNum(int card_len) {
+  public static String genRandomNum(int cardLen) {
     // 35是因为数组是从0开始的，26个字母+10个数字
     final int maxNum = 36;
     int i; // 生成的随机数
@@ -152,7 +151,7 @@ public class XmlJsonUtils {
     char[] str = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     StringBuilder pwd = new StringBuilder();
     Random r = new Random();
-    while (count < card_len) {
+    while (count < cardLen) {
       // 生成随机数，取绝对值，防止生成负数
       i = Math.abs(r.nextInt(maxNum)); // 生成的数最大为36-1
       if (i >= 0 && i < str.length) {

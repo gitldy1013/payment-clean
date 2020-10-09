@@ -85,7 +85,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
 
   @Override
   public ResultBean<Body> exportExcel() {
-    ResultBean resultBean = new ResultBean();
+    ResultBean<Body> resultBean = new ResultBean<>();
     resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
     resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
     // 查出未推送数据
@@ -280,10 +280,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     ArrayList<BaseInfo> baseInfos = new ArrayList<BaseInfo>();
     PcacList pcacList = new PcacList();
     pcacList.setCount(businessInfos.size() + "");
-    for (int i = 0; i < businessInfos.size(); i++) {
+    for (BusinessInfo info : businessInfos) {
       BaseInfo baseInfo = new BaseInfo();
-      BusinessInfo businessInfo = businessInfos.get(i);
-      BeanUtils.copyProperties(businessInfo, baseInfo);
+      BeanUtils.copyProperties(info, baseInfo);
       baseInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
 
       // 解密风控加密协会 商户上报：
@@ -301,21 +300,21 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusCode()));
       // 法定代表人姓名/负责人姓名
       baseInfo.setLegDocName(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
+              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
       // 法定代表人证件号码
       baseInfo.setLegDocCode(
-          CFCACipherUtils.getInnerToCFCA(
-              businessInfo.getLegDocType(), businessInfo.getLegDocCode(), symmetricKeyEncoded));
+              CFCACipherUtils.getInnerToCFCA(
+                      info.getLegDocType(), info.getLegDocCode(), symmetricKeyEncoded));
       // 商户代码
       baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusCode()));
       // 收款账\卡号
       baseInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getBankNo()));
       // 商户注册地址
       baseInfo.setRegAddrDetail(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegAddrDetail()));
+              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegAddrDetail()));
       // 商户注册地址
       baseInfo.setAddrDetail(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getAddrDetail()));
+              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getAddrDetail()));
       // 网址
       baseInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getUrl()));
       // 服务器 ip
@@ -326,16 +325,16 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       baseInfo.setContPhone(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContPhone()));
       // 股东信息
       baseInfo.setShareHolder(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getShareHolder()));
+              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getShareHolder()));
       // 外包服务机构名称
       baseInfo.setOutServiceName(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceName()));
+              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceName()));
       // 外包服务机构法人证件号码
       baseInfo.setOutServiceCardCode(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceCardCode()));
+              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceCardCode()));
       // 外包服务机构法定代表人证件号码"
       baseInfo.setOutServiceLegCardCode(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
+              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
 
       baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getIcp()));
       baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
@@ -615,17 +614,5 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       businessInfo.setDocCode(CFCACipherUtils.decrypt(secretKey, businessInfo.getDocCode()));
     }
     return businessInfo;
-  }
-
-  private SXSSFWorkbook getSxssfWorkbook(
-      SXSSFWorkbook sxssfWorkbook, String sheetName, List list, Class c) {
-    ExcelUtils excelUtils = new ExcelUtils();
-    Sheet sheet = sxssfWorkbook.createSheet(sheetName);
-    try {
-      sxssfWorkbook = excelUtils.exportExcelAppointSheet(sxssfWorkbook, sheet, list, c);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return sxssfWorkbook;
   }
 }
