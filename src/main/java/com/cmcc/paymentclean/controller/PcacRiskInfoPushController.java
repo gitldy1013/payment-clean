@@ -65,7 +65,6 @@ public class PcacRiskInfoPushController {
       method = {RequestMethod.POST, RequestMethod.GET})
   @ResponseBody
   public String pcacPushInfo(/*@Required*/ @RequestParam(value = "xml",required = false) String xmlStr) {
-    String doXml = null;
     log.info("协会推送信息报文：{}", xmlStr);
     Document document = (Document) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
     String trnxCode = document.getRequest().getHead().getTrnxCode();
@@ -96,7 +95,7 @@ public class PcacRiskInfoPushController {
 
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document respDocument =
         XmlJsonUtils.getRespDocument(pcacConfig, identification);
-    doXml = XmlJsonUtils.convertObjectToXmlStr(respDocument);
+    String doXml = XmlJsonUtils.convertObjectToXmlStr(respDocument);
     log.info("----------------------响应协会推送报文-------------------------：{}", doXml);
     return doXml;
   }
