@@ -14,7 +14,6 @@ import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
 import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -130,7 +129,6 @@ public class PcacTest<T> {
     }
 
 
-
     @Test
     void UP0001() {
         //拼装Body UP0001-个人风险信息变更查询
@@ -157,17 +155,17 @@ public class PcacTest<T> {
         riskInfo.setUpdateType("01");
         riskInfo.setCusProperty("01");
         riskInfo.setRiskType("01");
-        riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"13900000001"));
+        riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, "13900000001"));
         riskInfo.setMac("82:0F:17:C7:A4:C0");
         riskInfo.setImei("0000001");
-        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"6000100010002"));
+        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, "6000100010002"));
         riskInfo.setOpenBank("1");
-        riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"个人姓名1"));
+        riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, "个人姓名1"));
         riskInfo.setDocType("02");
-        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"600010001000212345"));
+        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, "600010001000212345"));
         riskInfo.setIp("192.168.0.1");
         riskInfo.setAddress("收货地址1");
-        riskInfo.setTelephone(CFCACipherUtils.encrypt(symmetricKeyEncoded,"010-67891234"));
+        riskInfo.setTelephone(CFCACipherUtils.encrypt(symmetricKeyEncoded, "010-67891234"));
         riskInfo.setRecHostArea("CN");
         BankList bankList = new BankList();
         bankList.setCount("1");
@@ -218,17 +216,17 @@ public class PcacTest<T> {
         riskInfo.setUpdateType("02");
         riskInfo.setCusProperty("01");
         riskInfo.setRiskType("01");
-        riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"13900000001"));
+        riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, "13900000001"));
         riskInfo.setMac("82:0F:17:C7:A4:C0");
         riskInfo.setImei("0000001");
-        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"6000100010002"));
+        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, "6000100010002"));
         riskInfo.setOpenBank("1");
-        riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"个人姓名1"));
+        riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, "个人姓名1"));
         riskInfo.setDocType("02");
-        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"600010001000212345"));
+        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, "600010001000212345"));
         riskInfo.setIp("192.168.0.1");
         riskInfo.setAddress("收货地址1");
-        riskInfo.setTelephone(CFCACipherUtils.encrypt(symmetricKeyEncoded,"010-67891234"));
+        riskInfo.setTelephone(CFCACipherUtils.encrypt(symmetricKeyEncoded, "010-67891234"));
         riskInfo.setRecHostArea("CN");
         BankList bankList = new BankList();
         bankList.setCount("1");
@@ -283,7 +281,6 @@ public class PcacTest<T> {
     }
 
 
-
     @Test
     void UP0004SX() {
         //拼装Body UP0004-商户风险信息失效
@@ -315,7 +312,7 @@ public class PcacTest<T> {
         riskInfo.setUpdateType("01");
         riskInfo.setCusType("01");
         riskInfo.setCusNature("01");
-        riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"T1"));
+        riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, "T1"));
         ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BankInfo> bankInfos = new ArrayList<>();
         com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BankList bankList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BankList();
         bankList.setCount("1");
@@ -328,11 +325,11 @@ public class PcacTest<T> {
         ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BankList> bankLists = new ArrayList<>();
         bankLists.add(bankList);
         riskInfo.setBankList(bankLists);
-        riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded,"www.abc.123"));
-        riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded,"192.168.1.1"));
-        riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"15810889999"));
+        riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, "www.abc.123"));
+        riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, "192.168.1.1"));
+        riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, "15810889999"));
         riskInfo.setAddress("长沙");
-        riskInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded,"ICP 备案编号01"));
+        riskInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, "ICP 备案编号01"));
         riskInfo.setOccurtimeb("2020-07-06");
         riskInfo.setOccurtimee("2099-12-30");
         riskInfo.setOccurchan("01");
@@ -344,14 +341,14 @@ public class PcacTest<T> {
         riskInfo.setRepType("03");
         riskInfo.setRepPerson("admin");
         riskInfo.setRegisteredArea("AD");
-        riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"1"));
+        riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, "1"));
         riskInfo.setSourceChannel("QT");
         riskInfo.setCurrency("CNY");
         riskInfo.setAmount("30010.10");
         riskInfo.setRiskFindTime("2020-07-06");
         riskInfo.setLegControlName("实控人姓名1");
         riskInfo.setLegControlCardType("01");
-        riskInfo.setLegControlCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"111111111111111"));
+        riskInfo.setLegControlCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, "111111111111111"));
         riskInfo.setRemarks("测试商户风险信息补录");
         BenInfo benInfo = new BenInfo();
         benInfo.setLegBenName("测试人");
@@ -387,6 +384,7 @@ public class PcacTest<T> {
         String[] UP0003 = pushPcac((T) body, "017", "UP0003");
 
     }
+
     @Test
     void UP0004JJ() {
         //拼装Body UP0004-商户风险信息降级
@@ -446,12 +444,12 @@ public class PcacTest<T> {
         riskInfo.setBankNo("");
         riskInfo.setUrl("");
         riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"132312321"));*/
-        riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移动电子商务有限公司"));
-        riskInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"刘东"));
-        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"229339029203948764"));
-        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded,"8q/HMqAepL9Ob3ZEhLQEhg=="));
-        riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded,"www.chinamobile.com"));
-        riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"1231"));
+        riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, "中移动电子商务有限公司"));
+        riskInfo.setLegDocName(CFCACipherUtils.encrypt(symmetricKeyEncoded, "刘东"));
+        riskInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, "229339029203948764"));
+        riskInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, "8q/HMqAepL9Ob3ZEhLQEhg=="));
+        riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, "www.chinamobile.com"));
+        riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, "1231"));
         riskInfo.setHandleResult("03");
         riskInfo.setHandleTime("2020-09-30");
         riskInfos.add(riskInfo);
