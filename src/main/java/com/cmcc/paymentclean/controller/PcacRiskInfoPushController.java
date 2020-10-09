@@ -64,7 +64,7 @@ public class PcacRiskInfoPushController {
       value = "/pcacPushInfo",
       method = {RequestMethod.POST, RequestMethod.GET})
   @ResponseBody
-  public String pcacPushInfo(/*@Required*/ @RequestParam(value = "xml") String xmlStr) {
+  public String pcacPushInfo(/*@Required*/ @RequestParam(value = "xml",required = false) String xmlStr) {
     String doXml = null;
     log.info("协会推送信息报文：{}", xmlStr);
     Document document = (Document) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
