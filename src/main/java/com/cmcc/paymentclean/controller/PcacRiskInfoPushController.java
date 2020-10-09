@@ -66,6 +66,9 @@ public class PcacRiskInfoPushController {
   public String pcacPushInfo(
       /*@Required*/ @RequestParam(value = "xml", required = false) String xmlStr) {
     log.info("协会推送信息报文：{}", xmlStr);
+    if (StringUtils.isEmpty(xmlStr)) {
+      return XmlJsonUtils.convertObjectToXmlStr(XmlJsonUtils.getRespDocument(pcacConfig, "未知"));
+    }
     Document document = (Document) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
     String trnxCode = document.getRequest().getHead().getTrnxCode();
     String identification = document.getRequest().getHead().getIdentification();
