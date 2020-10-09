@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.controller;
 
+import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
@@ -27,6 +28,7 @@ import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -39,6 +41,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author zhaolei
@@ -56,7 +60,9 @@ public class PcacRiskInfoPushController {
     @Autowired
     private BusinessInfoService businessInfoService;
 
-
+    private static ExecutorService executor = Executors.newFixedThreadPool(10);
+    @Autowired
+    private PcacConfig pcacConfig;
     /**
      * 统一接收协会推送数据接口
      *
@@ -64,11 +70,11 @@ public class PcacRiskInfoPushController {
     @ApiOperation(value = "协会推送数据接口", notes = "协会推送数据接口")
     @RequestMapping(value = "/pcacPushInfo", method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String pcacPushInfo(@RequestParam(value = "xml") String xmlStr) {
-        String doXml =null;
+    public String pcacPushInfo(/*@Required*/ @RequestParam(value = "xml") String xmlStr) {
+       /* String doXml =null;
         log.info("协会推送信息报文：{}",xmlStr);
         //获取协会推送数据的交易码
-        /*String trnxCode = xmlStr.substring(xmlStr.indexOf("<TrnxCode>")+10, xmlStr.indexOf("<TrnxCode>") + 16);*/
+        *//*String trnxCode = xmlStr.substring(xmlStr.indexOf("<TrnxCode>")+10, xmlStr.indexOf("<TrnxCode>") + 16);*//*
         Document document = (Document)XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
         String trnxCode = document.getRequest().getHead().getTrnxCode();
         log.info("----------协会推送交易类型:{}，{}",trnxCode,TrnxCodeEnum.getTrnxCodeEnum(trnxCode));
@@ -88,7 +94,41 @@ public class PcacRiskInfoPushController {
             log.info("响应协会企业商户批量查询结果推送报文：{}", doXml);
         }
 
+        return doXml;*/
+
+        String doXml =null;
+        log.info("协会推送信息报文：{}",xmlStr);
+        Document document = (Document)XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
+        String trnxCode = document.getRequest().getHead().getTrnxCode();
+        String identification = document.getRequest().getHead().getIdentification();
+        
+        log.info("----------协会推送交易类型:{}，{}",trnxCode,TrnxCodeEnum.getTrnxCodeEnum(trnxCode));
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                log.info("------------------开始执行线程池任务----------------");
+                if (TrnxCodeEnum.BLACKLIST_PUSH.getCode().equals(trnxCode)||TrnxCodeEnum.RISK_TIPS_INFO_PUSH.getCode().equals(trnxCode)){
+                    log.info("接收协会黑名单或者风险提示信息报文：{}", xmlStr);
+                    saveRiskInfo(xmlStr);
+                    //log.info("响应协会黑名单或者风险提示信息报文:{}",doXml);
+                }
+                else if (TrnxCodeEnum.MERCHANT_INFO_ASSISTANCE_PUSH.getCode().equals(trnxCode)){
+                    log.info("接收协会比对协查信息请求报文：{}", xmlStr);
+                    saveAssistanceInfo(xmlStr);
+                    //log.info("响应协会比对协查信息报文：{}", doXml);
+                }else if (TrnxCodeEnum.BUSINESS_INFO_BATCH_QUERY_RESULT_PUSH.getCode().equals(trnxCode)){
+                    log.info("接收协会企业商户批量查询结果推送请求报文：{}", xmlStr);
+                    businessInfoService.getBusinessInfoXML(xmlStr);
+                    //log.info("响应协会企业商户批量查询结果推送报文：{}", doXml);
+                }
+            }
+        });
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document respDocument = XmlJsonUtils.getRespDocument(pcacConfig, identification);
+        doXml = XmlJsonUtils.convertObjectToXmlStr(respDocument);
+        log.info("----------------------响应协会推送报文-------------------------：{}", doXml);
         return doXml;
+        
     }
 
     /**
