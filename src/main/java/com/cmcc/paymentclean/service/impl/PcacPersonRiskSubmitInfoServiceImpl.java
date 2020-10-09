@@ -6,6 +6,7 @@ import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.CusPropertyEnum;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
+import com.cmcc.paymentclean.consts.PcacResultCode;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
@@ -226,7 +227,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl
         //  if (isSign) {
         Respone respone = documentResp.getRespone();
         RespInfo respInfo = respone.getBody().getRespInfo();
-        if ("S00000".equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
+        if (PcacResultCode.S00000.getCode().equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
           // 上报成功，修改数据库状态
           PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
           BeanUtils.copyProperties(respInfo, pcacPersonRiskSubmitInfo);
