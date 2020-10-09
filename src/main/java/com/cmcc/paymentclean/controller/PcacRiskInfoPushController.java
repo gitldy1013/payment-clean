@@ -52,11 +52,10 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class PcacRiskInfoPushController {
 
+  private static ExecutorService executor = Executors.newSingleThreadExecutor();
   @Autowired private PcacRiskInfoService pcacRiskInfoService;
   @Autowired private PcacAssistanceInfoService pcacAssistanceInfoService;
   @Autowired private BusinessInfoService businessInfoService;
-
-  private static ExecutorService executor = Executors.newSingleThreadExecutor();
   @Autowired private PcacConfig pcacConfig;
   /** 统一接收协会推送数据接口 */
   @ApiOperation(value = "协会推送数据接口", notes = "协会推送数据接口")
@@ -64,7 +63,8 @@ public class PcacRiskInfoPushController {
       value = "/pcacPushInfo",
       method = {RequestMethod.POST, RequestMethod.GET})
   @ResponseBody
-  public String pcacPushInfo(/*@Required*/ @RequestParam(value = "xml",required = false) String xmlStr) {
+  public String pcacPushInfo(
+      /*@Required*/ @RequestParam(value = "xml", required = false) String xmlStr) {
     log.info("协会推送信息报文：{}", xmlStr);
     Document document = (Document) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
     String trnxCode = document.getRequest().getHead().getTrnxCode();
@@ -73,23 +73,20 @@ public class PcacRiskInfoPushController {
     log.info("----------协会推送交易类型:{}，{}", trnxCode, TrnxCodeEnum.getTrnxCodeEnum(trnxCode));
 
     executor.execute(
-        new Runnable() {
-          @Override
-          public void run() {
-            log.info("------------------开始执行线程池任务----------------");
-            if (TrnxCodeEnum.BLACKLIST_PUSH.getCode().equals(trnxCode)
-                || TrnxCodeEnum.RISK_TIPS_INFO_PUSH.getCode().equals(trnxCode)) {
-              log.info("接收协会黑名单或者风险提示信息报文：{}", xmlStr);
-              saveRiskInfo(xmlStr);
-            } else if (TrnxCodeEnum.MERCHANT_INFO_ASSISTANCE_PUSH.getCode().equals(trnxCode)) {
-              log.info("接收协会比对协查信息请求报文：{}", xmlStr);
-              saveAssistanceInfo(xmlStr);
-            } else if (TrnxCodeEnum.BUSINESS_INFO_BATCH_QUERY_RESULT_PUSH
-                .getCode()
-                .equals(trnxCode)) {
-              log.info("接收协会企业商户批量查询结果推送请求报文：{}", xmlStr);
-              businessInfoService.getBusinessInfoXML(xmlStr);
-            }
+        () -> {
+          log.info("------------------开始执行线程池任务----------------");
+          if (TrnxCodeEnum.BLACKLIST_PUSH.getCode().equals(trnxCode)
+              || TrnxCodeEnum.RISK_TIPS_INFO_PUSH.getCode().equals(trnxCode)) {
+            log.info("接收协会黑名单或者风险提示信息报文：{}", xmlStr);
+            saveRiskInfo(xmlStr);
+          } else if (TrnxCodeEnum.MERCHANT_INFO_ASSISTANCE_PUSH.getCode().equals(trnxCode)) {
+            log.info("接收协会比对协查信息请求报文：{}", xmlStr);
+            saveAssistanceInfo(xmlStr);
+          } else if (TrnxCodeEnum.BUSINESS_INFO_BATCH_QUERY_RESULT_PUSH
+              .getCode()
+              .equals(trnxCode)) {
+            log.info("接收协会企业商户批量查询结果推送请求报文：{}", xmlStr);
+            businessInfoService.getBusinessInfoXML(xmlStr);
           }
         });
 
@@ -182,10 +179,12 @@ public class PcacRiskInfoPushController {
 
   @RequestMapping(value = "/localRiskMsg", method = RequestMethod.POST)
   @ResponseBody
-  public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> reissueRiskInfo(@RequestBody @Validated ReissueRiskInfoReq reissueRiskInfoReq) {
+  public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> reissueRiskInfo(
+      @RequestBody @Validated ReissueRiskInfoReq reissueRiskInfoReq) {
     log.info("补发请求入参是：{}", reissueRiskInfoReq);
 
-    ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> resultBean = pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
+    ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> resultBean =
+        pcacRiskInfoService.reissueRiskInfo(reissueRiskInfoReq);
     log.info("请求补发返回结果信息：{}", resultBean);
     return resultBean;
   }
