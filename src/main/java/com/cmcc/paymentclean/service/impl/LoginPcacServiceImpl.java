@@ -1,6 +1,7 @@
 package com.cmcc.paymentclean.service.impl;
 
 import com.cmcc.paymentclean.config.PcacConfig;
+import com.cmcc.paymentclean.consts.PcacResultCode;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.LoginResult;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
@@ -41,7 +42,7 @@ public class LoginPcacServiceImpl implements LoginPcacService {
     String trnxCode = TrnxCodeEnum.LOGIN.getCode();
 
     RespInfo respInfo = toPcac(trnxCode);
-    if ("S00000".equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
+    if (PcacResultCode.S00000.getCode().equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
       return new LoginResult(respInfo.getUserToken());
     }
 

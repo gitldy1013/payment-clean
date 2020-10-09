@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.entity;
 
+import com.cmcc.paymentclean.consts.PcacResultCode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +20,7 @@ public class LoginResult {
 
   public LoginResult(String userToken) {
     this.userToken = userToken;
-    this.resultCode = "S00000";
+    this.resultCode = PcacResultCode.S00000.getCode();
     this.resultStatus = "01";
   }
 

@@ -1,6 +1,7 @@
 package com.cmcc.paymentclean.utils;
 
 import com.cmcc.paymentclean.config.PcacConfig;
+import com.cmcc.paymentclean.consts.PcacResultCode;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
@@ -232,7 +233,7 @@ public class XmlJsonUtils {
     RespInfo respInfo = new RespInfo();
     // 返回成功的状态码
     respInfo.setResultStatus("01");
-    respInfo.setResultCode("S00000");
+    respInfo.setResultCode(PcacResultCode.S00000.getCode());
     body.setRespInfo(respInfo);
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document document =
         new com.cmcc.paymentclean.entity.dto.pcac.resp.Document();

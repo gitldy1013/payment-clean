@@ -17,6 +17,7 @@ import com.cmcc.paymentclean.consts.IsTransferEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
 import com.cmcc.paymentclean.consts.OccurChanEnum;
+import com.cmcc.paymentclean.consts.PcacResultCode;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
@@ -136,7 +137,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       }
       Body resBody = pushQueryPcacMerchantRiskReqToPcac(xml);
       RespInfo respInfo = resBody.getRespInfo();
-      if (!respInfo.getResultCode().equals("S00000")) {
+      if (!respInfo.getResultCode().equals(PcacResultCode.S00000.getCode())) {
         resCode = respInfo.getResultCode();
         resMsg = respInfo.getMsgDetail();
       }
