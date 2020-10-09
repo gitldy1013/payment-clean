@@ -13,27 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
-* <p>
-* 商户黑名单提示信息表 Mapper 接口
-* </p>
-*
-* @author cmcc
-* @since 2020-09-08
-*/
+ * 商户黑名单提示信息表 Mapper 接口
+ *
+ * @author cmcc
+ * @since 2020-09-08
+ */
 @Mapper
 @Repository
 public interface PcacRiskInfoMapper extends BaseMapper<PcacRiskInfo> {
 
-    Page<PcacRiskInfoResp> pagePcacRiskInfo(Page page, @Param("req") PcacRiskInfoReq req);
+  Page<PcacRiskInfoResp> pagePcacRiskInfo(Page page, @Param("req") PcacRiskInfoReq req);
 
-    void insertBatchPcacRiskInfo(@Param("items") ArrayList<PcacRiskInfo> pcacRiskInfoList);
+  void insertBatchPcacRiskInfo(@Param("items") ArrayList<PcacRiskInfo> pcacRiskInfoList);
 
-    void updatePushStatus(@Param("ids")List<String> ids);
+  void updatePushStatus(@Param("ids") List<String> ids);
 
-    //删除一日期范围内数据
-    void deleteByDelMap(Map<String, String> deleteMap);
-   //删除推送日一天数据
-    void deleteByDayMap(Map<String,String> deleteMap);
+  // 删除一日期范围内数据
+  void deleteByDelMap(Map<String, String> deleteMap);
+  // 删除推送日一天数据
+  void deleteByDayMap(Map<String, String> deleteMap);
 }

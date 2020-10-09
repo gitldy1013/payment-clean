@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 10:51:08 AM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -37,91 +36,72 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "riskType",
-    "reqDate",
-    "reqDateEnd"
-})
+@XmlType(
+    name = "",
+    propOrder = {"riskType", "reqDate", "reqDateEnd"})
 @XmlRootElement(name = "Body")
 public class Body {
 
-    @XmlElement(name = "RiskType", required = true)
-    protected String riskType;
-    @XmlElement(name = "ReqDate", required = true)
-    protected String reqDate;
-    @XmlElement(name = "ReqDateEnd", required = true)
-    protected String reqDateEnd;
+  @XmlElement(name = "RiskType", required = true)
+  protected String riskType;
 
-    /**
-     * 获取riskType属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRiskType() {
-        return riskType;
-    }
+  @XmlElement(name = "ReqDate", required = true)
+  protected String reqDate;
 
-    /**
-     * 设置riskType属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRiskType(String value) {
-        this.riskType = value;
-    }
+  @XmlElement(name = "ReqDateEnd", required = true)
+  protected String reqDateEnd;
 
-    /**
-     * 获取reqDate属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getReqDate() {
-        return reqDate;
-    }
+  /**
+   * 获取riskType属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRiskType() {
+    return riskType;
+  }
 
-    /**
-     * 设置reqDate属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setReqDate(String value) {
-        this.reqDate = value;
-    }
+  /**
+   * 设置riskType属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRiskType(String value) {
+    this.riskType = value;
+  }
 
-    /**
-     * 获取reqDateEnd属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getReqDateEnd() {
-        return reqDateEnd;
-    }
+  /**
+   * 获取reqDate属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getReqDate() {
+    return reqDate;
+  }
 
-    /**
-     * 设置reqDateEnd属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setReqDateEnd(String value) {
-        this.reqDateEnd = value;
-    }
+  /**
+   * 设置reqDate属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setReqDate(String value) {
+    this.reqDate = value;
+  }
 
+  /**
+   * 获取reqDateEnd属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getReqDateEnd() {
+    return reqDateEnd;
+  }
+
+  /**
+   * 设置reqDateEnd属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setReqDateEnd(String value) {
+    this.reqDateEnd = value;
+  }
 }

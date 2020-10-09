@@ -11,30 +11,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginResult {
 
-    private String resultStatus;
+  private String resultStatus;
 
-    private String resultCode;
+  private String resultCode;
 
-    private  String userToken;
+  private String userToken;
 
-    public LoginResult(String userToken) {
-        this.userToken = userToken;
-        this.resultCode="S00000";
-        this.resultStatus="01";
+  public LoginResult(String userToken) {
+    this.userToken = userToken;
+    this.resultCode = "S00000";
+    this.resultStatus = "01";
+  }
 
-    }
-    public LoginResult(String resultCode,String resultStatus) {
-        this.resultCode=resultCode;
-        this.resultStatus=resultStatus;
+  public LoginResult(String resultCode, String resultStatus) {
+    this.resultCode = resultCode;
+    this.resultStatus = resultStatus;
+  }
 
-    }
-
-    @Override
-    public String toString() {
-        return "LoginResult{" +
-                "resultStatus='" + resultStatus + '\'' +
-                ", resultCode='" + resultCode + '\'' +
-                ", userToken='" + userToken + '\'' +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "LoginResult{"
+        + "resultStatus='"
+        + resultStatus
+        + '\''
+        + ", resultCode='"
+        + resultCode
+        + '\''
+        + ", userToken='"
+        + userToken
+        + '\''
+        + '}';
+  }
 }

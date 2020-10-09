@@ -11,82 +11,66 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-/**
- * 使用quartz框架
- * 项目中所有的定时任务统一放这里处理
- */
+/** 使用quartz框架 项目中所有的定时任务统一放这里处理 */
 @Component
 @EnableScheduling
-@Async//启动多线程
+@Async // 启动多线程
 @Slf4j
 public class ScheduledTask {
 
-    @Autowired
-    private PcacPersonRiskSubmitInfoService pcacPersonRiskSubmitInfoService;
+  @Autowired private PcacPersonRiskSubmitInfoService pcacPersonRiskSubmitInfoService;
 
-    @Autowired
-    private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
+  @Autowired private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
 
-    @Autowired
-    private PcacMerchantRiskSubmitInfoService pcacMerchantRiskSubmitInfoService;
+  @Autowired private PcacMerchantRiskSubmitInfoService pcacMerchantRiskSubmitInfoService;
 
-    @Autowired
-    private SftpPcacRiskInfo sftpPcacRiskInfo;
+  @Autowired private SftpPcacRiskInfo sftpPcacRiskInfo;
 
-    @Autowired
-    private BusinessInfoService businessInfoService;
+  @Autowired private BusinessInfoService businessInfoService;
 
-    /**
-     * 上报个人风险信息
-     */
-    @Scheduled(cron = "0 0 23 ? * *")
-    public void  submitPcacPersonRiskInfoJob(){
-        log.info("每天23:00执行上报个人风险信息到清算协会任务==START==");
-        pcacPersonRiskSubmitInfoService.submit();
-        log.info("每天23:00执行上报个人风险信息到清算协会任务==END==");
-    }
+  /** 上报个人风险信息 */
+  @Scheduled(cron = "0 0 23 ? * *")
+  public void submitPcacPersonRiskInfoJob() {
+    log.info("每天23:00执行上报个人风险信息到清算协会任务==START==");
+    pcacPersonRiskSubmitInfoService.submit();
+    log.info("每天23:00执行上报个人风险信息到清算协会任务==END==");
+  }
 
-    /**
-     * 上报企业风险信息
-     */
-    @Scheduled(cron = "0 0 23 ? * *")
-    public void  runRiskEnterpriseAndPush(){
-        log.info("每天23:00执行上报企业风险信息到清算协会任务==START==");
-        pcacEnterpriseRiskSubmitInfoService.queryRiskEnterpriseAndPushPcac();
-        log.info("每天23:00执行上报企业风险信息到清算协会任务==END==");
-    }
+  /** 上报企业风险信息 */
+  @Scheduled(cron = "0 0 23 ? * *")
+  public void runRiskEnterpriseAndPush() {
+    log.info("每天23:00执行上报企业风险信息到清算协会任务==START==");
+    pcacEnterpriseRiskSubmitInfoService.queryRiskEnterpriseAndPushPcac();
+    log.info("每天23:00执行上报企业风险信息到清算协会任务==END==");
+  }
 
-    /**
-     * 上报商户风险信息
-     */
-    @Scheduled(cron = "0 0 23 ? * *")
-    public void runRiskMerchantAndPush(){
-        log.info("每天23:00上报商户风险信息==START==");
-        pcacMerchantRiskSubmitInfoService.queryRiskMerchantAndPushPcac();
-        log.info("每天23:00上报商户风险信息==END==");
-    }
+  /** 上报商户风险信息 */
+  @Scheduled(cron = "0 0 23 ? * *")
+  public void runRiskMerchantAndPush() {
+    log.info("每天23:00上报商户风险信息==START==");
+    pcacMerchantRiskSubmitInfoService.queryRiskMerchantAndPushPcac();
+    log.info("每天23:00上报商户风险信息==END==");
+  }
 
-    @Scheduled(cron = "0 0 11 ? * *")
-    public void  SftpPcacRiskInfoJob(){
-        log.info("执行协会风险商户黑名单推送SFTP任务==START==");
-        sftpPcacRiskInfo.run();
-        log.info("执行协会风险商户黑名单推送SFTP任务==END==");
-    }
+  @Scheduled(cron = "0 0 11 ? * *")
+  public void SftpPcacRiskInfoJob() {
+    log.info("执行协会风险商户黑名单推送SFTP任务==START==");
+    sftpPcacRiskInfo.run();
+    log.info("执行协会风险商户黑名单推送SFTP任务==END==");
+  }
 
-    @Scheduled(cron = "5 0 11 ? * *")
-    public void  SftpBusinessInfoJob(){
-        log.info("执行企业商户信息表推送SFTP任务==START==");
-        businessInfoService.exportExcel();
-        log.info("执行企业商户信息表推送SFTP任务==END==");
-    }
+  @Scheduled(cron = "5 0 11 ? * *")
+  public void SftpBusinessInfoJob() {
+    log.info("执行企业商户信息表推送SFTP任务==START==");
+    businessInfoService.exportExcel();
+    log.info("执行企业商户信息表推送SFTP任务==END==");
+  }
 
-    /**
-     * 上报企业商户信息
-     */
-    @Scheduled(cron = "0 0 18 1 * ?")
-    public void runBusinessInfoAndPushPcac(){
-        log.info("每月1号8点上报企业商户信息==START==");
-        businessInfoService.queryBusinessInfoAndPushPcac();
-        log.info("每月1号8点上报企业商户信息==END==");
-    }
+  /** 上报企业商户信息 */
+  @Scheduled(cron = "0 0 18 1 * ?")
+  public void runBusinessInfoAndPushPcac() {
+    log.info("每月1号8点上报企业商户信息==START==");
+    businessInfoService.queryBusinessInfoAndPushPcac();
+    log.info("每月1号8点上报企业商户信息==END==");
+  }
 }

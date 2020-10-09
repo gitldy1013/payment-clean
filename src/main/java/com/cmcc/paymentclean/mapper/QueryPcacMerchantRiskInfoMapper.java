@@ -11,22 +11,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 /**
-* <p>
-*  Mapper 接口
-* </p>
-*
-* @author zhaolei
-* @since 2020-09-14
-*/
+ * Mapper 接口
+ *
+ * @author zhaolei
+ * @since 2020-09-14
+ */
 @Mapper
 @Repository
 public interface QueryPcacMerchantRiskInfoMapper extends BaseMapper<QueryPcacMerchantRiskInfo> {
 
-    Page<QueryPcacMerchantRiskInfoResp> pageLocalAssociatedRiskMerchantInfo(Page page, @Param("req") QueryPcacMerchantRiskInfoReq req);
+  Page<QueryPcacMerchantRiskInfoResp> pageLocalAssociatedRiskMerchantInfo(
+      Page page, @Param("req") QueryPcacMerchantRiskInfoReq req);
 
-    List<QueryPcacMerchantRiskInfoResp> qryByPushStatus(@Param("pushStatus")String pushStatus);
+  List<QueryPcacMerchantRiskInfoResp> qryByPushStatus(@Param("pushStatus") String pushStatus);
 
-    void updatePushStatus(@Param("ids")List<String> ids);
+  void updatePushStatus(@Param("ids") List<String> ids);
 }

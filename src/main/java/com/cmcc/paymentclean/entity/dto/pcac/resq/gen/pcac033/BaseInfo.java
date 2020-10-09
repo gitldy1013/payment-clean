@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -39,145 +38,114 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "signNum",
-    "signCurrentNum",
-    "signCurrentState",
-    "blackNum",
-    "riskNum"
-})
+@XmlType(
+    name = "",
+    propOrder = {"signNum", "signCurrentNum", "signCurrentState", "blackNum", "riskNum"})
 @XmlRootElement(name = "BaseInfo")
 public class BaseInfo {
 
-    @XmlElement(name = "SignNum", required = true)
-    protected String signNum;
-    @XmlElement(name = "SignCurrentNum", required = true)
-    protected String signCurrentNum;
-    @XmlElement(name = "SignCurrentState", required = true)
-    protected String signCurrentState;
-    @XmlElement(name = "BlackNum", required = true)
-    protected String blackNum;
-    @XmlElement(name = "RiskNum", required = true)
-    protected String riskNum;
+  @XmlElement(name = "SignNum", required = true)
+  protected String signNum;
 
-    /**
-     * 获取signNum属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getSignNum() {
-        return signNum;
-    }
+  @XmlElement(name = "SignCurrentNum", required = true)
+  protected String signCurrentNum;
 
-    /**
-     * 设置signNum属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setSignNum(String value) {
-        this.signNum = value;
-    }
+  @XmlElement(name = "SignCurrentState", required = true)
+  protected String signCurrentState;
 
-    /**
-     * 获取signCurrentNum属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getSignCurrentNum() {
-        return signCurrentNum;
-    }
+  @XmlElement(name = "BlackNum", required = true)
+  protected String blackNum;
 
-    /**
-     * 设置signCurrentNum属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setSignCurrentNum(String value) {
-        this.signCurrentNum = value;
-    }
+  @XmlElement(name = "RiskNum", required = true)
+  protected String riskNum;
 
-    /**
-     * 获取signCurrentState属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getSignCurrentState() {
-        return signCurrentState;
-    }
+  /**
+   * 获取signNum属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getSignNum() {
+    return signNum;
+  }
 
-    /**
-     * 设置signCurrentState属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setSignCurrentState(String value) {
-        this.signCurrentState = value;
-    }
+  /**
+   * 设置signNum属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setSignNum(String value) {
+    this.signNum = value;
+  }
 
-    /**
-     * 获取blackNum属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getBlackNum() {
-        return blackNum;
-    }
+  /**
+   * 获取signCurrentNum属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getSignCurrentNum() {
+    return signCurrentNum;
+  }
 
-    /**
-     * 设置blackNum属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setBlackNum(String value) {
-        this.blackNum = value;
-    }
+  /**
+   * 设置signCurrentNum属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setSignCurrentNum(String value) {
+    this.signCurrentNum = value;
+  }
 
-    /**
-     * 获取riskNum属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRiskNum() {
-        return riskNum;
-    }
+  /**
+   * 获取signCurrentState属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getSignCurrentState() {
+    return signCurrentState;
+  }
 
-    /**
-     * 设置riskNum属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRiskNum(String value) {
-        this.riskNum = value;
-    }
+  /**
+   * 设置signCurrentState属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setSignCurrentState(String value) {
+    this.signCurrentState = value;
+  }
 
+  /**
+   * 获取blackNum属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getBlackNum() {
+    return blackNum;
+  }
+
+  /**
+   * 设置blackNum属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setBlackNum(String value) {
+    this.blackNum = value;
+  }
+
+  /**
+   * 获取riskNum属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRiskNum() {
+    return riskNum;
+  }
+
+  /**
+   * 设置riskNum属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRiskNum(String value) {
+    this.riskNum = value;
+  }
 }

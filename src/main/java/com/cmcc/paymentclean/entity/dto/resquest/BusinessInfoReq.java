@@ -6,23 +6,20 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * Created by lumma on 2020/9/17.
- */
+/** Created by lumma on 2020/9/17. */
 @Data
 @ApiModel(value = "批量企业商户查询请求参数")
 public class BusinessInfoReq implements Serializable {
 
-    @ApiModelProperty(value = "法人证件号码")
-    private String docCode;
+  @ApiModelProperty(value = "法人证件号码")
+  private String docCode;
 
-    @ApiModelProperty(value = "商户名称/企业名称")
-    private String regName;
+  @ApiModelProperty(value = "商户名称/企业名称")
+  private String regName;
 
-    @ApiModelProperty(value = "法定代表人姓名")
-    private String LegDocName;
+  @ApiModelProperty(value = "法定代表人姓名")
+  private String LegDocName;
 
-    @ApiModelProperty(value = "法定代表人（负责人）证件号码")
-    private String legDocCode;
-
+  @ApiModelProperty(value = "法定代表人（负责人）证件号码")
+  private String legDocCode;
 }

@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.25 时间 02:37:13 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_1;
 
 import lombok.Data;
@@ -16,9 +15,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -33,42 +31,33 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "pcacList"
-})
+@XmlType(
+    name = "",
+    propOrder = {"pcacList"})
 @XmlRootElement(name = "Body")
 public class Body {
 
-    @XmlElement(name = "PcacList", required = true)
-    protected PcacList pcacList;
+  @XmlElement(name = "PcacList", required = true)
+  protected PcacList pcacList;
 
-    /**
-     * 获取pcacList属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link PcacList }
-     *
-     */
-    public PcacList getPcacList() {
-        return pcacList;
-    }
+  /**
+   * 获取pcacList属性的值。
+   *
+   * @return possible object is {@link PcacList }
+   */
+  public PcacList getPcacList() {
+    return pcacList;
+  }
 
-    /**
-     * 设置pcacList属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link PcacList }
-     *
-     */
-    public void setPcacList(PcacList value) {
-        this.pcacList = value;
-    }
-
+  /**
+   * 设置pcacList属性的值。
+   *
+   * @param value allowed object is {@link PcacList }
+   */
+  public void setPcacList(PcacList value) {
+    this.pcacList = value;
+  }
 }

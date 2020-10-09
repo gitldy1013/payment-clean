@@ -7,33 +7,23 @@ import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import java.util.List;
 
 /**
-* <p>
-* 企业商户信息表  服务类
-* </p>
-*
-* @author cmcc
-* @since 2020-09-15
-*/
+ * 企业商户信息表 服务类
+ *
+ * @author cmcc
+ * @since 2020-09-15
+ */
 public interface BusinessInfoService {
 
-    ResultBean<Body> exportExcel();
+  ResultBean<Body> exportExcel();
 
-    /**
-     * 企业商户查询本地数据库推送至协会
-     */
-    void queryBusinessInfoAndPushPcac();
+  /** 企业商户查询本地数据库推送至协会 */
+  void queryBusinessInfoAndPushPcac();
 
-    /**
-     * 批量协会查询企业商户信息
-     */
-    ResultBean batchQuery(List<BusinessInfoReq> businessInfoReqs);
+  /** 批量协会查询企业商户信息 */
+  ResultBean batchQuery(List<BusinessInfoReq> businessInfoReqs);
 
-    /**
-     * 批量查询企业信息结果推送
-     */
-    //String getBusinessInfoXML(String xml);
-    /**
-     * 批量查询企业信息结果推送
-     */
-    void getBusinessInfoXML(String xml);
+  /** 批量查询企业信息结果推送 */
+  // String getBusinessInfoXML(String xml);
+  /** 批量查询企业信息结果推送 */
+  void getBusinessInfoXML(String xml);
 }

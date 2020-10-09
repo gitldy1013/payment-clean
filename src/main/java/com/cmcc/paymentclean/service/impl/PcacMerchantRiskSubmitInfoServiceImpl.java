@@ -53,178 +53,217 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>
- * 协会商户风险信息上报表  服务实现类
- * </p>
+ * 协会商户风险信息上报表 服务实现类
  *
  * @author cmcc
  * @since 2020-09-10
  */
 @Slf4j
 @Service
-public class PcacMerchantRiskSubmitInfoServiceImpl extends ServiceImpl<PcacMerchantRiskSubmitInfoMapper, PcacMerchantRiskSubmitInfo> implements PcacMerchantRiskSubmitInfoService {
+public class PcacMerchantRiskSubmitInfoServiceImpl
+    extends ServiceImpl<PcacMerchantRiskSubmitInfoMapper, PcacMerchantRiskSubmitInfo>
+    implements PcacMerchantRiskSubmitInfoService {
 
-    @Autowired
-    private PcacMerchantRiskSubmitInfoMapper pcacMerchantRiskSubmitInfoMapper;
+  @Autowired private PcacMerchantRiskSubmitInfoMapper pcacMerchantRiskSubmitInfoMapper;
 
-    @Autowired
-    private PcacConfig pcacConfig;
+  @Autowired private PcacConfig pcacConfig;
 
-    @Autowired
-    private SysLanService sysLanService;
+  @Autowired private SysLanService sysLanService;
 
-    @Override
-    public ResultBean<Page<RiskMerchantResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
-        log.info("pageRiskMerchant req={}", com.alibaba.fastjson.JSON.toJSON(riskMerchantReq));
-        ResultBean<Page<RiskMerchantResp>> resultBean = new ResultBean<>();
-        resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
-        resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+  @Override
+  public ResultBean<Page<RiskMerchantResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
+    log.info("pageRiskMerchant req={}", com.alibaba.fastjson.JSON.toJSON(riskMerchantReq));
+    ResultBean<Page<RiskMerchantResp>> resultBean = new ResultBean<>();
+    resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+    resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
 
-        Page<PcacMerchantRiskSubmitInfo> page = new Page<>(riskMerchantReq.getPageNo(), riskMerchantReq.getPageSize());
-        Page<RiskMerchantResp> pagePcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfoMapper.pagePcacMerchantRiskSubmitInfo(page, riskMerchantReq);
-        List<RiskMerchantResp> riskMerchantResps = pagePcacMerchantRiskSubmitInfo.getRecords();
-        if (!CollectionUtils.isEmpty(riskMerchantResps)) {
-            for (RiskMerchantResp riskMerchantResp : riskMerchantResps) {
-                String validStatus = (new Date(System.currentTimeMillis()).before(riskMerchantResp.getValidDate())) ? CommonConst.VALIDSTATUS_01 : CommonConst.VALIDSTATUS_02;
-                riskMerchantResp.setValidStatus(validStatus);
-                riskMerchantResp.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskMerchantResp.getLegDocType()));
-                riskMerchantResp.setSubmitStatus(SubmitStatusEnum.getSubmitStatusEnumDesc(riskMerchantResp.getSubmitStatus()));
-                riskMerchantResp.setCusType(CusTypeEnum.getCusTypeEnum(riskMerchantResp.getCusType()));
-                riskMerchantResp.setCusNature(CusNatureEnum.getCusNatureEnum(riskMerchantResp.getCusNature()));
-                riskMerchantResp.setSourceChannel(SourChaEnum.getSourChaEnum(riskMerchantResp.getSourceChannel()));
-                riskMerchantResp.setLevel(LevelCodeEnum.getLevelDesc(riskMerchantResp.getLevel()));
-                riskMerchantResp.setDocType(DocTypeEnum.getDocTypeDesc(riskMerchantResp.getDocType()));
-                riskMerchantResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskMerchantResp.getRiskType()));
-                riskMerchantResp.setCusProperty(CusPropertyEnum.getCusPropertyEnum(riskMerchantResp.getCusProperty()));
-                riskMerchantResp.setMsgType(MsgTypeEnum.MsgTypeEnum_02.getDesc());
-                SysLan sysLan = sysLanService.getLanInfoById(riskMerchantResp.getOccurarea());
-                if (null != sysLan) {
-                    riskMerchantResp.setOccurarea(sysLan.getLanName());
-                }
-            }
+    Page<PcacMerchantRiskSubmitInfo> page =
+        new Page<>(riskMerchantReq.getPageNo(), riskMerchantReq.getPageSize());
+    Page<RiskMerchantResp> pagePcacMerchantRiskSubmitInfo =
+        pcacMerchantRiskSubmitInfoMapper.pagePcacMerchantRiskSubmitInfo(page, riskMerchantReq);
+    List<RiskMerchantResp> riskMerchantResps = pagePcacMerchantRiskSubmitInfo.getRecords();
+    if (!CollectionUtils.isEmpty(riskMerchantResps)) {
+      for (RiskMerchantResp riskMerchantResp : riskMerchantResps) {
+        String validStatus =
+            (new Date(System.currentTimeMillis()).before(riskMerchantResp.getValidDate()))
+                ? CommonConst.VALIDSTATUS_01
+                : CommonConst.VALIDSTATUS_02;
+        riskMerchantResp.setValidStatus(validStatus);
+        riskMerchantResp.setLegDocType(
+            LegDocTypeEnum.getLegDocTypeDesc(riskMerchantResp.getLegDocType()));
+        riskMerchantResp.setSubmitStatus(
+            SubmitStatusEnum.getSubmitStatusEnumDesc(riskMerchantResp.getSubmitStatus()));
+        riskMerchantResp.setCusType(CusTypeEnum.getCusTypeEnum(riskMerchantResp.getCusType()));
+        riskMerchantResp.setCusNature(
+            CusNatureEnum.getCusNatureEnum(riskMerchantResp.getCusNature()));
+        riskMerchantResp.setSourceChannel(
+            SourChaEnum.getSourChaEnum(riskMerchantResp.getSourceChannel()));
+        riskMerchantResp.setLevel(LevelCodeEnum.getLevelDesc(riskMerchantResp.getLevel()));
+        riskMerchantResp.setDocType(DocTypeEnum.getDocTypeDesc(riskMerchantResp.getDocType()));
+        riskMerchantResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskMerchantResp.getRiskType()));
+        riskMerchantResp.setCusProperty(
+            CusPropertyEnum.getCusPropertyEnum(riskMerchantResp.getCusProperty()));
+        riskMerchantResp.setMsgType(MsgTypeEnum.MsgTypeEnum_02.getDesc());
+        SysLan sysLan = sysLanService.getLanInfoById(riskMerchantResp.getOccurarea());
+        if (null != sysLan) {
+          riskMerchantResp.setOccurarea(sysLan.getLanName());
         }
-        resultBean.setData(pagePcacMerchantRiskSubmitInfo);
-        log.info("pageRiskMerchant resp={}", com.alibaba.fastjson.JSON.toJSON(pagePcacMerchantRiskSubmitInfo));
-        return resultBean;
+      }
     }
+    resultBean.setData(pagePcacMerchantRiskSubmitInfo);
+    log.info(
+        "pageRiskMerchant resp={}",
+        com.alibaba.fastjson.JSON.toJSON(pagePcacMerchantRiskSubmitInfo));
+    return resultBean;
+  }
 
-    @Override
-    public void queryRiskMerchantAndPushPcac() {
-        //获取未上报的数据
-        QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper = new QueryWrapper<PcacMerchantRiskSubmitInfo>().like("submit_status", SubmitStatusEnum.ISBLACKENUM_0.getCode());
-        List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos = pcacMerchantRiskSubmitInfoMapper.selectList(queryWrapper);
-        if (pcacMerchantRiskSubmitInfos.size() == 0) {
-            log.info("当前没有可上报的风险商户信息");
-            return;
-        }
-        Document<Body> document = getDocument(pcacMerchantRiskSubmitInfos);
-        //报文转换
-        String xml = XmlJsonUtils.convertObjectToXmlStr(document);
-        log.info("获取到的xml数据:{}", xml);
-        if (StringUtils.isEmpty(xml)) {
-            log.info("xml报文转换失败");
-            return;
-        }
-        //校验xml报文
-        boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
-        log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
-//        boolean validate = ValidateUtils.validateXML(XmlJsonUtils.formatXml(xml), "pcac.ries.013");
-        if (!validate) {
-            log.info("XML校验失败");
-            return;
-        }
-        pushToPcac(pcacMerchantRiskSubmitInfos, xml);
+  @Override
+  public void queryRiskMerchantAndPushPcac() {
+    // 获取未上报的数据
+    QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper =
+        new QueryWrapper<PcacMerchantRiskSubmitInfo>()
+            .like("submit_status", SubmitStatusEnum.ISBLACKENUM_0.getCode());
+    List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos =
+        pcacMerchantRiskSubmitInfoMapper.selectList(queryWrapper);
+    if (pcacMerchantRiskSubmitInfos.size() == 0) {
+      log.info("当前没有可上报的风险商户信息");
+      return;
     }
-
-    private void pushToPcac(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos, String xml) {
-        //上报数据
-        String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
-        log.info("url:{}", pcacConfig.getUrl());
-        log.info("协会返回数据字符串:{}", XmlJsonUtils.formatXml(post));
-        com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc = (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
-        log.info("协会返回数据对象:{}", doc);
-        if (doc.getRespone().getBody().getRespInfo().getResultCode().equals(PcacResultCode.S00000.getCode())) {
-            for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
-                UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<PcacMerchantRiskSubmitInfo>();
-                updateWrapper.set("submit_time",new Date());
-                updateWrapper.set("submit_status", SubmitStatusEnum.ISBLACKENUM_1.getCode());
-                updateWrapper.set("result_status",doc.getRespone().getBody().getRespInfo().getResultStatus());
-                updateWrapper.set("result_code",doc.getRespone().getBody().getRespInfo().getResultCode());
-                updateWrapper.set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
-                updateWrapper.set("rep_date",new Date());
-                pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
-            }
-        } else {
-            log.info("返回状态码及信息：{}:{}", doc.getRespone().getBody().getRespInfo().getResultCode(), doc.getRespone().getBody().getRespInfo().getMsgDetail());
-        }
+    Document<Body> document = getDocument(pcacMerchantRiskSubmitInfos);
+    // 报文转换
+    String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+    log.info("获取到的xml数据:{}", xml);
+    if (StringUtils.isEmpty(xml)) {
+      log.info("xml报文转换失败");
+      return;
     }
-
-    private Document<Body> getDocument(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos) {
-        //拼装报文
-        Document<Body> document = new Document<>();
-        byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
-        //设置报文头
-        Request<Body> request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, TrnxCodeEnum.MERCHANT_RISK_INFO_SUBMIT.getCode());
-        //设置报文体
-        Body body = new Body();
-        PcacList pcacList = new PcacList();
-        ArrayList<RiskInfo> riskInfos = new ArrayList<>();
-        for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
-            pcacList.setCount(pcacMerchantRiskSubmitInfos.size() + "");
-            RiskInfo riskInfo = new RiskInfo();
-            PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
-            BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
-            BankList bankList = new BankList();
-            List<BankInfo> bankInfos = new ArrayList<>();
-            BankInfo bankInfo = new BankInfo();
-            BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
-            //银行结算账号
-            bankInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, bankInfo.getBankNo()));
-            //log.info("解密：{}",CFCACipherUtils.decrypt(symmetricKeyEncoded,bankInfo.getBankNo()));
-            bankInfos.add(bankInfo);
-            bankList.setBankInfo(bankInfos);
-            riskInfo.setBankList(bankList);
-            riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
-            BenList benList = new BenList();
-            List<BenInfo> benInfos = new ArrayList<>();
-            BenInfo benInfo = new BenInfo();
-            BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
-            benInfos.add(benInfo);
-            benList.setBenInfo(benInfos);
-            //解密风控加密协会 商户上报：
-            //商户名称
-            riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
-            //商户简称
-            riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusName()));
-            //商户代码
-            riskInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusCode()));
-            //法定代表人姓名/负责人姓名
-            riskInfo.setLegRepName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegRepName()));
-            //法定代表人（负责人）证件号码
-            riskInfo.setLegDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocCode()));
-            //法定代表人（负责人）手机号
-            riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getMobileNo()));
-            //网址
-            riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()));
-            //服务器 ip
-            riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
-            //ICP 备案编号
-            riskInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacMerchantRiskSubmitInfo.getIcp()));
-            //法人证件号
-            riskInfo.setDocCode(CFCACipherUtils.getInnerToCFCA(pcacMerchantRiskSubmitInfo.getDocType(), pcacMerchantRiskSubmitInfo.getDocCode(), symmetricKeyEncoded));
-            //实控人证件号
-            riskInfo.setLegControlCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegControlCardCode()));
-            //商户注册号
-            riskInfo.setRegisteredCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegisteredCode()));
-            riskInfo.setBenList(benList);
-            riskInfos.add(riskInfo);
-            pcacList.setRiskInfo(riskInfos);
-        }
-        body.setPcacList(pcacList);
-        request.setBody(body);
-        document.setRequest(request);
-        XmlJsonUtils.doSignature(document);
-        return document;
+    // 校验xml报文
+    boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+    log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
+    //        boolean validate = ValidateUtils.validateXML(XmlJsonUtils.formatXml(xml),
+    // "pcac.ries.013");
+    if (!validate) {
+      log.info("XML校验失败");
+      return;
     }
+    pushToPcac(pcacMerchantRiskSubmitInfos, xml);
+  }
 
+  private void pushToPcac(
+      List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos, String xml) {
+    // 上报数据
+    String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+    log.info("url:{}", pcacConfig.getUrl());
+    log.info("协会返回数据字符串:{}", XmlJsonUtils.formatXml(post));
+    com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc =
+        (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)
+            XmlJsonUtils.convertXmlStrToObject(
+                post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
+    log.info("协会返回数据对象:{}", doc);
+    if (doc.getRespone()
+        .getBody()
+        .getRespInfo()
+        .getResultCode()
+        .equals(PcacResultCode.S00000.getCode())) {
+      for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
+        UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper =
+            new UpdateWrapper<PcacMerchantRiskSubmitInfo>();
+        updateWrapper.set("submit_time", new Date());
+        updateWrapper.set("submit_status", SubmitStatusEnum.ISBLACKENUM_1.getCode());
+        updateWrapper.set(
+            "result_status", doc.getRespone().getBody().getRespInfo().getResultStatus());
+        updateWrapper.set("result_code", doc.getRespone().getBody().getRespInfo().getResultCode());
+        updateWrapper.set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
+        updateWrapper.set("rep_date", new Date());
+        pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
+      }
+    } else {
+      log.info(
+          "返回状态码及信息：{}:{}",
+          doc.getRespone().getBody().getRespInfo().getResultCode(),
+          doc.getRespone().getBody().getRespInfo().getMsgDetail());
+    }
+  }
+
+  private Document<Body> getDocument(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos) {
+    // 拼装报文
+    Document<Body> document = new Document<>();
+    byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+    // 设置报文头
+    Request<Body> request =
+        XmlJsonUtils.getRequest(
+            symmetricKeyEncoded,
+            document,
+            pcacConfig,
+            TrnxCodeEnum.MERCHANT_RISK_INFO_SUBMIT.getCode());
+    // 设置报文体
+    Body body = new Body();
+    PcacList pcacList = new PcacList();
+    ArrayList<RiskInfo> riskInfos = new ArrayList<>();
+    for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
+      pcacList.setCount(pcacMerchantRiskSubmitInfos.size() + "");
+      RiskInfo riskInfo = new RiskInfo();
+      PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
+      BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
+      BankList bankList = new BankList();
+      List<BankInfo> bankInfos = new ArrayList<>();
+      BankInfo bankInfo = new BankInfo();
+      BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
+      // 银行结算账号
+      bankInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, bankInfo.getBankNo()));
+      // log.info("解密：{}",CFCACipherUtils.decrypt(symmetricKeyEncoded,bankInfo.getBankNo()));
+      bankInfos.add(bankInfo);
+      bankList.setBankInfo(bankInfos);
+      riskInfo.setBankList(bankList);
+      riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
+      BenList benList = new BenList();
+      List<BenInfo> benInfos = new ArrayList<>();
+      BenInfo benInfo = new BenInfo();
+      BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
+      benInfos.add(benInfo);
+      benList.setBenInfo(benInfos);
+      // 解密风控加密协会 商户上报：
+      // 商户名称
+      riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
+      // 商户简称
+      riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusName()));
+      // 商户代码
+      riskInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusCode()));
+      // 法定代表人姓名/负责人姓名
+      riskInfo.setLegRepName(
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegRepName()));
+      // 法定代表人（负责人）证件号码
+      riskInfo.setLegDocCode(
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocCode()));
+      // 法定代表人（负责人）手机号
+      riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getMobileNo()));
+      // 网址
+      riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()));
+      // 服务器 ip
+      riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
+      // ICP 备案编号
+      riskInfo.setIcp(
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacMerchantRiskSubmitInfo.getIcp()));
+      // 法人证件号
+      riskInfo.setDocCode(
+          CFCACipherUtils.getInnerToCFCA(
+              pcacMerchantRiskSubmitInfo.getDocType(),
+              pcacMerchantRiskSubmitInfo.getDocCode(),
+              symmetricKeyEncoded));
+      // 实控人证件号
+      riskInfo.setLegControlCardCode(
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegControlCardCode()));
+      // 商户注册号
+      riskInfo.setRegisteredCode(
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegisteredCode()));
+      riskInfo.setBenList(benList);
+      riskInfos.add(riskInfo);
+      pcacList.setRiskInfo(riskInfos);
+    }
+    body.setPcacList(pcacList);
+    request.setBody(body);
+    document.setRequest(request);
+    XmlJsonUtils.doSignature(document);
+    return document;
+  }
 }

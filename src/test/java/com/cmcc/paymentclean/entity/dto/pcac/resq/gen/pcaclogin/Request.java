@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.17 时间 06:12:52 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin;
 
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac001.Body;
@@ -20,7 +19,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -37,90 +36,78 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType>
  * </pre>
  */
-
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "head",
-    "body"
-})
+@XmlType(
+    name = "",
+    propOrder = {"head", "body"})
 @XmlRootElement(name = "Request")
-@XmlSeeAlso(value = {Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac003.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac009.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac011.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac015.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac017.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_1.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_2.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
-        com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.Body.class,
-        })
-public class Request <T>{
+@XmlSeeAlso(
+    value = {
+      Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac027.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac003.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac009.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac011.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac015.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac017.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_1.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_2.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.Body.class,
+    })
+public class Request<T> {
 
-    @XmlElement(name = "Head", required = true)
-    protected Head head;
-    @XmlAnyElement(lax = true)
-    protected T body;
+  @XmlElement(name = "Head", required = true)
+  protected Head head;
 
-    /**
-     * 获取head属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link Head }
-     *
-     */
-    public Head getHead() {
-        return head;
-    }
+  @XmlAnyElement(lax = true)
+  protected T body;
 
-    /**
-     * 设置head属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Head }
-     *
-     */
-    public void setHead(Head value) {
-        this.head = value;
-    }
+  /**
+   * 获取head属性的值。
+   *
+   * @return possible object is {@link Head }
+   */
+  public Head getHead() {
+    return head;
+  }
 
-    /**
-     * 获取body属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link T }
-     *
-     */
-    public T getBody() {
-        return body;
-    }
+  /**
+   * 设置head属性的值。
+   *
+   * @param value allowed object is {@link Head }
+   */
+  public void setHead(Head value) {
+    this.head = value;
+  }
 
-    /**
-     * 设置body属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link T }
-     *
-     */
-    public void setBody(T value) {
-        this.body = value;
-    }
+  /**
+   * 获取body属性的值。
+   *
+   * @return possible object is {@link T }
+   */
+  public T getBody() {
+    return body;
+  }
 
+  /**
+   * 设置body属性的值。
+   *
+   * @param value allowed object is {@link T }
+   */
+  public void setBody(T value) {
+    this.body = value;
+  }
 }

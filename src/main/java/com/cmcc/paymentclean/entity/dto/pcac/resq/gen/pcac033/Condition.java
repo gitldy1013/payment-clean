@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -37,91 +36,72 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "queryInfo",
-    "count",
-    "resultCondition"
-})
+@XmlType(
+    name = "",
+    propOrder = {"queryInfo", "count", "resultCondition"})
 @XmlRootElement(name = "Condition")
 public class Condition {
 
-    @XmlElement(name = "QueryInfo", required = true)
-    protected QueryInfo queryInfo;
-    @XmlElement(name = "Count", required = true)
-    protected String count;
-    @XmlElement(name = "ResultCondition", required = true)
-    protected ResultCondition resultCondition;
+  @XmlElement(name = "QueryInfo", required = true)
+  protected QueryInfo queryInfo;
 
-    /**
-     * 获取queryInfo属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link QueryInfo }
-     *
-     */
-    public QueryInfo getQueryInfo() {
-        return queryInfo;
-    }
+  @XmlElement(name = "Count", required = true)
+  protected String count;
 
-    /**
-     * 设置queryInfo属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link QueryInfo }
-     *
-     */
-    public void setQueryInfo(QueryInfo value) {
-        this.queryInfo = value;
-    }
+  @XmlElement(name = "ResultCondition", required = true)
+  protected ResultCondition resultCondition;
 
-    /**
-     * 获取count属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getCount() {
-        return count;
-    }
+  /**
+   * 获取queryInfo属性的值。
+   *
+   * @return possible object is {@link QueryInfo }
+   */
+  public QueryInfo getQueryInfo() {
+    return queryInfo;
+  }
 
-    /**
-     * 设置count属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setCount(String value) {
-        this.count = value;
-    }
+  /**
+   * 设置queryInfo属性的值。
+   *
+   * @param value allowed object is {@link QueryInfo }
+   */
+  public void setQueryInfo(QueryInfo value) {
+    this.queryInfo = value;
+  }
 
-    /**
-     * 获取resultCondition属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link ResultCondition }
-     *
-     */
-    public ResultCondition getResultCondition() {
-        return resultCondition;
-    }
+  /**
+   * 获取count属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCount() {
+    return count;
+  }
 
-    /**
-     * 设置resultCondition属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link ResultCondition }
-     *
-     */
-    public void setResultCondition(ResultCondition value) {
-        this.resultCondition = value;
-    }
+  /**
+   * 设置count属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCount(String value) {
+    this.count = value;
+  }
 
+  /**
+   * 获取resultCondition属性的值。
+   *
+   * @return possible object is {@link ResultCondition }
+   */
+  public ResultCondition getResultCondition() {
+    return resultCondition;
+  }
+
+  /**
+   * 设置resultCondition属性的值。
+   *
+   * @param value allowed object is {@link ResultCondition }
+   */
+  public void setResultCondition(ResultCondition value) {
+    this.resultCondition = value;
+  }
 }

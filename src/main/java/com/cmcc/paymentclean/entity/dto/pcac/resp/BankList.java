@@ -11,13 +11,10 @@ import javax.xml.bind.annotation.XmlType;
 // XML文件中的根标识
 @XmlRootElement(name = "BankList")
 // 控制JAXB 绑定类中属性和字段的排序
-@XmlType(propOrder = {
-        "Count",
-        "BankInfo"
-})
+@XmlType(propOrder = {"Count", "BankInfo"})
 @Data
 public class BankList {
-    private String Count;
+  private String Count;
 
-    private BankInfo BankInfo;
+  private BankInfo BankInfo;
 }

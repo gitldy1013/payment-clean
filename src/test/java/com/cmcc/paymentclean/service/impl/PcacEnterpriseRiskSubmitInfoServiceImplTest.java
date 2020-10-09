@@ -12,11 +12,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @ActiveProfiles("dev")
 class PcacEnterpriseRiskSubmitInfoServiceImplTest {
-    @Autowired
-    private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
+  @Autowired private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
 
-    @Test
-    void queryRiskEnterpriseAndPushPcac() {
-        pcacEnterpriseRiskSubmitInfoService.queryRiskEnterpriseAndPushPcac();
-    }
+  @Test
+  void queryRiskEnterpriseAndPushPcac() {
+    pcacEnterpriseRiskSubmitInfoService.queryRiskEnterpriseAndPushPcac();
+  }
 }

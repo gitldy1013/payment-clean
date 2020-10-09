@@ -6,28 +6,30 @@ package com.cmcc.paymentclean.exception;
  */
 public class InnerCipherException extends Exception {
 
+  private Integer respCode;
+  private String respDesc;
 
-    private Integer respCode;
-    private String respDesc;
+  public InnerCipherException(Integer respCode, String respDesc) {
+    this.respCode = respCode;
+    this.respDesc = respDesc;
+  }
 
-    public InnerCipherException(Integer respCode,String respDesc) {
-        this.respCode = respCode;
-        this.respDesc = respDesc;
-    }
+  public InnerCipherException() {
+    super();
+  }
 
-    public InnerCipherException() {
-        super();
-    }
+  public InnerCipherException(String message) {
+    super(message);
+  }
 
-    public InnerCipherException(String message) {
-        super(message);
-    }
-
-    @Override
-    public String toString() {
-        return "InnerCipherException{" +
-                "respCode=" + respCode +
-                ", respDesc='" + respDesc + '\'' +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "InnerCipherException{"
+        + "respCode="
+        + respCode
+        + ", respDesc='"
+        + respDesc
+        + '\''
+        + '}';
+  }
 }

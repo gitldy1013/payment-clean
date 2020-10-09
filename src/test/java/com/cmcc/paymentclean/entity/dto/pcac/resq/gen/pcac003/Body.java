@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.25 时间 02:37:09 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac003;
 
 import lombok.Data;
@@ -16,9 +15,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -54,609 +52,497 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "riskType",
-    "mobileNo",
-    "mac",
-    "imei",
-    "bankNo",
-    "openBank",
-    "cusName",
-    "docType",
-    "docCode",
-    "ip",
-    "address",
-    "telephone",
-    "recBankNo",
-    "recOpenBank",
-    "email",
-    "occurtimeb",
-    "occurtimee",
-    "occurchan",
-    "occurarea",
-    "recHostArea",
-    "scope",
-    "validStatus"
-})
+@XmlType(
+    name = "",
+    propOrder = {
+      "riskType",
+      "mobileNo",
+      "mac",
+      "imei",
+      "bankNo",
+      "openBank",
+      "cusName",
+      "docType",
+      "docCode",
+      "ip",
+      "address",
+      "telephone",
+      "recBankNo",
+      "recOpenBank",
+      "email",
+      "occurtimeb",
+      "occurtimee",
+      "occurchan",
+      "occurarea",
+      "recHostArea",
+      "scope",
+      "validStatus"
+    })
 @Data
 @XmlRootElement(name = "Body")
 public class Body {
 
-    @XmlElement(name = "RiskType", required = true)
-    protected String riskType;
-    @XmlElement(name = "MobileNo", required = true)
-    protected String mobileNo;
-    @XmlElement(name = "Mac", required = true)
-    protected String mac;
-    @XmlElement(name = "Imei", required = true)
-    protected String imei;
-    @XmlElement(name = "BankNo", required = true)
-    protected String bankNo;
-    @XmlElement(name = "OpenBank", required = true)
-    protected String openBank;
-    @XmlElement(name = "CusName", required = true)
-    protected String cusName;
-    @XmlElement(name = "DocType", required = true)
-    protected String docType;
-    @XmlElement(name = "DocCode", required = true)
-    protected String docCode;
-    @XmlElement(name = "Ip", required = true)
-    protected String ip;
-    @XmlElement(name = "Address", required = true)
-    protected String address;
-    @XmlElement(name = "Telephone", required = true)
-    protected String telephone;
-    @XmlElement(name = "RecBankNo", required = true)
-    protected String recBankNo;
-    @XmlElement(name = "RecOpenBank", required = true)
-    protected String recOpenBank;
-    @XmlElement(name = "Email", required = true)
-    protected String email;
-    @XmlElement(name = "Occurtimeb", required = true)
-    protected String occurtimeb;
-    @XmlElement(name = "Occurtimee", required = true)
-    protected String occurtimee;
-    @XmlElement(name = "Occurchan", required = true)
-    protected String occurchan;
-    @XmlElement(name = "Occurarea", required = true)
-    protected String occurarea;
-    @XmlElement(name = "RecHostArea", required = true)
-    protected String recHostArea;
-    @XmlElement(name = "Scope", required = true)
-    protected String scope;
-    @XmlElement(name = "ValidStatus", required = true)
-    protected String validStatus;
+  @XmlElement(name = "RiskType", required = true)
+  protected String riskType;
 
-    /**
-     * 获取riskType属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRiskType() {
-        return riskType;
-    }
+  @XmlElement(name = "MobileNo", required = true)
+  protected String mobileNo;
 
-    /**
-     * 设置riskType属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRiskType(String value) {
-        this.riskType = value;
-    }
+  @XmlElement(name = "Mac", required = true)
+  protected String mac;
 
-    /**
-     * 获取mobileNo属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getMobileNo() {
-        return mobileNo;
-    }
+  @XmlElement(name = "Imei", required = true)
+  protected String imei;
 
-    /**
-     * 设置mobileNo属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setMobileNo(String value) {
-        this.mobileNo = value;
-    }
+  @XmlElement(name = "BankNo", required = true)
+  protected String bankNo;
 
-    /**
-     * 获取mac属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getMac() {
-        return mac;
-    }
+  @XmlElement(name = "OpenBank", required = true)
+  protected String openBank;
 
-    /**
-     * 设置mac属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setMac(String value) {
-        this.mac = value;
-    }
+  @XmlElement(name = "CusName", required = true)
+  protected String cusName;
 
-    /**
-     * 获取imei属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getImei() {
-        return imei;
-    }
+  @XmlElement(name = "DocType", required = true)
+  protected String docType;
 
-    /**
-     * 设置imei属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setImei(String value) {
-        this.imei = value;
-    }
+  @XmlElement(name = "DocCode", required = true)
+  protected String docCode;
 
-    /**
-     * 获取bankNo属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getBankNo() {
-        return bankNo;
-    }
+  @XmlElement(name = "Ip", required = true)
+  protected String ip;
 
-    /**
-     * 设置bankNo属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setBankNo(String value) {
-        this.bankNo = value;
-    }
+  @XmlElement(name = "Address", required = true)
+  protected String address;
 
-    /**
-     * 获取openBank属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getOpenBank() {
-        return openBank;
-    }
+  @XmlElement(name = "Telephone", required = true)
+  protected String telephone;
 
-    /**
-     * 设置openBank属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setOpenBank(String value) {
-        this.openBank = value;
-    }
+  @XmlElement(name = "RecBankNo", required = true)
+  protected String recBankNo;
 
-    /**
-     * 获取cusName属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getCusName() {
-        return cusName;
-    }
+  @XmlElement(name = "RecOpenBank", required = true)
+  protected String recOpenBank;
 
-    /**
-     * 设置cusName属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setCusName(String value) {
-        this.cusName = value;
-    }
+  @XmlElement(name = "Email", required = true)
+  protected String email;
 
-    /**
-     * 获取docType属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getDocType() {
-        return docType;
-    }
+  @XmlElement(name = "Occurtimeb", required = true)
+  protected String occurtimeb;
 
-    /**
-     * 设置docType属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setDocType(String value) {
-        this.docType = value;
-    }
+  @XmlElement(name = "Occurtimee", required = true)
+  protected String occurtimee;
 
-    /**
-     * 获取docCode属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getDocCode() {
-        return docCode;
-    }
+  @XmlElement(name = "Occurchan", required = true)
+  protected String occurchan;
 
-    /**
-     * 设置docCode属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setDocCode(String value) {
-        this.docCode = value;
-    }
+  @XmlElement(name = "Occurarea", required = true)
+  protected String occurarea;
 
-    /**
-     * 获取ip属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getIp() {
-        return ip;
-    }
+  @XmlElement(name = "RecHostArea", required = true)
+  protected String recHostArea;
 
-    /**
-     * 设置ip属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setIp(String value) {
-        this.ip = value;
-    }
+  @XmlElement(name = "Scope", required = true)
+  protected String scope;
 
-    /**
-     * 获取address属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getAddress() {
-        return address;
-    }
+  @XmlElement(name = "ValidStatus", required = true)
+  protected String validStatus;
 
-    /**
-     * 设置address属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setAddress(String value) {
-        this.address = value;
-    }
+  /**
+   * 获取riskType属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRiskType() {
+    return riskType;
+  }
 
-    /**
-     * 获取telephone属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getTelephone() {
-        return telephone;
-    }
+  /**
+   * 设置riskType属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRiskType(String value) {
+    this.riskType = value;
+  }
 
-    /**
-     * 设置telephone属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setTelephone(String value) {
-        this.telephone = value;
-    }
+  /**
+   * 获取mobileNo属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getMobileNo() {
+    return mobileNo;
+  }
 
-    /**
-     * 获取recBankNo属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRecBankNo() {
-        return recBankNo;
-    }
+  /**
+   * 设置mobileNo属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setMobileNo(String value) {
+    this.mobileNo = value;
+  }
 
-    /**
-     * 设置recBankNo属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRecBankNo(String value) {
-        this.recBankNo = value;
-    }
+  /**
+   * 获取mac属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getMac() {
+    return mac;
+  }
 
-    /**
-     * 获取recOpenBank属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRecOpenBank() {
-        return recOpenBank;
-    }
+  /**
+   * 设置mac属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setMac(String value) {
+    this.mac = value;
+  }
 
-    /**
-     * 设置recOpenBank属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRecOpenBank(String value) {
-        this.recOpenBank = value;
-    }
+  /**
+   * 获取imei属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getImei() {
+    return imei;
+  }
 
-    /**
-     * 获取email属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getEmail() {
-        return email;
-    }
+  /**
+   * 设置imei属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setImei(String value) {
+    this.imei = value;
+  }
 
-    /**
-     * 设置email属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setEmail(String value) {
-        this.email = value;
-    }
+  /**
+   * 获取bankNo属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getBankNo() {
+    return bankNo;
+  }
 
-    /**
-     * 获取occurtimeb属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getOccurtimeb() {
-        return occurtimeb;
-    }
+  /**
+   * 设置bankNo属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setBankNo(String value) {
+    this.bankNo = value;
+  }
 
-    /**
-     * 设置occurtimeb属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setOccurtimeb(String value) {
-        this.occurtimeb = value;
-    }
+  /**
+   * 获取openBank属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getOpenBank() {
+    return openBank;
+  }
 
-    /**
-     * 获取occurtimee属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getOccurtimee() {
-        return occurtimee;
-    }
+  /**
+   * 设置openBank属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setOpenBank(String value) {
+    this.openBank = value;
+  }
 
-    /**
-     * 设置occurtimee属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setOccurtimee(String value) {
-        this.occurtimee = value;
-    }
+  /**
+   * 获取cusName属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCusName() {
+    return cusName;
+  }
 
-    /**
-     * 获取occurchan属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getOccurchan() {
-        return occurchan;
-    }
+  /**
+   * 设置cusName属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCusName(String value) {
+    this.cusName = value;
+  }
 
-    /**
-     * 设置occurchan属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setOccurchan(String value) {
-        this.occurchan = value;
-    }
+  /**
+   * 获取docType属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDocType() {
+    return docType;
+  }
 
-    /**
-     * 获取occurarea属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getOccurarea() {
-        return occurarea;
-    }
+  /**
+   * 设置docType属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDocType(String value) {
+    this.docType = value;
+  }
 
-    /**
-     * 设置occurarea属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setOccurarea(String value) {
-        this.occurarea = value;
-    }
+  /**
+   * 获取docCode属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDocCode() {
+    return docCode;
+  }
 
-    /**
-     * 获取recHostArea属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRecHostArea() {
-        return recHostArea;
-    }
+  /**
+   * 设置docCode属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDocCode(String value) {
+    this.docCode = value;
+  }
 
-    /**
-     * 设置recHostArea属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRecHostArea(String value) {
-        this.recHostArea = value;
-    }
+  /**
+   * 获取ip属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIp() {
+    return ip;
+  }
 
-    /**
-     * 获取scope属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getScope() {
-        return scope;
-    }
+  /**
+   * 设置ip属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIp(String value) {
+    this.ip = value;
+  }
 
-    /**
-     * 设置scope属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setScope(String value) {
-        this.scope = value;
-    }
+  /**
+   * 获取address属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getAddress() {
+    return address;
+  }
 
-    /**
-     * 获取validStatus属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getValidStatus() {
-        return validStatus;
-    }
+  /**
+   * 设置address属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setAddress(String value) {
+    this.address = value;
+  }
 
-    /**
-     * 设置validStatus属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setValidStatus(String value) {
-        this.validStatus = value;
-    }
+  /**
+   * 获取telephone属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getTelephone() {
+    return telephone;
+  }
 
+  /**
+   * 设置telephone属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setTelephone(String value) {
+    this.telephone = value;
+  }
+
+  /**
+   * 获取recBankNo属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRecBankNo() {
+    return recBankNo;
+  }
+
+  /**
+   * 设置recBankNo属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRecBankNo(String value) {
+    this.recBankNo = value;
+  }
+
+  /**
+   * 获取recOpenBank属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRecOpenBank() {
+    return recOpenBank;
+  }
+
+  /**
+   * 设置recOpenBank属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRecOpenBank(String value) {
+    this.recOpenBank = value;
+  }
+
+  /**
+   * 获取email属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
+   * 设置email属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setEmail(String value) {
+    this.email = value;
+  }
+
+  /**
+   * 获取occurtimeb属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getOccurtimeb() {
+    return occurtimeb;
+  }
+
+  /**
+   * 设置occurtimeb属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setOccurtimeb(String value) {
+    this.occurtimeb = value;
+  }
+
+  /**
+   * 获取occurtimee属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getOccurtimee() {
+    return occurtimee;
+  }
+
+  /**
+   * 设置occurtimee属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setOccurtimee(String value) {
+    this.occurtimee = value;
+  }
+
+  /**
+   * 获取occurchan属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getOccurchan() {
+    return occurchan;
+  }
+
+  /**
+   * 设置occurchan属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setOccurchan(String value) {
+    this.occurchan = value;
+  }
+
+  /**
+   * 获取occurarea属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getOccurarea() {
+    return occurarea;
+  }
+
+  /**
+   * 设置occurarea属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setOccurarea(String value) {
+    this.occurarea = value;
+  }
+
+  /**
+   * 获取recHostArea属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRecHostArea() {
+    return recHostArea;
+  }
+
+  /**
+   * 设置recHostArea属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRecHostArea(String value) {
+    this.recHostArea = value;
+  }
+
+  /**
+   * 获取scope属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getScope() {
+    return scope;
+  }
+
+  /**
+   * 设置scope属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setScope(String value) {
+    this.scope = value;
+  }
+
+  /**
+   * 获取validStatus属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getValidStatus() {
+    return validStatus;
+  }
+
+  /**
+   * 设置validStatus属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setValidStatus(String value) {
+    this.validStatus = value;
+  }
 }

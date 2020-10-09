@@ -11,37 +11,35 @@ import org.springframework.stereotype.Component;
  *
  * @author z
  * @see:org.springframework.context.i18n.LocaleContextHolder.setLocale(Locale locale)
- *                                                                            <p>
- *                                                                            比如设置为英文：
- *                                                                            LocaleContextHolder.setLocale(Locale.ENGLISH);
+ *     <p>比如设置为英文： LocaleContextHolder.setLocale(Locale.ENGLISH);
  * @date 2019/3/20
  */
 @Component
 public class MessageSourceHandler {
 
-    @Autowired
-    private MessageSource messageSource;
+  @Autowired private MessageSource messageSource;
 
-    /**
-     * 根据key获取文字描述
-     *
-     * @param messageKey
-     * @return
-     */
-    public String getMessage(String messageKey) {
+  /**
+   * 根据key获取文字描述
+   *
+   * @param messageKey
+   * @return
+   */
+  public String getMessage(String messageKey) {
 
-        String message = messageSource.getMessage(messageKey, null, messageKey, LocaleContextHolder.getLocale());
-        return message;
-    }
+    String message =
+        messageSource.getMessage(messageKey, null, messageKey, LocaleContextHolder.getLocale());
+    return message;
+  }
 
-    /**
-     * 根据key获取文字描述
-     *
-     * @param messageKey
-     * @return
-     */
-    public String getMessage(String messageKey, Object[] args) {
-        String message = messageSource.getMessage(messageKey, args, LocaleContextHolder.getLocale());
-        return message;
-    }
+  /**
+   * 根据key获取文字描述
+   *
+   * @param messageKey
+   * @return
+   */
+  public String getMessage(String messageKey, Object[] args) {
+    String message = messageSource.getMessage(messageKey, args, LocaleContextHolder.getLocale());
+    return message;
+  }
 }

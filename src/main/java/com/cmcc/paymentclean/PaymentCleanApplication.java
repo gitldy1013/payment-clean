@@ -8,8 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.cmcc.paymentclean.mapper")
 public class PaymentCleanApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(PaymentCleanApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(PaymentCleanApplication.class, args);
+  }
 }

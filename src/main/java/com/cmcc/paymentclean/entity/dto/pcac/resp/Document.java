@@ -11,14 +11,10 @@ import javax.xml.bind.annotation.XmlType;
 // XML文件中的根标识
 @XmlRootElement(name = "Document")
 // 控制JAXB 绑定类中属性和字段的排序
-@XmlType(propOrder = {
-        "Respone",
-        "Signature"
-})
+@XmlType(propOrder = {"Respone", "Signature"})
 @Data
-public class Document
-{
-    private Respone Respone;
+public class Document {
+  private Respone Respone;
 
-    private String Signature;
+  private String Signature;
 }

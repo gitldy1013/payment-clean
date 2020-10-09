@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.25 时间 02:37:11 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005;
 
 import lombok.Data;
@@ -16,9 +15,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -35,96 +33,75 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "cusProperty",
-    "keyWord",
-    "infos"
-})
+@XmlType(
+    name = "",
+    propOrder = {"cusProperty", "keyWord", "infos"})
 @XmlRootElement(name = "Body")
 public class Body {
 
-    @XmlElement(name = "CusProperty", required = true)
-    protected String cusProperty;
-    @XmlElement(name = "KeyWord", required = true)
-    protected String keyWord;
-    @XmlElement(name = "Infos", required = true)
-    protected String infos;
+  @XmlElement(name = "CusProperty", required = true)
+  protected String cusProperty;
 
-    /**
-     * 获取cusProperty属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getCusProperty() {
-        return cusProperty;
-    }
+  @XmlElement(name = "KeyWord", required = true)
+  protected String keyWord;
 
-    /**
-     * 设置cusProperty属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setCusProperty(String value) {
-        this.cusProperty = value;
-    }
+  @XmlElement(name = "Infos", required = true)
+  protected String infos;
 
-    /**
-     * 获取keyWord属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getKeyWord() {
-        return keyWord;
-    }
+  /**
+   * 获取cusProperty属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCusProperty() {
+    return cusProperty;
+  }
 
-    /**
-     * 设置keyWord属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setKeyWord(String value) {
-        this.keyWord = value;
-    }
+  /**
+   * 设置cusProperty属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCusProperty(String value) {
+    this.cusProperty = value;
+  }
 
-    /**
-     * 获取infos属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getInfos() {
-        return infos;
-    }
+  /**
+   * 获取keyWord属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getKeyWord() {
+    return keyWord;
+  }
 
-    /**
-     * 设置infos属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setInfos(String value) {
-        this.infos = value;
-    }
+  /**
+   * 设置keyWord属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setKeyWord(String value) {
+    this.keyWord = value;
+  }
 
+  /**
+   * 获取infos属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getInfos() {
+    return infos;
+  }
+
+  /**
+   * 设置infos属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setInfos(String value) {
+    this.infos = value;
+  }
 }

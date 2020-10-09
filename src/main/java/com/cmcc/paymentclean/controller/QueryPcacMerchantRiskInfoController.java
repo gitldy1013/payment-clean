@@ -1,6 +1,5 @@
 package com.cmcc.paymentclean.controller;
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
@@ -19,9 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
- *  前端控制器
- * </p>
+ * 前端控制器
  *
  * @author zhaolei
  * @since 2020-09-14
@@ -31,35 +28,33 @@ import java.util.List;
 @RequestMapping("/isocRisk")
 public class QueryPcacMerchantRiskInfoController {
 
-    @Autowired
-    private QueryPcacMerchantRiskInfoService queryPcacMerchantRiskInfoService;
+  @Autowired private QueryPcacMerchantRiskInfoService queryPcacMerchantRiskInfoService;
 
-    /**
-     * 商户风险信息查询使用情况查询
-     */
-    @ApiOperation(value = "商户风险信息查询使用情况查询", notes = "商户风险信息查询使用情况查询")
-    @RequestMapping(value = "/isocRegRisk/query",method = RequestMethod.POST)
-    public ResultBean<Page<QueryPcacMerchantRiskInfoResp>> queryPage(@RequestBody QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq) {
+  /** 商户风险信息查询使用情况查询 */
+  @ApiOperation(value = "商户风险信息查询使用情况查询", notes = "商户风险信息查询使用情况查询")
+  @RequestMapping(value = "/isocRegRisk/query", method = RequestMethod.POST)
+  public ResultBean<Page<QueryPcacMerchantRiskInfoResp>> queryPage(
+      @RequestBody QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq) {
 
-        return queryPcacMerchantRiskInfoService.pageLocalAssociatedRiskMerchantInfo(queryPcacMerchantRiskInfoReq);
-    }
+    return queryPcacMerchantRiskInfoService.pageLocalAssociatedRiskMerchantInfo(
+        queryPcacMerchantRiskInfoReq);
+  }
 
-    /**
-     * 批量商户风险信息查询使用情况反馈
-     */
-    @ApiOperation(value = "批量商户风险信息查询使用情况反馈", notes = "批量商户风险信息查询使用情况反馈")
-    @RequestMapping(value = "/isocRegRisk/back",method = RequestMethod.POST)
-    public ResultBean<Body> back(@RequestBody List<QueryPcacMerchantRiskInfoBackReq> queryPcacMerchantRiskInfoBackReq) {
+  /** 批量商户风险信息查询使用情况反馈 */
+  @ApiOperation(value = "批量商户风险信息查询使用情况反馈", notes = "批量商户风险信息查询使用情况反馈")
+  @RequestMapping(value = "/isocRegRisk/back", method = RequestMethod.POST)
+  public ResultBean<Body> back(
+      @RequestBody List<QueryPcacMerchantRiskInfoBackReq> queryPcacMerchantRiskInfoBackReq) {
 
-        return queryPcacMerchantRiskInfoService.queryPcacMerchantRiskInfoBack(queryPcacMerchantRiskInfoBackReq);
-    }
+    return queryPcacMerchantRiskInfoService.queryPcacMerchantRiskInfoBack(
+        queryPcacMerchantRiskInfoBackReq);
+  }
 
-    /**
-     * 批量查询商户风险信息
-     */
-    @ApiOperation(value = "批量查询商户风险信息", notes = "批量查询商户风险信息")
-    @RequestMapping(value = "/isocRegRiskByKeyWord/query",method = RequestMethod.POST)
-    public ResultBean<Body> query(@RequestBody List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReq) {
-        return queryPcacMerchantRiskInfoService.batchQueryPcacMerchantRisk(queryPcacMerchantRiskReq);
-    }
+  /** 批量查询商户风险信息 */
+  @ApiOperation(value = "批量查询商户风险信息", notes = "批量查询商户风险信息")
+  @RequestMapping(value = "/isocRegRiskByKeyWord/query", method = RequestMethod.POST)
+  public ResultBean<Body> query(
+      @RequestBody List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReq) {
+    return queryPcacMerchantRiskInfoService.batchQueryPcacMerchantRisk(queryPcacMerchantRiskReq);
+  }
 }

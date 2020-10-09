@@ -18,41 +18,33 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
  * 风险商户 前端控制器
- * </p>
  *
  * @author lumma
  * @since 2020-09-08
- * @version v1.0 */
+ * @version v1.0
+ */
 @RestController
 @RequestMapping("/localRisk/localRiskReg")
 @Slf4j
 public class LocalRiskMerchantInfoController {
 
-    @Autowired
-    private RiskMerchantRiskSyncInfoService riskMerchantRiskSyncInfoService;
+  @Autowired private RiskMerchantRiskSyncInfoService riskMerchantRiskSyncInfoService;
 
-    @Autowired
-    private PcacMerchantRiskSubmitInfoService pcacMerchantRiskSubmitInfoService;
+  @Autowired private PcacMerchantRiskSubmitInfoService pcacMerchantRiskSubmitInfoService;
 
-    /**
-     * 风险商户同步请求接口
-     */
-    @ApiOperation(value = "风险商户同步", notes = "风险商户同步")
-    @RequestMapping(value = "/sync",method = RequestMethod.POST)
-    public ResultBean<Boolean> sync(@RequestBody List<RiskMerchantRiskSyncInfoReq> riskMerchants) {
+  /** 风险商户同步请求接口 */
+  @ApiOperation(value = "风险商户同步", notes = "风险商户同步")
+  @RequestMapping(value = "/sync", method = RequestMethod.POST)
+  public ResultBean<Boolean> sync(@RequestBody List<RiskMerchantRiskSyncInfoReq> riskMerchants) {
 
-        return riskMerchantRiskSyncInfoService.addMerchant(riskMerchants);
-    }
+    return riskMerchantRiskSyncInfoService.addMerchant(riskMerchants);
+  }
 
-    /**
-     * 风险商户查询请求接口
-     */
-    @ApiOperation(value = "风险商户查询", notes = "风险商户查询")
-    @RequestMapping(value = "/query",method = RequestMethod.POST)
-    public ResultBean<Page<RiskMerchantResp>> query(@RequestBody RiskMerchantReq riskMerchantReq){
-        return pcacMerchantRiskSubmitInfoService.pageRiskMerchant(riskMerchantReq);
-    }
-
+  /** 风险商户查询请求接口 */
+  @ApiOperation(value = "风险商户查询", notes = "风险商户查询")
+  @RequestMapping(value = "/query", method = RequestMethod.POST)
+  public ResultBean<Page<RiskMerchantResp>> query(@RequestBody RiskMerchantReq riskMerchantReq) {
+    return pcacMerchantRiskSubmitInfoService.pageRiskMerchant(riskMerchantReq);
+  }
 }

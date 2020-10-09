@@ -11,17 +11,17 @@ import javax.xml.bind.annotation.XmlType;
 // XML文件中的根标识
 @XmlRootElement(name = "Body")
 // 控制JAXB 绑定类中属性和字段的排序
-@XmlType(propOrder = {
-        "RespInfo",
-        "QueryInfo",
-        "PcacList",
-})
+@XmlType(
+    propOrder = {
+      "RespInfo",
+      "QueryInfo",
+      "PcacList",
+    })
 @Data
 public class Body {
-    private RespInfo RespInfo;
+  private RespInfo RespInfo;
 
-    private QueryInfo QueryInfo;
+  private QueryInfo QueryInfo;
 
-    private PcacList PcacList;
-
+  private PcacList PcacList;
 }

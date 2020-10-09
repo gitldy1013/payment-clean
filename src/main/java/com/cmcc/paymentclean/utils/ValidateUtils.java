@@ -20,84 +20,80 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-/**
- * xml校验工具类  schema验证
- */
+/** xml校验工具类 schema验证 */
 @Slf4j
 public class ValidateUtils {
 
-    /**
-     * 通过XSD(XML Schema)校验XML PCAC
-     */
-    public static boolean validateXMLByXSD(String xml, String xsdFileName) {
-        try {
-            //建立schema工厂
-            SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
-            //建立验证文档文件对象，利用此文件对象所封装的文件进行schema验证
-            log.info("文件路径：{}", "xsds/" + xsdFileName + ".xsd");
-            File schemaFile = ResourcesFileUtils.getResourcesFile("xsds/" + xsdFileName + ".xsd");
-            //利用schema工厂，接收验证文档文件对象生成Schema对象
-            Schema schema = schemaFactory.newSchema(schemaFile);
-            //通过Schema产生针对于此Schema的验证器，利用schenaFile进行验证
-            Validator validator = schema.newValidator();
-            //得到验证的数据源
-            Source source = new StreamSource(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
-            //开始验证，成功输出success!!!，失败输出fail
-            validator.validate(source);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
-        return true;
+  /** 通过XSD(XML Schema)校验XML PCAC */
+  public static boolean validateXMLByXSD(String xml, String xsdFileName) {
+    try {
+      // 建立schema工厂
+      SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+      // 建立验证文档文件对象，利用此文件对象所封装的文件进行schema验证
+      log.info("文件路径：{}", "xsds/" + xsdFileName + ".xsd");
+      File schemaFile = ResourcesFileUtils.getResourcesFile("xsds/" + xsdFileName + ".xsd");
+      // 利用schema工厂，接收验证文档文件对象生成Schema对象
+      Schema schema = schemaFactory.newSchema(schemaFile);
+      // 通过Schema产生针对于此Schema的验证器，利用schenaFile进行验证
+      Validator validator = schema.newValidator();
+      // 得到验证的数据源
+      Source source =
+          new StreamSource(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
+      // 开始验证，成功输出success!!!，失败输出fail
+      validator.validate(source);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      return false;
     }
+    return true;
+  }
 
-    /**
-     * 通过XSD(XML Schema)校验XML
-     */
-    public static boolean validateXML(String xml, String xsdFileName) {
-        try {
-            //创建默认的XML错误处理器
-            XMLErrorHandler errorHandler = new XMLErrorHandler();
-            //获取基于 SAX 的解析器的实例
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            //解析器在解析时验证 XML 内容。
-            factory.setValidating(true);
-            //指定由此代码生成的解析器将提供对 XML 名称空间的支持。
-            factory.setNamespaceAware(true);
-            //使用当前配置的工厂参数创建 SAXParser 的一个新实例。
-            SAXParser parser = factory.newSAXParser();
-            //创建一个读取工具
-            SAXReader xmlReader = new SAXReader();
-            //获取要校验xml文档实例
-            Document xmlDocument = xmlReader.read(new ByteArrayInputStream(xml.getBytes()));
-            parser.setProperty(
-                    "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
-                    "http://www.w3.org/2001/XMLSchema");
-            parser.setProperty(
-                    "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                    "file:" + Objects.requireNonNull(ResourcesFileUtils.getResourcesFile("xsds/" + xsdFileName + ".xsd")).getAbsolutePath());
-            //创建一个SAXValidator校验工具，并设置校验工具的属性
-            SAXValidator validator = new SAXValidator(parser.getXMLReader());
-            //设置校验工具的错误处理器，当发生错误时，可以从处理器对象中得到错误信息。
-            validator.setErrorHandler(errorHandler);
-            //校验
-            validator.validate(xmlDocument);
-            XMLWriter writer = new XMLWriter(OutputFormat.createPrettyPrint());
-            //如果错误信息不为空，说明校验失败，打印错误信息
-            if (errorHandler.getErrors().hasContent()) {
-                log.info("XSD文件校验失败！");
-                writer.write(errorHandler.getErrors());
-                return false;
-            } else {
-                log.info("Good! XML文件通过XSD文件校验成功！");
-            }
-            return true;
-        } catch (Exception ex) {
-            log.info("XML通过XSD文件:" + xsdFileName + "检验失败： " + ex.getMessage());
-            ex.printStackTrace();
-            return false;
-        }
+  /** 通过XSD(XML Schema)校验XML */
+  public static boolean validateXML(String xml, String xsdFileName) {
+    try {
+      // 创建默认的XML错误处理器
+      XMLErrorHandler errorHandler = new XMLErrorHandler();
+      // 获取基于 SAX 的解析器的实例
+      SAXParserFactory factory = SAXParserFactory.newInstance();
+      // 解析器在解析时验证 XML 内容。
+      factory.setValidating(true);
+      // 指定由此代码生成的解析器将提供对 XML 名称空间的支持。
+      factory.setNamespaceAware(true);
+      // 使用当前配置的工厂参数创建 SAXParser 的一个新实例。
+      SAXParser parser = factory.newSAXParser();
+      // 创建一个读取工具
+      SAXReader xmlReader = new SAXReader();
+      // 获取要校验xml文档实例
+      Document xmlDocument = xmlReader.read(new ByteArrayInputStream(xml.getBytes()));
+      parser.setProperty(
+          "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+          "http://www.w3.org/2001/XMLSchema");
+      parser.setProperty(
+          "http://java.sun.com/xml/jaxp/properties/schemaSource",
+          "file:"
+              + Objects.requireNonNull(
+                      ResourcesFileUtils.getResourcesFile("xsds/" + xsdFileName + ".xsd"))
+                  .getAbsolutePath());
+      // 创建一个SAXValidator校验工具，并设置校验工具的属性
+      SAXValidator validator = new SAXValidator(parser.getXMLReader());
+      // 设置校验工具的错误处理器，当发生错误时，可以从处理器对象中得到错误信息。
+      validator.setErrorHandler(errorHandler);
+      // 校验
+      validator.validate(xmlDocument);
+      XMLWriter writer = new XMLWriter(OutputFormat.createPrettyPrint());
+      // 如果错误信息不为空，说明校验失败，打印错误信息
+      if (errorHandler.getErrors().hasContent()) {
+        log.info("XSD文件校验失败！");
+        writer.write(errorHandler.getErrors());
+        return false;
+      } else {
+        log.info("Good! XML文件通过XSD文件校验成功！");
+      }
+      return true;
+    } catch (Exception ex) {
+      log.info("XML通过XSD文件:" + xsdFileName + "检验失败： " + ex.getMessage());
+      ex.printStackTrace();
+      return false;
     }
-
-
+  }
 }

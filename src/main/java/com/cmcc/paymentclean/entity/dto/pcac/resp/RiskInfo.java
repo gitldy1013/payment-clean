@@ -11,237 +11,237 @@ import javax.xml.bind.annotation.XmlType;
 // XML文件中的根标识
 @XmlRootElement(name = "RiskInfo")
 // 控制JAXB 绑定类中属性和字段的排序
-@XmlType(name = "RiskInfoResp",propOrder = {
-        "CusType",
-        "CusProperty",
-        "RiskType",
-        "CusNature",
-        "CusName",
-        "RegName",
-        "CusCode",
-        "DocType",
-        "DocCode",
-        "LegRepName",
-        "LegDocType",
-        "LegDocCode",
-        "BankList",
-        "Url",
-        "ServerIp",
-        "MobileNo",
-        "Address",
-        "Icp",
-        "Level",
-        "Occurtimeb",
-        "Occurtimee",
-        "Occurchan",
-        "Occurarea",
-        "Note",
-        "ValidDate",
-        "OrgId",
-        "RepDate",
-        "RepType",
-        "RepPerson",
-        "RegisteredArea",
-        "RegisteredCode",
-        "SourceChannel",
-        "Currency",
-        "Amount",
-        "RiskFindTime",
-        "LegControlName",
-        "LegControlCardType",
-        "LegControlCardCode",
-        "Remarks",
-        "BenList",
-        "Mac",
-        "Imei",
-        "BankNo",
-        "OpenBank",
-        "Ip",
-        "Telephone",
-        "RecHostArea",
-        "Email",
-        "DiskNumber",
-        "TaxRegCer",
-        "TelePhone",
-        "RegAddress",
-        "BusinessScope",
-        "LegDocName",
-        "ValidStatus",
-        "PushDate",
-        "HandleResult",
-        "HandleTime",
-        "Id",
-        "Count",
-        "BankInfo",
-        "StopNum",
-        "RefuseNum",
-        "UseRiseNum",
-        "CloseNum",
-        "StopPayNum",
-        "DownNum",
-        "FrozenNum",
-        "DelayNum",
-        "QuotaNum",
-        "AdjustmentCardNum",
-        "AdjustmentCycleNum",
-        "SuspendNum",
-        "FollowNum",
-        "AntiMoneyNum",
-        "OtherNum"
-
-})
+@XmlType(
+    name = "RiskInfoResp",
+    propOrder = {
+      "CusType",
+      "CusProperty",
+      "RiskType",
+      "CusNature",
+      "CusName",
+      "RegName",
+      "CusCode",
+      "DocType",
+      "DocCode",
+      "LegRepName",
+      "LegDocType",
+      "LegDocCode",
+      "BankList",
+      "Url",
+      "ServerIp",
+      "MobileNo",
+      "Address",
+      "Icp",
+      "Level",
+      "Occurtimeb",
+      "Occurtimee",
+      "Occurchan",
+      "Occurarea",
+      "Note",
+      "ValidDate",
+      "OrgId",
+      "RepDate",
+      "RepType",
+      "RepPerson",
+      "RegisteredArea",
+      "RegisteredCode",
+      "SourceChannel",
+      "Currency",
+      "Amount",
+      "RiskFindTime",
+      "LegControlName",
+      "LegControlCardType",
+      "LegControlCardCode",
+      "Remarks",
+      "BenList",
+      "Mac",
+      "Imei",
+      "BankNo",
+      "OpenBank",
+      "Ip",
+      "Telephone",
+      "RecHostArea",
+      "Email",
+      "DiskNumber",
+      "TaxRegCer",
+      "TelePhone",
+      "RegAddress",
+      "BusinessScope",
+      "LegDocName",
+      "ValidStatus",
+      "PushDate",
+      "HandleResult",
+      "HandleTime",
+      "Id",
+      "Count",
+      "BankInfo",
+      "StopNum",
+      "RefuseNum",
+      "UseRiseNum",
+      "CloseNum",
+      "StopPayNum",
+      "DownNum",
+      "FrozenNum",
+      "DelayNum",
+      "QuotaNum",
+      "AdjustmentCardNum",
+      "AdjustmentCycleNum",
+      "SuspendNum",
+      "FollowNum",
+      "AntiMoneyNum",
+      "OtherNum"
+    })
 @Data
 public class RiskInfo {
-    private String CusType;
+  private String CusType;
 
-    private String CusProperty;
+  private String CusProperty;
 
-    private String RiskType;
+  private String RiskType;
 
-    private String CusNature;
+  private String CusNature;
 
-    private String CusName;
+  private String CusName;
 
-    private String RegName;
+  private String RegName;
 
-    private String CusCode;
+  private String CusCode;
 
-    private String DocType;
+  private String DocType;
 
-    private String DocCode;
+  private String DocCode;
 
-    private String LegRepName;
+  private String LegRepName;
 
-    private String LegDocType;
+  private String LegDocType;
 
-    private String LegDocCode;
+  private String LegDocCode;
 
-    private BankList BankList;
+  private BankList BankList;
 
-    private String Url;
+  private String Url;
 
-    private String ServerIp;
+  private String ServerIp;
 
-    private String MobileNo;
+  private String MobileNo;
 
-    private String Address;
+  private String Address;
 
-    private String Icp;
+  private String Icp;
 
-    private String Level;
+  private String Level;
 
-    private String Occurtimeb;
+  private String Occurtimeb;
 
-    private String Occurtimee;
+  private String Occurtimee;
 
-    private String Occurchan;
+  private String Occurchan;
 
-    private String Occurarea;
+  private String Occurarea;
 
-    private String Note;
+  private String Note;
 
-    private String ValidDate;
+  private String ValidDate;
 
-    private String OrgId;
+  private String OrgId;
 
-    private String RepDate;
+  private String RepDate;
 
-    private String RepType;
+  private String RepType;
 
-    private String RepPerson;
+  private String RepPerson;
 
-    private String RegisteredArea;
+  private String RegisteredArea;
 
-    private String RegisteredCode;
+  private String RegisteredCode;
 
-    private String SourceChannel;
+  private String SourceChannel;
 
-    private String Currency;
+  private String Currency;
 
-    private String Amount;
+  private String Amount;
 
-    private String RiskFindTime;
+  private String RiskFindTime;
 
-    private String LegControlName;
+  private String LegControlName;
 
-    private String LegControlCardType;
+  private String LegControlCardType;
 
-    private String LegControlCardCode;
+  private String LegControlCardCode;
 
-    private String Remarks;
+  private String Remarks;
 
-    private BenList BenList;
+  private BenList BenList;
 
-    private String Mac;
+  private String Mac;
 
-    private String Imei;
+  private String Imei;
 
-    private String BankNo;
+  private String BankNo;
 
-    private String OpenBank;
+  private String OpenBank;
 
-    private String Ip;
+  private String Ip;
 
-    private String Telephone;
+  private String Telephone;
 
-    private String RecHostArea;
+  private String RecHostArea;
 
-    private String Email;
+  private String Email;
 
-    private String DiskNumber;
+  private String DiskNumber;
 
-    private String TaxRegCer;
+  private String TaxRegCer;
 
-    private String TelePhone;
+  private String TelePhone;
 
-    private String RegAddress;
+  private String RegAddress;
 
-    private String BusinessScope;
+  private String BusinessScope;
 
-    private String LegDocName;
+  private String LegDocName;
 
-    private String ValidStatus;
+  private String ValidStatus;
 
-    private String PushDate;
+  private String PushDate;
 
-    private String HandleResult;
+  private String HandleResult;
 
-    private String HandleTime;
+  private String HandleTime;
 
-    private String Id;
+  private String Id;
 
-    private String Count;
+  private String Count;
 
-    private BankInfo BankInfo;
+  private BankInfo BankInfo;
 
-    private String StopNum;
+  private String StopNum;
 
-    private String RefuseNum;
+  private String RefuseNum;
 
-    private String UseRiseNum;
+  private String UseRiseNum;
 
-    private String CloseNum;
+  private String CloseNum;
 
-    private String StopPayNum;
+  private String StopPayNum;
 
-    private String DownNum;
+  private String DownNum;
 
-    private String FrozenNum;
+  private String FrozenNum;
 
-    private String DelayNum;
+  private String DelayNum;
 
-    private String QuotaNum;
+  private String QuotaNum;
 
-    private String AdjustmentCardNum;
+  private String AdjustmentCardNum;
 
-    private String AdjustmentCycleNum;
+  private String AdjustmentCycleNum;
 
-    private String SuspendNum;
+  private String SuspendNum;
 
-    private String FollowNum;
+  private String FollowNum;
 
-    private String AntiMoneyNum;
+  private String AntiMoneyNum;
 
-    private String OtherNum;
-
+  private String OtherNum;
 }

@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.17 时间 06:12:52 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper;
 
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Body;
@@ -20,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -37,19 +36,17 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType>
  * </pre>
  */
-
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-        "head",
-        "body"
-})
+@XmlType(
+    name = "",
+    propOrder = {"head", "body"})
 @XmlRootElement(name = "Request")
 public class Request033Wapper {
 
-    @XmlElement(name = "Head", required = true)
-    protected Head head;
-    @XmlElementRef(name = "body")
-    protected Body body;
+  @XmlElement(name = "Head", required = true)
+  protected Head head;
 
+  @XmlElementRef(name = "body")
+  protected Body body;
 }

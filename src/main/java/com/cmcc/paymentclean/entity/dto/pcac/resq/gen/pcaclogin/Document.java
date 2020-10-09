@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.17 时间 06:12:52 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -34,67 +33,53 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType>
  * </pre>
  */
-
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "request",
-    "signature"
-})
+@XmlType(
+    name = "",
+    propOrder = {"request", "signature"})
 @XmlRootElement(name = "Document")
 public class Document<T> {
 
-    @XmlElement(name = "Request", required = true)
-    protected Request<T> request;
-    @XmlElement(name = "Signature", required = true)
-    protected String signature;
+  @XmlElement(name = "Request", required = true)
+  protected Request<T> request;
 
-    /**
-     * 获取request属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link Request }
-     *
-     */
-    public Request<T> getRequest() {
-        return request;
-    }
+  @XmlElement(name = "Signature", required = true)
+  protected String signature;
 
-    /**
-     * 设置request属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link Request }
-     *
-     */
-    public void setRequest(Request<T> value) {
-        this.request = value;
-    }
+  /**
+   * 获取request属性的值。
+   *
+   * @return possible object is {@link Request }
+   */
+  public Request<T> getRequest() {
+    return request;
+  }
 
-    /**
-     * 获取signature属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getSignature() {
-        return signature;
-    }
+  /**
+   * 设置request属性的值。
+   *
+   * @param value allowed object is {@link Request }
+   */
+  public void setRequest(Request<T> value) {
+    this.request = value;
+  }
 
-    /**
-     * 设置signature属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setSignature(String value) {
-        this.signature = value;
-    }
+  /**
+   * 获取signature属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getSignature() {
+    return signature;
+  }
 
+  /**
+   * 设置signature属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setSignature(String value) {
+    this.signature = value;
+  }
 }

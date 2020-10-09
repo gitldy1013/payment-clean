@@ -9,21 +9,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 /**
-* <p>
-* 企业商户信息表  Mapper 接口
-* </p>
-*
-* @author cmcc
-* @since 2020-09-15
-*/
+ * 企业商户信息表 Mapper 接口
+ *
+ * @author cmcc
+ * @since 2020-09-15
+ */
 @Mapper
 @Repository
 public interface BusinessInfoMapper extends BaseMapper<BusinessInfo> {
 
-    List<BusinessInfoResp> qryByPushStatus(@Param("pushStatus")String pushStatus);
+  List<BusinessInfoResp> qryByPushStatus(@Param("pushStatus") String pushStatus);
 
-    void updatePushStatus(@Param("ids")List<String> ids);
-
+  void updatePushStatus(@Param("ids") List<String> ids);
 }

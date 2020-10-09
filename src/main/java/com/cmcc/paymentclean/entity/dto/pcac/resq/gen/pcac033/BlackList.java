@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033;
 
 import lombok.Data;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -37,42 +36,34 @@ import java.util.List;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "riskInfo"
-})
+@XmlType(
+    name = "",
+    propOrder = {"riskInfo"})
 @XmlRootElement(name = "BlackList")
 public class BlackList {
 
-    @XmlElement(name = "RiskInfo", required = true)
-    protected List<RiskInfo> riskInfo;
+  @XmlElement(name = "RiskInfo", required = true)
+  protected List<RiskInfo> riskInfo;
 
-    /**
-     * Gets the value of the riskInfo property.
-     *
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the riskInfo property.
-     *
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getRiskInfo().add(newItem);
-     * </pre>
-     *
-     *
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link RiskInfo }
-     *
-     *
-     */
-    public List<RiskInfo> getRiskInfo() {
-        if (riskInfo == null) {
-            riskInfo = new ArrayList<RiskInfo>();
-        }
-        return this.riskInfo;
+  /**
+   * Gets the value of the riskInfo property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the riskInfo property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getRiskInfo().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link RiskInfo }
+   */
+  public List<RiskInfo> getRiskInfo() {
+    if (riskInfo == null) {
+      riskInfo = new ArrayList<RiskInfo>();
     }
-
+    return this.riskInfo;
+  }
 }

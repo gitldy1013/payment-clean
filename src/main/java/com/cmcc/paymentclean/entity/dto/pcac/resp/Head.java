@@ -11,24 +11,25 @@ import javax.xml.bind.annotation.XmlType;
 // XML文件中的根标识
 @XmlRootElement(name = "Head")
 // 控制JAXB 绑定类中属性和字段的排序
-@XmlType(propOrder = {
-        "Version",
-        "Identification",
-        "OrigSender",
-        "OrigSenderSID",
-        "RecSystemId",
-        "TrnxCode",
-        "TrnxTime",
-        "SecretKey"
-})
+@XmlType(
+    propOrder = {
+      "Version",
+      "Identification",
+      "OrigSender",
+      "OrigSenderSID",
+      "RecSystemId",
+      "TrnxCode",
+      "TrnxTime",
+      "SecretKey"
+    })
 @Data
 public class Head {
-    private String Version;
-    private String Identification;
-    private String OrigSender;
-    private String OrigSenderSID;
-    private String RecSystemId;
-    private String TrnxCode;
-    private String TrnxTime;
-    private String SecretKey;
+  private String Version;
+  private String Identification;
+  private String OrigSender;
+  private String OrigSenderSID;
+  private String RecSystemId;
+  private String TrnxCode;
+  private String TrnxTime;
+  private String SecretKey;
 }

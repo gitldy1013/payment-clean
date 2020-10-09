@@ -12,24 +12,24 @@ import java.util.List;
  */
 public class ParamInvalidException extends Exception {
 
-    private List<String> errors;
+  private List<String> errors;
 
-    private static final long serialVersionUID = 7841139998148892295L;
+  private static final long serialVersionUID = 7841139998148892295L;
 
-    public ParamInvalidException(String errMsg) {
-        super(errMsg);
+  public ParamInvalidException(String errMsg) {
+    super(errMsg);
+  }
+
+  public ParamInvalidException(List<String> errors, MessageSourceHandler messageSourceHandler) {
+    List<String> errorList = Lists.newArrayList();
+    for (String key : errors) {
+      String messageValue = messageSourceHandler.getMessage(key);
+      errorList.add(messageValue);
     }
+    this.errors = errorList;
+  }
 
-    public ParamInvalidException(List<String> errors, MessageSourceHandler messageSourceHandler) {
-        List<String> errorList = Lists.newArrayList();
-        for (String key : errors) {
-            String messageValue = messageSourceHandler.getMessage(key);
-            errorList.add(messageValue);
-        }
-        this.errors = errorList;
-    }
-
-    public List<String> getErrors() {
-        return this.errors;
-    }
+  public List<String> getErrors() {
+    return this.errors;
+  }
 }

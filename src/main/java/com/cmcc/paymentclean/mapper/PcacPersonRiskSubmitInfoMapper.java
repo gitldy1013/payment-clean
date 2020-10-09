@@ -12,9 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * <p>
- * 协会个人风险信息上报表  Mapper 接口
- * </p>
+ * 协会个人风险信息上报表 Mapper 接口
  *
  * @author cmcc
  * @since 2020-09-10
@@ -23,9 +21,9 @@ import java.util.List;
 @Repository
 public interface PcacPersonRiskSubmitInfoMapper extends BaseMapper<PcacPersonRiskSubmitInfo> {
 
-    Page<RiskPersonResp> pagePcacPersonRiskSubmitInfo(Page page, @Param("req") RiskPersonReq req);
+  Page<RiskPersonResp> pagePcacPersonRiskSubmitInfo(Page page, @Param("req") RiskPersonReq req);
 
-    List<PcacPersonRiskSubmitInfo> selectPcacPersonRiskSubmitInfoList();
+  List<PcacPersonRiskSubmitInfo> selectPcacPersonRiskSubmitInfoList();
 
-    void updateByPcacPersonRiskSubmitInfo(PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo);
+  void updateByPcacPersonRiskSubmitInfo(PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo);
 }

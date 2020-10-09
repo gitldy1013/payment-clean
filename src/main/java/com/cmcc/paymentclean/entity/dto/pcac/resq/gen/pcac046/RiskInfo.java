@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 12:44:26 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046;
 
 import lombok.Data;
@@ -16,9 +15,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -40,231 +38,189 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "cusType",
-    "regName",
-    "currency",
-    "amount",
-    "docType",
-    "docCode",
-    "handleResult",
-    "handleTime"
-})
+@XmlType(
+    name = "",
+    propOrder = {
+      "cusType",
+      "regName",
+      "currency",
+      "amount",
+      "docType",
+      "docCode",
+      "handleResult",
+      "handleTime"
+    })
 @XmlRootElement(name = "RiskInfo")
 public class RiskInfo {
 
-    @XmlElement(name = "CusType", required = true)
-    protected String cusType;
-    @XmlElement(name = "RegName", required = true)
-    protected String regName;
-    @XmlElement(name = "Currency", required = true)
-    protected String currency = "CNY";
-    @XmlElement(name = "Amount", required = true)
-    protected String amount;
-    @XmlElement(name = "DocType", required = true)
-    protected String docType;
-    @XmlElement(name = "DocCode", required = true)
-    protected String docCode;
-    @XmlElement(name = "HandleResult", required = true)
-    protected String handleResult;
-    @XmlElement(name = "HandleTime", required = true)
-    protected String handleTime;
+  @XmlElement(name = "CusType", required = true)
+  protected String cusType;
 
-    /**
-     * 获取cusType属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getCusType() {
-        return cusType;
-    }
+  @XmlElement(name = "RegName", required = true)
+  protected String regName;
 
-    /**
-     * 设置cusType属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setCusType(String value) {
-        this.cusType = value;
-    }
+  @XmlElement(name = "Currency", required = true)
+  protected String currency = "CNY";
 
-    /**
-     * 获取regName属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRegName() {
-        return regName;
-    }
+  @XmlElement(name = "Amount", required = true)
+  protected String amount;
 
-    /**
-     * 设置regName属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRegName(String value) {
-        this.regName = value;
-    }
+  @XmlElement(name = "DocType", required = true)
+  protected String docType;
 
-    /**
-     * 获取currency属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getCurrency() {
-        return currency;
-    }
+  @XmlElement(name = "DocCode", required = true)
+  protected String docCode;
 
-    /**
-     * 设置currency属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setCurrency(String value) {
-        this.currency = value;
-    }
+  @XmlElement(name = "HandleResult", required = true)
+  protected String handleResult;
 
-    /**
-     * 获取amount属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getAmount() {
-        return amount;
-    }
+  @XmlElement(name = "HandleTime", required = true)
+  protected String handleTime;
 
-    /**
-     * 设置amount属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setAmount(String value) {
-        this.amount = value;
-    }
+  /**
+   * 获取cusType属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCusType() {
+    return cusType;
+  }
 
-    /**
-     * 获取docType属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getDocType() {
-        return docType;
-    }
+  /**
+   * 设置cusType属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCusType(String value) {
+    this.cusType = value;
+  }
 
-    /**
-     * 设置docType属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setDocType(String value) {
-        this.docType = value;
-    }
+  /**
+   * 获取regName属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRegName() {
+    return regName;
+  }
 
-    /**
-     * 获取docCode属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getDocCode() {
-        return docCode;
-    }
+  /**
+   * 设置regName属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRegName(String value) {
+    this.regName = value;
+  }
 
-    /**
-     * 设置docCode属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setDocCode(String value) {
-        this.docCode = value;
-    }
+  /**
+   * 获取currency属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCurrency() {
+    return currency;
+  }
 
-    /**
-     * 获取handleResult属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getHandleResult() {
-        return handleResult;
-    }
+  /**
+   * 设置currency属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCurrency(String value) {
+    this.currency = value;
+  }
 
-    /**
-     * 设置handleResult属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setHandleResult(String value) {
-        this.handleResult = value;
-    }
+  /**
+   * 获取amount属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getAmount() {
+    return amount;
+  }
 
-    /**
-     * 获取handleTime属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getHandleTime() {
-        return handleTime;
-    }
+  /**
+   * 设置amount属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setAmount(String value) {
+    this.amount = value;
+  }
 
-    /**
-     * 设置handleTime属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setHandleTime(String value) {
-        this.handleTime = value;
-    }
+  /**
+   * 获取docType属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDocType() {
+    return docType;
+  }
 
+  /**
+   * 设置docType属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDocType(String value) {
+    this.docType = value;
+  }
+
+  /**
+   * 获取docCode属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDocCode() {
+    return docCode;
+  }
+
+  /**
+   * 设置docCode属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDocCode(String value) {
+    this.docCode = value;
+  }
+
+  /**
+   * 获取handleResult属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getHandleResult() {
+    return handleResult;
+  }
+
+  /**
+   * 设置handleResult属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setHandleResult(String value) {
+    this.handleResult = value;
+  }
+
+  /**
+   * 获取handleTime属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getHandleTime() {
+    return handleTime;
+  }
+
+  /**
+   * 设置handleTime属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setHandleTime(String value) {
+    this.handleTime = value;
+  }
 }

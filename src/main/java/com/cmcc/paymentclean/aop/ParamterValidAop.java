@@ -21,59 +21,59 @@ import java.util.Set;
 @Component
 public class ParamterValidAop {
 
-    @Autowired
-    private MessageSourceHandler messageSourceHandler;
+  @Autowired private MessageSourceHandler messageSourceHandler;
 
-    private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+  private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 
-    @Before("execution(* com.cmcc.paymentclean.controller..*.*(..))")
-    public void doBefore(JoinPoint point) throws ParamInvalidException {
-        Object[] params = point.getArgs();
+  @Before("execution(* com.cmcc.paymentclean.controller..*.*(..))")
+  public void doBefore(JoinPoint point) throws ParamInvalidException {
+    Object[] params = point.getArgs();
 
-        // 校验参数是否合法
-        List<String> errors = this.validate(params);
-        if (errors != null && !errors.isEmpty()) {
-            throw new ParamInvalidException(errors, messageSourceHandler);
-        }
+    // 校验参数是否合法
+    List<String> errors = this.validate(params);
+    if (errors != null && !errors.isEmpty()) {
+      throw new ParamInvalidException(errors, messageSourceHandler);
     }
+  }
 
-    /**
-     * 校验参数
-     *
-     * @param params
-     * @return
-     */
-    private List<String> validate(Object[] params) {
-        if (params == null || params.length == 0) {
-            return null;
-        }
-        List<String> errors = new ArrayList<String>();
-        for (Object obj : params) {
-
-            if (obj == null) {
-                continue;
-            }
-
-            Validator validator = factory.getValidator();
-            if(obj instanceof Collection){
-                for(int i=0;i<((List) obj).size();i++){
-                    Set<ConstraintViolation<Object>> constraintViolations = validator.validate(((List) obj).get(i));
-                    this.addError(errors,constraintViolations);
-                }
-            }else{
-                Set<ConstraintViolation<Object>> constraintViolations = validator.validate(obj);
-                this.addError(errors,constraintViolations);
-            }
-
-        }
-        return errors;
+  /**
+   * 校验参数
+   *
+   * @param params
+   * @return
+   */
+  private List<String> validate(Object[] params) {
+    if (params == null || params.length == 0) {
+      return null;
     }
+    List<String> errors = new ArrayList<String>();
+    for (Object obj : params) {
 
-    private void addError(List<String> errors,Set<ConstraintViolation<Object>> constraintViolations){
-        for (ConstraintViolation<Object> constraintViolation : constraintViolations) {
-            if(!errors.contains(constraintViolation.getMessage())){
-                errors.add(constraintViolation.getMessage());
-            }
+      if (obj == null) {
+        continue;
+      }
+
+      Validator validator = factory.getValidator();
+      if (obj instanceof Collection) {
+        for (int i = 0; i < ((List) obj).size(); i++) {
+          Set<ConstraintViolation<Object>> constraintViolations =
+              validator.validate(((List) obj).get(i));
+          this.addError(errors, constraintViolations);
         }
+      } else {
+        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(obj);
+        this.addError(errors, constraintViolations);
+      }
     }
+    return errors;
+  }
+
+  private void addError(
+      List<String> errors, Set<ConstraintViolation<Object>> constraintViolations) {
+    for (ConstraintViolation<Object> constraintViolation : constraintViolations) {
+      if (!errors.contains(constraintViolation.getMessage())) {
+        errors.add(constraintViolation.getMessage());
+      }
+    }
+  }
 }

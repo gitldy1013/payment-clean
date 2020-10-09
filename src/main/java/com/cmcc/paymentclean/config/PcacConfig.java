@@ -9,18 +9,15 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "pcac")
 public class PcacConfig {
 
-    private String url;
+  private String url;
 
-    private String version;
+  private String version;
 
-    private String origSender;
+  private String origSender;
 
-    private String origSenderSid;
+  private String origSenderSid;
 
-    private  String loginUrl;
+  private String loginUrl;
 
-    private  String userToken;
-
-
+  private String userToken;
 }
-

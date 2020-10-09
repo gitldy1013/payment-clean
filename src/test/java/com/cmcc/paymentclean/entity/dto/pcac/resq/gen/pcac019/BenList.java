@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.25 时间 02:37:14 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019;
 
 import lombok.Data;
@@ -18,9 +17,8 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -36,74 +34,58 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "count",
-    "benInfo"
-})
+@XmlType(
+    name = "",
+    propOrder = {"count", "benInfo"})
 @XmlRootElement(name = "BenList")
 public class BenList {
 
-    @XmlElement(name = "Count", required = true)
-    protected String count;
-    @XmlElement(name = "BenInfo")
-    protected List<BenInfo> benInfo;
+  @XmlElement(name = "Count", required = true)
+  protected String count;
 
-    /**
-     * 获取count属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getCount() {
-        return count;
+  @XmlElement(name = "BenInfo")
+  protected List<BenInfo> benInfo;
+
+  /**
+   * 获取count属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCount() {
+    return count;
+  }
+
+  /**
+   * 设置count属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCount(String value) {
+    this.count = value;
+  }
+
+  /**
+   * Gets the value of the benInfo property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the benInfo property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getBenInfo().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link BenInfo }
+   */
+  public List<BenInfo> getBenInfo() {
+    if (benInfo == null) {
+      benInfo = new ArrayList<BenInfo>();
     }
-
-    /**
-     * 设置count属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setCount(String value) {
-        this.count = value;
-    }
-
-    /**
-     * Gets the value of the benInfo property.
-     *
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the benInfo property.
-     *
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getBenInfo().add(newItem);
-     * </pre>
-     *
-     *
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link BenInfo }
-     *
-     *
-     */
-    public List<BenInfo> getBenInfo() {
-        if (benInfo == null) {
-            benInfo = new ArrayList<BenInfo>();
-        }
-        return this.benInfo;
-    }
-
+    return this.benInfo;
+  }
 }

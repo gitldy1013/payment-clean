@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.17 时间 06:12:51 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -38,118 +37,93 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "docCode",
-    "regName",
-    "legDocCode",
-    "legDocName"
-})
+@XmlType(
+    name = "",
+    propOrder = {"docCode", "regName", "legDocCode", "legDocName"})
 @XmlRootElement(name = "BaseInfo")
 public class BaseInfo {
 
-    @XmlElement(name = "DocCode", required = true)
-    protected String docCode;
-    @XmlElement(name = "RegName", required = true)
-    protected String regName;
-    @XmlElement(name = "LegDocCode", required = true)
-    protected String legDocCode;
-    @XmlElement(name = "LegDocName", required = true)
-    protected String legDocName;
+  @XmlElement(name = "DocCode", required = true)
+  protected String docCode;
 
-    /**
-     * 获取docCode属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getDocCode() {
-        return docCode;
-    }
+  @XmlElement(name = "RegName", required = true)
+  protected String regName;
 
-    /**
-     * 设置docCode属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setDocCode(String value) {
-        this.docCode = value;
-    }
+  @XmlElement(name = "LegDocCode", required = true)
+  protected String legDocCode;
 
-    /**
-     * 获取regName属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRegName() {
-        return regName;
-    }
+  @XmlElement(name = "LegDocName", required = true)
+  protected String legDocName;
 
-    /**
-     * 设置regName属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRegName(String value) {
-        this.regName = value;
-    }
+  /**
+   * 获取docCode属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDocCode() {
+    return docCode;
+  }
 
-    /**
-     * 获取legDocCode属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getLegDocCode() {
-        return legDocCode;
-    }
+  /**
+   * 设置docCode属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDocCode(String value) {
+    this.docCode = value;
+  }
 
-    /**
-     * 设置legDocCode属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setLegDocCode(String value) {
-        this.legDocCode = value;
-    }
+  /**
+   * 获取regName属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRegName() {
+    return regName;
+  }
 
-    /**
-     * 获取legDocName属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getLegDocName() {
-        return legDocName;
-    }
+  /**
+   * 设置regName属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRegName(String value) {
+    this.regName = value;
+  }
 
-    /**
-     * 设置legDocName属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setLegDocName(String value) {
-        this.legDocName = value;
-    }
+  /**
+   * 获取legDocCode属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getLegDocCode() {
+    return legDocCode;
+  }
 
+  /**
+   * 设置legDocCode属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setLegDocCode(String value) {
+    this.legDocCode = value;
+  }
+
+  /**
+   * 获取legDocName属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getLegDocName() {
+    return legDocName;
+  }
+
+  /**
+   * 设置legDocName属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setLegDocName(String value) {
+    this.legDocName = value;
+  }
 }

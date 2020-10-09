@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 01:20:41 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059;
 
 import lombok.Data;
@@ -16,9 +15,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -35,96 +33,75 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "legBenName",
-    "legBenCardType",
-    "legBenCardCode"
-})
+@XmlType(
+    name = "",
+    propOrder = {"legBenName", "legBenCardType", "legBenCardCode"})
 @XmlRootElement(name = "BenInfo")
 public class BenInfo {
 
-    @XmlElement(name = "LegBenName", required = true)
-    protected String legBenName;
-    @XmlElement(name = "LegBenCardType", required = true)
-    protected String legBenCardType;
-    @XmlElement(name = "LegBenCardCode", required = true)
-    protected String legBenCardCode;
+  @XmlElement(name = "LegBenName", required = true)
+  protected String legBenName;
 
-    /**
-     * 获取legBenName属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getLegBenName() {
-        return legBenName;
-    }
+  @XmlElement(name = "LegBenCardType", required = true)
+  protected String legBenCardType;
 
-    /**
-     * 设置legBenName属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setLegBenName(String value) {
-        this.legBenName = value;
-    }
+  @XmlElement(name = "LegBenCardCode", required = true)
+  protected String legBenCardCode;
 
-    /**
-     * 获取legBenCardType属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getLegBenCardType() {
-        return legBenCardType;
-    }
+  /**
+   * 获取legBenName属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getLegBenName() {
+    return legBenName;
+  }
 
-    /**
-     * 设置legBenCardType属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setLegBenCardType(String value) {
-        this.legBenCardType = value;
-    }
+  /**
+   * 设置legBenName属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setLegBenName(String value) {
+    this.legBenName = value;
+  }
 
-    /**
-     * 获取legBenCardCode属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getLegBenCardCode() {
-        return legBenCardCode;
-    }
+  /**
+   * 获取legBenCardType属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getLegBenCardType() {
+    return legBenCardType;
+  }
 
-    /**
-     * 设置legBenCardCode属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setLegBenCardCode(String value) {
-        this.legBenCardCode = value;
-    }
+  /**
+   * 设置legBenCardType属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setLegBenCardType(String value) {
+    this.legBenCardType = value;
+  }
 
+  /**
+   * 获取legBenCardCode属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getLegBenCardCode() {
+    return legBenCardCode;
+  }
+
+  /**
+   * 设置legBenCardCode属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setLegBenCardCode(String value) {
+    this.legBenCardCode = value;
+  }
 }

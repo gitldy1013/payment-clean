@@ -13,24 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by lumma on 2020/9/12.
- */
+/** Created by lumma on 2020/9/12. */
 @RestController
 @RequestMapping("/isocRisk/isocRiskReg")
 @Slf4j
 public class IsocRiskRegController {
 
-    @Autowired
-    private PcacRiskInfoService pcacRiskInfoService;
+  @Autowired private PcacRiskInfoService pcacRiskInfoService;
 
-    /**
-     * 协会风险商户查询请求接口
-     */
-    @ApiOperation(value = "协会风险商户查询请求接口", notes = "协会风险商户查询请求接口")
-    @RequestMapping(value = "/query",method = RequestMethod.POST)
-    public ResultBean<Page<PcacRiskInfoResp>> sync(@RequestBody PcacRiskInfoReq pcacRiskInfoReq) {
+  /** 协会风险商户查询请求接口 */
+  @ApiOperation(value = "协会风险商户查询请求接口", notes = "协会风险商户查询请求接口")
+  @RequestMapping(value = "/query", method = RequestMethod.POST)
+  public ResultBean<Page<PcacRiskInfoResp>> sync(@RequestBody PcacRiskInfoReq pcacRiskInfoReq) {
 
-        return pcacRiskInfoService.pagePcacRiskInfo(pcacRiskInfoReq);
-    }
+    return pcacRiskInfoService.pagePcacRiskInfo(pcacRiskInfoReq);
+  }
 }

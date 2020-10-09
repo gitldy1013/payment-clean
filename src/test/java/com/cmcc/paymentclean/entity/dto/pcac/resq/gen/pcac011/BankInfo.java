@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.25 时间 02:37:12 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac011;
 
 import lombok.Data;
@@ -16,9 +15,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -38,177 +36,138 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- *
- *
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "isTransfer",
-    "recName",
-    "recDocType",
-    "recDocCode",
-    "recBankNo",
-    "recOpenBank"
-})
+@XmlType(
+    name = "",
+    propOrder = {"isTransfer", "recName", "recDocType", "recDocCode", "recBankNo", "recOpenBank"})
 @XmlRootElement(name = "BankInfo")
 public class BankInfo {
 
-    @XmlElement(name = "IsTransfer", required = true)
-    protected String isTransfer;
-    @XmlElement(name = "RecName", required = true)
-    protected String recName;
-    @XmlElement(name = "RecDocType", required = true)
-    protected String recDocType;
-    @XmlElement(name = "RecDocCode", required = true)
-    protected String recDocCode;
-    @XmlElement(name = "RecBankNo", required = true)
-    protected String recBankNo;
-    @XmlElement(name = "RecOpenBank", required = true)
-    protected String recOpenBank;
+  @XmlElement(name = "IsTransfer", required = true)
+  protected String isTransfer;
 
-    /**
-     * 获取isTransfer属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getIsTransfer() {
-        return isTransfer;
-    }
+  @XmlElement(name = "RecName", required = true)
+  protected String recName;
 
-    /**
-     * 设置isTransfer属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setIsTransfer(String value) {
-        this.isTransfer = value;
-    }
+  @XmlElement(name = "RecDocType", required = true)
+  protected String recDocType;
 
-    /**
-     * 获取recName属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRecName() {
-        return recName;
-    }
+  @XmlElement(name = "RecDocCode", required = true)
+  protected String recDocCode;
 
-    /**
-     * 设置recName属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRecName(String value) {
-        this.recName = value;
-    }
+  @XmlElement(name = "RecBankNo", required = true)
+  protected String recBankNo;
 
-    /**
-     * 获取recDocType属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRecDocType() {
-        return recDocType;
-    }
+  @XmlElement(name = "RecOpenBank", required = true)
+  protected String recOpenBank;
 
-    /**
-     * 设置recDocType属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRecDocType(String value) {
-        this.recDocType = value;
-    }
+  /**
+   * 获取isTransfer属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIsTransfer() {
+    return isTransfer;
+  }
 
-    /**
-     * 获取recDocCode属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRecDocCode() {
-        return recDocCode;
-    }
+  /**
+   * 设置isTransfer属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIsTransfer(String value) {
+    this.isTransfer = value;
+  }
 
-    /**
-     * 设置recDocCode属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRecDocCode(String value) {
-        this.recDocCode = value;
-    }
+  /**
+   * 获取recName属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRecName() {
+    return recName;
+  }
 
-    /**
-     * 获取recBankNo属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRecBankNo() {
-        return recBankNo;
-    }
+  /**
+   * 设置recName属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRecName(String value) {
+    this.recName = value;
+  }
 
-    /**
-     * 设置recBankNo属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRecBankNo(String value) {
-        this.recBankNo = value;
-    }
+  /**
+   * 获取recDocType属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRecDocType() {
+    return recDocType;
+  }
 
-    /**
-     * 获取recOpenBank属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getRecOpenBank() {
-        return recOpenBank;
-    }
+  /**
+   * 设置recDocType属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRecDocType(String value) {
+    this.recDocType = value;
+  }
 
-    /**
-     * 设置recOpenBank属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setRecOpenBank(String value) {
-        this.recOpenBank = value;
-    }
+  /**
+   * 获取recDocCode属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRecDocCode() {
+    return recDocCode;
+  }
 
+  /**
+   * 设置recDocCode属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRecDocCode(String value) {
+    this.recDocCode = value;
+  }
+
+  /**
+   * 获取recBankNo属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRecBankNo() {
+    return recBankNo;
+  }
+
+  /**
+   * 设置recBankNo属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRecBankNo(String value) {
+    this.recBankNo = value;
+  }
+
+  /**
+   * 获取recOpenBank属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getRecOpenBank() {
+    return recOpenBank;
+  }
+
+  /**
+   * 设置recOpenBank属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setRecOpenBank(String value) {
+    this.recOpenBank = value;
+  }
 }

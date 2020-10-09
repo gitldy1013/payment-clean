@@ -11,15 +11,10 @@ import javax.xml.bind.annotation.XmlType;
 // XML文件中的根标识
 @XmlRootElement(name = "Respone")
 // 控制JAXB 绑定类中属性和字段的排序
-@XmlType(propOrder = {
-        "Head",
-        "Body"
-
-})
+@XmlType(propOrder = {"Head", "Body"})
 @Data
-public class Respone
-{
-    private Head Head;
+public class Respone {
+  private Head Head;
 
-    private Body Body;
+  private Body Body;
 }

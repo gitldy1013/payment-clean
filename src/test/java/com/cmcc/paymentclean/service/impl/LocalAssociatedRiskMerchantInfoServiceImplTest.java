@@ -20,21 +20,23 @@ import java.util.ArrayList;
 @ActiveProfiles("dev")
 class LocalAssociatedRiskMerchantInfoServiceImplTest {
 
-    @Autowired
-    private LocalAssociatedRiskMerchantInfoService localAssociatedRiskMerchantInfoService;
+  @Autowired private LocalAssociatedRiskMerchantInfoService localAssociatedRiskMerchantInfoService;
 
-    @Test
-    void localAssociatedRiskMerchantInfoBack() {
-        ArrayList<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReqs = new ArrayList<>();
-        AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq = new AssociatedRiskMerchantInfoBackReq();
-        associatedRiskMerchantInfoBackReq.setAmount("123.23");
-        associatedRiskMerchantInfoBackReq.setDocCode("111123123123123");
-        associatedRiskMerchantInfoBackReq.setDocType("01");
-        associatedRiskMerchantInfoBackReq.setHandleResult("02");
-        associatedRiskMerchantInfoBackReq.setOperator("东东");
-        associatedRiskMerchantInfoBackReqs.add(associatedRiskMerchantInfoBackReq);
-        ResultBean<Body> resultBean = localAssociatedRiskMerchantInfoService.localAssociatedRiskMerchantInfoBack(associatedRiskMerchantInfoBackReqs);
-        log.info("反馈结果：{}",resultBean);
-
-    }
+  @Test
+  void localAssociatedRiskMerchantInfoBack() {
+    ArrayList<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReqs =
+        new ArrayList<>();
+    AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq =
+        new AssociatedRiskMerchantInfoBackReq();
+    associatedRiskMerchantInfoBackReq.setAmount("123.23");
+    associatedRiskMerchantInfoBackReq.setDocCode("111123123123123");
+    associatedRiskMerchantInfoBackReq.setDocType("01");
+    associatedRiskMerchantInfoBackReq.setHandleResult("02");
+    associatedRiskMerchantInfoBackReq.setOperator("东东");
+    associatedRiskMerchantInfoBackReqs.add(associatedRiskMerchantInfoBackReq);
+    ResultBean<Body> resultBean =
+        localAssociatedRiskMerchantInfoService.localAssociatedRiskMerchantInfoBack(
+            associatedRiskMerchantInfoBackReqs);
+    log.info("反馈结果：{}", resultBean);
+  }
 }

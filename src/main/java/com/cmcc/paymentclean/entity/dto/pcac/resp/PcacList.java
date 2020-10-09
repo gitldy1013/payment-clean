@@ -13,21 +13,21 @@ import java.util.List;
 // XML文件中的根标识
 @XmlRootElement(name = "PcacList")
 // 控制JAXB 绑定类中属性和字段的排序
-@XmlType(propOrder = {
-        "Count",
-        "UpDate",
-        "RiskInfo",
-        "BenList",
-})
+@XmlType(
+    propOrder = {
+      "Count",
+      "UpDate",
+      "RiskInfo",
+      "BenList",
+    })
 @Data
 public class PcacList implements Serializable {
 
-    private int Count;
+  private int Count;
 
-    private String UpDate;
+  private String UpDate;
 
-    private List<RiskInfo> RiskInfo;
+  private List<RiskInfo> RiskInfo;
 
-    private BenList BenList;
-
+  private BenList BenList;
 }

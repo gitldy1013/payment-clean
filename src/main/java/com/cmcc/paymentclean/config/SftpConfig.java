@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "sftp")
 public class SftpConfig {
-    private String host;
-    private String port;
-    private String username;
-    private String password;
-    private String modDir;
-    private String remotePathUpload;
-    private String remotePathDownload;
-    private String queryPcacMerchantRiskInfoFileNamePrefix;
-    private String pcacRiskInfoFileNamePrefix;
-    private String businessInfoFileNamePrefix;
-    private String businessInfoBlackFileNamePrefix;
+  private String host;
+  private String port;
+  private String username;
+  private String password;
+  private String modDir;
+  private String remotePathUpload;
+  private String remotePathDownload;
+  private String queryPcacMerchantRiskInfoFileNamePrefix;
+  private String pcacRiskInfoFileNamePrefix;
+  private String businessInfoFileNamePrefix;
+  private String businessInfoBlackFileNamePrefix;
 }

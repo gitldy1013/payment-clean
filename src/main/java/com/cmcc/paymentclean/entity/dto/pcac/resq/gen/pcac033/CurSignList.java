@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033;
 
 import lombok.Data;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -37,42 +36,34 @@ import java.util.List;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "singInfo"
-})
+@XmlType(
+    name = "",
+    propOrder = {"singInfo"})
 @XmlRootElement(name = "CurSignList")
 public class CurSignList {
 
-    @XmlElement(name = "SingInfo", required = true)
-    protected List<SingInfo> singInfo;
+  @XmlElement(name = "SingInfo", required = true)
+  protected List<SingInfo> singInfo;
 
-    /**
-     * Gets the value of the singInfo property.
-     *
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the singInfo property.
-     *
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getSingInfo().add(newItem);
-     * </pre>
-     *
-     *
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link SingInfo }
-     *
-     *
-     */
-    public List<SingInfo> getSingInfo() {
-        if (singInfo == null) {
-            singInfo = new ArrayList<SingInfo>();
-        }
-        return this.singInfo;
+  /**
+   * Gets the value of the singInfo property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the singInfo property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getSingInfo().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link SingInfo }
+   */
+  public List<SingInfo> getSingInfo() {
+    if (singInfo == null) {
+      singInfo = new ArrayList<SingInfo>();
     }
-
+    return this.singInfo;
+  }
 }

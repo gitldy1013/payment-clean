@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -36,64 +35,51 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "docType",
-    "docCode"
-})
+@XmlType(
+    name = "",
+    propOrder = {"docType", "docCode"})
 @XmlRootElement(name = "ResultQueryInfo")
 public class ResultQueryInfo {
 
-    @XmlElement(name = "DocType", required = true)
-    protected String docType;
-    @XmlElement(name = "DocCode", required = true)
-    protected String docCode;
+  @XmlElement(name = "DocType", required = true)
+  protected String docType;
 
-    /**
-     * 获取docType属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getDocType() {
-        return docType;
-    }
+  @XmlElement(name = "DocCode", required = true)
+  protected String docCode;
 
-    /**
-     * 设置docType属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setDocType(String value) {
-        this.docType = value;
-    }
+  /**
+   * 获取docType属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDocType() {
+    return docType;
+  }
 
-    /**
-     * 获取docCode属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getDocCode() {
-        return docCode;
-    }
+  /**
+   * 设置docType属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDocType(String value) {
+    this.docType = value;
+  }
 
-    /**
-     * 设置docCode属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setDocCode(String value) {
-        this.docCode = value;
-    }
+  /**
+   * 获取docCode属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDocCode() {
+    return docCode;
+  }
 
+  /**
+   * 设置docCode属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDocCode(String value) {
+    this.docCode = value;
+  }
 }

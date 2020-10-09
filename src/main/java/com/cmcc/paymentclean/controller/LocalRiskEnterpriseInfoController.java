@@ -18,40 +18,35 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
  * 风险企业 前端控制器
- * </p>
  *
  * @author lumma
  * @since 2020-09-08
- * @version v1.0 */
+ * @version v1.0
+ */
 @RestController
 @RequestMapping("/localRisk/localRiskCom")
 @Slf4j
 public class LocalRiskEnterpriseInfoController {
 
-    @Autowired
-    private RiskEnterpriseRiskSyncInfoService riskEnterpriseRiskSyncInfoService;
+  @Autowired private RiskEnterpriseRiskSyncInfoService riskEnterpriseRiskSyncInfoService;
 
-    @Autowired
-    private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
+  @Autowired private PcacEnterpriseRiskSubmitInfoService pcacEnterpriseRiskSubmitInfoService;
 
-    /**
-     * 风险企业同步请求接口
-     */
-    @ApiOperation(value = "风险企业同步", notes = "风险企业同步")
-    @RequestMapping(value = "/sync",method = RequestMethod.POST)
-    public ResultBean<Boolean> sync(@RequestBody List<RiskEnterpriseRiskSyncInfoReq> riskEnterprises) {
+  /** 风险企业同步请求接口 */
+  @ApiOperation(value = "风险企业同步", notes = "风险企业同步")
+  @RequestMapping(value = "/sync", method = RequestMethod.POST)
+  public ResultBean<Boolean> sync(
+      @RequestBody List<RiskEnterpriseRiskSyncInfoReq> riskEnterprises) {
 
-        return riskEnterpriseRiskSyncInfoService.addEnterprise(riskEnterprises);
-    }
+    return riskEnterpriseRiskSyncInfoService.addEnterprise(riskEnterprises);
+  }
 
-    /**
-     * 风险企业查询接口
-     */
-    @ApiOperation(value = "风险企业查询", notes = "风险企业查询")
-    @RequestMapping(value = "/query",method = RequestMethod.POST)
-    public ResultBean<Page<RiskEnterpriseResp>> query(@RequestBody RiskEnterpriseReq riskEnterpriseReq){
-        return pcacEnterpriseRiskSubmitInfoService.pageRiskEnterprise(riskEnterpriseReq);
-    }
+  /** 风险企业查询接口 */
+  @ApiOperation(value = "风险企业查询", notes = "风险企业查询")
+  @RequestMapping(value = "/query", method = RequestMethod.POST)
+  public ResultBean<Page<RiskEnterpriseResp>> query(
+      @RequestBody RiskEnterpriseReq riskEnterpriseReq) {
+    return pcacEnterpriseRiskSubmitInfoService.pageRiskEnterprise(riskEnterpriseReq);
+  }
 }

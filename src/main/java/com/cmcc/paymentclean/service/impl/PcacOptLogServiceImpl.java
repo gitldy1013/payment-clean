@@ -8,15 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
-* <p>
-* 操作日志表  服务实现类
-* </p>
-*
-* @author cmcc
-* @since 2020-09-08
-*/
+ * 操作日志表 服务实现类
+ *
+ * @author cmcc
+ * @since 2020-09-08
+ */
 @Slf4j
 @Service
-public class PcacOptLogServiceImpl extends ServiceImpl<PcacOptLogMapper, PcacOptLog> implements PcacOptLogService {
-
-}
+public class PcacOptLogServiceImpl extends ServiceImpl<PcacOptLogMapper, PcacOptLog>
+    implements PcacOptLogService {}

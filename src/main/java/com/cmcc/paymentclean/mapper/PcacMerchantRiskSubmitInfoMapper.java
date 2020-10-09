@@ -10,16 +10,15 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
-* <p>
-* 协会商户风险信息上报表  Mapper 接口
-* </p>
-*
-* @author cmcc
-* @since 2020-09-10
-*/
+ * 协会商户风险信息上报表 Mapper 接口
+ *
+ * @author cmcc
+ * @since 2020-09-10
+ */
 @Mapper
 @Repository
 public interface PcacMerchantRiskSubmitInfoMapper extends BaseMapper<PcacMerchantRiskSubmitInfo> {
 
-    Page<RiskMerchantResp> pagePcacMerchantRiskSubmitInfo(Page page, @Param("req") RiskMerchantReq req);
+  Page<RiskMerchantResp> pagePcacMerchantRiskSubmitInfo(
+      Page page, @Param("req") RiskMerchantReq req);
 }

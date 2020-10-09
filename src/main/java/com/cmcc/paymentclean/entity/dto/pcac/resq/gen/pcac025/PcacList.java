@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.17 时间 06:12:51 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025;
 
 import lombok.Data;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -38,69 +37,55 @@ import java.util.List;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "count",
-    "baseInfo"
-})
+@XmlType(
+    name = "",
+    propOrder = {"count", "baseInfo"})
 @XmlRootElement(name = "PcacList")
 public class PcacList {
 
-    @XmlElement(name = "Count", required = true)
-    protected String count;
-    @XmlElement(name = "BaseInfo", required = true)
-    protected List<BaseInfo> baseInfo;
+  @XmlElement(name = "Count", required = true)
+  protected String count;
 
-    /**
-     * 获取count属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link String }
-     *
-     */
-    public String getCount() {
-        return count;
+  @XmlElement(name = "BaseInfo", required = true)
+  protected List<BaseInfo> baseInfo;
+
+  /**
+   * 获取count属性的值。
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCount() {
+    return count;
+  }
+
+  /**
+   * 设置count属性的值。
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCount(String value) {
+    this.count = value;
+  }
+
+  /**
+   * Gets the value of the baseInfo property.
+   *
+   * <p>This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the baseInfo property.
+   *
+   * <p>For example, to add a new item, do as follows:
+   *
+   * <pre>
+   *    getBaseInfo().add(newItem);
+   * </pre>
+   *
+   * <p>Objects of the following type(s) are allowed in the list {@link BaseInfo }
+   */
+  public List<BaseInfo> getBaseInfo() {
+    if (baseInfo == null) {
+      baseInfo = new ArrayList<BaseInfo>();
     }
-
-    /**
-     * 设置count属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *
-     */
-    public void setCount(String value) {
-        this.count = value;
-    }
-
-    /**
-     * Gets the value of the baseInfo property.
-     *
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the baseInfo property.
-     *
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getBaseInfo().add(newItem);
-     * </pre>
-     *
-     *
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link BaseInfo }
-     *
-     *
-     */
-    public List<BaseInfo> getBaseInfo() {
-        if (baseInfo == null) {
-            baseInfo = new ArrayList<BaseInfo>();
-        }
-        return this.baseInfo;
-    }
-
+    return this.baseInfo;
+  }
 }

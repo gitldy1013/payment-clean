@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.17 时间 06:12:52 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -34,19 +33,17 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;/complexType>
  * </pre>
  */
-
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-        "request",
-        "signature"
-})
+@XmlType(
+    name = "",
+    propOrder = {"request", "signature"})
 @XmlRootElement(name = "Document")
 public class Document028Wapper {
 
-    @XmlElement(name = "Request", required = true)
-    protected Request028Wapper request;
-    @XmlElement(name = "Signature", required = true)
-    protected String signature;
+  @XmlElement(name = "Request", required = true)
+  protected Request028Wapper request;
 
+  @XmlElement(name = "Signature", required = true)
+  protected String signature;
 }

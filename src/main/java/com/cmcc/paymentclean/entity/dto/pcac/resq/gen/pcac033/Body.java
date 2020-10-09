@@ -5,7 +5,6 @@
 // 生成时间: 2020.09.18 时间 12:21:11 PM CST
 //
 
-
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033;
 
 import lombok.Data;
@@ -17,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>anonymous complex type的 Java 类。
+ * anonymous complex type的 Java 类。
  *
  * <p>以下模式片段指定包含在此类中的预期内容。
  *
@@ -35,37 +34,30 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "conditionList"
-})
+@XmlType(
+    name = "",
+    propOrder = {"conditionList"})
 @XmlRootElement(name = "Body")
 public class Body {
 
-    @XmlElement(name = "ConditionList", required = true)
-    protected ConditionList conditionList;
+  @XmlElement(name = "ConditionList", required = true)
+  protected ConditionList conditionList;
 
-    /**
-     * 获取conditionList属性的值。
-     *
-     * @return
-     *     possible object is
-     *     {@link ConditionList }
-     *
-     */
-    public ConditionList getConditionList() {
-        return conditionList;
-    }
+  /**
+   * 获取conditionList属性的值。
+   *
+   * @return possible object is {@link ConditionList }
+   */
+  public ConditionList getConditionList() {
+    return conditionList;
+  }
 
-    /**
-     * 设置conditionList属性的值。
-     *
-     * @param value
-     *     allowed object is
-     *     {@link ConditionList }
-     *
-     */
-    public void setConditionList(ConditionList value) {
-        this.conditionList = value;
-    }
-
+  /**
+   * 设置conditionList属性的值。
+   *
+   * @param value allowed object is {@link ConditionList }
+   */
+  public void setConditionList(ConditionList value) {
+    this.conditionList = value;
+  }
 }

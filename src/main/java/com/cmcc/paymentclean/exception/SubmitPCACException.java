@@ -6,28 +6,30 @@ package com.cmcc.paymentclean.exception;
  */
 public class SubmitPCACException extends RuntimeException {
 
+  private String respCode;
+  private String respDesc;
 
-    private String respCode;
-    private String respDesc;
+  public SubmitPCACException(String respCode, String respDesc) {
+    this.respCode = respCode;
+    this.respDesc = respDesc;
+  }
 
-    public SubmitPCACException(String respCode, String respDesc) {
-        this.respCode = respCode;
-        this.respDesc = respDesc;
-    }
+  public SubmitPCACException() {
+    super();
+  }
 
-    public SubmitPCACException() {
-        super();
-    }
+  public SubmitPCACException(String message) {
+    super(message);
+  }
 
-    public SubmitPCACException(String message) {
-        super(message);
-    }
-
-    @Override
-    public String toString() {
-        return "InnerCipherException{" +
-                "respCode=" + respCode +
-                ", respDesc='" + respDesc + '\'' +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "InnerCipherException{"
+        + "respCode="
+        + respCode
+        + ", respDesc='"
+        + respDesc
+        + '\''
+        + '}';
+  }
 }
