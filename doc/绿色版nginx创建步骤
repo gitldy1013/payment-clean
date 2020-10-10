@@ -1,0 +1,35 @@
+# 安装基础的依赖工具
+yum -y install gcc-c++ make wget
+# 下载nginx模块依赖的软件包和nginx源码包
+wget https://www.openssl.org/source/openssl-1.0.2s.tar.gz
+wget https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
+wget https://zlib.net/zlib-1.2.11.tar.gz
+wget http://nginx.org/download/nginx-1.18.0.tar.gz
+#解压
+tar -zxvf openssl-1.0.2s.tar.gz
+tar -zxvf pcre-8.43.tar.gz
+tar -zxvf zlib-1.2.11.tar.gz
+tar -zxvf nginx-1.18.0.tar.gz
+
+cd nginx-1.18.0
+#需要注意这个目录根据自己需要去配置prefix=/home/zfqs
+./configure \
+   --with-openssl=../openssl-1.0.2s \
+   --with-pcre=../pcre-8.43 \
+   --with-zlib=../zlib-1.2.11 \
+   --with-pcre-jit --user=nginx \
+   --prefix=/home/zfqs \
+   --with-http_ssl_module \
+   --with-http_v2_module
+# 编译&& 安装
+make && make install
+
+#进入/home/zfqs/conf目录
+cd /home/zfqs/conf
+#修改配置文件内容
+vim nginx.conf
+#nginx.conf具体配置见下方
+cert.pem为公钥证书，cert.key为私钥证书，需要放在/home/zfqs/conf目录
+修改完配置文件后，将整个目录打包
+tar -cvf nginx-green.tar.gz ./*
+#最后放在指定的服务器下解压启动就行
