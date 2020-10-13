@@ -1,5 +1,7 @@
 package com.cmcc.paymentclean.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,6 +9,7 @@ import java.util.Date;
  * @author ldy
  * @Description DateUtils
  */
+@Slf4j
 public class DateUtils {
 
   public static final String FORMAT_TIME = "yyyy-MM-dd HH:mm:ss";
@@ -32,7 +35,7 @@ public class DateUtils {
     try {
       date = simpleDateFormat.parse(str);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
     return date;
   }

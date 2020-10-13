@@ -37,7 +37,7 @@ public class ScheduledTask {
   }
 
   /** 上报企业风险信息 */
-  //@Scheduled(cron = "0 0 23 ? * *")
+  // @Scheduled(cron = "0 0 23 ? * *")
   public void runRiskEnterpriseAndPush() {
     log.info("每天23:00执行上报企业风险信息到清算协会任务==START==");
     pcacEnterpriseRiskSubmitInfoService.queryRiskEnterpriseAndPushPcac();

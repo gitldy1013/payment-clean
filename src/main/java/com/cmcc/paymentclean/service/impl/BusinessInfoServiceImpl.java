@@ -50,7 +50,6 @@ import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,8 +136,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       // dispose of temporary files backing this workbook on disk -> 处理SXSSFWorkbook导出excel时，产生的临时文件
       sxssfWorkbook.dispose();
       fos.close();
-    } catch (Exception e1) {
-      e1.printStackTrace();
+    } catch (Exception e) {
+      log.error("异常:" + e);
     }
 
     // 上传文件
@@ -300,21 +299,21 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusCode()));
       // 法定代表人姓名/负责人姓名
       baseInfo.setLegDocName(
-              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
       // 法定代表人证件号码
       baseInfo.setLegDocCode(
-              CFCACipherUtils.getInnerToCFCA(
-                      info.getLegDocType(), info.getLegDocCode(), symmetricKeyEncoded));
+          CFCACipherUtils.getInnerToCFCA(
+              info.getLegDocType(), info.getLegDocCode(), symmetricKeyEncoded));
       // 商户代码
       baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusCode()));
       // 收款账\卡号
       baseInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getBankNo()));
       // 商户注册地址
       baseInfo.setRegAddrDetail(
-              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegAddrDetail()));
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegAddrDetail()));
       // 商户注册地址
       baseInfo.setAddrDetail(
-              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getAddrDetail()));
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getAddrDetail()));
       // 网址
       baseInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getUrl()));
       // 服务器 ip
@@ -325,16 +324,16 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       baseInfo.setContPhone(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContPhone()));
       // 股东信息
       baseInfo.setShareHolder(
-              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getShareHolder()));
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getShareHolder()));
       // 外包服务机构名称
       baseInfo.setOutServiceName(
-              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceName()));
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceName()));
       // 外包服务机构法人证件号码
       baseInfo.setOutServiceCardCode(
-              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceCardCode()));
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceCardCode()));
       // 外包服务机构法定代表人证件号码"
       baseInfo.setOutServiceLegCardCode(
-              CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
+          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
 
       baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getIcp()));
       baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
@@ -489,8 +488,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         // 处理SXSSFWorkbook导出excel时，产生的临时文件
         sxssfWorkbook.dispose();
         fos.close();
-      } catch (Exception e1) {
-        e1.printStackTrace();
+      } catch (Exception e) {
+        log.error("异常:" + e);
       }
 
       // 上传文件

@@ -52,7 +52,7 @@ public class InnerCipherUtils {
         try {
           throw new InnerCipherException(recv.getResponseCode(), recv.getResponseRemark());
         } catch (InnerCipherException e) {
-          e.printStackTrace();
+          log.error("异常:" + e);
           return message;
         }
       }
@@ -60,7 +60,7 @@ public class InnerCipherUtils {
       try {
         throw new InnerCipherException("内部加密服务异常");
       } catch (InnerCipherException e) {
-        e.printStackTrace();
+        log.error("异常:" + e);
         return message;
       }
     }
@@ -99,7 +99,7 @@ public class InnerCipherUtils {
         try {
           throw new InnerCipherException(recv.getResponseCode(), recv.getResponseRemark());
         } catch (InnerCipherException e) {
-          e.printStackTrace();
+          log.error("异常:" + e);
           return message;
         }
       }
@@ -107,7 +107,7 @@ public class InnerCipherUtils {
       try {
         throw new InnerCipherException("内部加密服务异常");
       } catch (InnerCipherException e) {
-        e.printStackTrace();
+        log.error("异常:" + e);
         return message;
       }
     }

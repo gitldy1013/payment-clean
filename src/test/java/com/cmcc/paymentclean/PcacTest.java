@@ -45,7 +45,7 @@ public class PcacTest<T> {
       write = new FileWriter(new File(PROJECT_PATH + "/bw/" + fileName + ".txt"));
       FileCopyUtils.copy(xml, write);
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 

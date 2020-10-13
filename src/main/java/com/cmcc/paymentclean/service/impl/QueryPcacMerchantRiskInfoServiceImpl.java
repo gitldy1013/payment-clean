@@ -343,8 +343,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       // dispose of temporary files backing this workbook on disk -> 处理SXSSFWorkbook导出excel时，产生的临时文件
       sxssfWorkbook.dispose();
       fos.close();
-    } catch (Exception e1) {
-      e1.printStackTrace();
+    } catch (Exception e) {
+      log.error("异常:" + e);
     }
 
     // 上传文件

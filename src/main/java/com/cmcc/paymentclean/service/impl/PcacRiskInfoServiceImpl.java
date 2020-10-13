@@ -126,7 +126,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
           pcacRiskInfoDTO.setRegName(regName);
           pcacRiskInfoDTO.setPcacRiskInfoId(pcacRiskInfo.getPcacRiskInfoId().toString());
         } catch (Exception e) {
-          e.printStackTrace();
+          log.error("异常:" + e);
         }
         pcacRiskInfoDTOs.add(pcacRiskInfoDTO);
       }
@@ -143,7 +143,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
 
           document = XmlJsonUtils.getRespDocument(pcacConfig,identification);
       }catch (Exception e){
-          e.printStackTrace();
+          log.error("异常:"+e);
           return e.getMessage();
       }
 
@@ -157,7 +157,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
       pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
 
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 
@@ -238,7 +238,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
           pcacRiskInfoDTO.setRegName(regName);
           pcacRiskInfoDTO.setPcacRiskInfoId(pcacRiskInfo.getPcacRiskInfoId().toString());
         } catch (Exception e) {
-          e.printStackTrace();
+          log.error("异常:" + e);
         }
         pcacRiskInfoDTOs.add(pcacRiskInfoDTO);
       }
@@ -267,7 +267,8 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     Body respBody = respone.getBody();
 
     RespInfo respInfo = respBody.getRespInfo();
-    if (PcacResultCode.S00000.getCode().equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
+    if (PcacResultCode.S00000.getCode().equals(respInfo.getResultCode())
+        && "01".equals(respInfo.getResultStatus())) {
       PcacList pcacList = respBody.getPcacList();
 
       if (null == pcacList || pcacList.getRiskInfo().size() == 0) {

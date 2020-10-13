@@ -34,7 +34,7 @@ public class PcacAssistanceInfoServiceImpl
           String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
           return doXml;
       }catch (Exception e){
-          e.printStackTrace();
+          log.error("异常:"+e);
           return e.getMessage();
       }
 
@@ -45,7 +45,7 @@ public class PcacAssistanceInfoServiceImpl
       pcacAssistanceInfoMapper.insertBatchAssistanceInfo(assistanceInfoList);
 
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 }

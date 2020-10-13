@@ -138,7 +138,6 @@ public class PageVO implements Serializable {
         if (this$sortOrder == null) {
           return other$sortOrder == null;
         } else return this$sortOrder.equals(other$sortOrder);
-
       }
     }
   }

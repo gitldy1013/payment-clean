@@ -36,7 +36,7 @@ public class Swagger2Configuration {
         .licenseUrl("https://www.zybuluo.com/qq1126176532/note/1744422")
         .termsOfServiceUrl(
             "https://www.zybuluo.com/qq1126176532/note/1453897") // 设置文档的License信息->1.3 License
-                                                                 // information
+        // information
         .build();
   }
 }

@@ -59,7 +59,7 @@ public class HttpClientUtils {
       httpClient = createIgnoreVerifyHttpClient();
       return doGet(url, httpClient);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
       log.info("发送https get请求失败");
       return null;
     }
@@ -92,7 +92,7 @@ public class HttpClientUtils {
       httpClient = createIgnoreVerifyHttpClient();
       return doPostPcac(httpClient, url, params);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
       log.info("发送https post请求失败");
       return null;
     }

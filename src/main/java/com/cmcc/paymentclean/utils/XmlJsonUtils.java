@@ -80,7 +80,7 @@ public class XmlJsonUtils {
       xmlWriter.close();
       return writer.toString();
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
       return "";
     }
   }
@@ -115,7 +115,7 @@ public class XmlJsonUtils {
       // 将对象转换成输出流形式的xml
       marshaller.marshal(obj, sw);
     } catch (JAXBException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
       log.info("解析对象为xml报文出错");
     }
     return (convertFromXml(sw.toString())).replaceAll(" standalone=\"yes\"", "");
@@ -132,7 +132,7 @@ public class XmlJsonUtils {
       StringReader sr = new StringReader(xmlStr);
       xmlObject = unmarshaller.unmarshal(sr);
     } catch (JAXBException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
       log.info("解析xml报文为对象出错");
     }
     return xmlObject;

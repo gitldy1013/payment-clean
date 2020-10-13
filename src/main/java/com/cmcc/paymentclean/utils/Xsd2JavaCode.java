@@ -1,5 +1,7 @@
 package com.cmcc.paymentclean.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +10,7 @@ import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_MAPPER_ROOT;
 import static com.cmcc.paymentclean.utils.CodeGenerator.BASE_SRC_ROOT;
 import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
 
+@Slf4j
 public class Xsd2JavaCode {
 
   private static final String BASE_PACKAGE = "com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac";
@@ -51,7 +54,7 @@ public class Xsd2JavaCode {
         System.out.println(result);
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 }

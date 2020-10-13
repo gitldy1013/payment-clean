@@ -43,7 +43,7 @@ public class SFTPUtils {
       sftp = (ChannelSftp) channel;
       log.info("Connected to " + host + ".");
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 
@@ -82,13 +82,13 @@ public class SFTPUtils {
       log.info("===DownloadFile:" + remoteFileName + " success from sftp.");
       return true;
     } catch (FileNotFoundException | SftpException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     } finally {
       if (null != fieloutput) {
         try {
           fieloutput.close();
         } catch (IOException e) {
-          e.printStackTrace();
+          log.error("异常:" + e);
         }
       }
     }
@@ -116,13 +116,13 @@ public class SFTPUtils {
       sftp.rename(remotePath + tempRemoteFileName, remotePath + remoteFileName);
       return true;
     } catch (FileNotFoundException | SftpException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     } finally {
       if (in != null) {
         try {
           in.close();
         } catch (IOException e) {
-          e.printStackTrace();
+          log.error("异常:" + e);
         }
       }
     }
@@ -158,7 +158,7 @@ public class SFTPUtils {
       }
       this.sftp.cd(createpath);
     } catch (SftpException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 
@@ -216,7 +216,7 @@ public class SFTPUtils {
         log.info("操作类型不在已知的范围内");
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
       log.info("文件操作异常：{}", localFileName + operateType + "失败!");
     } finally {
       assert sftp != null;

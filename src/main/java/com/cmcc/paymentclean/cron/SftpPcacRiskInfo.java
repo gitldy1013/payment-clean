@@ -77,7 +77,7 @@ public class SftpPcacRiskInfo {
     try {
       TxtFileUtil.writeFileContext(fileList, sftpConfig.getModDir() + fileName);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
 
     // 上传文件

@@ -40,7 +40,8 @@ public interface PcacRiskInfoService {
 
   void updatePushStatus(List<String> ids);
 
-  ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> reissueRiskInfo(ReissueRiskInfoReq reissueRiskInfoReq);
+  ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac029.Body> reissueRiskInfo(
+      ReissueRiskInfoReq reissueRiskInfoReq);
 
   List<PcacRiskInfoDTO> listAll();
 }

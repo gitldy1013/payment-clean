@@ -43,7 +43,7 @@ public class ValidateUtils {
       validator.validate(source);
     } catch (Exception ex) {
       ex.printStackTrace();
-      log.info("XML通过XSD文件:" + xsdFileName + "检验失败： " + ex.getMessage());
+      log.info("XML通过XSD文件:" + xsdFileName + "检验失败： " + ex);
       return false;
     }
     return true;
@@ -92,7 +92,7 @@ public class ValidateUtils {
       }
       return true;
     } catch (Exception ex) {
-      log.info("XML通过XSD文件:" + xsdFileName + "检验失败： " + ex.getMessage());
+      log.info("XML通过XSD文件:" + xsdFileName + "检验失败： " + ex);
       ex.printStackTrace();
       return false;
     }

@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +26,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /** 代码生成器 */
+@Slf4j
 public class CodeGenerator {
 
   /** 配置文件名 */
@@ -72,7 +74,7 @@ public class CodeGenerator {
       inStream = new FileInputStream(new File(resourcePath));
       prop.load(inStream);
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
     return prop;
   }

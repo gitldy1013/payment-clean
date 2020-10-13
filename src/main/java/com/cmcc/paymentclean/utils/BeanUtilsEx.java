@@ -21,7 +21,7 @@ public class BeanUtilsEx extends BeanUtils {
       org.apache.commons.beanutils.BeanUtils.copyProperties(target, source);
     } catch (IllegalAccessException | InvocationTargetException e) {
       log.error("扩展BeanUtils.copyProperties支持data类型出错:" + e.getMessage());
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 }

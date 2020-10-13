@@ -67,7 +67,7 @@ public class DateConvert implements Converter {
                 return dateStr;
             }
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error("异常:"+e);
         }
     }*/
     return value;

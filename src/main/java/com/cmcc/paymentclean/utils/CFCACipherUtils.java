@@ -9,6 +9,7 @@ import cfca.sadk.util.KeyUtil;
 import cfca.sadk.util.Signature;
 import cfca.sadk.x509.certificate.X509Cert;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
  * @author zhaolei
  * @date 2020-09-02 08:49
  */
+@Slf4j
 public class CFCACipherUtils {
 
   private static final Logger logger = LoggerFactory.getLogger(CFCACipherUtils.class);
@@ -59,7 +61,7 @@ public class CFCACipherUtils {
 
       session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 
@@ -84,7 +86,7 @@ public class CFCACipherUtils {
       encodedSignature = new String(signature);
     } catch (Exception e) {
       logger.info("-----数据加签失败");
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
 
     return encodedSignature;
@@ -115,7 +117,7 @@ public class CFCACipherUtils {
       }
     } catch (Exception e) {
       logger.info("RSA P1 verify FAILER!");
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
     logger.info("RSA P1 verify FAILER!");
     return false;
@@ -135,7 +137,7 @@ public class CFCACipherUtils {
 
       symmetricKeyEncoded = secretKey.getEncoded();
     } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
 
     return symmetricKeyEncoded;
@@ -157,7 +159,7 @@ public class CFCACipherUtils {
           new String(EncryptUtil.encryptMessageByRSA(symmetricKeyEncoded, cert, session));
       logger.info("使用对方公钥加密后的密钥密文（经Base64编码）:{}", encryptedKey);
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
     return encryptedKey;
   }
@@ -186,7 +188,7 @@ public class CFCACipherUtils {
 
     } catch (Exception e) {
       logger.info("加密数据失败");
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
     return encrytedData;
   }
@@ -218,7 +220,7 @@ public class CFCACipherUtils {
 
     } catch (Exception e) {
       logger.info("解密数据失败");
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
     return decryptedData;
   }

@@ -227,7 +227,8 @@ public class PcacPersonRiskSubmitInfoServiceImpl
         //  if (isSign) {
         Respone respone = documentResp.getRespone();
         RespInfo respInfo = respone.getBody().getRespInfo();
-        if (PcacResultCode.S00000.getCode().equals(respInfo.getResultCode()) && "01".equals(respInfo.getResultStatus())) {
+        if (PcacResultCode.S00000.getCode().equals(respInfo.getResultCode())
+            && "01".equals(respInfo.getResultStatus())) {
           // 上报成功，修改数据库状态
           PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
           BeanUtils.copyProperties(respInfo, pcacPersonRiskSubmitInfo);
@@ -247,7 +248,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl
       }
 
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("异常:" + e);
     }
   }
 }
