@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Document>
+  <Request>
+    <Head>
+      <Version>V1.3.0</Version>
+      <Identification>202010120040310720</Identification>
+      <OrigSender>Z2011933000018</OrigSender>
+      <OrigSenderSID>Z2011933000018</OrigSenderSID>
+      <RecSystemId>R0001</RecSystemId>
+      <TrnxCode>TS0003</TrnxCode>
+      <TrnxTime>20201012144402</TrnxTime>
+      <UserToken>pcac</UserToken>
+      <SecretKey>JPn+ODPkDdzNWV0qSmaA03hrxUrjkrvp0lKP8Xe2lN26hUraYrQQ8tGxR+43opOBtHqim5hOg7WDnpLJnu0xHCGz2BYsIGJ7Q60bVuBdIzjZujQoQUW5BYRgWCqlEcQ1jtb8rWr6hLAzgk9v2eW+5gtAVateH0EoG1/Ujv08MrPK+cMrDwkbINffWk/jy98TFULHkJlOK8HJndzbPmlSWXoYOVthS6ZzRGJxaJvwf2H9/OTfKpTBfvu1IceJaUZR1mVo1Mp/gIX0skZtepbIeJsNpJlJlFWoKMlUjBYol+FHC93lq1oAG3cUs0cHqKCVvaf6y4BYGVQvIyMi+xdgJw==</SecretKey>
+    </Head>
+    <Body>
+      <PcacList>
+        <Count>0</Count>
+        <UpDate>2020-10-12</UpDate>
+      </PcacList>
+    </Body>
+  </Request>
+  <Signature>JgtNMffxH98VfQmAuTSq5Tjro48EnpF9TYro1UHu9cZE1j5FUiyKV6STQPVkFNrDH1ZaVnA7zwj06/TLaB9RTdYxvSdGBRmsC4h5auKHWrV7eywL/uGFWQZNxTM9FJiVJ+kZCyNK8J65Asjc8sqntcWJJpMaATaG8f+ozHD0si4/wYApNS2rbqFd83UnXwnuj9GAe9LXb4v7qYT9n/TvXt4D4cL3G/QKFfUN/7V5p0KTM8xFvAQ1QkTveSH8VBtHsQSOFKYrSZdIzuqhrhvP0gzO9Z675zElzzWnRLvovK/qLo7oUqr6ptRHQ6ZHOIhM2dEY1G1QrkkR47yqHbnafQ==</Signature>
+</Document>
