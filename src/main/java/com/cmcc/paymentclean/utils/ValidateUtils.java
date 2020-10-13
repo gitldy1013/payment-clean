@@ -43,6 +43,7 @@ public class ValidateUtils {
       validator.validate(source);
     } catch (Exception ex) {
       ex.printStackTrace();
+      log.info("XML通过XSD文件:" + xsdFileName + "检验失败： " + ex.getMessage());
       return false;
     }
     return true;
