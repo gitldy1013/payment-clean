@@ -28,7 +28,7 @@ class BusinessInfoServiceImplTest {
     List<BusinessInfoReq> businessInfoReqs = new ArrayList<>();
     BusinessInfoReq req = new BusinessInfoReq();
     //req.setRegName("123");
-    req.setDocCode("967522156112317186");
+    req.setDocCode("123456123456123456");
     businessInfoReqs.add(req);
     businessInfoService.batchQuery(businessInfoReqs);
     //        2020-09-22 22:28:52.419 [ INFO] 19104 --- [scheduling-1] c.c.p.u.HttpClientUtils
