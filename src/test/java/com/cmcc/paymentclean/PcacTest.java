@@ -7,6 +7,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac011.BankList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac011.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BenInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BenList;
+import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
@@ -485,6 +486,38 @@ public class PcacTest<T> {
     String[] UP0011 = pushPcac((T) body, "058", "UP0011");
     //        creatFile(UP0011[0], "UP0011-跨境商户黑名单信息反馈-请求");
     //        creatFile(UP0011[1], "UP0011-跨境商户黑名单信息反馈-响应");
+  }
+
+  @Test
+  void QE0001NO(){
+    // 拼装Body QE0001-个人商户查询无数据
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList();
+    List<BaseInfo> baseInfos = new ArrayList<>();
+    BaseInfo baseInfo = new BaseInfo();
+    baseInfo.setDocCode("");
+    baseInfo.setRegName("");
+    baseInfos.add(baseInfo);
+    pcacList.setBaseInfo(baseInfos);
+    pcacList.setCount("1");
+    body.setPcacList(pcacList);
+    String[] UP0011 = pushPcac((T) body, "037", "QE0001");
+  }
+
+  @Test
+  void QE0001YES(){
+    // 拼装Body QE0001-个人商户查询有数据
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList();
+    List<BaseInfo> baseInfos = new ArrayList<>();
+    BaseInfo baseInfo = new BaseInfo();
+    baseInfo.setDocCode("");
+    baseInfo.setRegName("");
+    baseInfos.add(baseInfo);
+    pcacList.setBaseInfo(baseInfos);
+    pcacList.setCount("1");
+    body.setPcacList(pcacList);
+    String[] UP0011 = pushPcac((T) body, "037", "QE0001");
   }
 
   public String[] pushPcac(T body, String code, String trnxCode) {
