@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,8 @@ class BusinessInfoServiceImplTest {
   void testBusinessInfo2() {
     List<BusinessInfoReq> businessInfoReqs = new ArrayList<>();
     BusinessInfoReq req = new BusinessInfoReq();
-    req.setRegName("123");
+    //req.setRegName("123");
+    req.setDocCode("967522156112317186");
     businessInfoReqs.add(req);
     businessInfoService.batchQuery(businessInfoReqs);
     //        2020-09-22 22:28:52.419 [ INFO] 19104 --- [scheduling-1] c.c.p.u.HttpClientUtils
