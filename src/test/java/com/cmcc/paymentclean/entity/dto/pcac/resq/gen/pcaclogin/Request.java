@@ -54,6 +54,7 @@ import javax.xml.bind.annotation.XmlType;
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body.class,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body.class,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body.class,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body.class,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.Body.class,
