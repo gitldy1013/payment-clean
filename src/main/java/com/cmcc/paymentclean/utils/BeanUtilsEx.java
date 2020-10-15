@@ -1,8 +1,6 @@
 package com.cmcc.paymentclean.utils;
 
 import com.cmcc.paymentclean.annotation.EncrField;
-import com.cmcc.paymentclean.annotation.InnerEncrField;
-import com.cmcc.paymentclean.annotation.InnerLegEncrField;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -76,19 +74,8 @@ public class BeanUtilsEx extends BeanUtils {
           Method setMethod = bean.getClass().getMethod(setMethodName, String.class);
           String getMethodName =
               "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-          doEncrField(bean, symmetricKeyEncoded, field, null);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-          log.error("反射加密信息异常", e);
-        }
-      } else if (field.isAnnotationPresent(InnerEncrField.class)) {
-        try {
-          doEncrField(bean, symmetricKeyEncoded, field, "getDocType");
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-          log.error("反射加密信息异常", e);
-        }
-      } else if (field.isAnnotationPresent(InnerLegEncrField.class)) {
-        try {
-          doEncrField(bean, symmetricKeyEncoded, field, "getLegDocType");
+          doEncrField(
+              bean, symmetricKeyEncoded, field, field.getAnnotation(EncrField.class).value());
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
           log.error("反射加密信息异常", e);
         }

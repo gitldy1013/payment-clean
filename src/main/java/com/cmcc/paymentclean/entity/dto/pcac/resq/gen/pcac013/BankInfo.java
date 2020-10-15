@@ -46,7 +46,7 @@ public class BankInfo {
   @XmlElement(name = "IsTransfer", required = true)
   protected String isTransfer;
 
-  @EncrField
+  @EncrField("BankNo")
   @XmlElement(name = "BankNo", required = true)
   protected String bankNo;
 

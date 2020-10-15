@@ -8,7 +8,6 @@
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac001;
 
 import com.cmcc.paymentclean.annotation.EncrField;
-import com.cmcc.paymentclean.annotation.InnerEncrField;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -120,7 +119,7 @@ public class RiskInfo {
   @XmlElement(name = "Imei", required = true)
   protected String imei;
 
-  @EncrField
+  @EncrField("BankNo")
   @XmlElement(name = "BankNo", required = true)
   protected String bankNo;
 
@@ -134,7 +133,7 @@ public class RiskInfo {
   @XmlElement(name = "DocType", required = true)
   protected String docType;
 
-  @InnerEncrField
+  @EncrField("DocType")
   @XmlElement(name = "DocCode", required = true)
   protected String docCode;
 
