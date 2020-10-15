@@ -129,7 +129,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       log.info("当前没有可上报的风险商户信息");
       return;
     }
-    Document<Body> document = getDocument(pcacMerchantRiskSubmitInfos);
+    byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+    Document<Body> document = getDocument(pcacMerchantRiskSubmitInfos, symmetricKeyEncoded);
     // 报文转换
     String xml = XmlJsonUtils.convertObjectToXmlStr(document);
     log.info("获取到的xml数据:{}", xml);
@@ -139,6 +140,11 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     }
     // 校验xml报文
     boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+    // 报文转换
+    Document<Body> encrBean = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
+    // 加签
+    XmlJsonUtils.doSignature(encrBean);
+    xml = XmlJsonUtils.convertObjectToXmlStr(encrBean);
     log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
     //        boolean validate = ValidateUtils.validateXML(XmlJsonUtils.formatXml(xml),
     // "pcac.ries.013");
@@ -185,10 +191,10 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     }
   }
 
-  private Document<Body> getDocument(List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos) {
+  private Document<Body> getDocument(
+      List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos, byte[] symmetricKeyEncoded) {
     // 拼装报文
     Document<Body> document = new Document<>();
-    byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
     // 设置报文头
     Request<Body> request =
         XmlJsonUtils.getRequest(
@@ -209,9 +215,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       List<BankInfo> bankInfos = new ArrayList<>();
       BankInfo bankInfo = new BankInfo();
       BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
-      // 银行结算账号
-      bankInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, bankInfo.getBankNo()));
-      // log.info("解密：{}",CFCACipherUtils.decrypt(symmetricKeyEncoded,bankInfo.getBankNo()));
       bankInfos.add(bankInfo);
       bankList.setBankInfo(bankInfos);
       riskInfo.setBankList(bankList);
@@ -222,40 +225,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
       benInfos.add(benInfo);
       benList.setBenInfo(benInfos);
-      // 解密风控加密协会 商户上报：
-      // 商户名称
-      riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegName()));
-      // 商户简称
-      riskInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusName()));
-      // 商户代码
-      riskInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getCusCode()));
-      // 法定代表人姓名/负责人姓名
-      riskInfo.setLegRepName(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegRepName()));
-      // 法定代表人（负责人）证件号码
-      riskInfo.setLegDocCode(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegDocCode()));
-      // 法定代表人（负责人）手机号
-      riskInfo.setMobileNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getMobileNo()));
-      // 网址
-      riskInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getUrl()));
-      // 服务器 ip
-      riskInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getServerIp()));
-      // ICP 备案编号
-      riskInfo.setIcp(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacMerchantRiskSubmitInfo.getIcp()));
-      // 法人证件号
-      riskInfo.setDocCode(
-          CFCACipherUtils.getInnerToCFCA(
-              pcacMerchantRiskSubmitInfo.getDocType(),
-              pcacMerchantRiskSubmitInfo.getDocCode(),
-              symmetricKeyEncoded));
-      // 实控人证件号
-      riskInfo.setLegControlCardCode(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getLegControlCardCode()));
-      // 商户注册号
-      riskInfo.setRegisteredCode(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, riskInfo.getRegisteredCode()));
       riskInfo.setBenList(benList);
       riskInfos.add(riskInfo);
       pcacList.setRiskInfo(riskInfos);
@@ -263,7 +232,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     body.setPcacList(pcacList);
     request.setBody(body);
     document.setRequest(request);
-    XmlJsonUtils.doSignature(document);
+    document.setSignature("");
     return document;
   }
 }

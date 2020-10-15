@@ -7,6 +7,8 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013;
 
+import com.cmcc.paymentclean.annotation.EncrField;
+import com.cmcc.paymentclean.annotation.InnerEncrField;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -132,45 +134,55 @@ public class RiskInfo {
   @XmlElement(name = "CusNature", required = true)
   protected String cusNature;
 
+  @EncrField
   @XmlElement(name = "CusName", required = true)
   protected String cusName;
 
+  @EncrField
   @XmlElement(name = "RegName", required = true)
   protected String regName;
 
+  @EncrField
   @XmlElement(name = "CusCode", required = true)
   protected String cusCode;
 
   @XmlElement(name = "DocType", required = true)
   protected String docType;
 
+  @InnerEncrField
   @XmlElement(name = "DocCode", required = true)
   protected String docCode;
 
+  @EncrField
   @XmlElement(name = "LegRepName", required = true)
   protected String legRepName;
 
   @XmlElement(name = "LegDocType", required = true)
   protected String legDocType;
 
+  @EncrField
   @XmlElement(name = "LegDocCode", required = true)
   protected String legDocCode;
 
   @XmlElement(name = "BankList", required = true)
   protected BankList bankList;
 
+  @EncrField
   @XmlElement(name = "Url", required = true)
   protected String url;
 
+  @EncrField
   @XmlElement(name = "ServerIp", required = true)
   protected String serverIp;
 
+  @EncrField
   @XmlElement(name = "MobileNo", required = true)
   protected String mobileNo;
 
   @XmlElement(name = "Address", required = true)
   protected String address;
 
+  @EncrField
   @XmlElement(name = "Icp", required = true)
   protected String icp;
 
@@ -210,6 +222,7 @@ public class RiskInfo {
   @XmlElement(name = "RegisteredArea", required = true)
   protected String registeredArea;
 
+  @EncrField
   @XmlElement(name = "RegisteredCode", required = true)
   protected String registeredCode;
 
@@ -231,6 +244,7 @@ public class RiskInfo {
   @XmlElement(name = "LegControlCardType", required = true)
   protected String legControlCardType;
 
+  @EncrField
   @XmlElement(name = "LegControlCardCode", required = true)
   protected String legControlCardCode;
 

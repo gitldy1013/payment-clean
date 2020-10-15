@@ -7,6 +7,7 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013;
 
+import com.cmcc.paymentclean.annotation.EncrField;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,6 +46,7 @@ public class BankInfo {
   @XmlElement(name = "IsTransfer", required = true)
   protected String isTransfer;
 
+  @EncrField
   @XmlElement(name = "BankNo", required = true)
   protected String bankNo;
 
