@@ -241,12 +241,6 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
     log.info("url:{}", pcacConfig.getUrl());
-    /*String post = "<Body>\n" +
-    "    <RespInfo>\n" +
-    "        <ResultStatus>已上报</ResultStatus>\n" +
-    "        <ResultCode>01</ResultCode>\n" +
-    "    </RespInfo>\n" +
-    "</Body>";*/
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc =
         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)
             XmlJsonUtils.convertXmlStrToObject(

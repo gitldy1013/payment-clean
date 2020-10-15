@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.cmcc.paymentclean.annotation.EncrField;
+import com.cmcc.paymentclean.annotation.InnerEncrField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -35,6 +37,7 @@ public class PcacPersonRiskSubmitInfo extends Model<PcacPersonRiskSubmitInfo> {
   @ApiModelProperty(value = "风险类型")
   private String riskType;
 
+  @EncrField
   @ApiModelProperty(value = "手机号")
   private String mobileNo;
 
@@ -44,18 +47,21 @@ public class PcacPersonRiskSubmitInfo extends Model<PcacPersonRiskSubmitInfo> {
   @ApiModelProperty(value = "Imei（Imei 必须为小于或等于 32 位数字组成）")
   private String imei;
 
+  @EncrField
   @ApiModelProperty(value = "付款账户/付款银行卡号（支付账户）")
   private String bankNo;
 
   @ApiModelProperty(value = "开户机构")
   private String openBank;
 
+  @EncrField
   @ApiModelProperty(value = "个人姓名")
   private String cusName;
 
   @ApiModelProperty(value = "证件类型")
   private String docType;
 
+  @InnerEncrField
   @ApiModelProperty(value = "证件号码")
   private String docCode;
 
@@ -65,6 +71,7 @@ public class PcacPersonRiskSubmitInfo extends Model<PcacPersonRiskSubmitInfo> {
   @ApiModelProperty(value = "收货地址")
   private String address;
 
+  @EncrField
   @ApiModelProperty(value = "固定电话")
   private String telephone;
 

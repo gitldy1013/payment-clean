@@ -2,6 +2,7 @@ package com.cmcc.paymentclean.utils;
 
 import com.cmcc.paymentclean.annotation.EncrField;
 import com.cmcc.paymentclean.annotation.InnerEncrField;
+import com.cmcc.paymentclean.annotation.InnerLegEncrField;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -75,29 +76,19 @@ public class BeanUtilsEx extends BeanUtils {
           Method setMethod = bean.getClass().getMethod(setMethodName, String.class);
           String getMethodName =
               "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-          Method getMethod = bean.getClass().getMethod(getMethodName);
-          Object getValue = getMethod.invoke(bean);
-          setMethod.invoke(bean, CFCACipherUtils.encrypt(symmetricKeyEncoded, getValue.toString()));
+          doEncrField(bean, symmetricKeyEncoded, field, null);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
           log.error("反射加密信息异常", e);
         }
       } else if (field.isAnnotationPresent(InnerEncrField.class)) {
         try {
-          String fieldName = field.getName();
-          String setMethodName =
-              "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-          Method setMethod = bean.getClass().getMethod(setMethodName, String.class);
-          String getMethodName =
-              "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-          String getDocType = "getDocType";
-          Method getDocTypeMethod = bean.getClass().getMethod(getDocType);
-          Object getDocTypeValue = getDocTypeMethod.invoke(bean);
-          Method getMethod = bean.getClass().getMethod(getMethodName);
-          Object getValue = getMethod.invoke(bean);
-          setMethod.invoke(
-              bean,
-              CFCACipherUtils.getInnerToCFCA(
-                  getDocTypeValue.toString(), getValue.toString(), symmetricKeyEncoded));
+          doEncrField(bean, symmetricKeyEncoded, field, "getDocType");
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+          log.error("反射加密信息异常", e);
+        }
+      } else if (field.isAnnotationPresent(InnerLegEncrField.class)) {
+        try {
+          doEncrField(bean, symmetricKeyEncoded, field, "getLegDocType");
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
           log.error("反射加密信息异常", e);
         }
@@ -111,5 +102,29 @@ public class BeanUtilsEx extends BeanUtils {
       }
     }
     return bean;
+  }
+
+  /** 加密 */
+  private static <T> void doEncrField(
+      T bean, byte[] symmetricKeyEncoded, Field field, String getDocType)
+      throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    String fieldName = field.getName();
+    String setMethodName = "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    Method setMethod = bean.getClass().getMethod(setMethodName, String.class);
+    String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    if (getDocType == null) {
+      Method getMethod = bean.getClass().getMethod(getMethodName);
+      Object getValue = getMethod.invoke(bean);
+      setMethod.invoke(bean, CFCACipherUtils.encrypt(symmetricKeyEncoded, getValue.toString()));
+    } else {
+      Method getDocTypeMethod = bean.getClass().getMethod(getDocType);
+      Object getDocTypeValue = getDocTypeMethod.invoke(bean);
+      Method getMethod = bean.getClass().getMethod(getMethodName);
+      Object getValue = getMethod.invoke(bean);
+      setMethod.invoke(
+          bean,
+          CFCACipherUtils.getInnerToCFCA(
+              getDocTypeValue.toString(), getValue.toString(), symmetricKeyEncoded));
+    }
   }
 }
