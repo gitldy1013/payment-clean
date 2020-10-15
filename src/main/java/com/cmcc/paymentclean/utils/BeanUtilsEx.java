@@ -68,12 +68,6 @@ public class BeanUtilsEx extends BeanUtils {
         }
       } else if (field.isAnnotationPresent(EncrField.class)) {
         try {
-          String fieldName = field.getName();
-          String setMethodName =
-              "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-          Method setMethod = bean.getClass().getMethod(setMethodName, String.class);
-          String getMethodName =
-              "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
           doEncrField(
               bean, symmetricKeyEncoded, field, field.getAnnotation(EncrField.class).value());
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
