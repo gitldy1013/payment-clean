@@ -139,17 +139,16 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       return;
     }
     // 校验xml报文
-    boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013");
+    if (!ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013")) {
+      log.info("XML校验失败");
+      return;
+    }
     // 报文转换
     Document<Body> encrBean = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
     // 加签
     XmlJsonUtils.doSignature(encrBean);
     xml = XmlJsonUtils.convertObjectToXmlStr(encrBean);
     log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
-    if (!validate) {
-      log.info("XML校验失败");
-      return;
-    }
     pushToPcac(pcacMerchantRiskSubmitInfos, xml);
   }
 
