@@ -104,10 +104,9 @@ public class BeanUtilsEx extends BeanUtils {
       } else if (field.getType().getName().startsWith("com.cmcc.paymentclean.entity.dto")
           || "body".equals(field.getName())) {
         try {
-          System.out.println("当前字段报名：" + field.getType().getName());
           getEncrBean(field.get(bean), symmetricKeyEncoded);
         } catch (IllegalAccessException e) {
-          e.printStackTrace();
+          log.error("反射加密信息异常", e);
         }
       }
     }

@@ -189,6 +189,7 @@ public class XmlJsonUtils {
 
   public static <T> void doSignature(
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<T> document) {
+    document.setSignature(null);
     String xml = XmlJsonUtils.convertObjectToXmlStr(document);
     log.info("加签之前的XML数据: {}", xml);
     // 加签
