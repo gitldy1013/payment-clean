@@ -94,7 +94,7 @@ public class BeanUtilsEx extends BeanUtils {
     Method setMethod = bean.getClass().getMethod(setMethodName, String.class);
     String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
     if (getDocType == null) {
-      Method getMethod = bean.getClass().getMethod(getMethodName);
+      Method getMethod = bean.getClass().getMethod("get" + getMethodName);
       Object getValue = getMethod.invoke(bean);
       setMethod.invoke(bean, CFCACipherUtils.encrypt(symmetricKeyEncoded, getValue.toString()));
     } else {
