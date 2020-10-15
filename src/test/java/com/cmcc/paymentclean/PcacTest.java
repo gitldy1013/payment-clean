@@ -522,7 +522,7 @@ public class PcacTest<T> {
     baseInfo.setCusNature("03");
     baseInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移动电子玩具店"));
     baseInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移玩具"));
-    baseInfo.setCusNameEn("chinamobileEN");
+    baseInfo.setCusNameEn(CFCACipherUtils.encrypt(symmetricKeyEncoded,"chinamobileEN"));
     baseInfo.setDocType("01");
     baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"220110199011118844"));
     baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"yd123456789"));
@@ -530,15 +530,15 @@ public class PcacTest<T> {
     baseInfo.setBankNo("6266669909321");
     baseInfo.setOpenBank("中粮支行");
     baseInfo.setRegAddrProv("110000");
-    baseInfo.setRegAddrDetail("北京市东城区中粮置地");
+    baseInfo.setRegAddrDetail(CFCACipherUtils.encrypt(symmetricKeyEncoded,"北京市东城区中粮置地"));
     baseInfo.setAddrProv("110000");
-    baseInfo.setAddrDetail("北京市东城区中粮置地");
+    baseInfo.setAddrDetail(CFCACipherUtils.encrypt(symmetricKeyEncoded,"北京市东城区中粮置地"));
     baseInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded,"www.chinamobil.com"));
-    baseInfo.setServerIp("110.199.26.30");
+    baseInfo.setServerIp("192.128.120.22");
     baseInfo.setIcp("浙ICP备06044328号");
-    baseInfo.setContName("刘东");
+    baseInfo.setContName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"刘东"));
     baseInfo.setContPhone(CFCACipherUtils.encrypt(symmetricKeyEncoded,"13334448767"));
-    baseInfo.setCusEmail("999@126.com");
+    baseInfo.setCusEmail(CFCACipherUtils.encrypt(symmetricKeyEncoded,"999@126.com"));
     baseInfo.setOccurarea("北京");
     baseInfo.setNetworkType("04");
     baseInfo.setStatus("01");
@@ -551,7 +551,7 @@ public class PcacTest<T> {
     baseInfo.setExpandType("01");
     baseInfo.setOutServiceName("外包");
     baseInfo.setOutServiceCardType("01");
-    baseInfo.setOutServiceCardCode("12939193013231");
+    baseInfo.setOutServiceCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"12939193013231"));
     baseInfo.setOutServiceLegCardType("01");
     baseInfo.setOutServiceLegCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"110220199011112222"));
     baseInfo.setOrgId("123123123");

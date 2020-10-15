@@ -128,38 +128,6 @@ public class PcacPersonRiskSubmitInfoServiceImpl
 
     for (PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo : pcacPersonRiskList) {
 
-      // 判断是身份证类型需要先进行内部解密，再进行清算协会加密
-      String encryptDocCode = null;
-      String encryptBankNo = null;
-      if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(pcacPersonRiskSubmitInfo.getDocType())) {
-        // 内部解密
-        String docCode = InnerCipherUtils.decryptUserData(pcacPersonRiskSubmitInfo.getDocCode());
-        // 协会加密
-        encryptDocCode = CFCACipherUtils.encrypt(symmetricKeyEncoded, docCode);
-      } else {
-        // 不是身份证号就可以直接加密了
-        // 协会加密
-        encryptDocCode =
-            CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getDocCode());
-      }
-      if (!StringUtils.isEmpty(pcacPersonRiskSubmitInfo.getBankNo())) {
-        // 内部解密
-        String bankNo = InnerCipherUtils.decryptBankData(pcacPersonRiskSubmitInfo.getBankNo());
-        // 协会加密
-        encryptBankNo = CFCACipherUtils.encrypt(symmetricKeyEncoded, bankNo);
-      }
-      pcacPersonRiskSubmitInfo.setBankNo(encryptBankNo);
-      pcacPersonRiskSubmitInfo.setDocCode(encryptDocCode);
-      String encryptMobileNo =
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getMobileNo());
-      pcacPersonRiskSubmitInfo.setMobileNo(encryptMobileNo);
-      String encryptCusName =
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getCusName());
-      pcacPersonRiskSubmitInfo.setCusName(encryptCusName);
-      String encryptTelephone =
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacPersonRiskSubmitInfo.getTelephone());
-      pcacPersonRiskSubmitInfo.setTelephone(encryptTelephone);
-
       RiskInfo riskInfo = new RiskInfo();
       BeanUtilsEx.copyProperties(riskInfo, pcacPersonRiskSubmitInfo);
       // 上报日期库里有就不加了，没有的再自己生成
@@ -193,14 +161,20 @@ public class PcacPersonRiskSubmitInfoServiceImpl
     document.setRequest(request);
     // 注意生成签名的时候设置空串显示<Signature>,不设置空串默认null，就不显示<Signature>
     // document.setSignature("");
-    String noSignXml = XmlJsonUtils.convertObjectToXmlStr(document);
-    String signature = CFCACipherUtils.doSignature(noSignXml);
-    document.setSignature(signature);
+    document.setSignature("");
     String doXml = XmlJsonUtils.convertObjectToXmlStr(document);
     log.info("个人风险信息上报支付清算协会请求xml报文：{}", doXml);
     try {
       boolean validate = ValidateUtils.validateXMLByXSD(doXml, "pcac.ries.001");
       if (validate) {
+
+        Document encrDocument = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
+        encrDocument.setSignature(null);
+        String noSignXml = XmlJsonUtils.convertObjectToXmlStr(encrDocument);
+        String signature = CFCACipherUtils.doSignature(noSignXml);
+        encrDocument.setSignature(signature);
+        doXml = XmlJsonUtils.convertObjectToXmlStr(document);
+
         log.info("----------------------------------------------打印个人风险信息上报参数：--------");
         String s = XmlJsonUtils.formatXml(doXml);
         log.info(s);
