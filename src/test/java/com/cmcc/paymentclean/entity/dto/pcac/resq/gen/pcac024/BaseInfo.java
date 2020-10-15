@@ -8,6 +8,8 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024;
 
+import com.cmcc.paymentclean.annotation.EncrField;
+
 import javax.xml.bind.annotation.*;
 
 
@@ -119,42 +121,56 @@ public class BaseInfo {
     protected String cusType;
     @XmlElement(name = "CusNature", required = true)
     protected String cusNature;
+    @EncrField
     @XmlElement(name = "RegName", required = true)
     protected String regName;
+    @EncrField
     @XmlElement(name = "CusName", required = true)
     protected String cusName;
+    @EncrField
     @XmlElement(name = "CusNameEn", required = true)
     protected String cusNameEn;
     @XmlElement(name = "DocType", required = true)
     protected String docType;
+    @EncrField
     @XmlElement(name = "DocCode", required = true)
     protected String docCode;
+    @EncrField
     @XmlElement(name = "CusCode", required = true)
     protected String cusCode;
     @XmlElement(name = "InduType", required = true)
     protected String induType;
+    @EncrField
     @XmlElement(name = "BankNo", required = true)
     protected String bankNo;
     @XmlElement(name = "OpenBank", required = true)
     protected String openBank;
     @XmlElement(name = "RegAddrProv", required = true)
     protected String regAddrProv;
+    @EncrField
     @XmlElement(name = "RegAddrDetail", required = true)
     protected String regAddrDetail;
     @XmlElement(name = "AddrProv", required = true)
     protected String addrProv;
+    @EncrField
     @XmlElement(name = "AddrDetail", required = true)
     protected String addrDetail;
+    @EncrField
     @XmlElement(name = "Url", required = true)
     protected String url;
+    @EncrField
     @XmlElement(name = "ServerIp", required = true)
     protected String serverIp;
+    @EncrField
     @XmlElement(name = "Icp", required = true)
     protected String icp;
+    @EncrField
     @XmlElement(name = "ContName", required = true)
     protected String contName;
+    @EncrField
     @XmlElement(name = "ContPhone", required = true)
     protected String contPhone;
+    @EncrField
     @XmlElement(name = "CusEmail", required = true)
     protected String cusEmail;
     @XmlElement(name = "Occurarea", required = true)
@@ -177,14 +193,17 @@ public class BaseInfo {
     protected String accountType;
     @XmlElement(name = "ExpandType", required = true)
     protected String expandType;
+    @EncrField
     @XmlElement(name = "OutServiceName", required = true)
     protected String outServiceName;
     @XmlElement(name = "OutServiceCardType", required = true)
     protected String outServiceCardType;
+    @EncrField
     @XmlElement(name = "OutServiceCardCode", required = true)
     protected String outServiceCardCode;
     @XmlElement(name = "OutServiceLegCardType", required = true)
     protected String outServiceLegCardType;
+    @EncrField
     @XmlElement(name = "OutServiceLegCardCode", required = true)
     protected String outServiceLegCardCode;
     @XmlElement(name = "OrgId", required = true)
