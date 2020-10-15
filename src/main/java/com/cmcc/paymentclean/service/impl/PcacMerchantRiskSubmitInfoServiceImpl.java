@@ -146,8 +146,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     XmlJsonUtils.doSignature(encrBean);
     xml = XmlJsonUtils.convertObjectToXmlStr(encrBean);
     log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
-    //        boolean validate = ValidateUtils.validateXML(XmlJsonUtils.formatXml(xml),
-    // "pcac.ries.013");
     if (!validate) {
       log.info("XML校验失败");
       return;
