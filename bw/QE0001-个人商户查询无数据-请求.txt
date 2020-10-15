@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010140033081701</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QE0001</TrnxCode>
+            <TrnxTime>20201014162045</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>VxyvObVBsjFvupcgZ5fulCRpncXDSCId7BmlXsgWOCOqYGzzFgw7GwWty13Rhw/SO5DAqkk4GPnQWmVnSq1J+o1Oi2JJZM1H9NNktW/YiS7lS+QvdJ/numknGGlGmTjFEGLAvdhm6hK+riIslXTCdAGmC73HSzHp5QZNDe5oJNEAFiHBGLZ+JUn3rjB03/J09DNyEY+rxY9A9RNepY0xB1qiAKzAg7g7zKNxgPtc1ZwZtaff8yOUtJ2L5a3NqC9B/NRc4VrMKSm9Sii95qmottsissv+b+8izZWy30n6xVK+GH+pSkVRxaOtFRG6EPudpYFdvxVY6Arj7jtFCb8EnQ==</SecretKey>
+        </Head>
+        <Body>
+            <DocCode>967522156112317186</DocCode>
+            <RegName>中移动电子商务有限公司</RegName>
+        </Body>
+    </Request>
+    <Signature>t3RSI1qcYeHxwAd2zJGwKwf6gyG0XfoA8akJ4C5J3iAsGF/OFRYqMKuRD0J/C2T2O4VlqhexryzEt5MNqokYn6wDigb0BNNltlgIv1yBEZpDuQv+PkcAa9Ac7lqJ2wqTMwbVh4O4EBYxdRdXCFwv2VhFH8JyiOYHhVhoOf2Qm6LC6PmAfA/ndGvbVZZLqH3911/tYgdrMg4EQT3tE6T5tKf0G6Je9aF1HMclk884QTp2caHC2WNo/5gU1/CfkuMFfHCHJJxE6tPE+6rTWXmrcgXYuOtNkLaejB5CqlYwuPBL5i5gS83gont8ewUD5qEbadBCDzKtkTDBK1T2PsPY4g==</Signature>
+</Document>

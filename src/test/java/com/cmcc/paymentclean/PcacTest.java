@@ -488,35 +488,101 @@ public class PcacTest<T> {
     //        creatFile(UP0011[1], "UP0011-跨境商户黑名单信息反馈-响应");
   }
 
+  /**
+   * 特约商户信息差错处理
+   * */
+  @Test
+  void EDEL01(){
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.PcacList();
+    pcacList.setCount("1");
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.BaseInfo();
+    baseInfo.setCusType("");
+    baseInfo.setDocType("");
+    baseInfo.setDocCode("");
+    baseInfo.setCusCode("");
+    pcacList.setBaseInfo(baseInfo);
+    body.setPcacList(pcacList);
+    pushPcac((T) body, "026", "EDEL01");
+  }
+
+  /**
+   * 特约商户
+   * 个人商户信息上报请求
+   * 测试RecSystemId是SECB01
+   * */
+  @Test
+  void EPR001(){
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.PcacList();
+    pcacList.setCount("1");
+    ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo> baseInfos = new ArrayList<>();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo();
+    baseInfo.setCusType("01");
+    baseInfo.setCusNature("03");
+    baseInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移动电子玩具店"));
+    baseInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移玩具"));
+    baseInfo.setCusNameEn("chinamobileEN");
+    baseInfo.setDocType("01");
+    baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"220110199011118844"));
+    baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"yd123456789"));
+    baseInfo.setInduType("01");
+    baseInfo.setBankNo("6266669909321");
+    baseInfo.setOpenBank("中粮支行");
+    baseInfo.setRegAddrProv("110000");
+    baseInfo.setRegAddrDetail("北京市东城区中粮置地");
+    baseInfo.setAddrProv("110000");
+    baseInfo.setAddrDetail("北京市东城区中粮置地");
+    baseInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded,"www.chinamobil.com"));
+    baseInfo.setServerIp("110.199.26.30");
+    baseInfo.setIcp("浙ICP备06044328号");
+    baseInfo.setContName("刘东");
+    baseInfo.setContPhone(CFCACipherUtils.encrypt(symmetricKeyEncoded,"13334448767"));
+    baseInfo.setCusEmail("999@126.com");
+    baseInfo.setOccurarea("北京");
+    baseInfo.setNetworkType("04");
+    baseInfo.setStatus("01");
+    baseInfo.setStartTime("2019-01-01");
+    baseInfo.setEndTime("2099-12-12");
+    baseInfo.setRiskStatus("01");
+    baseInfo.setOpenType("01");
+    baseInfo.setChageType("01");
+    baseInfo.setAccountType("04");
+    baseInfo.setExpandType("01");
+    baseInfo.setOutServiceName("外包");
+    baseInfo.setOutServiceCardType("01");
+    baseInfo.setOutServiceCardCode("12939193013231");
+    baseInfo.setOutServiceLegCardType("01");
+    baseInfo.setOutServiceLegCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"110220199011112222"));
+    baseInfo.setOrgId("123123123");
+    baseInfo.setRepDate("2020-10-14 17:47:50");
+    baseInfo.setRepType("03");
+    baseInfo.setRepPerson("老赵");
+
+    baseInfos.add(baseInfo);
+    pcacList.setBaseInfo(baseInfos);
+    body.setPcacList(pcacList);
+    pushPcac((T) body, "024", "EPR001");
+  }
+
   @Test
   void QE0001NO(){
     // 拼装Body QE0001-个人商户查询无数据
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList();
-    List<BaseInfo> baseInfos = new ArrayList<>();
-    BaseInfo baseInfo = new BaseInfo();
-    baseInfo.setDocCode("");
-    baseInfo.setRegName("");
-    baseInfos.add(baseInfo);
-    pcacList.setBaseInfo(baseInfos);
-    pcacList.setCount("1");
-    body.setPcacList(pcacList);
-    String[] UP0011 = pushPcac((T) body, "037", "QE0001");
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body();
+      body.setDocCode("967522156112317186");
+      body.setRegName("中移动电子商务有限公司");
+      String[] QE0001 = pushPcac((T) body, "037", "QE0001");
+       //       creatFile(QE0001[0], "QE0001-个人商户查询无数据-请求");
+          //    creatFile(QE0001[1], "QE0001-个人商户查询无数据-响应");
   }
+
 
   @Test
   void QE0001YES(){
     // 拼装Body QE0001-个人商户查询有数据
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList();
-    List<BaseInfo> baseInfos = new ArrayList<>();
-    BaseInfo baseInfo = new BaseInfo();
-    baseInfo.setDocCode("");
-    baseInfo.setRegName("");
-    baseInfos.add(baseInfo);
-    pcacList.setBaseInfo(baseInfos);
-    pcacList.setCount("1");
-    body.setPcacList(pcacList);
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body();
+      body.setDocCode("");
+      body.setRegName("");
     String[] UP0011 = pushPcac((T) body, "037", "QE0001");
   }
 
