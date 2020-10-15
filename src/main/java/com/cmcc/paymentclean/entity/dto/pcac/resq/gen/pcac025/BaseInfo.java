@@ -152,6 +152,7 @@ public class BaseInfo {
   @XmlElement(name = "DocType", required = true)
   protected String docType;
 
+  @EncrField("DocType")
   @XmlElement(name = "DocCode", required = true)
   protected String docCode;
 
@@ -162,7 +163,7 @@ public class BaseInfo {
   @XmlElement(name = "LegDocType", required = true)
   protected String legDocType;
 
-  @EncrField
+  @EncrField("LegDocType")
   @XmlElement(name = "LegDocCode", required = true)
   protected String legDocCode;
 
@@ -173,6 +174,7 @@ public class BaseInfo {
   @XmlElement(name = "InduType", required = true)
   protected String induType;
 
+  @EncrField("BankNo")
   @XmlElement(name = "BankNo", required = true)
   protected String bankNo;
 
@@ -182,27 +184,34 @@ public class BaseInfo {
   @XmlElement(name = "RegAddrProv", required = true)
   protected String regAddrProv;
 
+  @EncrField
   @XmlElement(name = "RegAddrDetail", required = true)
   protected String regAddrDetail;
 
   @XmlElement(name = "AddrProv", required = true)
   protected String addrProv;
 
+  @EncrField
   @XmlElement(name = "AddrDetail", required = true)
   protected String addrDetail;
 
+  @EncrField
   @XmlElement(name = "Url", required = true)
   protected String url;
 
+  @EncrField
   @XmlElement(name = "ServerIp", required = true)
   protected String serverIp;
 
+  @EncrField
   @XmlElement(name = "Icp", required = true)
   protected String icp;
 
+  @EncrField
   @XmlElement(name = "ContName", required = true)
   protected String contName;
 
+  @EncrField
   @XmlElement(name = "ContPhone", required = true)
   protected String contPhone;
 
@@ -227,6 +236,7 @@ public class BaseInfo {
   @XmlElement(name = "RiskStatus", required = true)
   protected String riskStatus;
 
+  @EncrField
   @XmlElement(name = "ShareHolder", required = true)
   protected String shareHolder;
 
@@ -242,18 +252,21 @@ public class BaseInfo {
   @XmlElement(name = "ExpandType", required = true)
   protected String expandType;
 
+  @EncrField
   @XmlElement(name = "OutServiceName", required = true)
   protected String outServiceName;
 
   @XmlElement(name = "OutServiceCardType", required = true)
   protected String outServiceCardType;
 
+  @EncrField
   @XmlElement(name = "OutServiceCardCode", required = true)
   protected String outServiceCardCode;
 
   @XmlElement(name = "OutServiceLegCardType", required = true)
   protected String outServiceLegCardType;
 
+  @EncrField
   @XmlElement(name = "OutServiceLegCardCode", required = true)
   protected String outServiceLegCardCode;
 
