@@ -11,10 +11,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -520,26 +517,67 @@ public class PcacTest<T> {
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo();
     baseInfo.setCusType("01");
     baseInfo.setCusNature("03");
-    baseInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移动电子玩具店"));
-    baseInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"中移玩具"));
-    baseInfo.setCusNameEn(CFCACipherUtils.encrypt(symmetricKeyEncoded,"chinamobileEN"));
+    baseInfo.setRegName("中移动电子玩具店");
+    baseInfo.setCusName("中移玩具");
+    baseInfo.setCusNameEn("chinamobileEN");
     baseInfo.setDocType("01");
-    baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"220110199011118844"));
-    baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"yd123456789"));
+    baseInfo.setDocCode("220110199888011111");
+    baseInfo.setCusCode("yd123456555");
+    baseInfo.setInduType("01");
+    baseInfo.setBankNo("6266669903331");
+    baseInfo.setOpenBank("中粮支行");
+    baseInfo.setRegAddrProv("110000");
+    baseInfo.setRegAddrDetail("北京市东城区中粮置地");
+    baseInfo.setAddrProv("110000");
+    baseInfo.setAddrDetail("北京市东城区中粮置地");
+    baseInfo.setUrl("www.chinamobil.com");
+    baseInfo.setServerIp("192.128.120.22");
+    baseInfo.setIcp("浙ICP备06044328号");
+    baseInfo.setContName("刘阳");
+    baseInfo.setContPhone("13334448733");
+    baseInfo.setCusEmail("999@126.com");
+    baseInfo.setOccurarea("110000");
+    baseInfo.setNetworkType("04");
+    baseInfo.setStatus("01");
+    baseInfo.setStartTime("2019-01-01");
+    baseInfo.setEndTime("2099-12-12");
+    baseInfo.setRiskStatus("01");
+    baseInfo.setOpenType("01");
+    baseInfo.setChageType("01");
+    baseInfo.setAccountType("04");
+    baseInfo.setExpandType("01");
+    baseInfo.setOutServiceName("外包1");
+    baseInfo.setOutServiceCardType("01");
+    baseInfo.setOutServiceCardCode("129391930132318");
+    baseInfo.setOutServiceLegCardType("01");
+    baseInfo.setOutServiceLegCardCode("110220199011112222");
+    baseInfo.setOrgId("123123123");
+    baseInfo.setRepDate("2020-10-14 17:47:50");
+    baseInfo.setRepType("03");
+    baseInfo.setRepPerson("老刘");
+/*
+    baseInfo.setCusType("01");
+    baseInfo.setCusNature("03");
+    baseInfo.setRegName("中移动电子玩具店");
+    baseInfo.setCusName("中移玩具");
+    baseInfo.setCusNameEn("chinamobileEN");
+    baseInfo.setDocType("01");
+    baseInfo.setDocCode("220110199888018844");
+    baseInfo.setCusCode("yd123456789");
     baseInfo.setInduType("01");
     baseInfo.setBankNo("6266669909321");
     baseInfo.setOpenBank("中粮支行");
     baseInfo.setRegAddrProv("110000");
-    baseInfo.setRegAddrDetail(CFCACipherUtils.encrypt(symmetricKeyEncoded,"北京市东城区中粮置地"));
+    baseInfo.setRegAddrDetail("北京市东城区中粮置地");
     baseInfo.setAddrProv("110000");
-    baseInfo.setAddrDetail(CFCACipherUtils.encrypt(symmetricKeyEncoded,"北京市东城区中粮置地"));
-    baseInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded,"www.chinamobil.com"));
+    baseInfo.setAddrDetail("北京市东城区中粮置地");
+    baseInfo.setUrl("www.chinamobil.com");
     baseInfo.setServerIp("192.128.120.22");
     baseInfo.setIcp("浙ICP备06044328号");
-    baseInfo.setContName(CFCACipherUtils.encrypt(symmetricKeyEncoded,"刘东"));
-    baseInfo.setContPhone(CFCACipherUtils.encrypt(symmetricKeyEncoded,"13334448767"));
-    baseInfo.setCusEmail(CFCACipherUtils.encrypt(symmetricKeyEncoded,"999@126.com"));
-    baseInfo.setOccurarea("北京");
+    baseInfo.setContName("刘东");
+    baseInfo.setContPhone("13334448767");
+    baseInfo.setCusEmail("999@126.com");
+    baseInfo.setOccurarea("110000");
     baseInfo.setNetworkType("04");
     baseInfo.setStatus("01");
     baseInfo.setStartTime("2019-01-01");
@@ -551,13 +589,14 @@ public class PcacTest<T> {
     baseInfo.setExpandType("01");
     baseInfo.setOutServiceName("外包");
     baseInfo.setOutServiceCardType("01");
-    baseInfo.setOutServiceCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"12939193013231"));
+    baseInfo.setOutServiceCardCode("129391930132318");
     baseInfo.setOutServiceLegCardType("01");
-    baseInfo.setOutServiceLegCardCode(CFCACipherUtils.encrypt(symmetricKeyEncoded,"110220199011112222"));
+    baseInfo.setOutServiceLegCardCode("110220199011112222");
     baseInfo.setOrgId("123123123");
     baseInfo.setRepDate("2020-10-14 17:47:50");
     baseInfo.setRepType("03");
     baseInfo.setRepPerson("老赵");
+*/
 
     baseInfos.add(baseInfo);
     pcacList.setBaseInfo(baseInfos);
@@ -661,7 +700,6 @@ public class PcacTest<T> {
     Document<T> document = getDocument(body, trnxCode);
     // 报文转换
     String xml = XmlJsonUtils.convertObjectToXmlStr(document);
-    log.info("请求xml数据: {}", XmlJsonUtils.formatXml(xml));
     if (StringUtils.isEmpty(xml)) {
       log.info("xml报文转换失败");
       return null;
@@ -672,7 +710,15 @@ public class PcacTest<T> {
       log.info("XML校验失败");
       return null;
     }
-    // 上报数据
+      Document<T> encrDocument = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
+      encrDocument.setSignature(null);
+      String noSignXml = XmlJsonUtils.convertObjectToXmlStr(encrDocument);
+      String signature = CFCACipherUtils.doSignature(noSignXml);
+      encrDocument.setSignature(signature);
+//      XmlJsonUtils.doSignature(encrDocument);
+      xml = XmlJsonUtils.convertObjectToXmlStr(encrDocument);
+      log.info("请求xml数据: {}", XmlJsonUtils.formatXml(xml));
+      // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
     log.info("url:{}", pcacConfig.getUrl());
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc =
