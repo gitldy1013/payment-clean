@@ -40,6 +40,7 @@ import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.ExcelUtils;
@@ -167,7 +168,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       log.info("当前没有可上报的企业商户信息");
       return;
     }
-    Document document = getDocument(businessInfos);
+    byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+    Document document = getDocument(businessInfos, symmetricKeyEncoded);
     // 报文转换
     String xml = XmlJsonUtils.convertObjectToXmlStr(document);
     log.info("获取到的xml数据:{}", xml);
@@ -181,6 +183,13 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       log.info("XML校验失败");
       return;
     }
+    // 报文转换
+    Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.Body> encrBean =
+        BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
+    // 加签
+    XmlJsonUtils.doSignature(encrBean);
+    xml = XmlJsonUtils.convertObjectToXmlStr(encrBean);
+    log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
     pushToPcac(businessInfos, xml);
   }
 
@@ -259,10 +268,9 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     }
   }
 
-  private Document getDocument(List<BusinessInfo> businessInfos) {
+  private Document getDocument(List<BusinessInfo> businessInfos, byte[] symmetricKeyEncoded) {
     // 拼装报文
     Document document = new Document();
-    byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
     // 设置报文头
     Request request =
         XmlJsonUtils.getRequest(
@@ -277,60 +285,6 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       BaseInfo baseInfo = new BaseInfo();
       BeanUtils.copyProperties(info, baseInfo);
       baseInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
-
-      // 解密风控加密协会 商户上报：
-      //            企业商户信息关键字：商户名称、商户简称、商户英文名称、法人证件号码、法定代表人姓名、
-      //            法定代表人证件号码、商户代码、收款账\卡号、商户注册地址、商户经营地址、网址、服务器 IP、
-      //            ICP 备案编号、商户联系人、商户联系电话、股东信息、外包服务机构名称、外包服务机构法人证
-      //            件号码、外包服务机构法定代表人证件号码。
-      // 商户名称
-      baseInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegName()));
-      // 商户简称
-      baseInfo.setCusName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusName()));
-      // 商户英文名称
-      baseInfo.setCusNameEn(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusNameEn()));
-      // 商户代码
-      baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusCode()));
-      // 法定代表人姓名/负责人姓名
-      baseInfo.setLegDocName(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getLegDocName()));
-      // 法定代表人证件号码
-      baseInfo.setLegDocCode(
-          CFCACipherUtils.getInnerToCFCA(
-              info.getLegDocType(), info.getLegDocCode(), symmetricKeyEncoded));
-      // 商户代码
-      baseInfo.setCusCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getCusCode()));
-      // 收款账\卡号
-      baseInfo.setBankNo(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getBankNo()));
-      // 商户注册地址
-      baseInfo.setRegAddrDetail(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getRegAddrDetail()));
-      // 商户注册地址
-      baseInfo.setAddrDetail(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getAddrDetail()));
-      // 网址
-      baseInfo.setUrl(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getUrl()));
-      // 服务器 ip
-      baseInfo.setServerIp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getServerIp()));
-      // 商户联系人
-      baseInfo.setContName(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContName()));
-      // 商户联系电话
-      baseInfo.setContPhone(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getContPhone()));
-      // 股东信息
-      baseInfo.setShareHolder(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getShareHolder()));
-      // 外包服务机构名称
-      baseInfo.setOutServiceName(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceName()));
-      // 外包服务机构法人证件号码
-      baseInfo.setOutServiceCardCode(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceCardCode()));
-      // 外包服务机构法定代表人证件号码"
-      baseInfo.setOutServiceLegCardCode(
-          CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getOutServiceLegCardCode()));
-
-      baseInfo.setIcp(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getIcp()));
-      baseInfo.setDocCode(CFCACipherUtils.encrypt(symmetricKeyEncoded, baseInfo.getDocCode()));
       baseInfos.add(baseInfo);
       pcacList.setBaseInfo(baseInfos);
     }
@@ -404,12 +358,6 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
     log.info("url:{}", pcacConfig.getUrl());
-    /*String post = "<Body>\n" +
-    "    <RespInfo>\n" +
-    "        <ResultStatus>已上报</ResultStatus>\n" +
-    "        <ResultCode>01</ResultCode>\n" +
-    "    </RespInfo>\n" +
-    "</Body>";*/
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc =
         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)
             XmlJsonUtils.convertXmlStrToObject(
