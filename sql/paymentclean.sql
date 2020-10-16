@@ -21,7 +21,7 @@ create table pcac_assistance_info
 drop table if exists pcac_opt_log;
 create table pcac_opt_log
 (
-    pcac_opt_log_id            int(64) not null comment 'id序号',
+    pcac_opt_log_id            int(64) not null auto_increment comment 'id序号',
     created_by    varchar(32)    comment '操作人' ,
     opt_content   varchar(128)    comment '操作内容' ,
     created_time  Date    comment '操作时间' ,
