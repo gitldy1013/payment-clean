@@ -620,8 +620,8 @@ public class PcacTest<T> {
   void QE0001YES(){
     // 拼装Body QE0001-个人商户查询有数据
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body();
-      body.setDocCode("");
-      body.setRegName("");
+      body.setDocCode("220110199888011111");
+      body.setRegName("中移动电子玩具店");
     String[] UP0011 = pushPcac((T) body, "037", "QE0001");
   }
 
@@ -634,8 +634,8 @@ public class PcacTest<T> {
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList();
     pcacList.setCount("1");
     BaseInfo baseInfo = new BaseInfo();
-    baseInfo.setDocCode("10200");
-    baseInfo.setRegName("123213");
+    baseInfo.setDocCode("220110199888011111");
+    baseInfo.setRegName("中移动电子玩具店");
     ArrayList<BaseInfo> baseInfos = new ArrayList<>();
     baseInfos.add(baseInfo);
     pcacList.setBaseInfo(baseInfos);
@@ -673,7 +673,7 @@ public class PcacTest<T> {
   void QE0003(){
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body();
     body.setDocType("");
-    body.setDocCode("");
+    body.setDocCode("967522156112317186");
     body.setRegName("");
     body.setLegDocCode("");
     body.setLegDocName("");
@@ -689,7 +689,7 @@ public class PcacTest<T> {
   @Test
   void TS0008(){
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body();
-    body.setResultSequence("VRCQox10NikKGEZYBpKfA6Irz6gw5jT4V1N+hd5K/TW6MlNBaaZm4ZFz9JOxMoVR");
+    body.setResultSequence("ImUnjN2APkBWtI/T/9oN6UnmGcAVipkkiCrjB30l0oC6MlNBaaZm4ZFz9JOxMoVR");
     pushPcac((T) body, "034", "TS0008");
 
   }
@@ -721,11 +721,7 @@ public class PcacTest<T> {
       // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
     log.info("url:{}", pcacConfig.getUrl());
-    com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc =
-        (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)
-            XmlJsonUtils.convertXmlStrToObject(
-                post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
-    String formatXml = XmlJsonUtils.formatXml(XmlJsonUtils.convertObjectToXmlStr(doc));
+    String formatXml = XmlJsonUtils.formatXml(post);
     log.info("协会返回数据对象:{}", formatXml);
     return new String[] {XmlJsonUtils.formatXml(xml), formatXml};
   }
