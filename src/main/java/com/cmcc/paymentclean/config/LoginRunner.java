@@ -31,17 +31,17 @@ public class LoginRunner implements ApplicationRunner {
         new Runnable() {
           @Override
           public void run() {
-            LoginResult token = getToken();
-            log.info("用户token：{}", token.getUserToken());
+              String token = getToken();
+            log.info("用户token：{}", token);
           }
 
           @Caching(
               put = {
                 @CachePut(value = "token"),
               })
-          public LoginResult getToken() {
+          public String getToken() {
             service.logout();
-            return service.login();
+            return service.login().getUserToken();
           }
         };
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
