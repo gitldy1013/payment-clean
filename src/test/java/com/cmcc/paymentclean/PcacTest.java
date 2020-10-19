@@ -494,10 +494,10 @@ public class PcacTest<T> {
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.PcacList();
     pcacList.setCount("1");
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.BaseInfo();
-    baseInfo.setCusType("");
-    baseInfo.setDocType("");
-    baseInfo.setDocCode("");
-    baseInfo.setCusCode("");
+    baseInfo.setCusType("01");
+    baseInfo.setDocType("01");
+    baseInfo.setDocCode("220110199888011111");
+    baseInfo.setCusCode("yd123456555");
     pcacList.setBaseInfo(baseInfo);
     body.setPcacList(pcacList);
     pushPcac((T) body, "026", "EDEL01");
@@ -650,6 +650,9 @@ public class PcacTest<T> {
 
   /**
    *企业商户批量查询有数据
+   * NMJDh2a9OwnpaAdh1pikUNhzbBlpSMkPPrZj3X9HhGy6MlNBaaZm4ZFz9JOxMoVR
+   * titEqhNm9cDu4VVjyFiw1vd4qsm4738E/Ce0n/a8c9u6MlNBaaZm4ZFz9JOxMoVR
+   *
   */
   @Test
   void QE0004(){
@@ -661,7 +664,7 @@ public class PcacTest<T> {
     baseInfo.setRegName("");
     baseInfo.setLegDocCode("");
     baseInfo.setLegDocName("");
-    baseInfo.setDocCode("967522156112317186");
+    baseInfo.setDocCode("123456123456123456");
     baseInfos.add(baseInfo);
     pcacList.setBaseInfo(baseInfos);
     body.setPcacList(pcacList);
@@ -709,7 +712,6 @@ public class PcacTest<T> {
 
 
   public String[] pushPcac(T body, String code, String trnxCode) {
-
     Document<T> document = getDocument(body, trnxCode);
     // 报文转换
     String xml = XmlJsonUtils.convertObjectToXmlStr(document);
