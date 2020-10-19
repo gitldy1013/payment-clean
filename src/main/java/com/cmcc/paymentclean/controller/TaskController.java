@@ -1,13 +1,14 @@
 package com.cmcc.paymentclean.controller;
 
 import com.cmcc.paymentclean.cron.SftpPcacRiskInfo;
-import com.cmcc.paymentclean.service.BusinessInfoService;
-import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
-import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
-import com.cmcc.paymentclean.service.PcacPersonRiskSubmitInfoService;
+import com.cmcc.paymentclean.entity.LoginResult;
+import com.cmcc.paymentclean.service.*;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Caching;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,7 @@ public class TaskController {
   @Autowired private SftpPcacRiskInfo sftpPcacRiskInfo;
 
   @Autowired private BusinessInfoService businessInfoService;
+  @Autowired private LoginPcacService loginPcacService;
 
   /** 上报个人风险信息 */
   @ApiOperation(value = "上报个人风险信息", notes = "上报个人风险信息")
@@ -78,5 +80,26 @@ public class TaskController {
     log.info("每月1号8点上报企业商户信息==START==");
     businessInfoService.queryBusinessInfoAndPushPcac();
     log.info("每月1号8点上报企业商户信息==END==");
+  }
+
+  /**
+   * 登录协会获取userToken
+   * */
+  @ApiOperation(value = "登录协会获取userToken", notes = "登录协会获取userToken")
+  @RequestMapping(value = "/LoginPcac", method = RequestMethod.GET)
+  public void LoginPcac(){
+    String userToken = getToken();
+    log.info("本次登录协会获取的userToken值：{}",userToken);
+  }
+
+  @Caching(
+          put = {
+                  @CachePut(value = "token"),
+          })
+  public String getToken() {
+    log.info("登录协会前先执行登出方法");
+     loginPcacService.logout();
+    return loginPcacService.login().getUserToken();
+
   }
 }
