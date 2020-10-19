@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010162053553281</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QE0003</TrnxCode>
+            <TrnxTime>20201016164916</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>s/Q4oRqOSLA2LWdJ8YX8ORzjwB9KYMU4PFBbcxJF5BKAG7W0e1Jq5bj+Pa70YOXluRXlCbDL0g6cgA02O5FlPs0lDX9IXXUd/yuSs4zwNOJmoCslyzWsON1qxLJTLXZPkUwvuSxzB9TrKvLsEyctzbWaEArUuXI4eA2vgLkb6akr7ZYjRsF+E14x+c3xgrPKv7/XKy5CuVgUQzbg+QPB4/gxCrmM6dqKV5I+f9HJckYdYA/QD5WQajqm3IM92LA7kgA+zfMlO7uKdBACkQpJHPicnPaJE79JN5US+vWRoQ2GHskTsQqmv+wLv952vRvsxTMENRIteAAi77MBsHxV1A==</SecretKey>
+        </Head>
+        <Body>
+            <DocType>02</DocType>
+            <DocCode>967522156112317186112</DocCode>
+            <RegName/>
+            <LegDocCode/>
+            <LegDocName/>
+            <ResultSequence/>
+        </Body>
+    </Request>
+    <Signature>O96klHS30ij5vXCwZcK+MKBAXIRJx7rFn1wz+m3lhNfpqf4N5O5frUSb7MMd+e9NC0Ctq3TNW8/WvWMRXkcstyHb/Cdc+IC1ikfUx19GkUE+brU9ZiUj6sTT8iIQPwXhPFEY3owGpyE4BNVX0zqsKwxJy8bf4iTW12H70gnwFhzI+I2ZPUSSvHBimq/teYe6Xl9T+intG3LR64uXReqzJcNEhQRQVJN6fgVgSw5cd9fBo3jXxh7fUSH9156gkQJCIkViW56GLVtGXEoJseDUQQbKEwY6cJJ7JcX0tdmrP1wDjjy1lKkpZf4Yur9AssTGVJ1uXStpCAuTequFzN6Jeg==</Signature>
+</Document>

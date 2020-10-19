@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010167752142832</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QE0003</TrnxCode>
+            <TrnxTime>20201016170013</TrnxTime>
+            <SecretKey>hyPi5PsUrpJdIYoXMg51a4xDkoYYI7VOV6ltpJFAS0Cc7RLA3ezelIa9sneox+wBRAfybVCzEQcIhEYA59T6qtY2TtZJ9IhFFk6+g1ae6/H6zFu+T3WaQSb3fkAV8r+7YIEPso1ypBSlRomPPHbw4Xh1OKgu/uvcu54PTs80INx6f4njb7zP6eeHgSMQBvE+EJGGK4Epf5CQHZ7Cfh3JDmw36iq82iGaTDv+O3sBBV7JdP7VtBWPeGPAei4lyd1V2sFdWsqPHPTV3NWStYbvpq4P59keewyNGx1npOb4IYJ+vXTXSvmytS3C8z9H3RPx5pqA2+HHpTd66V5IB/weyg==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+            </RespInfo>
+            <QueryInfo>
+                <DocType/>
+                <DocCode>967522156112317186</DocCode>
+                <RegName/>
+                <LegDocCode/>
+                <LegDocName/>
+                <ResultSequence/>
+            </QueryInfo>
+            <PcacList>
+                <Count>1</Count>
+                <ResultInfo>
+                    <RegName>2z5j7yi6XQj/ToKUlJYAuhcFdmFDNryeyjFjcU01IcQ=</RegName>
+                    <DocType>02</DocType>
+                    <DocCode>UqQmscvegFvsSYPyMaGT7XEL5g4C/WTjRuINNNVYHJ8=</DocCode>
+                    <ResultSequence>1764b296efa608938189ccc9922fe499</ResultSequence>
+                </ResultInfo>
+            </PcacList>
+        </Body>
+    </Respone>
+    <Signature>EMhKzEOzxVmyV3/8lNu0vkyLqywqB2Ne/L3lz1UQdWhpMXVAI34DsDYTScb+rBkIvHFkgb2VI2ROPnuhbGbGL3RYjwZ5SoqQIpDOcFMRN7nZAJ7wYUkwTlwtK9GAEAOIgAXrYEzD2nZrLErUqpWrj7llM9pm2C3ij85Q/nqFYX3to1o8VyPSUNBuOW4kjMwUX89Qkzm9u2CEsU9RhvYURDF+TNR9X+Lly5xxmnqvZfSpUlrcobzAryg+jDeHjUXjEAwzKELS4A6pJpTHAVfE9GhJGpYgdX5yBIsp1s0hwZufd8534Zv7kcByVIEigOLVS/veGOzPP+axlv1KBndE9A==</Signature>
+</Document>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010163235607966</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QE0001</TrnxCode>
+            <TrnxTime>20201016121025</TrnxTime>
+            <SecretKey>qMnjgoV/MFf6tVvQC+Vs0ACXk6LBLPlhQYlo6/YEKT/Q16+D0+Zl3olbrx/Py/fBUWtD9iqo0OjkNSKMOVCiZY2z/w2l7HOX6DaaXs+4171bnbP27ptUumtYzieGyr0i8aIl9RHI2h96Ofvqy5nulokZjP+pSNwcJPlQfMI+9QwIZ/DBUHDlK5pVeqjYwFUE81Fb5m9JeYwSq555VeDKF2jv3nOhg/jbjhZqh2cktRLyVN23iFfCUHAlFt3Xg1EDO8TK/OJMsDy4YXjkYgEUTfXdoArZRitG1be/T++BTqxogYJVzHLtQNCRr9KVpRhuY1TGRYulV26yjmNrFeSeQg==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+            </RespInfo>
+            <QueryInfo>
+                <DocCode>220110199888011111</DocCode>
+                <RegName>中移动电子玩具店</RegName>
+            </QueryInfo>
+            <ResultInfo>
+                <BaseInfo>
+                    <SignNum>1</SignNum>
+                    <SignCurrentNum>1</SignCurrentNum>
+                    <SignCurrentState>02</SignCurrentState>
+                    <BlackNum>0</BlackNum>
+                    <RiskNum>0</RiskNum>
+                </BaseInfo>
+                <HisSignList>
+                    <SignInfo>
+                        <OrgName>机构1</OrgName>
+                        <Status>01</Status>
+                        <StartTime>2019-01-01</StartTime>
+                        <EndTime>2099-12-12</EndTime>
+                        <RiskStatus>01</RiskStatus>
+                        <OpenType>01</OpenType>
+                    </SignInfo>
+                </HisSignList>
+                <CurSignList>
+                    <SignInfo>
+                        <OrgName>机构1</OrgName>
+                        <Status>01</Status>
+                        <StartTime>2019-01-01</StartTime>
+                        <EndTime>2099-12-12</EndTime>
+                        <RiskStatus>01</RiskStatus>
+                        <OpenType>01</OpenType>
+                    </SignInfo>
+                </CurSignList>
+            </ResultInfo>
+        </Body>
+    </Respone>
+    <Signature>ZGJClKb1kU1/lcUx01q/SDH03Lu+mttLXXYWJR/IXGwP2GNrHKw8lTHunhhbpygmx+or2906U+HSAzRsiAqxeIvbOj4T06FBc/yz1rY7wMbFuB6VaXzbh42LgE8iMPPA3BgVKsd25IPv0r3ONBK5IqclE24LaqHexF5W2Ho0IMCwdQ5TpsicehGItqlNGI96M/ST/2PllBqmJ6KFeIZSFWuyQtvlgpT5uMsb5/cDl9iw5hosNPtHF8Sn9OLiJD8bHdQL9qNbeHfr+doQ5WLVynuCd0Vi8EYmdXW9jo0RMLMt/PyomubI8UChYYLXa8KkCIFaysdDYt0RrSLAMTWaNA==</Signature>
+</Document>

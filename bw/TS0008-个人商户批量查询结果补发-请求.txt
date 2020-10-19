@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010166492457985</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>TS0008</TrnxCode>
+            <TrnxTime>20201016172345</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>kNdpR3rb3V4vBy+8gqgtt95VJx5vUtCnH8tGj8SWnvu6GaXnPThjT8RJrtkL+x5YVc5uakwx91CnA3WOjH6xC4lSiXYicALeIPtrzdC3A3Ph0+i56t6S5Z4l5EqXYz1dov/A+QVMt9f+u6QqOXJ0N2TcdNQnHNfU0UlMmjispsDVlHqAl1U1GyaMiN7JmkEmMQ+hOMeYJEUUrD4MXeG6XV7JuXN3OGtdSV/3AteBgbKWwgISJ0BMSk3K3BWiSM/1Myt7Go8rNFiXB/VnTMYBtt+l9nfSiSRW1NZWM6u4JPEzCArUoEcoVazw7WBCMY4+7qhlADNnpIwHPZSxAJMd0Q==</SecretKey>
+        </Head>
+        <Body>
+            <ResultSequence>Wzhdg7Ih6mjH83czy38ERMR9jd1WwrtDpJ1O8qc5MK+6MlNBaaZm4ZFz9JOxMoVR</ResultSequence>
+        </Body>
+    </Request>
+    <Signature>M+q/2x2+WjxBnIPQNm01lEuADkQ54JAxBY5LBsgHESsN7YQn+balEOSxOMnZf7QQCUqylRReIHJM0iO8Y1E+Ewub+7brBa/jH/9PBgyTKroFrszi1do/+x+iy6EyQ0jxGRqwSXuvkCS84pUXFyXIhRxNd0ZhJYAhXanWttpFxsgaZL4So+l3eBse7Or3y1fR9UePVqaqlQ9faSNi9O8Wp/lef9lsE1w/GLwI8XUSSBLf2F6tatnltuQMGX3V+7cQjYbhPDktqJYwAkLMJJJslhwTCP7+PNzF+auioscN/watlcDCAGsiYB0jHZg02nBdl2eSQJrpgeVHEPw18fKlzw==</Signature>
+</Document>

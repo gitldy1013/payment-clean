@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010163235607966</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>QE0001</TrnxCode>
+            <TrnxTime>20201016121024</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
+            <SecretKey>PEtcezYYSz0NyOUU/qnsMPDBAqFJYppmgSlrjxaAflbQKo0hI/3+XRUxNuwEs6ZToXUhYgeAYlCNcZCf4Qik8qZ6yZda3/eJ++5HtBTihnYQ7PGX5STaSNK0HzlnC8AfQcbLNfFhQwd0ZgNSORVY8fposhdlXOXunrUu00dJkowKszB1wSbIwKKRkMzFu2vcRuVkP4nveXR/r2Gw6E4oB0vmTEV96GteXAuuUAw6jFdFo5OtJtnFkeTJsv30L+V9axrpg2xn7LW7wEu+xqLOWuHg3b5MMVm14owlxjJKJBhjOQvFQNjlrtewt9FubTuwbVmVYs99dlh/87+W21IdKg==</SecretKey>
+        </Head>
+        <Body>
+            <DocCode>220110199888011111</DocCode>
+            <RegName>中移动电子玩具店</RegName>
+        </Body>
+    </Request>
+    <Signature>zO3J8viV+7GaKZdjXyAV7BW8UdEbJsRhjEzgPtixdEHAahBknGqA7hkiKlAfGbYeXip+UFiOBBWm7GLBWt8dCiSPGdXDTKgKAs5raSQQyZoqsgBNVSjwCJRoXhUQiKA9nHRaVOwWKHnayLO+NJ7ojSIY5+5D7EvN2ANFsxAw/61Anh4YAaUUiKoFPZhbfvzPBsDqCrD5PuUJCIp4GbYQwOopDN71sB6akjIK7lNN4bJ37uHXvMf/Mhgoq9hq8VJU/Pb8yYkbLACdM1QwKdc0J5V3RofVEGC8l2lJn63p3qlYlIz6uMNiV5xX+XlL89wzj2GYkkN7CJkUY/jutKwMJQ==</Signature>
+</Document>

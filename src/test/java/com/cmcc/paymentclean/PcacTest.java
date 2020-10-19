@@ -622,11 +622,14 @@ public class PcacTest<T> {
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body();
       body.setDocCode("220110199888011111");
       body.setRegName("中移动电子玩具店");
-    String[] UP0011 = pushPcac((T) body, "037", "QE0001");
+    String[] QE0001 = pushPcac((T) body, "037", "QE0001");
+    //creatFile(QE0001[0], "QE0001-个人商户查询有数据-请求");
+     //creatFile(QE0001[1], "QE0001-个人商户查询有数据-响应");
   }
 
   /**
   * 个人商户批量查询
+   * <ResultSequence>Wzhdg7Ih6mjH83czy38ERMR9jd1WwrtDpJ1O8qc5MK+6MlNBaaZm4ZFz9JOxMoVR</ResultSequence>
   * */
   @Test
   void QE0002(){
@@ -640,8 +643,9 @@ public class PcacTest<T> {
     baseInfos.add(baseInfo);
     pcacList.setBaseInfo(baseInfos);
     body.setPcacList(pcacList);
-    String[] qe0002s = pushPcac((T) body, "039", "QE0002");
-
+    String[] QE0002 = pushPcac((T) body, "039", "QE0002");
+    //creatFile(QE0002[0], "QE0002-个人商户批量查询-请求");
+    //creatFile(QE0002[1], "QE0002-个人商户批量查询-响应");
   }
 
   /**
@@ -678,7 +682,9 @@ public class PcacTest<T> {
     body.setLegDocCode("");
     body.setLegDocName("");
     body.setResultSequence("");
-    pushPcac((T) body, "041", "QE0003");
+    String[] qe0003s = pushPcac((T) body, "041", "QE0003");
+//    creatFile(qe0003s[0], "QE0003-企业商户查询多商户-请求");
+//    creatFile(qe0003s[1], "QE0003-企业商户查询多商户-响应");
 
   }
 
@@ -689,8 +695,15 @@ public class PcacTest<T> {
   @Test
   void TS0008(){
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body();
+    //商户批量查询结果补发序列
     body.setResultSequence("ImUnjN2APkBWtI/T/9oN6UnmGcAVipkkiCrjB30l0oC6MlNBaaZm4ZFz9JOxMoVR");
-    pushPcac((T) body, "034", "TS0008");
+    //个人商户批量查询结果补发序列
+    //body.setResultSequence("Wzhdg7Ih6mjH83czy38ERMR9jd1WwrtDpJ1O8qc5MK+6MlNBaaZm4ZFz9JOxMoVR");
+    String[] TS0008 = pushPcac((T) body, "034", "TS0008");
+//    creatFile(TS0008[0], "TS0008-个人商户批量查询结果补发-请求");
+//    creatFile(TS0008[1], "TS0008-个人商户批量查询结果补发-响应");
+//    creatFile(TS0008[0], "TS0008-商户批量查询结果补发-请求");
+//    creatFile(TS0008[1], "TS0008-商户批量查询结果补发-响应");
 
   }
 
