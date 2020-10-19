@@ -1,6 +1,5 @@
 package com.cmcc.paymentclean.config;
 
-import com.cmcc.paymentclean.entity.LoginResult;
 import com.cmcc.paymentclean.service.LoginPcacService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
