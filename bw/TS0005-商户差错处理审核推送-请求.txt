@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Document>
+  <Request>
+    <Head>
+      <Version>V1.3.0</Version>
+      <Identification>202010200111117257</Identification>
+      <OrigSender>Z2004343000017</OrigSender>
+      <OrigSenderSID>Z2004343000017</OrigSenderSID>
+      <RecSystemId>R0001</RecSystemId>
+      <TrnxCode>TS0005</TrnxCode>
+      <TrnxTime>20201020180100</TrnxTime>
+      <UserToken>pcac</UserToken>
+      <SecretKey>PdTPoYu/8KhNlUa9ZywgKRqaOuBgDDw4kO47Fr1EwVsNo9x8NI5yeaSLU4lMZy2wvkghmbuQc+X3+Vp9EPfqeGscuzHALNmqKCABl8oEyqkuZhzCCoiVzRyRhKKbZ4tyfyulOiGBWmpUFQcZ5Pyx88M30mm/S/E1VTx5Zp9qGr+sZMY4V1/9bD/Zp8zWTILAArnQO8vRdHdE2ifidEPKVAv3utjU3uBdxUsN/MSMT0fU+y+DVmPBdV1Ov/MuUOhC/xFVLzpf7KRUK5bZ+8jowA3M9DmDYYrGSBZ5lbUyHbaNGtjCdt/HbYCNEWHGMNRN73qXLk2sH7TfydTLCaPPyQ==</SecretKey>
+    </Head>
+    <Body>
+      <PcacList>
+        <Count>1</Count>
+        <ResultSequence>976a07c4e899a45c7bb5cac9a8fe9c7c</ResultSequence>
+        <EntInfo>
+          <CusType>01</CusType>
+          <RegName>BJDK7T50FurWpDdt5i/dWmVAeCrxFYXzYfprCNlCuIA=</RegName>
+          <CusCode>kCFX2laPuMua/vKsNiIJxQ==</CusCode>
+          <DocType>01</DocType>
+          <DocCode>2HBsyNiXbaHWqrOVDMwF2Msb2rvt/Ss4u2SmiepCu60=</DocCode>
+          <CheckState>01</CheckState>
+          <CheckDesc/>
+        </EntInfo>
+      </PcacList>
+    </Body>
+  </Request>
+  <Signature>d+pLzFe6RvLJGpw5DRM8UWatvYkLR9EoHazUQgSf7ZJNPlyPt2YI1QLmGpxSsE2oIE2QkJI/p+LaqPD9hGaEws2dRV0sji8SeWpZQqTWhLgAdRW/fI8V27JEQfVG/G2p8WZeTK8NUN2kzy0KJC1XFX8TCC5vEBZ+iCs0rnwThhbHPTCHC8VsHPAc0pb/461DdePmHhHupKf4STv5ISP2bnGfyR7S3Rzc0AkQiqOqYyavAHhC6Z/NPYRLuouxqPKYG54P3D2lNLJXnhDn7GzZKLyPALsPWg7GPiwRFGPrHieaQrRihbv/vzky+6SmJ9LVj2N8tnikmX8kRLZJ/B01Kg==</Signature>
+</Document>

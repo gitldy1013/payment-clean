@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Document>
+  <Respone>
+    <Head>
+      <Version>V1.3.0</Version>
+      <Identification>202010200531604747</Identification>
+      <OrigSender>Z2004343000017</OrigSender>
+      <OrigSenderSID>zf_sysstem</OrigSenderSID>
+      <RecSystemId>R0001</RecSystemId>
+      <TrnxCode/>
+      <TrnxTime>20201020200727</TrnxTime>
+      <SecretKey/>
+    </Head>
+    <Body>
+      <RespInfo>
+        <ResultStatus>01</ResultStatus>
+        <ResultCode>S00000</ResultCode>
+      </RespInfo>
+    </Body>
+  </Respone>
+  <Signature>GXYY9pQdSDJoenYvqt9bNHrgOCx//m4vh/zLGT7XFgljmhgjTkm3ebr/6ompt6MtccUsTZAiofTdjQS8qYEEjOpIRloSlHL1AIL4D5G36kYru6YICEQFGMKxuGyCMh/yP9BtlQy/c4Ck/JPopbvVtRkcWgaP5kEjtSz0ijR4vFJxNaHC/48xE475EvyGMmwq1G2jGBxA0OV8P6vswG12y2d+EOluez0H9XDl3TWx+DKsN4oz76TVOIrZuH9GS+LY9RKgnAUm+rSBcoxne64bq84MkmufM7zydKdgrdlTjnI/G+L/yKZ7PWd3k+qVR5u1zb6dBvuwyRiQSRuxpJFPiQ==</Signature>
+</Document>
