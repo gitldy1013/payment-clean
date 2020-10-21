@@ -130,7 +130,7 @@ create table pcac_merchant_risk_submit_info
 (
    pcac_merchant_risk_submit_info_id int(64) not null auto_increment comment 'id序号',
    cus_type             varchar(2) comment '商户类型',
-   cus_property         varchar(2) comment '客户属性',
+   cus_property         varchar(9) comment '客户属性',
    risk_type            varchar(2) comment '风险类型',
    cus_nature           varchar(2) comment '商户属性',
    cus_name             varchar(128) comment '商户简称',
