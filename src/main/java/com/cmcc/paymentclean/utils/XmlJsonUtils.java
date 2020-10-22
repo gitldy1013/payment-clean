@@ -229,7 +229,7 @@ public class XmlJsonUtils {
   }
 
   public static com.cmcc.paymentclean.entity.dto.pcac.resp.Document getRespDocument(
-      PcacConfig pcacConfig, String identification) {
+      PcacConfig pcacConfig, String identification,String trnxCode) {
     Body body = new Body();
     RespInfo respInfo = new RespInfo();
     // 返回成功的状态码
@@ -240,7 +240,7 @@ public class XmlJsonUtils {
         new com.cmcc.paymentclean.entity.dto.pcac.resp.Document();
     Respone respone = new Respone();
     respone.setBody(body);
-    String trnxCode = "";
+    //String trnxCode = "";
     com.cmcc.paymentclean.entity.dto.pcac.resp.Head head =
         getRespHead(trnxCode, pcacConfig, identification);
     respone.setHead(head);
