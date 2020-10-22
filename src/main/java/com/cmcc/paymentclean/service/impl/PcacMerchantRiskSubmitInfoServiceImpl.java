@@ -171,14 +171,16 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
         UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper =
             new UpdateWrapper<PcacMerchantRiskSubmitInfo>();
-        updateWrapper.set("submit_time", new Date());
-        updateWrapper.set("submit_status", SubmitStatusEnum.ISBLACKENUM_1.getCode());
-        updateWrapper.set(
-            "result_status", doc.getRespone().getBody().getRespInfo().getResultStatus());
-        updateWrapper.set("result_code", doc.getRespone().getBody().getRespInfo().getResultCode());
-        updateWrapper.set("msg_detail", doc.getRespone().getBody().getRespInfo().getMsgDetail());
-        updateWrapper.set("rep_date", new Date());
-        pcacMerchantRiskSubmitInfoMapper.update(pcacMerchantRiskSubmitInfo, updateWrapper);
+        pcacMerchantRiskSubmitInfo.setSubmitTime(new Date());
+        pcacMerchantRiskSubmitInfo.setSubmitStatus(SubmitStatusEnum.ISBLACKENUM_1.getCode());
+        pcacMerchantRiskSubmitInfo.setResultCode(
+            doc.getRespone().getBody().getRespInfo().getResultCode());
+        pcacMerchantRiskSubmitInfo.setResultStatus(
+            doc.getRespone().getBody().getRespInfo().getResultStatus());
+        pcacMerchantRiskSubmitInfo.setMsgDetail(
+            doc.getRespone().getBody().getRespInfo().getMsgDetail());
+        pcacMerchantRiskSubmitInfo.setRepDate(new Date());
+        pcacMerchantRiskSubmitInfoMapper.updateById(pcacMerchantRiskSubmitInfo);
       }
     } else {
       log.info(
