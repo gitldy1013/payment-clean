@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010229218071316</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>TS0008</TrnxCode>
+            <TrnxTime>20201022101947</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyEa0b2kUEbJPKrmiz1E0KpZ</UserToken>
+            <SecretKey>iKD0eR7Jdkadm/75Wqa+qPg3OZ/kkOL7GA/eXz/gfijNkuZA+klguLtUsahfCRIoOoaz/eryccUToasQNCiq9gw4uyA3M4sBrb5QPD/wWm8JVFCGFirC8Bs96sHt1wKc81WDj7CfJx7T3XRFNQjULPkjWmiLxKRhx3jTxS9pgZz692Kvz+AAyrjWbBuI3QEwT4TKbu+IJg3MldxDjCwyBvUJbUI5E3u18mmMaFM5XdbGjDQIslvLSQSqSHX42+dwQ4SNQpWDgAe+CZ8CGk3KbcQVcWaH8enZNW05iOfSApyg+PcXyyt4spIZdqdZT0SgKyguZurczwri8ad1iOOCvg==</SecretKey>
+        </Head>
+        <Body>
+            <ResultSequence>ImUnjN2APkBWtI/T/9oN6UnmGcAVipkkiCrjB30l0oC6MlNBaaZm4ZFz9JOxMoVR</ResultSequence>
+        </Body>
+    </Request>
+    <Signature>UViClaf+2QCr8aomMFjjKQoIDXl+ULpMo0tIxAjO5IwODcrmetG3FZN1gmaxxqqnvrE4lZLKNNq+womWbH5j3ACBNNfcx/t+FRe+VfZ85uF9TRUzt62/QIPuriEwRD6CsJxyTbiLJ0li4gFDnqLO4nEOFnu9tQ/k1sZe4vffYiTETYwUkGRFLyuAFtsWrVBha7TeAlDOXHpX2X8iN0ccPQUb06SurKueqdJHtz0ttYsWOL8sYhvNRbGNg0R4XvC6zqzxf0Uk69iadKQXAPea3AdWqsy19r1J8k0GNUuH4QfFYoWVX4x3eazW7k6NbfnAvGXseVL9kspURDAa0IItKQ==</Signature>
+</Document>
