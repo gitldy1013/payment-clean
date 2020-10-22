@@ -4,13 +4,13 @@
     <Respone>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009307470462634</Identification>
+            <Identification>202010229923814447</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>QR0002</TrnxCode>
-            <TrnxTime>20200930153343</TrnxTime>
-            <SecretKey>YKJz9nPSNqjyJPSqo34p9duubd6JFoC9mZ1E6opCxt4yXQGsYi1E+p8N2H5UkO3ZcIpk3mChmq4mUjVOO9UeGwJl/Kphb7DJ9wr+MNUxKL+w1U6nOGh3YpNoANLr7iQBBJZEroKbQrw1hEVIiyzDUV7EAy8/SSPdLMr9lut37jnuokwZPf3Etf5FfiMPIv51HTL0qncmmWsS/TbWB4a/3b8Mop+9axY+/GjznbO4KundGTRldd3DWip9WcbUcTCmmf/5ZISIBiOkaG9g0sPg84AZOB6L+2Tse4dse0X4FLsrQlaBl4YT5MuXyd/Fdp5RLoni0+x5P4oolv6je3liJg==</SecretKey>
+            <TrnxTime>20201022141942</TrnxTime>
+            <SecretKey>LNTpoWYZx1/D7tNLkbDMuzhsbNnEEMn+NpLVMAZvBftWxLAc30Y1/yeAmSV9Rp/VThYiWhAxif9qQA/dKHN6xC4pnOL/hgXN5mdPJs4WDlJvdqdbsUm+/Q5rE6PK6VArhefmmt1YyJET8kGnRTtCx4GjBa69jiKoL5ydqM7tj490sb99SiiPSVEjsmDXg34cS+Sf2aM37YsS3rrYvybRpbcwdK/FGrcm9c/xAe1c+sbneVcE/0o+cmrpEBPeBV1v9ZSeW8xJsigSw2BGwaq17C0bg3RHd3X7Q2LRxLzNwcaKkJ8vO8/xSYsTlcwMK8NcqQDkOojcgG8UFfoPEzQ1Hg==</SecretKey>
         </Head>
         <Body>
             <RespInfo>
@@ -19,101 +19,101 @@
             </RespInfo>
             <QueryInfo>
                 <RiskType>01</RiskType>
-                <MobileNo>12345678909</MobileNo>
-                <BankNo>8q/HMqAepL9Ob3ZEhLQEhg==</BankNo>
-                <OpenBank>大型支行</OpenBank>
+                <CusNature>01</CusNature>
                 <CusName>中移动</CusName>
+                <RegName>中移动电子商务有限公司</RegName>
+                <CusCode>888200700999999</CusCode>
                 <DocType>01</DocType>
                 <DocCode>222000399940408</DocCode>
-                <Address>北京</Address>
+                <LegRepName>刘东东</LegRepName>
+                <LegDocCode>229339029203948764</LegDocCode>
+                <BankNo>123123123123</BankNo>
+                <OpenBank>支付账户开立机构</OpenBank>
+                <Url>www.chinamobile.com</Url>
+                <ServerIp>192.168.3.2</ServerIp>
+                <MobileNo>12345678909</MobileNo>
+                <Address>长沙</Address>
+                <Icp>ICP 备案编号21</Icp>
+                <Level>01</Level>
                 <Occurtimeb>2020-07-06</Occurtimeb>
                 <Occurtimee>2099-12-30</Occurtimee>
                 <Occurchan>01</Occurchan>
                 <Occurarea>659000</Occurarea>
                 <Scope>01</Scope>
                 <ValidStatus>01</ValidStatus>
-                <CusNature>01</CusNature>
-                <RegName>中移动电子商务有限公司</RegName>
-                <CusCode>888200700999999</CusCode>
-                <LegRepName>刘东</LegRepName>
-                <LegDocCode>229339029203948764</LegDocCode>
-                <Url>www.chinamobile.com</Url>
-                <ServerIp>192.168.3.2</ServerIp>
-                <Icp>ICP 备案编号009</Icp>
-                <Level>01</Level>
                 <RegisteredArea>CN</RegisteredArea>
                 <RegisteredCode>1231</RegisteredCode>
             </QueryInfo>
             <PcacList>
                 <Count>1</Count>
                 <RiskInfo>
+                    <Id>WDKw4jC4H4Ylu0dr/pwvow==</Id>
                     <CusType>04</CusType>
                     <CusProperty>02</CusProperty>
                     <RiskType>01</RiskType>
                     <CusNature>01</CusNature>
-                    <CusName>QkbTPXcJvfBwJbH52oCVUw==</CusName>
-                    <RegName>hUcbx9nVzotD0j77ZRx6j9YJrUlHm8YnuDDizU2B/3slIaedXB0xB42v8FJVnC3p</RegName>
-                    <CusCode>2cfnLjKtvE0xbYyKMQA1CQ==</CusCode>
+                    <CusName>EVaNG89+kFV0vFr2r7NZnQ==</CusName>
+                    <RegName>+l6aOsC4RJ/6znU4RgKxa+Sg5+FCZM8XEQJfbLrU9TLBXKcAyuEgJ3a9YyncnWJb</RegName>
+                    <CusCode>TZ9xaHpCvvNOkzNgqTQm7Q==</CusCode>
                     <DocType>01</DocType>
-                    <DocCode>+FT/fg7nLP3DH+F3wrFb9A==</DocCode>
-                    <LegRepName>m30YvbmcTUWww2UIRiHgzw==</LegRepName>
+                    <DocCode>IhgXfjtIfM3LqgYImhhDSw==</DocCode>
+                    <LegRepName>7tC7WzpgQrMrPzVT8+Ozzg==</LegRepName>
                     <LegDocType>01</LegDocType>
-                    <LegDocCode>Q4FFET9FsSvgWlaEmFdzV5S74ANGLKEMGAPGkOQ8r58=</LegDocCode>
+                    <LegDocCode>4CocJ783+x4ZBW3e/BSw30oHdk0dhRx5+ZTVWVRJGo0=</LegDocCode>
                     <BankList>
                         <Count>1</Count>
                         <BankInfo>
                             <IsTransfer>0</IsTransfer>
-                            <BankNo>8q/HMqAepL9Ob3ZEhLQEhg==</BankNo>
-                            <OpenBank>大型支行</OpenBank>
+                            <BankNo>123123123123</BankNo>
+                            <OpenBank>支付账户开立机构</OpenBank>
                         </BankInfo>
                     </BankList>
-                    <Url>zU/i8VC91UYgevWsiimLV2Ep4vghiiWrSYklKbMeCkQ=</Url>
-                    <ServerIp>Ix2nVgpEMtA225RHwgB43Q==</ServerIp>
-                    <MobileNo>hrZskqSzb5HGGK/qtGfzAA==</MobileNo>
-                    <Address>北京</Address>
-                    <Icp>2Mexyv8Ly52sAYBuOsGUlIzidkfRlw84xCLzdwYy78A=</Icp>
+                    <Url>sdjzmq0HFTBALomx4XShHqAMgT/MkZ7YfpkR8rRr/VY=</Url>
+                    <ServerIp>XYb0XYzo1UkJLOH+tX4How==</ServerIp>
+                    <MobileNo>I/JeCNdeJhwwd9uzbQDcEw==</MobileNo>
+                    <Address>长沙</Address>
+                    <Icp>WJtBowrPuzBj5iPJePUFDiZxZ59N4XC5Mv17OW8wLEU=</Icp>
                     <Level>01</Level>
                     <Occurtimeb>2020-07-06</Occurtimeb>
                     <Occurtimee>2099-12-30</Occurtimee>
                     <Occurchan>01</Occurchan>
                     <Occurarea>659000</Occurarea>
-                    <Note>测试跨境商户需要数据</Note>
+                    <Note>测试</Note>
                     <ValidDate>2099-12-30</ValidDate>
+                    <ValidStatus>01</ValidStatus>
+                    <StopNum>0</StopNum>
+                    <RefuseNum>0</RefuseNum>
+                    <UseRiseNum>0</UseRiseNum>
+                    <FrozenNum>0</FrozenNum>
+                    <AdjustmentCycleNum>0</AdjustmentCycleNum>
+                    <DelayNum>0</DelayNum>
+                    <QuotaNum>0</QuotaNum>
+                    <SuspendNum>0</SuspendNum>
+                    <CloseNum>0</CloseNum>
+                    <FollowNum>0</FollowNum>
+                    <AntiMoneyNum>0</AntiMoneyNum>
+                    <OtherNum>0</OtherNum>
                     <RegisteredArea>CN</RegisteredArea>
-                    <RegisteredCode>E2WCGKPGgta1Y7rs6jyTbg==</RegisteredCode>
+                    <RegisteredCode>KNxFS2V0yoD2KLEvW6/9/A==</RegisteredCode>
                     <SourceChannel>QT</SourceChannel>
                     <Currency>CNY</Currency>
                     <Amount>999.99</Amount>
                     <RiskFindTime>2020-07-06</RiskFindTime>
-                    <LegControlName>刘东</LegControlName>
+                    <LegControlName>刘跑跑</LegControlName>
                     <LegControlCardType>01</LegControlCardType>
-                    <LegControlCardCode>tksob0/0PE9O5g53oQcmqXZKiSk3iQFvrZfsP9Kozb4=</LegControlCardCode>
-                    <Remarks>跨境商户测试</Remarks>
+                    <LegControlCardCode>KHmsPfeclvhIKmL7cHMArYfmEiYkNuEvbV6630fl7tA=</LegControlCardCode>
+                    <Remarks>测试</Remarks>
                     <BenList>
                         <Count>1</Count>
                         <BenInfo>
-                            <LegBenName>张志</LegBenName>
+                            <LegBenName>1</LegBenName>
                             <LegBenCardType>01</LegBenCardType>
                             <LegBenCardCode>093009488765346274</LegBenCardCode>
                         </BenInfo>
                     </BenList>
-                    <ValidStatus>01</ValidStatus>
-                    <Id>h3OIwVJokpqOrte7IIF1FQ==</Id>
-                    <StopNum>0</StopNum>
-                    <RefuseNum>0</RefuseNum>
-                    <UseRiseNum>0</UseRiseNum>
-                    <CloseNum>0</CloseNum>
-                    <FrozenNum>0</FrozenNum>
-                    <DelayNum>0</DelayNum>
-                    <QuotaNum>0</QuotaNum>
-                    <AdjustmentCycleNum>0</AdjustmentCycleNum>
-                    <SuspendNum>0</SuspendNum>
-                    <FollowNum>0</FollowNum>
-                    <AntiMoneyNum>0</AntiMoneyNum>
-                    <OtherNum>0</OtherNum>
                 </RiskInfo>
             </PcacList>
         </Body>
     </Respone>
-    <Signature>suH82jQksBVMJmTtwSVWBs6OJQg0CqWT0rkU29Xxqocpnt63dI74J/z+4gME2/AsGSB960rmwKUmVFBH99JHk6NH+SSHUfobwOrhs6kDC+426D5riDYZ7jfEf7jgCe/y8My4Wn2Co0+eIen3ucMkE/tsY2pkVQl9ggqV6R0apnsSSZxX7FyYXFSfsLd8v89zU23/IdTg5NFUCAcL+AKLegkrLPXM1qbaZcNvrHedG+8ULEIInIwIdr1cYEhdf4d2t1A9/R9GJq6aAvI2srnhzaOmHKIqp/C4D4rXXe9otpXDfxRJDTvaX8I7Kdh+oQL5T/lg4DA3Xw2Qurop1HCQJQ==</Signature>
+    <Signature>MjrgrsLeqjak73p07tDVwV+7ia7leXoI8s9mWMAGnh7D5bDkugPv/3Ci6dkaCqMC8QM89mV68ZG95k7/Xzi58sOove1ygD6//CsC9XUCLhYKYUXlh9NbsX4SPDj7VTSAJ4DDeVj5/lQWZlxEJ2Js6tBtgaNygAevx+WL3BtLxCxN+qLcJ3HWs4aI5fT6lFOqU3f+OpPfOA33gAuij0orE+HSwtpOVm/j4q8aB/Td/QTuXK5VzhYFIxvkNJUqAbO1z4EJia63SxenZAb6gzP4niOJh0CwVDH2UyjqoqvNMHCHo08ULFsxeNMX8A9uYgnf9thCHyrdDtsRGcJ/tjzfCg==</Signature>
 </Document>
