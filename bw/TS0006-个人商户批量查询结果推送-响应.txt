@@ -8,7 +8,7 @@
       <OrigSender>Z2004343000017</OrigSender>
       <OrigSenderSID>zf_sysstem</OrigSenderSID>
       <RecSystemId>R0001</RecSystemId>
-      <TrnxCode/>
+      <TrnxCode>TS0006</TrnxCode>
       <TrnxTime>20201016122333</TrnxTime>
       <SecretKey/>
     </Head>
