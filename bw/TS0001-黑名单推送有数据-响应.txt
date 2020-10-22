@@ -1,4 +1,3 @@
----------------接收协会黑名单推送响应报文------------
 <?xml version="1.0" encoding="utf-8"?>
 
 <Document>
@@ -9,7 +8,7 @@
       <OrigSender>Z2004343000017</OrigSender>
       <OrigSenderSID>zf_sysstem</OrigSenderSID>
       <RecSystemId>R0001</RecSystemId>
-      <TrnxCode/>
+      <TrnxCode>TS0001</TrnxCode>
       <TrnxTime>20201009153036</TrnxTime>
       <SecretKey/>
     </Head>
