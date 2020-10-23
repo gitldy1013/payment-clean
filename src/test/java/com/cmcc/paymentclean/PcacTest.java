@@ -90,16 +90,16 @@ public class PcacTest<T> {
     body.setCusCode("888200700999999");
     body.setDocType("01");
     body.setDocCode("222000399940408");
-    body.setLegRepName("刘东");
+    body.setLegRepName("刘东东");
     body.setLegDocCode("229339029203948764");
     // 银行卡号协会好像没有加密，但是东阳的代码应该是加密了，之后需要确认
-    body.setBankNo("8q/HMqAepL9Ob3ZEhLQEhg==");
-    body.setOpenBank("大型支行");
+    body.setBankNo("123123123123");
+    body.setOpenBank("支付账户开立机构");
     body.setUrl("www.chinamobile.com");
     body.setServerIp("192.168.3.2");
     body.setMobileNo("12345678909");
-    body.setAddress("北京");
-    body.setIcp("ICP 备案编号009");
+    body.setAddress("长沙");
+    body.setIcp("ICP 备案编号21");
     body.setLevel("01");
     body.setOccurtimeb("2020-07-06");
     body.setOccurtimee("2099-12-30");
@@ -110,8 +110,8 @@ public class PcacTest<T> {
     body.setRegisteredArea("CN");
     body.setRegisteredCode("1231");
     String[] QR0002 = pushPcac((T) body, "015", "QR0002");
-    //        creatFile(QR0002[0], "QR0002-商户风险信息查询-请求");
-    //        creatFile(QR0002[1], "QR0002-商户风险信息查询-响应");
+//            creatFile(QR0002[0], "QR0002-商户风险信息查询-请求");
+//            creatFile(QR0002[1], "QR0002-商户风险信息查询-响应");
   }
 
   @Test
@@ -274,14 +274,22 @@ public class PcacTest<T> {
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac017.Body body =
         new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac017.Body();
     body.setRiskType("01");
+    body.setCusName("中移动");
+    body.setDocType("01");
+    body.setDocCode("222000399940408");
+    body.setLegRepName("刘东东");
+    body.setLegDocCode("229339029203948764");
+/*
+    body.setRiskType("01");
     body.setCusName("T1");
     body.setDocType("01");
     body.setDocCode("111123123123123");
     body.setLegRepName("法定代表人T1");
     body.setLegDocCode("211111111122335");
+*/
     String[] UP0003 = pushPcac((T) body, "017", "UP0003");
-    //        creatFile(UP0003[0], "UP0003-商户风险信息变更查询-请求");
-    //        creatFile(UP0003[1], "UP0003-商户风险信息变更查询-响应");
+//            creatFile(UP0003[0], "UP0003-商户风险信息变更查询-请求");
+//            creatFile(UP0003[1], "UP0003-商户风险信息变更查询-响应");
   }
 
   @Test
@@ -661,10 +669,10 @@ public class PcacTest<T> {
     pcacList.setCount("1");
     ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo> baseInfos = new ArrayList<>();
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo();
-    baseInfo.setRegName("");
+    baseInfo.setRegName("中移动");
     baseInfo.setLegDocCode("");
     baseInfo.setLegDocName("");
-    baseInfo.setDocCode("123456123456123456");
+    baseInfo.setDocCode("");
     baseInfos.add(baseInfo);
     pcacList.setBaseInfo(baseInfos);
     body.setPcacList(pcacList);
@@ -703,10 +711,10 @@ public class PcacTest<T> {
     //个人商户批量查询结果补发序列
     //body.setResultSequence("Wzhdg7Ih6mjH83czy38ERMR9jd1WwrtDpJ1O8qc5MK+6MlNBaaZm4ZFz9JOxMoVR");
     String[] TS0008 = pushPcac((T) body, "034", "TS0008");
-//    creatFile(TS0008[0], "TS0008-个人商户批量查询结果补发-请求");
-//    creatFile(TS0008[1], "TS0008-个人商户批量查询结果补发-响应");
-//    creatFile(TS0008[0], "TS0008-商户批量查询结果补发-请求");
-//    creatFile(TS0008[1], "TS0008-商户批量查询结果补发-响应");
+//    creatFile(TS0008[0], "TS0008-个人商户批量查询结果补发有数据-请求");
+//    creatFile(TS0008[1], "TS0008-个人商户批量查询结果补发有数据-响应");
+//    creatFile(TS0008[0], "TS0008-商户批量查询结果补发有数据-请求");
+//    creatFile(TS0008[1], "TS0008-商户批量查询结果补发有数据-响应");
 
   }
 

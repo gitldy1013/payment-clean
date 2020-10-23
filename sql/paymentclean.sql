@@ -462,6 +462,7 @@ create table business_info
    server_ip            varchar(512) comment '服务器 IP',
    icp                  varchar(20) comment 'ICP 备案编号',
    occurarea            varchar(256) comment '商户经营地区范围',
+   push_status          varchar(2) comment '推送状态0为未推送，1为已推送',
    submit_status        varchar(2) default '0' comment '报送状态0为未报送，1为已报送',
    result_code          varchar(6) comment '交易返回码',
    primary key (business_info_id)

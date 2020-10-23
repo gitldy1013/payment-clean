@@ -4,14 +4,14 @@
     <Request>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009307470462634</Identification>
+            <Identification>202010229923814447</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>QR0002</TrnxCode>
-            <TrnxTime>20200930153340</TrnxTime>
-            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
-            <SecretKey>UCQ3c6AzDbcLWv80SMah7fOkZtEJQi1DOcKwguH37WTGdzLY30yA66Xc5bR28wbH/0xn8uR/xUC52TYBxHOqhls3A0EhTzmEY3zcsbmhDpqVQ5wmA8gLCuuoV1qH5Zk2TwFyPYQ6J5X5f3qsWPY3EFWY1w2PDXKbQZ7WYnKUUI4IMfoTYsvB+7Oyndm+sFYiE30TSOCuxfp8DiyAjG8JRt8kKHN+ZK08Qe6J12wg5rMmJgOH+ApDvnRqMmNH8oe9gO0aLXqZgsvecX7XAbHancvhLbNyw+zmpSuJLJ0gy5+eg8dgCUYMDN0X0CSOo1Px8QWEMIPv+H/2N0zJ2F5Seg==</SecretKey>
+            <TrnxTime>20201022141939</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyEa0b2kUEbJPKrmiz1E0KpZ</UserToken>
+            <SecretKey>c1RHAe6akTUXYU4BI5RCcSA3+TrQApPtbuAFFwi3hUI4AvdTimYAOm5O7FcC2J8qvC5uDaXRbo38HdXClHlfUmlH4U8n20R+VauUROc72tp11ATmSE0Z0KRa7zr/PQBZPQI9VvaaJ4klGHXr+1jDtglNFSxkADk/rH9gyF1KFkdwa3HaQAHmRMXhZc5kla+MG8Y8b0Kp2DGL7YFowGZw5SOPFT81LLYMDoW1rLWa4TQjpmhezlEZYns4bBPOySid2I3HRXzKaKQQ/S3yLH1oNiuLuTcqGvJKVbSgstO6U+HM84shYrK19iG0NqBBrfyeaRw59XE/UxoUeqFFDKWTtg==</SecretKey>
         </Head>
         <Body>
             <RiskType>01</RiskType>
@@ -21,15 +21,15 @@
             <CusCode>888200700999999</CusCode>
             <DocType>01</DocType>
             <DocCode>222000399940408</DocCode>
-            <LegRepName>刘东</LegRepName>
+            <LegRepName>刘东东</LegRepName>
             <LegDocCode>229339029203948764</LegDocCode>
-            <BankNo>8q/HMqAepL9Ob3ZEhLQEhg==</BankNo>
-            <OpenBank>大型支行</OpenBank>
+            <BankNo>123123123123</BankNo>
+            <OpenBank>支付账户开立机构</OpenBank>
             <Url>www.chinamobile.com</Url>
             <ServerIp>192.168.3.2</ServerIp>
             <MobileNo>12345678909</MobileNo>
-            <Address>北京</Address>
-            <Icp>ICP 备案编号009</Icp>
+            <Address>长沙</Address>
+            <Icp>ICP 备案编号21</Icp>
             <Level>01</Level>
             <Occurtimeb>2020-07-06</Occurtimeb>
             <Occurtimee>2099-12-30</Occurtimee>
@@ -41,5 +41,5 @@
             <RegisteredCode>1231</RegisteredCode>
         </Body>
     </Request>
-    <Signature>jwcz/acmfj0sUSxMpDGM+YUKNGEG+zGNr4B0KxH0xceeCbz9uoCIr52vxO4TMc1e4FrxtzEKwsQj/Sv6M63F6yCE62v3Jx29OuFUipLvoOeOBRBPwskFb0klH1HeUTCgGXoICKv4OEDwIn0/Zyre22AYamokCTw9OTeRJoNJ/rXba1OvVYEQDw6WEJDJplnU+WSWXgFI/PYF02joGfChG0EoyFPL6PTMhfxr8dOyxJ/CyFc7ld5EYkYsDjUffiM1eeNTgOaoqj1mkjMeRRiXpXs3b979C4KLtHYHGrXKO2PfzICc4MmShPmTZbDOQ84c7nN66IcdlugRQUTWH0WVAQ==</Signature>
+    <Signature>atul1VcPDnMkHUXsCxgvRUCsiLFtouYJTGL+ZRVHPpnMqPR4Su0Fhe0+1BuAaihRC2tfs1ViNiueCYEBlxQDPgcXrEfJ3IngF3z+a+kPLc5apeGsGOcPpX1dLbm/JpPPeBlvKBKnDZYP3sSs+cJCzqrMNvDX6zTyd1KZC+iu83es15jhkoD5iu9IspBry4xoFXsP/ZpwG3WzBYHIS+ATt13b6K27DIuBA6W47hsqw7s2+HR+M+UPpKWNLkJkXSB97Rz9qK4KQzP6Fjsmmn0JLggLTwXLEY4NDxayS+WERmo2u/tYg711UMkJ5w56x3aZKL4z+E7rHDS7cMkRbsnRWg==</Signature>
 </Document>

@@ -212,6 +212,16 @@ public class PcacPersonRiskSubmitInfoServiceImpl
           pcacPersonRiskSubmitInfo.setRepDate(date);
           log.info("更新数据库表时间和状态信息：{}", pcacPersonRiskSubmitInfo);
           pcacPersonRiskSubmitInfoMapper.updateByPcacPersonRiskSubmitInfo(pcacPersonRiskSubmitInfo);
+        }else {
+          // 上报失败，修改数据库状态
+          PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
+          BeanUtils.copyProperties(respInfo, pcacPersonRiskSubmitInfo);
+          pcacPersonRiskSubmitInfo.setSubmitTime(date);
+          pcacPersonRiskSubmitInfo.setSubmitStatus("0");
+          pcacPersonRiskSubmitInfo.setMsgDetail(respInfo.getMsgDetail());
+          pcacPersonRiskSubmitInfo.setRepDate(date);
+          log.info("更新数据库表时间和状态信息：{}", pcacPersonRiskSubmitInfo);
+          pcacPersonRiskSubmitInfoMapper.updateByPcacPersonRiskSubmitInfo(pcacPersonRiskSubmitInfo);
         }
 
       } else {
