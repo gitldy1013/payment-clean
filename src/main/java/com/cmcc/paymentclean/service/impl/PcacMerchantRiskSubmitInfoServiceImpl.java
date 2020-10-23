@@ -36,7 +36,13 @@ import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
-import com.cmcc.paymentclean.utils.*;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.DateUtils;
+import com.cmcc.paymentclean.utils.HttpClientUtils;
+import com.cmcc.paymentclean.utils.InnerCipherUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
+import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,10 +120,17 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
 
   @Override
   public void queryRiskMerchantAndPushPcac() {
+    // 跟新不需要上报的数据状体
+    PcacMerchantRiskSubmitInfo entity = new PcacMerchantRiskSubmitInfo();
+    entity.setMsgDetail("词条数据不需要上报！");
+    UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<>();
+    updateWrapper.notIn("merc_typ", "1", "3");
+    pcacMerchantRiskSubmitInfoMapper.update(entity, updateWrapper);
     // 获取未上报的数据
     QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper =
         new QueryWrapper<PcacMerchantRiskSubmitInfo>()
-            .like("submit_status", SubmitStatusEnum.ISBLACKENUM_0.getCode());
+            .eq("submit_status", SubmitStatusEnum.ISBLACKENUM_0.getCode())
+            .in("merc_typ", "1", "3");
     List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos =
         pcacMerchantRiskSubmitInfoMapper.selectList(queryWrapper);
     if (pcacMerchantRiskSubmitInfos.size() == 0) {
@@ -208,8 +221,9 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       BankList bankList = new BankList();
       List<BankInfo> bankInfos = new ArrayList<>();
       BankInfo bankInfo = new BankInfo();
-      String decryptBankData = InnerCipherUtils.decryptBankData(pcacMerchantRiskSubmitInfo.getBankNo());
-      log.info("解密后的银行卡号是：{}",decryptBankData);
+      String decryptBankData =
+          InnerCipherUtils.decryptBankData(pcacMerchantRiskSubmitInfo.getBankNo());
+      log.info("解密后的银行卡号是：{}", decryptBankData);
       pcacMerchantRiskSubmitInfo.setBankNo(decryptBankData);
       BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
       bankInfos.add(bankInfo);

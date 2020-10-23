@@ -178,8 +178,18 @@ public class PcacMerchantRiskSubmitInfo extends Model<PcacMerchantRiskSubmitInfo
   @ApiModelProperty(value = "错误详情")
   private String msgDetail;
 
+  @ApiModelProperty(value = "本地商户类型")
+  private String mercTyp;
+
   @ApiModelProperty(value = "网址")
   private String url;
+
+  public String getAddress() {
+    if ("1".equals(mercTyp) || "2".equals(mercTyp)) {
+      address = "全国";
+    }
+    return address;
+  }
 
   @Override
   protected Serializable pkVal() {

@@ -179,6 +179,7 @@ create table pcac_merchant_risk_submit_info
    submit_status        varchar(2) default '0' comment '报送状态0为未报送，1为已报送',
    result_status        varchar(2) comment '交易结果',
    result_code          varchar(6) comment '交易返回码',
+   merc_typ          varchar(2) comment '本地商户类型',
    msg_detail           varchar(256) default '未上报' comment '错误详情',
    primary key (pcac_merchant_risk_submit_info_id)
 )comment = '协会商户风险信息上报表 ';
