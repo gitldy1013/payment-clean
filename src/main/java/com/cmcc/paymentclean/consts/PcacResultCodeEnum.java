@@ -2,7 +2,8 @@ package com.cmcc.paymentclean.consts;
 
 import org.springframework.util.StringUtils;
 
-public enum PcacResultCode {
+public enum PcacResultCodeEnum {
+  //交易码
   S00000("S00000", "交易处理成功"),
   S00001("S00001", "查询无此记录"),
   F00001("F00001", "数据库连接异常"),
@@ -151,16 +152,16 @@ public enum PcacResultCode {
 
   private final String desc;
 
-  PcacResultCode(String code, String desc) {
+  PcacResultCodeEnum(String code, String desc) {
     this.code = code;
     this.desc = desc;
   }
 
-  public static String getPcacResultCode(String code) {
+  public static String getPcacResultCodeEnum(String code) {
     if (StringUtils.isEmpty(code)) {
       return "";
     }
-    for (PcacResultCode pcacResultCode : PcacResultCode.values()) {
+    for (PcacResultCodeEnum pcacResultCode : PcacResultCodeEnum.values()) {
       if (pcacResultCode.getCode().equalsIgnoreCase(code)) {
         return pcacResultCode.getDesc();
       }

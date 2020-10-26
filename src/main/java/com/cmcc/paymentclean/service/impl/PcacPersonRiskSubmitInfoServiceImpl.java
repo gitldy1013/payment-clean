@@ -6,7 +6,7 @@ import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.CusPropertyEnum;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
-import com.cmcc.paymentclean.consts.PcacResultCode;
+import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
@@ -34,7 +34,6 @@ import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
 import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.InnerCipherUtils;
 import com.cmcc.paymentclean.utils.ValidateUtils;
 import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +41,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -201,7 +199,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl
         //  if (isSign) {
         Respone respone = documentResp.getRespone();
         RespInfo respInfo = respone.getBody().getRespInfo();
-        if (PcacResultCode.S00000.getCode().equals(respInfo.getResultCode())
+        if (PcacResultCodeEnum.S00000.getCode().equals(respInfo.getResultCode())
             && "01".equals(respInfo.getResultStatus())) {
           // 上报成功，修改数据库状态
           PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();

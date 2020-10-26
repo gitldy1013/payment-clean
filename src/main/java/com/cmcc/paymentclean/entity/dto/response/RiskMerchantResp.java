@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.entity.dto.response;
 
+import com.cmcc.paymentclean.consts.SysLanEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class RiskMerchantResp implements Serializable {
   private String regName;
 
   @ApiModelProperty(value = "商户类型")
-  private String cusType;
+  private String cusType = "03";
 
   @ApiModelProperty(value = "信息类型")
   private String cusProperty;
@@ -93,4 +94,14 @@ public class RiskMerchantResp implements Serializable {
 
   @ApiModelProperty(value = "信息类型")
   private String msgType;
+
+  @ApiModelProperty(value = "本地商户类型")
+  private String mercTyp;
+
+  public String getOccurarea() {
+    if ("1".equals(mercTyp) || "3".equals(mercTyp)) {
+      occurarea = SysLanEnum.SysLanEnum_1.getDesc();
+    }
+    return occurarea;
+  }
 }
