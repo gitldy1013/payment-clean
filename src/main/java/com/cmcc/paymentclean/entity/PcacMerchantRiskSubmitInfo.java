@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.cmcc.paymentclean.consts.MerdocTypeEnum;
-import com.cmcc.paymentclean.consts.SysLanEnum;
+import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -188,9 +188,9 @@ public class PcacMerchantRiskSubmitInfo extends Model<PcacMerchantRiskSubmitInfo
 
   public String getOccurarea() {
     if ("1".equals(mercTyp) || "3".equals(mercTyp)) {
-      occurarea = SysLanEnum.SysLanEnum_1.getCode();
+      occurarea = SysLanLocalEnum.SysLanLocalEnum_100000.getCode();
     } else {
-      occurarea = SysLanEnum.getSysLanEnumCode(this.occurarea);
+      occurarea = SysLanLocalEnum.getSysLanLocalEnumCode(this.occurarea);
     }
     return occurarea;
   }

@@ -1,6 +1,6 @@
 package com.cmcc.paymentclean.entity.dto.response;
 
-import com.cmcc.paymentclean.consts.SysLanEnum;
+import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -100,7 +100,7 @@ public class RiskMerchantResp implements Serializable {
 
   public String getOccurarea() {
     if ("1".equals(mercTyp) || "3".equals(mercTyp)) {
-      occurarea = SysLanEnum.SysLanEnum_1.getDesc();
+      occurarea = SysLanLocalEnum.SysLanLocalEnum_100000.getDesc();
     }
     return occurarea;
   }
