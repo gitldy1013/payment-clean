@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Document>
-<Respone>
-    <Head>
-        <Version>V1.3.0</Version>
-        <Identification>202009211380291846</Identification>
-        <OrigSender>Z2004343000017</OrigSender>
-        <OrigSenderSID>zf_sysstem</OrigSenderSID>
-        <RecSystemId>R0001</RecSystemId>
-        <TrnxCode>UP0005</TrnxCode>
-        <TrnxTime>20200921181105</TrnxTime>
-        <SecretKey>majmKF2shmxNMDatwm2u0OrIWMZpfAJCSW7XNnc7/EMJL9rXXiDGnMozswtqbmQOO+I7Hohvk9LzK7h8zUbfZ7t5yw2C80oxwAVJAYX8pyCFy98cZhj/TIV+tBd7kPg5Ud/cFb2HMJx4dTXwKKxxioIPGI+7u+I34glIxRwKCI0dQKUyt4ubRlLwdvgSmbi5NZK1/rWgqAPzzdzC8qSG5+oSsmgon6s4M6V6/L85k7PcdFrKWKBWgHIwoY3egZzvPtIOXRp6zJI3B8Axrh/Ql+9LzbxA/Hsh5Ya9nBZr4Zg8Ya1GBuVWXo1iC1Mw0C/2Vus6d1UbmOs7hCIho8R7MQ==</SecretKey>
-    </Head>
-    <Body>
-        <RespInfo>
-            <ResultStatus>02</ResultStatus>
-            <ResultCode>BX0003</ResultCode>
-            <MsgDetail>第1条错误如下:该风险查询反馈不存在！</MsgDetail>
-        </RespInfo>
-    </Body>
-</Respone>
-<Signature>s2j8LeAJg5sU+Yp9GRcgY72VeirblRpPCNk7Q8XxMjnOsPRTpViaTW0xRCtKxOMEVfSJOqaJMzhKwSzD8OvwqxA0mU+z5iIaBwsfW7UHodVd9hL3qA+29p/v8OBKLNp3eWt3JJdA3T41DAj+ZAuRvTCWaXCB+yJr7Kka8LlWhNzkftIruLQXkXzQqVJNQnDf3iG6YC8Lp+czXexJy1U+a4QSv4VlU4G+5oKEBiB7einETH9RlbdTcLyEDSaThI+auCKXC8pbOb8JXwgSqXddmyXwWN6y5JiVGdDUFi5uJ/YlN6f+YFAJndkrxgNvRXQi25Hctrx8ydE8Dd64hBHxuA==</Signature>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010263262001205</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0005</TrnxCode>
+            <TrnxTime>20201026104537</TrnxTime>
+            <SecretKey>WJXUyOB/9LGZGm+RCqHrvliSQ0q08CnJmXQ209vhijUlMf48voX8+P9hqD8rkmUHpgalJ3ihkcYiZDLt2IOj+533gXL7xX4tzEPlo8m3NJ5M+yFga6keSuWPj/FhwZtWENredb1FSPu9nPDXU1B/cOqTEwIUhCRUrsTJf3RJ+YBbbD1dYppt/sqWZvpnKCfh18awxPHaP1XOhtOxc0Du1ftsc7tcu+sDBt3n9vAB06NrIDLw3QcR3wCxZKgy82BsEWO6E1SHzzLU9gYp+RNMTFl1g0nX7xS8mdqq/Og4WY4zMHLNnJ9x6k7plp2XnTvBr2OQSAUShhz+dSr7GOfnAQ==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>交易处理成功</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>I/r3sYGTS4FNO8oCZuZWTRFYVZ7rPgYWy5V1TXwIk497aZI5iOWAVGhupMOmreDs6OqoPDKofTPdMjDW9BAR1lf2YzSlMbNLwwwazoQy9o3hxutipLsYQr0ioJG9fzisilFpm1cCQyFUk/ZLozVd6PV7nlr/b9LzptMAeYvN39FpX5xychVGy9StxI7nDoFBGK0iTONdoHggJbLs/esD9ILikl6M1oXzyyEQ1CpgD2SKkXD7dmwPr/XQXbls8WTxMmHDX1H9ZyeDBwx/gdP7CP9xX+uTGEMlG2Y1TugjHezMbgjFDHMYtuj/cHlFiVDsyadjlPrK8hChvXtb36xOUQ==</Signature>
 </Document>
