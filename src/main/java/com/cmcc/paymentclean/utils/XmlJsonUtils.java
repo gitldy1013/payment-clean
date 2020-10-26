@@ -272,7 +272,8 @@ public class XmlJsonUtils {
     head.setTrnxCode(trnxCode);
     String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
     head.setTrnxTime(trnxTime);
-    head.setSecretKey("");
+    //响应协会的数据没有需要加密的字段，协会要求该字段必须有值，所以随便生成一个
+    head.setSecretKey(CFCACipherUtils.getSecretKey(CFCACipherUtils.getSymmetricKeyEncoded()));
     return head;
   }
 }
