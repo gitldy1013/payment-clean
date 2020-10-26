@@ -126,6 +126,18 @@ public class PcacTest<T> {
     //        creatFile(QR0003[0], "QR0003-风险信息批量导入查询-个人-请求");
     //        creatFile(QR0003[1], "QR0003-风险信息批量导入查询-个人-响应");
   }
+  @Test
+  void QR0003MER() {
+    // 拼装Body QR0003-风险信息批量导入查询
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac005.Body();
+    body.setCusProperty("02");
+    body.setKeyWord("01");
+    body.setInfos("中移金科");
+    String[] QR0003 = pushPcac((T) body, "005", "QR0003");
+//            creatFile(QR0003[0], "QR0003-风险信息批量导入查询-商户-请求");
+//            creatFile(QR0003[1], "QR0003-风险信息批量导入查询-商户-响应");
+  }
 
   @Test
   void UP0001() {
@@ -442,8 +454,8 @@ public class PcacTest<T> {
         new ArrayList<>();
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo riskInfo =
         new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo();
-    riskInfo.setId("UO6ES8sc54i3NaCr9qRabA==");
-    riskInfo.setCusType("02");
+    riskInfo.setId("i4q19Fw2jN7uuCV7dGVdbg==");
+    riskInfo.setCusType("01");
     riskInfo.setHandleResult("01");
     riskInfo.setHandleTime("2019-01-01");
     riskInfo.setHandleNote("123");
@@ -455,6 +467,31 @@ public class PcacTest<T> {
     String[] UP0005 = pushPcac((T) body, "045", "UP0005");
     //        creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
     //        creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
+  }
+  @Test
+  void UP0005MER() {
+    // 拼装Body UP0005-风险信息查询使用反馈-商户
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body();
+    PcacList pcacList = new PcacList();
+    pcacList.setCount("1");
+    List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo> riskInfos =
+        new ArrayList<>();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo riskInfo =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo();
+    riskInfo.setId("695191");
+    riskInfo.setCusType("02");
+    riskInfo.setHandleResult("01");
+    riskInfo.setHandleTime("2019-01-01");
+    riskInfo.setHandleNote("123");
+    riskInfo.setCurrency("CNY");
+    riskInfo.setAmount("12.32");
+    riskInfos.add(riskInfo);
+    pcacList.setRiskInfo(riskInfos);
+    body.setPcacList(pcacList);
+    String[] UP0005 = pushPcac((T) body, "045", "UP0005");
+    //        creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-商户-请求");
+    //        creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-商户-响应");
   }
 
   @Test

@@ -33,11 +33,7 @@ import com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -176,13 +172,15 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
       }
       RiskInfo riskInfo = new RiskInfo();
       riskInfo.setCusType(pcacRiskInfo.getCusType());
-      riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacRiskInfo.getRegName()));
+      //riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacRiskInfo.getRegName()));
+      riskInfo.setRegName(pcacRiskInfo.getRegName());
       riskInfo.setCurrency("CNY");
       riskInfo.setAmount(associatedRiskMerchantInfoBackReq.getAmount());
       riskInfo.setDocType(this.splitStrs(associatedRiskMerchantInfoBackReq.getDocType()));
-      riskInfo.setDocCode(
+      /*riskInfo.setDocCode(
           CFCACipherUtils.encrypt(
-              symmetricKeyEncoded, associatedRiskMerchantInfoBackReq.getDocCode()));
+              symmetricKeyEncoded, associatedRiskMerchantInfoBackReq.getDocCode()));*/
+      riskInfo.setDocCode(associatedRiskMerchantInfoBackReq.getDocCode());
       riskInfo.setHandleResult(this.splitStrs(associatedRiskMerchantInfoBackReq.getHandleResult()));
       riskInfo.setHandleTime(DateUtils.formatTime(new Date(), DateUtils.FORMAT_DATE));
       riskInfos.add(riskInfo);
@@ -203,8 +201,11 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
       return resultBean;
     }
     log.info("反馈数据：{}", XmlJsonUtils.formatXml(xmlStr));
+    Document document1 = (Document) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
+    Document encrBean = BeanUtilsEx.getEncrBean(document1, symmetricKeyEncoded);
+    String encrXmlStr = XmlJsonUtils.convertObjectToXmlStr(encrBean);
     // 解析响应
-    String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xmlStr);
+    String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), encrXmlStr);
     log.info("响应数据：{}", XmlJsonUtils.formatXml(post));
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc =
         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)

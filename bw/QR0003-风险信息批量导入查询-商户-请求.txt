@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Document>
     <Request>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009219528049770</Identification>
+            <Identification>202010234719681641</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>QR0003</TrnxCode>
-            <TrnxTime>20200921173630</TrnxTime>
-            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
-            <SecretKey>RCyd7WCgM/qgIx+r/ldTTsFCfD+Dl8aZKN8f4qmDTUk5wdJ5/CnmwRUMiuvaU/5NBB7tr0Zt3JOTGtg0+aYE6Ts/sQp/d1KdurEETwvmOi0sLHAgYGMIxawgf0pbuzBj8+yJMDzoaat9LnrXrNFaNxR404OI048Gb1pvkr9SxzpznfdOoZo04vnDSfYFlMzrwDLqniHF+MhFoKBspQRL1njWfhsVjn9HJKsQfqsNyeDgcBl98GAmgeiAVg8RvIduF8DbXK4P1MRm997S6gUrC5mTc0v63ntm+RN0QZLf5jmCeZRe7BfC8TKUYbyjLyz/rx2/WiYTJtcxDWKZfwp9qg==</SecretKey>
+            <TrnxTime>20201023165330</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyEa0b2kUEbJPKrmiz1E0KpZ</UserToken>
+            <SecretKey>jIvI02F1PTDdzsbr/IJkbb7937DGOmoqEwafI1pgH3F+c7U8lnuMU8TFo/vrQEI0WrFsY3HesNEns9mcGJQEzbiZv/7AgbvmE3smVundOYq3Zwiccg1LC6xy7c/i5Hv0LuWDqq4wqn7gT6gL7TgmmvRee5j8mXiq8EODg35ZrL5iLACV11GTvqx7Zug9DxHxcQuAEg3FTflrFnNh+JihY6tK/CWyutLCBtbVFnLfT9sxln9aTilJ6F9l/ZQTTLle9lJch9Zqk7cY76ZCmUGL2V+55WA7pw3/okAtSGL5nGDlZcyEU7i6zgglPD5ocD5AJeYRVK+2LcFFBjyPmsTpWg==</SecretKey>
         </Head>
         <Body>
             <CusProperty>02</CusProperty>
             <KeyWord>01</KeyWord>
-            <Infos>123,223</Infos>
+            <Infos>中移金科</Infos>
         </Body>
     </Request>
-    <Signature>GxXxEoqU6wANH8GBQkCmLWecONj5f9tvDpmtS7/czutgZxpMta8n1jdjhQkZF/4CZas8XUBn5fySuh4azP+Kiw66Vn9HMmRRcCyo5NiOxAscfgk+UhNTI9t7VdaE5ZAoD+8WVlg49ertoGUMVYqToIqlBlIaWq5kBtYjrMYTCQQKWJorTh/aMxrkgKRGOPBJR88lA263toVP2V4ak0zlY94cPXs2hNDc54aX4e8EuhLXgQoprRigZH10sY3Bjvve9qVywM/kBIAbXFCADQMuNMHqV1YwzwtId3ibuTuFe6afro1yx+sHz/67+1C/QrHJQvlU74T3hbzUGCEuE4zs5w==</Signature>
+    <Signature>gGT8BShovymKa6pspN65Bm5Fek8I2CL1na9A5PbFPUSbacA9iWiwZsog3Ka7ogch5ehf4nQ64vcA+hFxe+Vd3a+Ru6gR5nzaw/zwwhVNKXzP0MNO43HDYNq4fnZy8hTcCHNkVU5Tm7d/U87VopKs7oSrXr5uZmWaqg09kYvrChHylb9hMyDCW7A76rzqTP83cVkIDZzu0o3MwIokzsvn5IppYmgAOskTaqAk0WpnKe4I9yX6lk6Y7N5MaWn2cP/qi+1/3mrxsnwhUg7C/05PlPaAGSRDlYIYWeDRmTYr2Nz1LPJtlL4t7qHcYNxP06lvY39Gy0uumVR8g9C0DK7/Aw==</Signature>
 </Document>

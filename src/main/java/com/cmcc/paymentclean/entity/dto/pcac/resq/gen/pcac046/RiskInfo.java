@@ -7,6 +7,7 @@
 
 package com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046;
 
+import com.cmcc.paymentclean.annotation.EncrField;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -59,6 +60,7 @@ public class RiskInfo {
   @XmlElement(name = "CusType", required = true)
   protected String cusType;
 
+  @EncrField
   @XmlElement(name = "RegName", required = true)
   protected String regName;
 
@@ -71,6 +73,7 @@ public class RiskInfo {
   @XmlElement(name = "DocType", required = true)
   protected String docType;
 
+  @EncrField
   @XmlElement(name = "DocCode", required = true)
   protected String docCode;
 
