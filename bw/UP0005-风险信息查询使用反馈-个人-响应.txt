@@ -4,13 +4,13 @@
     <Respone>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202010263262001205</Identification>
+            <Identification>202010266418311783</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>UP0005</TrnxCode>
-            <TrnxTime>20201026104537</TrnxTime>
-            <SecretKey>WJXUyOB/9LGZGm+RCqHrvliSQ0q08CnJmXQ209vhijUlMf48voX8+P9hqD8rkmUHpgalJ3ihkcYiZDLt2IOj+533gXL7xX4tzEPlo8m3NJ5M+yFga6keSuWPj/FhwZtWENredb1FSPu9nPDXU1B/cOqTEwIUhCRUrsTJf3RJ+YBbbD1dYppt/sqWZvpnKCfh18awxPHaP1XOhtOxc0Du1ftsc7tcu+sDBt3n9vAB06NrIDLw3QcR3wCxZKgy82BsEWO6E1SHzzLU9gYp+RNMTFl1g0nX7xS8mdqq/Og4WY4zMHLNnJ9x6k7plp2XnTvBr2OQSAUShhz+dSr7GOfnAQ==</SecretKey>
+            <TrnxTime>20201026141912</TrnxTime>
+            <SecretKey>mrNRaycCS8u9BMNYyHCiTPgUw8Dn+DCiIgKceHeUZZjcTimojjQoElxgZtZ7i3xuYWCzZtTr3HhC1La1eec7iCcLfMkyjP7NozoofXEL6fP9k28kfALEoRZvFm9prjQiIo/1TxPdYhFQneSm5fEb4MAo2GgO2q0FCMk0EaYyEfFAhVY78XB9MMJG8PqxQz0HUTR2rCcUywVqFboRKCNcQQ/BJ7q3RIaniuCd3JkHCFM6N5dFzcuL0db8D6eZhLpjbWID10oyAteB5KEZ+GYYVtB/d8Clh+bmJKwNjGMO0thVS4ve/F/nwfmfCWYO4Nkfv4oZS8yJLBpNkY2v6zpvNQ==</SecretKey>
         </Head>
         <Body>
             <RespInfo>
@@ -20,5 +20,5 @@
             </RespInfo>
         </Body>
     </Respone>
-    <Signature>I/r3sYGTS4FNO8oCZuZWTRFYVZ7rPgYWy5V1TXwIk497aZI5iOWAVGhupMOmreDs6OqoPDKofTPdMjDW9BAR1lf2YzSlMbNLwwwazoQy9o3hxutipLsYQr0ioJG9fzisilFpm1cCQyFUk/ZLozVd6PV7nlr/b9LzptMAeYvN39FpX5xychVGy9StxI7nDoFBGK0iTONdoHggJbLs/esD9ILikl6M1oXzyyEQ1CpgD2SKkXD7dmwPr/XQXbls8WTxMmHDX1H9ZyeDBwx/gdP7CP9xX+uTGEMlG2Y1TugjHezMbgjFDHMYtuj/cHlFiVDsyadjlPrK8hChvXtb36xOUQ==</Signature>
+    <Signature>qR/FDSeh1F6jy5KV/FLsyzRUVK5eEOLmnBU+zSdVKABXTouo01q6Q3sZ95dU3bsktSLVYgpbkDaNclr6c8q318tCgQV/2nOcrilaawCfuu4MipNGLGHoSF/789cIIiWrbV34V3yBhhEt6ItLtyr91jDp2MKgAk5hSFnC2xS05dgDuJS/1Roo5bn4aOZsanRala3Kf0LBeTHQTgchUW/utG6j0FleocL/hV0G/o0g03Nnc1TmHJnNZJifsnovHvadKuzAMKkd9/mqS4oNkZze13oqiigtU/85uJP4B1ILEY39I++Gi8YERIyu9khclbLWc0MW7nuDLlqg2/iFMicpXQ==</Signature>
 </Document>

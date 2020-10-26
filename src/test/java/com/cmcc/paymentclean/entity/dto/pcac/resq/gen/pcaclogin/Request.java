@@ -71,6 +71,7 @@ import javax.xml.bind.annotation.XmlType;
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_1.Body.class,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019_2.Body.class,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body.class,
+      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body.class,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac058.Body.class,
     })
 public class Request<T> {
