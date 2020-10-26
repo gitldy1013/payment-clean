@@ -8,7 +8,6 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac011.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BenInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BenList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.BaseInfo;
-import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.utils.*;
@@ -448,7 +447,7 @@ public class PcacTest<T> {
     // 拼装Body UP0005-风险信息查询使用反馈-个人
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body body =
         new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body();
-    PcacList pcacList = new PcacList();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList();
     pcacList.setCount("1");
     List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo> riskInfos =
         new ArrayList<>();
@@ -465,15 +464,16 @@ public class PcacTest<T> {
     pcacList.setRiskInfo(riskInfos);
     body.setPcacList(pcacList);
     String[] UP0005 = pushPcac((T) body, "045", "UP0005");
-            creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
-            creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
+//            creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
+//            creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
   }
   @Test
   void UP0005MER() {
     // 拼装Body UP0005-风险信息查询使用反馈-商户
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body body =
         new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body();
-    PcacList pcacList = new PcacList();
+
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList();
     pcacList.setCount("1");
     List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo> riskInfos =
         new ArrayList<>();
@@ -493,6 +493,39 @@ public class PcacTest<T> {
     String[] UP0005 = pushPcac((T) body, "045", "UP0005");
     //        creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-商户-请求");
     //        creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-商户-响应");
+  }
+
+  /**
+   * pcac.ries.046
+   * 商户黑名单信息反馈请求
+   */
+  @Test
+  void UP0006(){
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList();
+    pcacList.setCount("1");
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo riskInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo();
+  /*  riskInfo.setCusType("03");
+    riskInfo.setRegName("刘包子");
+    riskInfo.setCurrency("CNY");
+    riskInfo.setAmount("129.00");
+    riskInfo.setDocType("01");
+    riskInfo.setDocCode("151215121512151");
+    riskInfo.setHandleResult("02");
+    riskInfo.setHandleTime("2020-10-26");*/
+    riskInfo.setCusType("04");
+    riskInfo.setRegName("中移动电子商务有限公司");
+    riskInfo.setCurrency("CNY");
+    riskInfo.setAmount("129.00");
+    riskInfo.setDocType("01");
+    riskInfo.setDocCode("222000399940408");
+    riskInfo.setHandleResult("02");
+    riskInfo.setHandleTime("2020-10-26");
+    List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo> riskInfos = new ArrayList<>();
+    riskInfos.add(riskInfo);
+    pcacList.setRiskInfo(riskInfos);
+    body.setPcacList(pcacList);
+    String[] UP0006 = pushPcac((T) body, "046", "UP0006");
   }
 
   @Test
