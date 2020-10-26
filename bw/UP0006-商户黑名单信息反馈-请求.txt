@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Document>
     <Request>
         <Head>
             <Version>V1.3.0</Version>
-            <Identification>202009215914932505</Identification>
+            <Identification>202010261256484566</Identification>
             <OrigSender>Z2004343000017</OrigSender>
             <OrigSenderSID>zf_sysstem</OrigSenderSID>
             <RecSystemId>R0001</RecSystemId>
             <TrnxCode>UP0006</TrnxCode>
-            <TrnxTime>20200921154914</TrnxTime>
-            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyHTf2SAN63W0wKbw%2FODal5I</UserToken>
-            <SecretKey>MYjveYdisE7Kzdpi2GL63A42TZ+t6s5rnGPOWWnS/QBHN+USr/wQeVX4/spywzCWWS1dqxuZERRT+UommWCDh7w8aGeAzBDeMKT4vWdRAlvGsEgoNnwwo9WMdC+DMUeWBVH57KYm0N4sOTglBMYeGeo6ygfjGcNQX07qXpqyqrHA6AxAtqP08r+0to7ylGi/4jq6+oNfWQACJpKFV128fRExFsVS3g0OgbDS6Xoqd/D9LDrN9B3c4q7ewcnMipPpxHxFILisgaha4VfqvSczEfVXjM2KCZWd+hTm9Dj7tLz31h/yJ/xcFNrxJXJPihrTbbU/86vsWZiQLNQZduvj3g==</SecretKey>
+            <TrnxTime>20201026160935</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyEa0b2kUEbJPKrmiz1E0KpZ</UserToken>
+            <SecretKey>aHPx6BVP7b7aE/hUfR65anSKwpbA2Mta/31Cx4DGk+cZuR++8DSxUAZ/5FquS+EqD21x/tCrpLU3Q4JHbnitBbjtEmhlWyE5XLnf1dkSWhsgHBNXFlnPrj288tgRe9WyayMr3qLCY5KCKMrCdR2DmP+rz2mKEYFUo2cGQZkymDDhBj6vEcEjImTE1rJWsCMR7e6+WHISjpmJiLFjmHg+TrwNGvDJgEHbzpH5iCzsKydKn5qx/rB9aGQOlIlOtaPkBx+7xua91D69VwbrlNNLdwQpecT0KheS3mpzbWFMoQuFQLeA3/phGutAYm4x57DSpdhaa3qr5PBWiqTEa8Vs+Q==</SecretKey>
         </Head>
         <Body>
             <PcacList>
                 <Count>1</Count>
                 <RiskInfo>
-                    <CusType>01</CusType>
-                    <RegName>pdUsvq0IrpOh/EjOgXmNE+BsMF6Vl8ddM6xIj7oR8BU=</RegName>
+                    <CusType>03</CusType>
+                    <RegName>s+8PPLdjGv1z+/X5Le2bFA==</RegName>
                     <Currency>CNY</Currency>
-                    <Amount>123.23</Amount>
+                    <Amount>129.00</Amount>
                     <DocType>01</DocType>
-                    <DocCode>CO+UIUpCXa/ldBmi2oElmg==</DocCode>
+                    <DocCode>n+AqFvK4TiCC6LI0udMa8Q==</DocCode>
                     <HandleResult>02</HandleResult>
-                    <HandleTime>2020-09-21</HandleTime>
+                    <HandleTime>2020-10-26</HandleTime>
                 </RiskInfo>
             </PcacList>
         </Body>
     </Request>
-    <Signature>iYEAmNmFSh0kcp97ww+KRrH/7m0LvubWBOBWYZ439PsvmBE8fKnafve0kyjQTohisw0bUczFoABT84nyWIN6BW2NRyXQlcv9pDiXWn8zH2WgOikp11N3drU6XglRJhxGZdhyDibzDJB9fcfQLrYsyo5YgJvTRtmpRgA56nQ8A+NGIvYSjzFOkQLyDgTEPvIZcJzEw60i4JPPbrzUKMTd274xXMlo48eD4upVltTOjSf5EOBdU+stQX5ycepjAiCBiGNS9i0fAFXlSnoqBXNK1bba46gw4DItOIBy90eVg/biFsxYas28/ECnVIiFFL1WxftjF+ammQet5lu7m/7unA==</Signature>
+    <Signature>UVt/agNyFmGkpwDaIzAmxQahlweaMN2mvT/ffkBifvUssra2r19LHR60Og7+fkdRGeC5MUrrnnw3qQKYJBTKiHS+we25lFHef/V6zQ+CGeZR7NLO++tPb7MoeUvmLTWLI8Xf3TsaOWzOInbOO3lUOViUrV3PGrWR7oPAdQ3zA8kgJvfqZmyvbXFSt9Lps+7dpYfYXhpIQM/AywYbI8YSjwDJ2sNYlCMIKunLsFq4rPsgGAKl60mJWlbOPRnWCKl9Ds7fNBUJCnV+yccS0RoI1BMNEQHANfnqfxiOIJxHI1viGAzyMrVIo9XjRgFkUbIG/4Qvz6kAX29lQ4ps/TQGfQ==</Signature>
 </Document>

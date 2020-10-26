@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Document>
-<Respone>
-    <Head>
-        <Version>V1.3.0</Version>
-        <Identification>202009215914932505</Identification>
-        <OrigSender>Z2004343000017</OrigSender>
-        <OrigSenderSID>zf_sysstem</OrigSenderSID>
-        <RecSystemId>R0001</RecSystemId>
-        <TrnxCode>UP0006</TrnxCode>
-        <TrnxTime>20200921154915</TrnxTime>
-        <SecretKey>MYjveYdisE7Kzdpi2GL63A42TZ+t6s5rnGPOWWnS/QBHN+USr/wQeVX4/spywzCWWS1dqxuZERRT+UommWCDh7w8aGeAzBDeMKT4vWdRAlvGsEgoNnwwo9WMdC+DMUeWBVH57KYm0N4sOTglBMYeGeo6ygfjGcNQX07qXpqyqrHA6AxAtqP08r+0to7ylGi/4jq6+oNfWQACJpKFV128fRExFsVS3g0OgbDS6Xoqd/D9LDrN9B3c4q7ewcnMipPpxHxFILisgaha4VfqvSczEfVXjM2KCZWd+hTm9Dj7tLz31h/yJ/xcFNrxJXJPihrTbbU/86vsWZiQLNQZduvj3g==</SecretKey>
-    </Head>
-    <Body>
-        <RespInfo>
-            <ResultStatus>02</ResultStatus>
-            <ResultCode>BX0003</ResultCode>
-            <MsgDetail>第1条数据商户不是黑名单商户！</MsgDetail>
-        </RespInfo>
-    </Body>
-</Respone>
-<Signature>M/TquRelSVyumMz+wGku2Je5eSIXcnGzgfnLjLk19LVCzLZILRMdF9siyCp+JEfCovXvbwYLgKwHoJImf0ld+btZ7jHBel40F6SHds29wwI8Umj6ed6E87gnpJ6gs98JzDhPg5bSjT3GvJdC6F6fw5udjQbpRK00XgFoJYKSfPSh1djVcYi/+wPFrw4CP/rZMfRgijScv1lQ9dH9eIBoom3Y8n+danjWKJ2u71IplHY3yTZVEO+iX5Ninc4Vv2QhXv3mM8tGd3lBGOsc7rtODE0JlteMXh+1zynW4NpqfEw4IstupFP7X4tbnkpv3UBzBgh2l7BqSVrGVmLaJuFb2Q==</Signature>
+    <Respone>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010261256484566</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0006</TrnxCode>
+            <TrnxTime>20201026160938</TrnxTime>
+            <SecretKey>aHPx6BVP7b7aE/hUfR65anSKwpbA2Mta/31Cx4DGk+cZuR++8DSxUAZ/5FquS+EqD21x/tCrpLU3Q4JHbnitBbjtEmhlWyE5XLnf1dkSWhsgHBNXFlnPrj288tgRe9WyayMr3qLCY5KCKMrCdR2DmP+rz2mKEYFUo2cGQZkymDDhBj6vEcEjImTE1rJWsCMR7e6+WHISjpmJiLFjmHg+TrwNGvDJgEHbzpH5iCzsKydKn5qx/rB9aGQOlIlOtaPkBx+7xua91D69VwbrlNNLdwQpecT0KheS3mpzbWFMoQuFQLeA3/phGutAYm4x57DSpdhaa3qr5PBWiqTEa8Vs+Q==</SecretKey>
+        </Head>
+        <Body>
+            <RespInfo>
+                <ResultStatus>01</ResultStatus>
+                <ResultCode>S00000</ResultCode>
+                <MsgDetail>交易处理成功</MsgDetail>
+            </RespInfo>
+        </Body>
+    </Respone>
+    <Signature>mcIKQU89PZJF+KgIg+Kgdje67xRNHXDiETtp0LRMEbNbbQ0zt3oNBrC/Qg/guT8TKHmPtLCoY8HccXpDWUaQrOEd80VPljhDnGHyrla4y4GWwDlK67bRWRo3Q0sjNmWluhqUmyXG+c4DOTQ90FxamfA0mEWfkziT2WlmX3jg7wmOUP12B/P0/sxd0hXn/rMkllzDu6r1RevsgQkOa0Gz1P+ucHriECKza7xVEwnNv91ov1WD/j2xAxdF7C/0QHANVsuO+O67ShWd5B1dLIG206XVED8EZ82jQSiL8VU0UAvNsFtttDsK0ObP9MQubA+ayDTI0bFol+tUMCjhndVCEA==</Signature>
 </Document>
