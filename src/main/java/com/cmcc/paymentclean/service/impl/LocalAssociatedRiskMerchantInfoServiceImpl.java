@@ -190,7 +190,8 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     }
     document.setRequest(request);
     // 加签
-    XmlJsonUtils.doSignature(document);
+    //XmlJsonUtils.doSignature(document);
+      document.setSignature("");
     // 发起反馈
     String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);
     boolean validateXML = ValidateUtils.validateXMLByXSD(xmlStr, "pcac.ries.046");
@@ -200,10 +201,11 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
       resultBean.setResMsg("XSD校验失败:" + XmlJsonUtils.formatXml(xmlStr));
       return resultBean;
     }
-    log.info("反馈数据：{}", XmlJsonUtils.formatXml(xmlStr));
-    Document document1 = (Document) XmlJsonUtils.convertXmlStrToObject(xmlStr, Document.class);
-    Document encrBean = BeanUtilsEx.getEncrBean(document1, symmetricKeyEncoded);
+
+    Document encrBean = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
+      XmlJsonUtils.doSignature(encrBean);
     String encrXmlStr = XmlJsonUtils.convertObjectToXmlStr(encrBean);
+      log.info("反馈数据：{}", XmlJsonUtils.formatXml(encrXmlStr));
     // 解析响应
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), encrXmlStr);
     log.info("响应数据：{}", XmlJsonUtils.formatXml(post));
