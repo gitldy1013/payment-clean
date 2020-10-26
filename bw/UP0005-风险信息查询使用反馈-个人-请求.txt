@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document>
+    <Request>
+        <Head>
+            <Version>V1.3.0</Version>
+            <Identification>202010263262001205</Identification>
+            <OrigSender>Z2004343000017</OrigSender>
+            <OrigSenderSID>zf_sysstem</OrigSenderSID>
+            <RecSystemId>R0001</RecSystemId>
+            <TrnxCode>UP0005</TrnxCode>
+            <TrnxTime>20201026104535</TrnxTime>
+            <UserToken>Io2lrHofKybUc%2BmKeG6qo%2FMQwXMQTOQ6IwrnIfgvhyEa0b2kUEbJPKrmiz1E0KpZ</UserToken>
+            <SecretKey>WJXUyOB/9LGZGm+RCqHrvliSQ0q08CnJmXQ209vhijUlMf48voX8+P9hqD8rkmUHpgalJ3ihkcYiZDLt2IOj+533gXL7xX4tzEPlo8m3NJ5M+yFga6keSuWPj/FhwZtWENredb1FSPu9nPDXU1B/cOqTEwIUhCRUrsTJf3RJ+YBbbD1dYppt/sqWZvpnKCfh18awxPHaP1XOhtOxc0Du1ftsc7tcu+sDBt3n9vAB06NrIDLw3QcR3wCxZKgy82BsEWO6E1SHzzLU9gYp+RNMTFl1g0nX7xS8mdqq/Og4WY4zMHLNnJ9x6k7plp2XnTvBr2OQSAUShhz+dSr7GOfnAQ==</SecretKey>
+        </Head>
+        <Body>
+            <PcacList>
+                <Count>1</Count>
+                <RiskInfo>
+                    <Id>i4q19Fw2jN7uuCV7dGVdbg==</Id>
+                    <CusType>01</CusType>
+                    <HandleResult>01</HandleResult>
+                    <HandleTime>2020-10-26</HandleTime>
+                    <HandleNote>123</HandleNote>
+                    <Currency>CNY</Currency>
+                    <Amount>12.32</Amount>
+                </RiskInfo>
+            </PcacList>
+        </Body>
+    </Request>
+    <Signature>QaDw9WgcRNpPjw9/HWGSRbevMZ1W+qIfQNCfjNamED0Ld1/NjWKjq7BrjV71JoPJN/pndofDSYfKzYFgrAx8PVz16DuizgbWAYNJRXz+0dMfwvDtohU+n3LrxzBndA2cNruMvFgz5TFQ604+vqel0oLCNhTzS/QVC1ZdZLTVzfdnf9IGNvc/CpQTIZCUIGX0O67v3Ng+1b5Y6+52EQZFUJuw84EyqucSnYDOJLDYUBDp8zSSQ/1WWEQnhg7+2bfdJ9JDLAFwWp9A26/FkDlT+O8vWfftZdrHgOKjsBzmdI3d8NEaxD/T4ADMvDghGmzFK+c71EaMorn8rbBlqh9+7g==</Signature>
+</Document>
