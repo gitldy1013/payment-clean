@@ -28,9 +28,10 @@ class LocalAssociatedRiskMerchantInfoServiceImplTest {
         new ArrayList<>();
     AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq =
         new AssociatedRiskMerchantInfoBackReq();
+
     associatedRiskMerchantInfoBackReq.setAmount("123.23");
-    associatedRiskMerchantInfoBackReq.setDocCode("101198001010096");
-    associatedRiskMerchantInfoBackReq.setDocType("99");
+    associatedRiskMerchantInfoBackReq.setDocCode("222000399940408");
+    associatedRiskMerchantInfoBackReq.setDocType("01");
     associatedRiskMerchantInfoBackReq.setHandleResult("02");
     associatedRiskMerchantInfoBackReq.setOperator("东东");
     associatedRiskMerchantInfoBackReqs.add(associatedRiskMerchantInfoBackReq);

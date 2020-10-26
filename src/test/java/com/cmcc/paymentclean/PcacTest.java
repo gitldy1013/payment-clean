@@ -457,7 +457,7 @@ public class PcacTest<T> {
     riskInfo.setId("i4q19Fw2jN7uuCV7dGVdbg==");
     riskInfo.setCusType("01");
     riskInfo.setHandleResult("01");
-    riskInfo.setHandleTime("2019-01-01");
+    riskInfo.setHandleTime("2020-10-26");
     riskInfo.setHandleNote("123");
     riskInfo.setCurrency("CNY");
     riskInfo.setAmount("12.32");
@@ -465,8 +465,8 @@ public class PcacTest<T> {
     pcacList.setRiskInfo(riskInfos);
     body.setPcacList(pcacList);
     String[] UP0005 = pushPcac((T) body, "045", "UP0005");
-    //        creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
-    //        creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
+            creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
+            creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
   }
   @Test
   void UP0005MER() {
@@ -480,6 +480,7 @@ public class PcacTest<T> {
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo riskInfo =
         new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo();
     riskInfo.setId("695191");
+    //riskInfo.setId("UO6ES8sc54i3NaCr9qRabA==");
     riskInfo.setCusType("02");
     riskInfo.setHandleResult("01");
     riskInfo.setHandleTime("2019-01-01");
