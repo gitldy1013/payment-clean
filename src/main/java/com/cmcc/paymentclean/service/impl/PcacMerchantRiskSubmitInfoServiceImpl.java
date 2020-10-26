@@ -13,7 +13,7 @@ import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
 import com.cmcc.paymentclean.consts.MsgTypeEnum;
-import com.cmcc.paymentclean.consts.PcacResultCode;
+import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
@@ -122,15 +122,16 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
   public void queryRiskMerchantAndPushPcac() {
     // 跟新不需要上报的数据状体
     PcacMerchantRiskSubmitInfo entity = new PcacMerchantRiskSubmitInfo();
-    entity.setMsgDetail("词条数据不需要上报！");
+    entity.setMsgDetail("商户类型不属于全网远程，全网现场，本地远程，本地现场，不进行上报。");
+    entity.setSubmitStatus(SubmitStatusEnum.ISBLACKENUM_3.getCode());
     UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<>();
-    updateWrapper.notIn("merc_typ", "1", "3");
+    updateWrapper.notIn("merc_typ", "1", "2", "3", "4");
     pcacMerchantRiskSubmitInfoMapper.update(entity, updateWrapper);
     // 获取未上报的数据
     QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper =
         new QueryWrapper<PcacMerchantRiskSubmitInfo>()
             .eq("submit_status", SubmitStatusEnum.ISBLACKENUM_0.getCode())
-            .in("merc_typ", "1", "3");
+            .in("merc_typ", "1", "2", "3", "4");
     List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos =
         pcacMerchantRiskSubmitInfoMapper.selectList(queryWrapper);
     if (pcacMerchantRiskSubmitInfos.size() == 0) {
@@ -175,7 +176,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
         .getBody()
         .getRespInfo()
         .getResultCode()
-        .equals(PcacResultCode.S00000.getCode())) {
+        .equals(PcacResultCodeEnum.S00000.getCode())) {
       for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
         UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper =
             new UpdateWrapper<PcacMerchantRiskSubmitInfo>();
