@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.entity.dto.response;
 
+import com.cmcc.paymentclean.consts.PerdocTypeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -89,4 +90,8 @@ public class RiskPersonResp implements Serializable {
 
   @ApiModelProperty(value = "失败原因")
   private String failureReason;
+
+  public String getDocType() {
+    return PerdocTypeEnum.getPerdocTypeEnumLocalDesc(this.docCode);
+  }
 }
