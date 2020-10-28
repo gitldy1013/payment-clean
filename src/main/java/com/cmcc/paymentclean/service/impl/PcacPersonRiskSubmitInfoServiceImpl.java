@@ -3,16 +3,7 @@ package com.cmcc.paymentclean.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.CusPropertyEnum;
-import com.cmcc.paymentclean.consts.DocTypeEnum;
-import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
-import com.cmcc.paymentclean.consts.PerdocTypeEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
-import com.cmcc.paymentclean.consts.RiskTypeEnum;
-import com.cmcc.paymentclean.consts.SourChaEnum;
-import com.cmcc.paymentclean.consts.SubmitStatusEnum;
-import com.cmcc.paymentclean.consts.TrnxCodeEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.PcacPersonRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -93,10 +84,12 @@ public class PcacPersonRiskSubmitInfoServiceImpl
         riskPersonResp.setSourceChannel(
             SourChaEnum.getSourChaEnum(riskPersonResp.getSourceChannel()));
         riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
-        SysLan sysLan = sysLanService.getLanInfoById(riskPersonResp.getOccurarea());
+        riskPersonResp.setOccurarea(SysLanLocalEnum.getSysLanLocalPerDesc(riskPersonResp.getOccurarea()));
+        //log.info("---------------------风险地域是：{}-------------",riskPersonResp.getOccurarea());
+       /* SysLan sysLan = sysLanService.getLanInfoById(riskPersonResp.getOccurarea());
         if (null != sysLan) {
           riskPersonResp.setOccurarea(sysLan.getLanName());
-        }
+        }*/
       }
     }
     resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

@@ -76,7 +76,7 @@ public enum SysLanLocalEnum {
   //个人给风控
   public static String getSysLanLocalPerDesc(String code) {
     for (SysLanLocalEnum sysLanEnum : SysLanLocalEnum.values()) {
-      if (!StringUtils.isEmpty(code) && sysLanEnum.getPcode().equalsIgnoreCase(code)) {
+      if (!StringUtils.isEmpty(code) && sysLanEnum.getCode().equalsIgnoreCase(code)) {
         return sysLanEnum.getLocal();
       }
     }
