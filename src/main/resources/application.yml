@@ -11,6 +11,9 @@ spring:
     multipart:
       max-file-size: 50MB
 
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 pcac:
   url: https://localhost:8080/pcac

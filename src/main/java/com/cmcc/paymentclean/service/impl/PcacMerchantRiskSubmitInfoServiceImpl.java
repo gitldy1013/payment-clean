@@ -11,12 +11,14 @@ import com.cmcc.paymentclean.consts.CusPropertyEnum;
 import com.cmcc.paymentclean.consts.CusTypeEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
+import com.cmcc.paymentclean.consts.MerdocTypeEnum;
 import com.cmcc.paymentclean.consts.MsgTypeEnum;
 import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
+import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
@@ -102,10 +104,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
         riskMerchantResp.setCusProperty(
             CusPropertyEnum.getCusPropertyEnum(riskMerchantResp.getCusProperty()));
         riskMerchantResp.setMsgType(MsgTypeEnum.MsgTypeEnum_02.getDesc());
-        /*SysLan sysLan = sysLanService.getLanInfoById(riskMerchantResp.getOccurarea());
-        if (null != sysLan) {
-          riskMerchantResp.setOccurarea(sysLan.getLanName());
-        }*/
       }
     }
     resultBean.setData(pagePcacMerchantRiskSubmitInfo);
@@ -143,7 +141,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     Document<Body> document = getDocument(pcacMerchantRiskSubmitInfos, symmetricKeyEncoded);
     // 报文转换
     String xml = XmlJsonUtils.convertObjectToXmlStr(document);
-    log.info("获取到的xml数据:{}", xml);
+    log.info("获取到的xml数据:{}", XmlJsonUtils.formatXml(xml));
     if (StringUtils.isEmpty(xml)) {
       log.info("xml报文转换失败");
       return;
@@ -215,10 +213,25 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     Body body = new Body();
     PcacList pcacList = new PcacList();
     ArrayList<RiskInfo> riskInfos = new ArrayList<>();
+    log.info("结果：{}",pcacMerchantRiskSubmitInfos);
     for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
       pcacList.setCount(pcacMerchantRiskSubmitInfos.size() + "");
       RiskInfo riskInfo = new RiskInfo();
       PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
+      // 地域
+      if ("1".equals(pcacMerchantRiskSubmitInfo.getMercTyp())
+          || "3".equals(pcacMerchantRiskSubmitInfo.getMercTyp())) {
+        pcacMerchantRiskSubmitInfo.setOccurarea(SysLanLocalEnum.SysLanLocalEnum_100000.getCode());
+      } else {
+        pcacMerchantRiskSubmitInfo.setOccurarea(
+            SysLanLocalEnum.getSysLanLocalEnumCode(pcacMerchantRiskSubmitInfo.getOccurarea()));
+      }
+      // 法人证件类型
+      pcacMerchantRiskSubmitInfo.setDocType(
+          MerdocTypeEnum.getMerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getDocType()));
+      // 法定代表人证件类型
+      pcacMerchantRiskSubmitInfo.setLegDocType(
+          MerdocTypeEnum.getMerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getLegDocType()));
       BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
       BankList bankList = new BankList();
       List<BankInfo> bankInfos = new ArrayList<>();

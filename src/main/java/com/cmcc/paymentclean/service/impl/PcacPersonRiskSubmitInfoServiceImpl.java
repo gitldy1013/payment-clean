@@ -7,6 +7,7 @@ import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.CusPropertyEnum;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
+import com.cmcc.paymentclean.consts.PerdocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
@@ -125,7 +126,8 @@ public class PcacPersonRiskSubmitInfoServiceImpl
     ArrayList<RiskInfo> riskInfos = new ArrayList<>();
 
     for (PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo : pcacPersonRiskList) {
-
+      pcacPersonRiskSubmitInfo.setDocType(
+          PerdocTypeEnum.getPerdocTypeEnumDesc(pcacPersonRiskSubmitInfo.getDocType()));
       RiskInfo riskInfo = new RiskInfo();
       BeanUtilsEx.copyProperties(riskInfo, pcacPersonRiskSubmitInfo);
       // 上报日期库里有就不加了，没有的再自己生成
@@ -210,7 +212,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl
           pcacPersonRiskSubmitInfo.setRepDate(date);
           log.info("更新数据库表时间和状态信息：{}", pcacPersonRiskSubmitInfo);
           pcacPersonRiskSubmitInfoMapper.updateByPcacPersonRiskSubmitInfo(pcacPersonRiskSubmitInfo);
-        }else {
+        } else {
           // 上报失败，修改数据库状态
           PcacPersonRiskSubmitInfo pcacPersonRiskSubmitInfo = new PcacPersonRiskSubmitInfo();
           BeanUtils.copyProperties(respInfo, pcacPersonRiskSubmitInfo);

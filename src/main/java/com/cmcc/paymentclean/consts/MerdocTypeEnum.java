@@ -32,20 +32,24 @@ public enum MerdocTypeEnum {
   }
 
   public static String getMerdocTypeEnumDesc(String code) {
-
+    if (code == null) {
+      return MERDOCTYPEENUM_null.getDesc();
+    }
     for (MerdocTypeEnum merdocCodeEnum : MerdocTypeEnum.values()) {
-      if (StringUtils.isEmpty(code) || merdocCodeEnum.getCode().equalsIgnoreCase(code)) {
+      if (StringUtils.isEmpty(code) || code.equalsIgnoreCase(merdocCodeEnum.getCode())) {
         return merdocCodeEnum.getDesc();
       }
     }
     return code;
   }
 
-  //给风控
+  // 给风控
   public static String getMerdocTypeEnumLocalDesc(String code) {
-    System.out.println("========================="+code);
+    if (code == null) {
+      return MERDOCTYPEENUM_null.getLocalDesc();
+    }
     for (MerdocTypeEnum merdocCodeEnum : MerdocTypeEnum.values()) {
-      if (StringUtils.isEmpty(code) || merdocCodeEnum.getCode().equalsIgnoreCase(code)) {
+      if (StringUtils.isEmpty(code) || code.equalsIgnoreCase(merdocCodeEnum.getCode())) {
         return merdocCodeEnum.getLocalDesc();
       }
     }

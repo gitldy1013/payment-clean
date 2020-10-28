@@ -19,17 +19,11 @@ public enum PerdocTypeEnum {
   }
 
   public static String getPerdocTypeEnumDesc(String code) {
-    if (StringUtils.isEmpty(code)) {
-      return "";
+    if (PERDOCTYPEENUM_1.getCode().equals(code)) {
+      return PERDOCTYPEENUM_1.getDesc();
+    } else {
+      return PERDOCTYPEENUM_ELSE.getDesc();
     }
-    for (PerdocTypeEnum merdocCode : PerdocTypeEnum.values()) {
-      if (merdocCode.getCode() != null && merdocCode.getCode().equals(PERDOCTYPEENUM_1.getCode())) {
-        return merdocCode.getDesc();
-      } else {
-        return PERDOCTYPEENUM_ELSE.getDesc();
-      }
-    }
-    return code;
   }
 
   public static String getPerdocTypeEnumLocalDesc(String code) {
