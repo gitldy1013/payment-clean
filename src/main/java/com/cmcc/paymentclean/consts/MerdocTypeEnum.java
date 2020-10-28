@@ -19,7 +19,7 @@ public enum MerdocTypeEnum {
   MERDOCTYPEENUM_12("99", "宗教活动场所登记证", "12"),
   MERDOCTYPEENUM_13("99", "其他证书/批文/证明", "13"),
   MERDOCTYPEENUM_14("02", "营业执照", "14"),
-  MERDOCTYPEENUM_null("02", "其他", null);
+  MERDOCTYPEENUM_null("02", "营业执照", null);
 
   private final String desc;
   private final String localDesc;
@@ -32,23 +32,20 @@ public enum MerdocTypeEnum {
   }
 
   public static String getMerdocTypeEnumDesc(String code) {
-    if (StringUtils.isEmpty(code)) {
-      return "";
-    }
+
     for (MerdocTypeEnum merdocCodeEnum : MerdocTypeEnum.values()) {
-      if (merdocCodeEnum.getCode() == null || merdocCodeEnum.getCode().equalsIgnoreCase(code)) {
+      if (StringUtils.isEmpty(code) || merdocCodeEnum.getCode().equalsIgnoreCase(code)) {
         return merdocCodeEnum.getDesc();
       }
     }
     return code;
   }
 
+  //给风控
   public static String getMerdocTypeEnumLocalDesc(String code) {
-    if (StringUtils.isEmpty(code)) {
-      return "";
-    }
+    System.out.println("========================="+code);
     for (MerdocTypeEnum merdocCodeEnum : MerdocTypeEnum.values()) {
-      if (merdocCodeEnum.getCode() == null || merdocCodeEnum.getCode().equalsIgnoreCase(code)) {
+      if (StringUtils.isEmpty(code) || merdocCodeEnum.getCode().equalsIgnoreCase(code)) {
         return merdocCodeEnum.getLocalDesc();
       }
     }

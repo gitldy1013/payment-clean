@@ -100,15 +100,14 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
         riskMerchantResp.setSourceChannel(
             SourChaEnum.getSourChaEnum(riskMerchantResp.getSourceChannel()));
         riskMerchantResp.setLevel(LevelCodeEnum.getLevelDesc(riskMerchantResp.getLevel()));
-        riskMerchantResp.setDocType(DocTypeEnum.getDocTypeDesc(riskMerchantResp.getDocType()));
         riskMerchantResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskMerchantResp.getRiskType()));
         riskMerchantResp.setCusProperty(
             CusPropertyEnum.getCusPropertyEnum(riskMerchantResp.getCusProperty()));
         riskMerchantResp.setMsgType(MsgTypeEnum.MsgTypeEnum_02.getDesc());
-        SysLan sysLan = sysLanService.getLanInfoById(riskMerchantResp.getOccurarea());
+        /*SysLan sysLan = sysLanService.getLanInfoById(riskMerchantResp.getOccurarea());
         if (null != sysLan) {
           riskMerchantResp.setOccurarea(sysLan.getLanName());
-        }
+        }*/
       }
     }
     resultBean.setData(pagePcacMerchantRiskSubmitInfo);
@@ -126,6 +125,10 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     entity.setSubmitStatus(SubmitStatusEnum.ISBLACKENUM_3.getCode());
     UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper = new UpdateWrapper<>();
     updateWrapper.notIn("merc_typ", "1", "2", "3", "4");
+    pcacMerchantRiskSubmitInfoMapper.update(entity, updateWrapper);
+    entity.setMsgDetail("风险发生地域为空，无法上报");
+    updateWrapper.clear();
+    updateWrapper.eq("occurarea","");
     pcacMerchantRiskSubmitInfoMapper.update(entity, updateWrapper);
     // 获取未上报的数据
     QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper =

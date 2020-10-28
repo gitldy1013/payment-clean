@@ -74,6 +74,15 @@ public enum SysLanLocalEnum {
     return desc;
   }
 
+  public static String getSysLanLocalDesc(String pcode) {
+    for (SysLanLocalEnum sysLanEnum : SysLanLocalEnum.values()) {
+      if (!StringUtils.isEmpty(pcode) && sysLanEnum.getPcode().equalsIgnoreCase(pcode)) {
+        return sysLanEnum.getLocal();
+      }
+    }
+    return pcode;
+  }
+
   public String getCode() {
     return this.code;
   }

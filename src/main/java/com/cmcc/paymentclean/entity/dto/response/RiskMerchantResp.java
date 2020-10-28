@@ -104,7 +104,7 @@ public class RiskMerchantResp implements Serializable {
     if ("1".equals(mercTyp) || "3".equals(mercTyp)) {
       occurarea = SysLanLocalEnum.SysLanLocalEnum_100000.getDesc();
     }
-    return occurarea;
+    return SysLanLocalEnum.getSysLanLocalDesc(occurarea);
   }
 
   public String getDocType() {
