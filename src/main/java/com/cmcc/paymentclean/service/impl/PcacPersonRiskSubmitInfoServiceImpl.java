@@ -52,8 +52,6 @@ public class PcacPersonRiskSubmitInfoServiceImpl
 
   @Autowired private PcacPersonRiskSubmitInfoMapper pcacPersonRiskSubmitInfoMapper;
 
-  @Autowired private SysLanService sysLanService;
-
   @Autowired private PcacConfig pcacConfig;
 
   @Override
@@ -78,18 +76,12 @@ public class PcacPersonRiskSubmitInfoServiceImpl
             CusPropertyEnum.getCusPropertyEnum(riskPersonResp.getCusProperty()));
         riskPersonResp.setSubmitStatus(
             SubmitStatusEnum.getSubmitStatusEnumDesc(riskPersonResp.getSubmitStatus()));
-        riskPersonResp.setDocType(DocTypeEnum.getDocTypeDesc(riskPersonResp.getDocType()));
         riskPersonResp.setSubmitStatus(
             SubmitStatusEnum.getSubmitStatusEnumDesc(riskPersonResp.getSubmitStatus()));
         riskPersonResp.setSourceChannel(
             SourChaEnum.getSourChaEnum(riskPersonResp.getSourceChannel()));
         riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
         riskPersonResp.setOccurarea(SysLanLocalEnum.getSysLanLocalPerDesc(riskPersonResp.getOccurarea()));
-        //log.info("---------------------风险地域是：{}-------------",riskPersonResp.getOccurarea());
-       /* SysLan sysLan = sysLanService.getLanInfoById(riskPersonResp.getOccurarea());
-        if (null != sysLan) {
-          riskPersonResp.setOccurarea(sysLan.getLanName());
-        }*/
       }
     }
     resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());

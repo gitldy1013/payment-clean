@@ -91,8 +91,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
                 ? CommonConst.VALIDSTATUS_01
                 : CommonConst.VALIDSTATUS_02;
         riskMerchantResp.setValidStatus(validStatus);
-        riskMerchantResp.setLegDocType(
-            LegDocTypeEnum.getLegDocTypeDesc(riskMerchantResp.getLegDocType()));
         riskMerchantResp.setSubmitStatus(
             SubmitStatusEnum.getSubmitStatusEnumDesc(riskMerchantResp.getSubmitStatus()));
         riskMerchantResp.setCusType(CusTypeEnum.getCusTypeEnum(riskMerchantResp.getCusType()));
