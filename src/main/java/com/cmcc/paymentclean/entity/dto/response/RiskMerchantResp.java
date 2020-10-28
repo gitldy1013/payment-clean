@@ -2,6 +2,7 @@ package com.cmcc.paymentclean.entity.dto.response;
 
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.MerdocTypeEnum;
+import com.cmcc.paymentclean.consts.PerdocTypeEnum;
 import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -112,6 +113,6 @@ public class RiskMerchantResp implements Serializable {
   }
 
   public String getLegDocType() {
-    return LegDocTypeEnum.getLegDocTypeDesc(legDocType);
+    return PerdocTypeEnum.getPerdocTypeEnumLocalDesc(legDocType);
   }
 }

@@ -14,6 +14,7 @@ import com.cmcc.paymentclean.consts.LevelCodeEnum;
 import com.cmcc.paymentclean.consts.MerdocTypeEnum;
 import com.cmcc.paymentclean.consts.MsgTypeEnum;
 import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
+import com.cmcc.paymentclean.consts.PerdocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
@@ -213,7 +214,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     Body body = new Body();
     PcacList pcacList = new PcacList();
     ArrayList<RiskInfo> riskInfos = new ArrayList<>();
-    log.info("结果：{}",pcacMerchantRiskSubmitInfos);
     for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
       pcacList.setCount(pcacMerchantRiskSubmitInfos.size() + "");
       RiskInfo riskInfo = new RiskInfo();
@@ -231,7 +231,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
           MerdocTypeEnum.getMerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getDocType()));
       // 法定代表人证件类型
       pcacMerchantRiskSubmitInfo.setLegDocType(
-          MerdocTypeEnum.getMerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getLegDocType()));
+          PerdocTypeEnum.getPerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getLegDocType()));
       BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
       BankList bankList = new BankList();
       List<BankInfo> bankInfos = new ArrayList<>();
