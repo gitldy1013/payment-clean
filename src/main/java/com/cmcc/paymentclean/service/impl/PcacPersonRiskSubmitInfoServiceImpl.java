@@ -77,7 +77,6 @@ public class PcacPersonRiskSubmitInfoServiceImpl
         riskPersonResp.setSourceChannel(
             SourChaEnum.getSourChaEnum(riskPersonResp.getSourceChannel()));
         riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
-        riskPersonResp.setOccurarea(SysLanLocalEnum.getSysLanLocalPerDesc(riskPersonResp.getOccurarea()));
       }
     }
     resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
