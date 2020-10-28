@@ -9,7 +9,6 @@ import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.CusNatureEnum;
 import com.cmcc.paymentclean.consts.CusPropertyEnum;
 import com.cmcc.paymentclean.consts.CusTypeEnum;
-import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
 import com.cmcc.paymentclean.consts.MsgTypeEnum;
@@ -20,7 +19,6 @@ import com.cmcc.paymentclean.consts.SourChaEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacMerchantRiskSubmitInfo;
-import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BankInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac013.BankList;
@@ -128,7 +126,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     pcacMerchantRiskSubmitInfoMapper.update(entity, updateWrapper);
     entity.setMsgDetail("风险发生地域为空，无法上报");
     updateWrapper.clear();
-    updateWrapper.eq("occurarea","");
+    updateWrapper.eq("occurarea", "").or().eq("occurarea", "null").or().isNull("occurarea");
     pcacMerchantRiskSubmitInfoMapper.update(entity, updateWrapper);
     // 获取未上报的数据
     QueryWrapper<PcacMerchantRiskSubmitInfo> queryWrapper =
