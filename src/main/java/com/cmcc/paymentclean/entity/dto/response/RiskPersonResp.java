@@ -97,6 +97,6 @@ public class RiskPersonResp implements Serializable {
   }
 
   public String getDocType() {
-    return PerdocTypeEnum.getPerdocTypeEnumLocalDesc(this.docCode);
+    return PerdocTypeEnum.getPerdocTypeEnumLocalDesc(this.docType);
   }
 }
