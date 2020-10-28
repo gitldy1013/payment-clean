@@ -74,10 +74,6 @@ public class PcacPersonRiskSubmitInfoServiceImpl
             SubmitStatusEnum.getSubmitStatusEnumDesc(riskPersonResp.getSubmitStatus()));
         riskPersonResp.setCusProperty(
             CusPropertyEnum.getCusPropertyEnum(riskPersonResp.getCusProperty()));
-        riskPersonResp.setSubmitStatus(
-            SubmitStatusEnum.getSubmitStatusEnumDesc(riskPersonResp.getSubmitStatus()));
-        riskPersonResp.setSubmitStatus(
-            SubmitStatusEnum.getSubmitStatusEnumDesc(riskPersonResp.getSubmitStatus()));
         riskPersonResp.setSourceChannel(
             SourChaEnum.getSourChaEnum(riskPersonResp.getSourceChannel()));
         riskPersonResp.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskPersonResp.getRiskType()));
