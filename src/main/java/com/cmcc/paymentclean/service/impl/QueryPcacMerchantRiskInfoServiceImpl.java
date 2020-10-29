@@ -83,11 +83,6 @@ public class QueryPcacMerchantRiskInfoServiceImpl
   public ResultBean<Body> batchQueryPcacMerchantRisk(
       List<QueryPcacMerchantRiskReq> queryPcacMerchantRiskReqs) {
     ResultBean<Body> resultBean = new ResultBean<>();
-    //        if(true){
-    //            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
-    //            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
-    //            return resultBean;
-    //        }
     // 设置报文体
     String resCode = "01";
     String resMsg = "查询成功！";

@@ -24,8 +24,8 @@ public class PcacConfig {
 
   private String userToken;
 
-  /*@Cacheable(value = "token")
+  //@Cacheable(value = "token")
   public String getUserToken() {
     return userToken;
-  }*/
+  }
 }
