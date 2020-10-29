@@ -16,10 +16,10 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.StatusEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
+import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.consts.UnitPropEnum;
 import com.cmcc.paymentclean.entity.BusinessInfo;
-import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
@@ -116,10 +116,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
           LegDocTypeEnum.getLegDocTypeDesc(businessInfoResp.getLegDocType()));
       businessInfoResp.setSubmitStatus(
           SubmitStatusEnum.getSubmitStatusEnumDesc(businessInfoResp.getSubmitStatus()));
-      SysLan sysLan = sysLanService.getLanInfoById(businessInfoResp.getOccurarea());
-      if (null != sysLan) {
-        businessInfoResp.setOccurarea(sysLan.getLanName());
-      }
+      businessInfoResp.setOccurarea(
+          SysLanLocalEnum.getSysLanLocalMerDesc(businessInfoResp.getOccurarea()));
     }
 
     // 生成excel文件

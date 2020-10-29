@@ -468,6 +468,18 @@ public enum SysLanEnum {
     return desc;
   }
 
+  public static String getSysLanEnumDesc(String code) {
+    if (StringUtils.isEmpty(code)) {
+      return "";
+    }
+    for (SysLanEnum sysLanEnum : SysLanEnum.values()) {
+      if (sysLanEnum.getCode().equalsIgnoreCase(code)) {
+        return sysLanEnum.getDesc();
+      }
+    }
+    return code;
+  }
+
   public static String getSysLanEnumPcode(String desc) {
     if (StringUtils.isEmpty(desc)) {
       return "";
