@@ -38,6 +38,7 @@ import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
+import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.QueryPcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
@@ -149,6 +150,9 @@ public class QueryPcacMerchantRiskInfoServiceImpl
   private Body pushQueryPcacMerchantRiskReqToPcac(String xml) {
     // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+    if (org.apache.commons.lang3.StringUtils.isEmpty(post)){
+      throw new SubmitPCACException(ResultBean.UNSPECIFIED_CODE,"协会补发接口异常");
+    }
     log.info("响应报文：{}", XmlJsonUtils.formatXml(post));
     log.info("url:{}", pcacConfig.getUrl());
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc =
