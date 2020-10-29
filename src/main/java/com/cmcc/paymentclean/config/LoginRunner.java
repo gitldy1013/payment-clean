@@ -1,4 +1,3 @@
-/*
 package com.cmcc.paymentclean.config;
 
 import com.cmcc.paymentclean.service.LoginPcacService;
@@ -16,9 +15,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-*/
-/** 这里通过设定value的值来指定执行顺序 *//*
-
+/* 这里通过设定value的值来指定执行顺序 */
 @Component
 @Order(value = 1)
 @Slf4j
@@ -33,7 +30,7 @@ public class LoginRunner implements ApplicationRunner {
         new Runnable() {
           @Override
           public void run() {
-              String token = getToken();
+            String token = getToken();
             log.info("用户token：{}", token);
           }
 
@@ -50,4 +47,3 @@ public class LoginRunner implements ApplicationRunner {
     ses.scheduleAtFixedRate(runnable, 0, 1000, TimeUnit.HOURS);
   }
 }
-*/

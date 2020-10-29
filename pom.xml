@@ -15,6 +15,9 @@
     <description>支付清算综合服务平台系统</description>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <encoding>UTF-8</encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <poi.version>3.17</poi.version>
@@ -247,7 +250,6 @@
         </dependency>
 
     </dependencies>
-
 
 
     <build>
