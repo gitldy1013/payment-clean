@@ -76,6 +76,7 @@ public class SftpPcacRiskInfo {
     // 写本地文件
     try {
       TxtFileUtil.writeFileContext(fileList, sftpConfig.getModDir(), fileName);
+      log.info("本地文件生成：{}"+sftpConfig.getModDir()+fileName);
       // 上传文件
       boolean uploadFlag =
           SFTPUtils.operateSFTP(

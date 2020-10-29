@@ -30,8 +30,8 @@ sftp:
   username: zfqs
   password: Root@123
   modDir: /tmp/
-  remotePathUpload: /app/zfqs/input/
-  remotePathDownload: /app/zfqs/output/
+  remotePathUpload: /ftp_data/zfqs/input/
+  remotePathDownload: /ftp_data/zfqs/output/
   queryPcacMerchantRiskInfoFileNamePrefix: Risk_
   pcacRiskInfoFileNamePrefix: Black_
   businessInfoFileNamePrefix: Business_
