@@ -75,26 +75,29 @@ public class SftpPcacRiskInfo {
             + CommonConst.SFTP_TXT_FILE_NAME_SUFFIX;
     // 写本地文件
     try {
-      TxtFileUtil.writeFileContext(fileList, sftpConfig.getModDir() + fileName);
+      TxtFileUtil.writeFileContext(fileList, sftpConfig.getModDir(), fileName);
+      // 上传文件
+      boolean uploadFlag =
+          SFTPUtils.operateSFTP(
+              sftpConfig.getUsername(),
+              sftpConfig.getHost(),
+              sftpConfig.getPort(),
+              sftpConfig.getPassword(),
+              sftpConfig.getRemotePathUpload(),
+              fileName,
+              sftpConfig.getModDir(),
+              fileName,
+              SFTPUtils.OPERATE_UPLOAD);
+      if (uploadFlag) {
+        // 更新状态为已推送
+        pcacRiskInfoService.updatePushStatus(ids);
+        log.info("SftpPcacRiskInfoJob上传成功 run end.....{}", new Date());
+      } else {
+        log.info("SftpPcacRiskInfoJob上传失败 run end.....{}", new Date());
+      }
     } catch (Exception e) {
       log.error("异常:" + e);
     }
-
-    // 上传文件
-    SFTPUtils.operateSFTP(
-        sftpConfig.getUsername(),
-        sftpConfig.getHost(),
-        sftpConfig.getPort(),
-        sftpConfig.getPassword(),
-        sftpConfig.getRemotePathUpload(),
-        fileName,
-        sftpConfig.getModDir(),
-        fileName,
-        SFTPUtils.OPERATE_UPLOAD);
-    // 更新状态为已推送
-    pcacRiskInfoService.updatePushStatus(ids);
-    Date endDate = new Date();
-    log.info("SftpPcacRiskInfoJob run end.....{}", endDate);
   }
 
   private String setStr(String str, String msg, boolean flag) {
