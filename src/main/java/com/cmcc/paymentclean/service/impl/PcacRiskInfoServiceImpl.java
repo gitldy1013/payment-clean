@@ -207,6 +207,9 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
       // HttpClientUtils.sendHttpsPost("http://210.12.239.161:10001/ries_interface/httpServlet",
       // doXml);
       String result = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), doXml);
+      if (StringUtils.isEmpty(result)){
+        return new ResultBean("协会补发接口异常",ResultBean.UNSPECIFIED_CODE);
+      }
       log.info("----------------------------------------------打印风险信息补发-时间段响应参数：--------");
       String ss = XmlJsonUtils.formatXml(result);
       log.info(ss);
