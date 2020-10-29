@@ -50,6 +50,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 商户黑名单提示信息表 服务实现类
@@ -69,6 +71,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
   @Autowired private PcacRiskInfoMapper pcacRiskInfoMapper;
 
   @Autowired private SysLanService sysLanService;
+  private static ExecutorService executor = Executors.newSingleThreadExecutor();
 
   @Override
   public ResultBean<Page<PcacRiskInfoResp>> pagePcacRiskInfo(PcacRiskInfoReq riskInfoReq) {
@@ -210,6 +213,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
       if (StringUtils.isEmpty(result)){
         return new ResultBean("协会补发接口异常",ResultBean.UNSPECIFIED_CODE);
       }
+
       log.info("----------------------------------------------打印风险信息补发-时间段响应参数：--------");
       String ss = XmlJsonUtils.formatXml(result);
       log.info(ss);
@@ -272,74 +276,86 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     RespInfo respInfo = respBody.getRespInfo();
     if (PcacResultCodeEnum.S00000.getCode().equals(respInfo.getResultCode())
         && "01".equals(respInfo.getResultStatus())) {
+
       PcacList pcacList = respBody.getPcacList();
 
       if (null == pcacList || pcacList.getRiskInfo().size() == 0) {
         return new ResultBean("该日期无需要补发数据", ResultBean.SUCCESS_CODE);
-      } else {
-        QueryInfo queryInfo = respBody.getQueryInfo();
-        // 这里的RiskType为申请补发类型， 01 黑名单 02 风险提示信息
-        String pushListType = queryInfo.getRiskType();
+      }else {
 
-        // 补发申请成功后，为确保库里存储数据不重复，需要先将库里与补发数据相同日期的数据删除，并且还需要确认补发数据的类型相同
-        HashMap<String, String> deleteMap = new HashMap<>();
-        deleteMap.put("pushListType", pushListType);
-        deleteMap.put("reqDate", queryInfo.getReqDate());
-        if (!"".equals(queryInfo.getReqDateEnd())) {
-          deleteMap.put("reqDateEnd", queryInfo.getReqDateEnd());
-          pcacRiskInfoMapper.deleteByDelMap(deleteMap);
-        } else pcacRiskInfoMapper.deleteByDayMap(deleteMap);
-        ArrayList<PcacRiskInfo> pcacRiskInfoList = new ArrayList<>();
-        for (RiskInfo riskInfo : pcacList.getRiskInfo()) {
-          log.debug("协会补发风险信息：{}", riskInfo);
-          // 对关键字进行解密，证件号码和银行卡号加密
-          // 商户简称
-          String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
-          riskInfo.setCusName(decryptCusName);
-          // 商户名称
-          String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
-          riskInfo.setRegName(decryptRegName);
-          // 法人证件号码
-          String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
-          riskInfo.setDocCode(decryptDocCode);
-          // 法定代表人姓名
-          String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
-          riskInfo.setLegDocName(decryptLegDocName);
-          // url
-          String decryptUrl = CFCACipherUtils.decrypt(secretKey, riskInfo.getUrl());
-          riskInfo.setUrl(decryptUrl);
-          // 商户注册号
-          String decryptRegisteredCode =
-              CFCACipherUtils.decrypt(secretKey, riskInfo.getRegisteredCode());
-          riskInfo.setRegisteredCode(decryptRegisteredCode);
-          // 法定代表人证件号码
-          String decryptLegDocCode = null;
-          if (StringUtils.isNotEmpty(riskInfo.getLegDocCode())) {
-            decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
-            // 判断证件类型是身份证就进行内部加密
-            if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
-              String encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
-              riskInfo.setLegDocCode(encryptLegDocCode);
-            } else riskInfo.setLegDocCode(decryptLegDocCode);
+        //开启一个线程
+        log.info("--------信息补发获取到数据开启一个线程处理数据加解密及入库操作---------------------");
+        executor.execute(new Runnable() {
+          @Override
+          public void run() {
+
+            QueryInfo queryInfo = respBody.getQueryInfo();
+            // 这里的RiskType为申请补发类型， 01 黑名单 02 风险提示信息
+            String pushListType = queryInfo.getRiskType();
+
+            // 补发申请成功后，为确保库里存储数据不重复，需要先将库里与补发数据相同日期的数据删除，并且还需要确认补发数据的类型相同
+            HashMap<String, String> deleteMap = new HashMap<>();
+            deleteMap.put("pushListType", pushListType);
+            deleteMap.put("reqDate", queryInfo.getReqDate());
+            if (!"".equals(queryInfo.getReqDateEnd())) {
+              deleteMap.put("reqDateEnd", queryInfo.getReqDateEnd());
+              pcacRiskInfoMapper.deleteByDelMap(deleteMap);
+            } else pcacRiskInfoMapper.deleteByDayMap(deleteMap);
+            ArrayList<PcacRiskInfo> pcacRiskInfoList = new ArrayList<>();
+            for (RiskInfo riskInfo : pcacList.getRiskInfo()) {
+              log.debug("协会补发风险信息：{}", riskInfo);
+              // 对关键字进行解密，证件号码和银行卡号加密
+              // 商户简称
+              String decryptCusName = CFCACipherUtils.decrypt(secretKey, riskInfo.getCusName());
+              riskInfo.setCusName(decryptCusName);
+              // 商户名称
+              String decryptRegName = CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName());
+              riskInfo.setRegName(decryptRegName);
+              // 法人证件号码
+              String decryptDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode());
+              riskInfo.setDocCode(decryptDocCode);
+              // 法定代表人姓名
+              String decryptLegDocName = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocName());
+              riskInfo.setLegDocName(decryptLegDocName);
+              // url
+              String decryptUrl = CFCACipherUtils.decrypt(secretKey, riskInfo.getUrl());
+              riskInfo.setUrl(decryptUrl);
+              // 商户注册号
+              String decryptRegisteredCode =
+                      CFCACipherUtils.decrypt(secretKey, riskInfo.getRegisteredCode());
+              riskInfo.setRegisteredCode(decryptRegisteredCode);
+              // 法定代表人证件号码
+              String decryptLegDocCode = null;
+              if (StringUtils.isNotEmpty(riskInfo.getLegDocCode())) {
+                decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
+                // 判断证件类型是身份证就进行内部加密
+                if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
+                  String encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+                  riskInfo.setLegDocCode(encryptLegDocCode);
+                } else riskInfo.setLegDocCode(decryptLegDocCode);
+              }
+
+              String decryptBankNo = CFCACipherUtils.decrypt(secretKey, riskInfo.getBankNo());
+              String encryptBankNo = InnerCipherUtils.encryptBankData(decryptBankNo);
+              riskInfo.setBankNo(encryptBankNo);
+
+              PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
+              BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
+              log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
+              pcacRiskInfo.setUpDate(riskInfo.getPushDate());
+              // 设置类型01为黑名单,02为风险提示信息
+              pcacRiskInfo.setPushListType(pushListType);
+              pcacRiskInfoList.add(pcacRiskInfo);
+            }
+            log.info("需要入库风险信息：{}", pcacRiskInfoList);
+            pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
+
           }
 
-          String decryptBankNo = CFCACipherUtils.decrypt(secretKey, riskInfo.getBankNo());
-          String encryptBankNo = InnerCipherUtils.encryptBankData(decryptBankNo);
-          riskInfo.setBankNo(encryptBankNo);
-
-          PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
-          BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
-          log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
-          pcacRiskInfo.setUpDate(riskInfo.getPushDate());
-          // 设置类型01为黑名单,02为风险提示信息
-          pcacRiskInfo.setPushListType(pushListType);
-          pcacRiskInfoList.add(pcacRiskInfo);
-        }
-        log.info("需要入库风险信息：{}", pcacRiskInfoList);
-        pcacRiskInfoMapper.insertBatchPcacRiskInfo(pcacRiskInfoList);
-        return new ResultBean("信息补发成功", ResultBean.SUCCESS_CODE);
+        });
       }
 
+      return new ResultBean("信息补发成功,请稍后查询", ResultBean.SUCCESS_CODE);
     } else {
         if(StringUtils.isEmpty(respInfo.getMsgDetail())){
 
