@@ -75,9 +75,10 @@ public class SftpPcacRiskInfo {
             + CommonConst.SFTP_TXT_FILE_NAME_SUFFIX;
     // 写本地文件
     try {
-      TxtFileUtil.writeFileContext(fileList, sftpConfig.getModDir(),fileName);
+      TxtFileUtil.writeFileContext(fileList, sftpConfig.getModDir(), fileName);
       // 上传文件
-      SFTPUtils.operateSFTP(
+      boolean uploadFlag =
+          SFTPUtils.operateSFTP(
               sftpConfig.getUsername(),
               sftpConfig.getHost(),
               sftpConfig.getPort(),
@@ -87,10 +88,13 @@ public class SftpPcacRiskInfo {
               sftpConfig.getModDir(),
               fileName,
               SFTPUtils.OPERATE_UPLOAD);
-      // 更新状态为已推送
-      pcacRiskInfoService.updatePushStatus(ids);
-      Date endDate = new Date();
-      log.info("SftpPcacRiskInfoJob run end.....{}", endDate);
+      if (uploadFlag) {
+        // 更新状态为已推送
+        pcacRiskInfoService.updatePushStatus(ids);
+        log.info("SftpPcacRiskInfoJob上传成功 run end.....{}", new Date());
+      } else {
+        log.info("SftpPcacRiskInfoJob上传失败 run end.....{}", new Date());
+      }
     } catch (Exception e) {
       log.error("异常:" + e);
     }
