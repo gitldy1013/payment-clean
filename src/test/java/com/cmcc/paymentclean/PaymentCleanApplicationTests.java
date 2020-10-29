@@ -58,8 +58,8 @@ class PaymentCleanApplicationTests {
   @Test
   public void test04() {
     ReissueRiskInfoReq reissueRiskInfoReq = new ReissueRiskInfoReq();
-    reissueRiskInfoReq.setReqDate("2020-10-20");
-    reissueRiskInfoReq.setReqDateEnd("2020-10-20");
+    reissueRiskInfoReq.setReqDate("2020-10-23");
+    reissueRiskInfoReq.setReqDateEnd("2020-10-23");
     reissueRiskInfoReq.setRiskType("01");
     ResultBean resultBean = pcacRiskInfoPushController.reissueRiskInfo(reissueRiskInfoReq);
     System.out.println("响应结果：" + resultBean);
