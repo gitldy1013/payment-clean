@@ -9,9 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Date;
 import java.util.List;
 
 /** 扩展BeanUtils.copyProperties支持data类型 */
@@ -43,27 +43,28 @@ public class BeanUtilsEx extends BeanUtils {
       field.setAccessible(true);
       // 获取属性类型
       String type = field.getGenericType().toString();
-      // 如果type是类类型，则前面包含"class "，后面跟类名
-
-      // 将属性的首字母大写
-      String methodName =
-          field
-              .getName()
-              .replaceFirst(
-                  field.getName().substring(0, 1), field.getName().substring(0, 1).toUpperCase());
-      try {
-        Method methodGet = clazz.getMethod("get" + methodName);
-        // 调用getter方法获取属性值
-        Object o = methodGet.invoke(obj);
-        if (o == null) {
-          if ("class java.lang.String".equals(type)) {
-            field.set(obj, field.getType().getConstructor(field.getType()).newInstance(""));
-          } else if ("class java.util.Date".equals(type)) {
-            field.set(obj, field.getType().getConstructor().newInstance());
+      if (!Modifier.toString(field.getModifiers()).contains("static")) {
+        // 将属性的首字母大写
+        String methodName =
+            field
+                .getName()
+                .replaceFirst(
+                    field.getName().substring(0, 1), field.getName().substring(0, 1).toUpperCase());
+        try {
+          Method methodGet = clazz.getMethod("get" + methodName);
+          // 调用getter方法获取属性值
+          Object o = methodGet.invoke(obj);
+          if (o == null) {
+            // 如果type是类类型，则前面包含"class "，后面跟类名
+            if ("class java.lang.String".equals(type)) {
+              field.set(obj, field.getType().getConstructor(field.getType()).newInstance(""));
+            } else if ("class java.util.Date".equals(type)) {
+              field.set(obj, field.getType().getConstructor().newInstance());
+            }
           }
+        } catch (Exception e) {
+          e.printStackTrace();
         }
-      } catch (Exception e) {
-        e.printStackTrace();
       }
     }
     return obj;
