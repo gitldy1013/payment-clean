@@ -21,6 +21,7 @@ import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
+import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
 import com.cmcc.paymentclean.entity.SysLan;
@@ -244,10 +245,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl
             HandleResultEnum.getHandleResultDesc(queryPcacMerchantRiskInfoResp.getHandleResult()));
         queryPcacMerchantRiskInfoResp.setOccurchan(
             OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
-        SysLan sysLan = sysLanService.getLanInfoById(queryPcacMerchantRiskInfoResp.getOccurarea());
-        if (null != sysLan) {
-          queryPcacMerchantRiskInfoResp.setOccurarea(sysLan.getLanName());
-        }
+        queryPcacMerchantRiskInfoResp.setOccurarea(
+            SysLanLocalEnum.getSysLanLocalMerDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
         // 联调测试
         queryPcacMerchantRiskInfoResp.setCount("99");
         queryPcacMerchantRiskInfoResp.setSubmitAmount("99");
