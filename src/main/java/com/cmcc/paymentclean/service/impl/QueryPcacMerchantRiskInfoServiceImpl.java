@@ -78,6 +78,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
   @Autowired private PcacConfig pcacConfig;
 
   @Autowired private SysLanService sysLanService;
+  @Autowired private QueryPcacMerchantRiskInfoMapper queryPcacMerchantRiskInfoMapper;
 
   @Override
   public ResultBean<Body> batchQueryPcacMerchantRisk(
@@ -134,7 +135,10 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       RespInfo respInfo = resBody.getRespInfo();
       if (!respInfo.getResultCode().equals(PcacResultCodeEnum.S00000.getCode())) {
         resCode = respInfo.getResultCode();
-        resMsg = respInfo.getMsgDetail();
+        resMsg =
+            respInfo.getMsgDetail() == null
+                ? PcacResultCodeEnum.getPcacResultCodeEnum(respInfo.getResultCode())
+                : respInfo.getMsgDetail();
       }
     }
     resultBean.setResCode(resCode);
@@ -183,8 +187,6 @@ public class QueryPcacMerchantRiskInfoServiceImpl
     }
     return resBody;
   }
-
-  @Autowired private QueryPcacMerchantRiskInfoMapper queryPcacMerchantRiskInfoMapper;
 
   @Override
   public ResultBean<Page<QueryPcacMerchantRiskInfoResp>> pageLocalAssociatedRiskMerchantInfo(
