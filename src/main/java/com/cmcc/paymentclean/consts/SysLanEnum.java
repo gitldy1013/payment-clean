@@ -469,15 +469,16 @@ public enum SysLanEnum {
   }
 
   public static String getSysLanEnumDesc(String code) {
-    if (StringUtils.isEmpty(code)) {
-      return "";
-    }
-    for (SysLanEnum sysLanEnum : SysLanEnum.values()) {
-      if (sysLanEnum.getCode().equalsIgnoreCase(code)) {
-        return sysLanEnum.getDesc();
+    String[] s = code.split(" ");
+    StringBuffer sb = new StringBuffer();
+    for (int i = 0; i < s.length; i++) {
+      for (SysLanEnum sysLanEnum : SysLanEnum.values()) {
+        if (sysLanEnum.getCode().equalsIgnoreCase(s[i])) {
+          sb.append(sysLanEnum.getDesc());
+        }
       }
     }
-    return code;
+    return sb.toString();
   }
 
   public static String getSysLanEnumPcode(String desc) {
