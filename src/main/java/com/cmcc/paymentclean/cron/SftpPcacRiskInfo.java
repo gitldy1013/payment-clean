@@ -69,7 +69,7 @@ public class SftpPcacRiskInfo {
     // 生成excel文件
     ExcelUtils excelUtils = new ExcelUtils();
     String fileName =
-        sftpConfig.getBusinessInfoFileNamePrefix()
+        sftpConfig.getPcacRiskInfoFileNamePrefix()
             + DateUtils.curDateString()
             + CommonConst.SFTP_FILE_NAME_SUFFIX;
     // 写本地文件

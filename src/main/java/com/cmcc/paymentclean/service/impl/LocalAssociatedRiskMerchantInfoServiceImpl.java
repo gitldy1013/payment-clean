@@ -16,10 +16,10 @@ import com.cmcc.paymentclean.consts.PushListTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.StatusEnum;
+import com.cmcc.paymentclean.consts.SysLanEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.LocalAssociatedRiskMerchantInfo;
 import com.cmcc.paymentclean.entity.PcacRiskInfo;
-import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList;
@@ -33,7 +33,12 @@ import com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
-import com.cmcc.paymentclean.utils.*;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.DateUtils;
+import com.cmcc.paymentclean.utils.HttpClientUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
+import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,10 +121,8 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
             CusTypeEnum.getCusTypeEnum(associatedRiskMerchantInfoResp.getCusType()));
         associatedRiskMerchantInfoResp.setStatus(
             StatusEnum.getStatusDesc(associatedRiskMerchantInfoResp.getStatus()));
-        SysLan sysLan = sysLanService.getLanInfoById(associatedRiskMerchantInfoResp.getOccurarea());
-        if (null != sysLan) {
-          associatedRiskMerchantInfoResp.setOccurarea(sysLan.getLanName());
-        }
+        associatedRiskMerchantInfoResp.setOccurarea(
+            SysLanEnum.getSysLanEnumDesc(associatedRiskMerchantInfoResp.getOccurarea()));
       }
     }
     resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
@@ -172,14 +175,15 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
       }
       RiskInfo riskInfo = new RiskInfo();
       riskInfo.setCusType(pcacRiskInfo.getCusType());
-      //riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded, pcacRiskInfo.getRegName()));
+      // riskInfo.setRegName(CFCACipherUtils.encrypt(symmetricKeyEncoded,
+      // pcacRiskInfo.getRegName()));
       riskInfo.setRegName(pcacRiskInfo.getRegName());
       riskInfo.setCurrency("CNY");
       riskInfo.setAmount(associatedRiskMerchantInfoBackReq.getAmount());
       riskInfo.setDocType(this.splitStrs(associatedRiskMerchantInfoBackReq.getDocType()));
       /*riskInfo.setDocCode(
-          CFCACipherUtils.encrypt(
-              symmetricKeyEncoded, associatedRiskMerchantInfoBackReq.getDocCode()));*/
+      CFCACipherUtils.encrypt(
+          symmetricKeyEncoded, associatedRiskMerchantInfoBackReq.getDocCode()));*/
       riskInfo.setDocCode(associatedRiskMerchantInfoBackReq.getDocCode());
       riskInfo.setHandleResult(this.splitStrs(associatedRiskMerchantInfoBackReq.getHandleResult()));
       riskInfo.setHandleTime(DateUtils.formatTime(new Date(), DateUtils.FORMAT_DATE));
@@ -190,8 +194,8 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     }
     document.setRequest(request);
     // 加签
-    //XmlJsonUtils.doSignature(document);
-      document.setSignature("");
+    // XmlJsonUtils.doSignature(document);
+    document.setSignature("");
     // 发起反馈
     String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);
     boolean validateXML = ValidateUtils.validateXMLByXSD(xmlStr, "pcac.ries.046");
@@ -203,9 +207,9 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     }
 
     Document encrBean = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
-      XmlJsonUtils.doSignature(encrBean);
+    XmlJsonUtils.doSignature(encrBean);
     String encrXmlStr = XmlJsonUtils.convertObjectToXmlStr(encrBean);
-      log.info("反馈数据：{}", XmlJsonUtils.formatXml(encrXmlStr));
+    log.info("反馈数据：{}", XmlJsonUtils.formatXml(encrXmlStr));
     // 解析响应
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), encrXmlStr);
     log.info("响应数据：{}", XmlJsonUtils.formatXml(post));
