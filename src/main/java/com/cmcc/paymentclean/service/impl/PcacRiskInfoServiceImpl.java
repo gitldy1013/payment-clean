@@ -343,7 +343,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
     } else {
         if(StringUtils.isEmpty(respInfo.getMsgDetail())){
 
-            return new ResultBean("风险信息补发失败", ResultBean.UNSPECIFIED_CODE);
+            return new ResultBean("协会补发接口异常", ResultBean.UNSPECIFIED_CODE);
         }
         return new ResultBean(respInfo.getMsgDetail(), ResultBean.UNSPECIFIED_CODE);
     }
