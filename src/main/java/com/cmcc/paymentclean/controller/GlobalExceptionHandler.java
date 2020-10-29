@@ -3,6 +3,7 @@ package com.cmcc.paymentclean.controller;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.exception.ParamInvalidException;
+import com.cmcc.paymentclean.exception.SubmitPCACException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -40,6 +41,16 @@ public class GlobalExceptionHandler {
     ResultBean resultBean =
         new ResultBean(
             e.getBindingResult().getFieldError().getDefaultMessage(), ResultBean.PARAM_ERR);
+    log.error("响应码:{},响应信息:{}", resultBean.getResCode(), resultBean.getResMsg());
+    return resultBean;
+  }
+
+  @ExceptionHandler(SubmitPCACException.class)
+  @ResponseBody
+  public ResultBean handlerSubmitPCACException(SubmitPCACException e) {
+    ResultBean resultBean =
+        new ResultBean(
+           e.getRespDesc(),e.getRespCode());
     log.error("响应码:{},响应信息:{}", resultBean.getResCode(), resultBean.getResMsg());
     return resultBean;
   }
