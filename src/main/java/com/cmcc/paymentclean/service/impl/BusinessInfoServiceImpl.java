@@ -137,23 +137,25 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
       // dispose of temporary files backing this workbook on disk -> 处理SXSSFWorkbook导出excel时，产生的临时文件
       sxssfWorkbook.dispose();
       fos.close();
+      // 上传文件
+      boolean sftp =
+          SFTPUtils.operateSFTP(
+              sftpConfig.getUsername(),
+              sftpConfig.getHost(),
+              sftpConfig.getPort(),
+              sftpConfig.getPassword(),
+              sftpConfig.getRemotePathUpload(),
+              fileName,
+              sftpConfig.getModDir(),
+              fileName,
+              SFTPUtils.OPERATE_UPLOAD);
+      // 更新状态为推送
+      if (sftp) {
+        businessInfoMapper.updatePushStatus(stringList);
+      }
     } catch (Exception e) {
       log.error("异常:" + e);
     }
-
-    // 上传文件
-    SFTPUtils.operateSFTP(
-        sftpConfig.getUsername(),
-        sftpConfig.getHost(),
-        sftpConfig.getPort(),
-        sftpConfig.getPassword(),
-        sftpConfig.getRemotePathUpload(),
-        fileName,
-        sftpConfig.getModDir(),
-        fileName,
-        SFTPUtils.OPERATE_UPLOAD);
-    // 更新状态为推送
-    businessInfoMapper.updatePushStatus(stringList);
     return resultBean;
   }
 
