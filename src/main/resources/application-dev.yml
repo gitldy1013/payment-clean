@@ -29,7 +29,7 @@ sftp:
   port: 22
   username: crm
   password: crm
-  modDir: /tmp/
+  modDir: c:/tmp/
   remotePathUpload: /ftp_data/zfqs/input/
   remotePathDownload: /ftp_data/zfqs/output/
   queryPcacMerchantRiskInfoFileNamePrefix: Risk_

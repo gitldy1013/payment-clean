@@ -15,11 +15,15 @@ public class TxtFileUtil {
    *
    * @param strings
    * @param path
+   * @param fileName
    * @throws Exception
    */
-  public static void writeFileContext(List<String> strings, String path) throws Exception {
-    File file = new File(path);
+  public static void writeFileContext(List<String> strings, String path, String fileName)
+      throws Exception {
+    File fileDir = new File(path);
+    fileDir.mkdirs();
     // 如果没有文件就创建
+    File file = new File(path + fileName);
     if (!file.isFile()) {
       file.createNewFile();
     }
