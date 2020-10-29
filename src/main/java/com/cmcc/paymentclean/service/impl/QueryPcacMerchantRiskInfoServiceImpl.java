@@ -152,7 +152,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
     // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
     if (org.apache.commons.lang3.StringUtils.isEmpty(post)){
-      throw new SubmitPCACException(ResultBean.UNSPECIFIED_CODE,"协会补发接口异常");
+      throw new SubmitPCACException(ResultBean.UNSPECIFIED_CODE,"协会接口异常");
     }
     log.info("响应报文：{}", XmlJsonUtils.formatXml(post));
     log.info("url:{}", pcacConfig.getUrl());
