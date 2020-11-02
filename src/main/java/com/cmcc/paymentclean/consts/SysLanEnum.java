@@ -473,10 +473,10 @@ public enum SysLanEnum {
     if (code == null) {
       return sb.toString();
     }
-    String[] s = code.split(" ");
+    String[] s = code.split(",");
     for (int i = 0; i < s.length; i++) {
       for (SysLanEnum sysLanEnum : SysLanEnum.values()) {
-        if (sysLanEnum.getCode().equalsIgnoreCase(s[i])) {
+        if (sysLanEnum.getCode().equalsIgnoreCase(s[i].trim())) {
           sb.append(sysLanEnum.getDesc());
         }
       }
