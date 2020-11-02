@@ -46,7 +46,7 @@ public class LogRecordAspect {
     if (result instanceof ResultBean) {
       ResultBean resultBean = (ResultBean) result;
       PcacOptLog entity = new PcacOptLog();
-      entity.setCreatedBy(resultBean.getResMsg());
+      entity.setCreatedBy("cmcc");
       entity.setCreatedTime(new Date());
       entity.setOptContent(resultBean.getResMsg());
       pcacOptLogService.save(entity);
