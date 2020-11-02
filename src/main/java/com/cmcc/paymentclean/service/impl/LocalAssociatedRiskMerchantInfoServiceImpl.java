@@ -1,6 +1,7 @@
 package com.cmcc.paymentclean.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
@@ -32,7 +33,6 @@ import com.cmcc.paymentclean.entity.dto.resquest.AssociatedRiskMerchantInfoReq;
 import com.cmcc.paymentclean.mapper.LocalAssociatedRiskMerchantInfoMapper;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.LocalAssociatedRiskMerchantInfoService;
-import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -69,8 +69,6 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
 
   @Autowired private PcacConfig pcacConfig;
 
-  @Autowired private SysLanService sysLanService;
-
   @Override
   public ResultBean<Page<AssociatedRiskMerchantInfoResp>> pageLocalAssociatedRiskMerchantInfo(
       AssociatedRiskMerchantInfoReq associatedRiskMerchantInfoReq) {
@@ -94,8 +92,6 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
                 ? CommonConst.VALIDSTATUS_01
                 : CommonConst.VALIDSTATUS_02;
         associatedRiskMerchantInfoResp.setValidStatus(validStatus);
-        associatedRiskMerchantInfoResp.setLevel(
-            LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
         associatedRiskMerchantInfoResp.setPushListType(
             PushListTypeEnum.getPushListTypeDesc(associatedRiskMerchantInfoResp.getPushListType()));
         associatedRiskMerchantInfoResp.setFeedbackStatus(
@@ -105,12 +101,8 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
             LegDocTypeEnum.getLegDocTypeDesc(associatedRiskMerchantInfoResp.getLegDocType()));
         associatedRiskMerchantInfoResp.setIsBlack(
             IsBlackEnum.getIsBlackEnumDesc(associatedRiskMerchantInfoResp.getIsBlack()));
-        associatedRiskMerchantInfoResp.setLevel(
-            LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
         associatedRiskMerchantInfoResp.setDocType(
             DocTypeEnum.getDocTypeDesc(associatedRiskMerchantInfoResp.getDocType()));
-        associatedRiskMerchantInfoResp.setIsBlack(
-            IsBlackEnum.getIsBlackEnumDesc(associatedRiskMerchantInfoResp.getIsBlack()));
         associatedRiskMerchantInfoResp.setLevel(
             LevelCodeEnum.getLevelDesc(associatedRiskMerchantInfoResp.getLevel()));
         associatedRiskMerchantInfoResp.setRiskType(
@@ -139,11 +131,6 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
       localAssociatedRiskMerchantInfoBack(
           List<AssociatedRiskMerchantInfoBackReq> associatedRiskMerchantInfoBackReqs) {
     ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resp.Body> resultBean = new ResultBean<>();
-    //        if(true){
-    //            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
-    //            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
-    //            return resultBean;
-    //        }
     // 拼装报文
     byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
     Document<Body> document = new Document<>();
@@ -159,7 +146,8 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     PcacList pcacList = new PcacList();
     pcacList.setCount(associatedRiskMerchantInfoBackReqs.size() + "");
     List<RiskInfo> riskInfos = new ArrayList<>();
-    PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
+    PcacRiskInfo pcacRiskInfo;
+    List<LocalAssociatedRiskMerchantInfo> localAssociatedRiskMerchantInfos = new ArrayList<>();
     for (AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq :
         associatedRiskMerchantInfoBackReqs) {
       QueryWrapper<PcacRiskInfo> wrapper = new QueryWrapper<>();
@@ -191,6 +179,15 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
       pcacList.setRiskInfo(riskInfos);
       body.setPcacList(pcacList);
       request.setBody(body);
+
+      // 更新数据
+      QueryWrapper<LocalAssociatedRiskMerchantInfo> localWapper = new QueryWrapper<>();
+      localWapper
+          .eq("doc_code", associatedRiskMerchantInfoBackReq.getDocCode())
+          .or()
+          .eq("leg_doc_code", pcacRiskInfo.getLegDocCode());
+      localAssociatedRiskMerchantInfos =
+          localAssociatedRiskMerchantInfoMapper.selectList(localWapper);
     }
     document.setRequest(request);
     // 加签
@@ -218,6 +215,21 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
             XmlJsonUtils.convertXmlStrToObject(
                 post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
     com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = resDoc.getRespone().getBody();
+    String resultCode = resBody.getRespInfo().getResultCode();
+    for (int i = 0; i < localAssociatedRiskMerchantInfos.size(); i++) {
+      LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo =
+          localAssociatedRiskMerchantInfos.get(i);
+      UpdateWrapper<LocalAssociatedRiskMerchantInfo> updateWrapper = new UpdateWrapper<>();
+      updateWrapper.set("feedback_status", "已反馈");
+      updateWrapper.set(
+          "handle_result", associatedRiskMerchantInfoBackReqs.get(i).getHandleResult());
+      updateWrapper.set("operator", associatedRiskMerchantInfoBackReqs.get(i).getOperator());
+      updateWrapper.set(
+          "msg_detail",
+          FeedbackStatusEnum.getFeedbackStatusDesc(resultCode)
+              + resBody.getRespInfo().getMsgDetail());
+      localAssociatedRiskMerchantInfoMapper.update(localAssociatedRiskMerchantInfo, updateWrapper);
+    }
     resultBean.setData(resBody);
     resultBean.setResCode(resBody.getRespInfo().getResultCode());
     if (resBody.getRespInfo().getMsgDetail() != null) {

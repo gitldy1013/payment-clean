@@ -469,8 +469,11 @@ public enum SysLanEnum {
   }
 
   public static String getSysLanEnumDesc(String code) {
-    String[] s = code.split(" ");
     StringBuffer sb = new StringBuffer();
+    if (code == null) {
+      return sb.toString();
+    }
+    String[] s = code.split(" ");
     for (int i = 0; i < s.length; i++) {
       for (SysLanEnum sysLanEnum : SysLanEnum.values()) {
         if (sysLanEnum.getCode().equalsIgnoreCase(s[i])) {
