@@ -33,6 +33,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -198,7 +199,11 @@ public class PcacPersonRiskSubmitInfoServiceImpl
           BeanUtils.copyProperties(respInfo, pcacPersonRiskSubmitInfo);
           pcacPersonRiskSubmitInfo.setSubmitTime(date);
           pcacPersonRiskSubmitInfo.setSubmitStatus("0");
-          pcacPersonRiskSubmitInfo.setMsgDetail(respInfo.getMsgDetail());
+          if(!StringUtils.isEmpty(respInfo.getMsgDetail())){
+            pcacPersonRiskSubmitInfo.setMsgDetail(respInfo.getMsgDetail());
+          }else {
+            pcacPersonRiskSubmitInfo.setMsgDetail(PcacResultCodeEnum.getPcacResultCodeEnum(respInfo.getResultCode()));
+          }
           pcacPersonRiskSubmitInfo.setRepDate(date);
           log.info("更新数据库表时间和状态信息：{}", pcacPersonRiskSubmitInfo);
           pcacPersonRiskSubmitInfoMapper.updateByPcacPersonRiskSubmitInfo(pcacPersonRiskSubmitInfo);
