@@ -9,7 +9,7 @@ import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.CusNatureEnum;
 import com.cmcc.paymentclean.consts.CusPropertyEnum;
 import com.cmcc.paymentclean.consts.CusTypeEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
+import com.cmcc.paymentclean.consts.FeedbackStatusEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
 import com.cmcc.paymentclean.consts.MerdocTypeEnum;
 import com.cmcc.paymentclean.consts.MsgTypeEnum;
@@ -36,7 +36,6 @@ import com.cmcc.paymentclean.entity.dto.response.RiskMerchantResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskMerchantReq;
 import com.cmcc.paymentclean.mapper.PcacMerchantRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacMerchantRiskSubmitInfoService;
-import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -168,26 +167,28 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
             XmlJsonUtils.convertXmlStrToObject(
                 post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
     log.info("协会返回数据对象:{}", doc);
-    if (doc.getRespone()
-        .getBody()
-        .getRespInfo()
-        .getResultCode()
-        .equals(PcacResultCodeEnum.S00000.getCode())) {
+    if (doc.getRespone().getBody().getRespInfo().getResultCode() != null) {
       for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
-        UpdateWrapper<PcacMerchantRiskSubmitInfo> updateWrapper =
-            new UpdateWrapper<PcacMerchantRiskSubmitInfo>();
         pcacMerchantRiskSubmitInfo.setSubmitTime(new Date());
-        pcacMerchantRiskSubmitInfo.setSubmitStatus(SubmitStatusEnum.ISBLACKENUM_1.getCode());
+        pcacMerchantRiskSubmitInfo.setSubmitStatus(
+            doc.getRespone()
+                    .getBody()
+                    .getRespInfo()
+                    .getResultCode()
+                    .equals(PcacResultCodeEnum.S00000.getCode())
+                ? SubmitStatusEnum.ISBLACKENUM_1.getCode()
+                : SubmitStatusEnum.ISBLACKENUM_0.getCode());
         pcacMerchantRiskSubmitInfo.setResultCode(
             doc.getRespone().getBody().getRespInfo().getResultCode());
         pcacMerchantRiskSubmitInfo.setResultStatus(
             doc.getRespone().getBody().getRespInfo().getResultStatus());
         pcacMerchantRiskSubmitInfo.setMsgDetail(
-            doc.getRespone().getBody().getRespInfo().getMsgDetail());
+            FeedbackStatusEnum.getFeedbackStatusDesc(
+                    doc.getRespone().getBody().getRespInfo().getResultCode())
+                + doc.getRespone().getBody().getRespInfo().getMsgDetail());
         pcacMerchantRiskSubmitInfo.setRepDate(new Date());
         pcacMerchantRiskSubmitInfoMapper.updateById(pcacMerchantRiskSubmitInfo);
       }
-    } else {
       log.info(
           "返回状态码及信息：{}:{}",
           doc.getRespone().getBody().getRespInfo().getResultCode(),
