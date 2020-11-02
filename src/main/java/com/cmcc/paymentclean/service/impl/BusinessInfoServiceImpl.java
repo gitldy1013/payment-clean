@@ -39,7 +39,6 @@ import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
-import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -80,8 +79,6 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
   @Autowired private PcacConfig pcacConfig;
 
   @Autowired private BusinessInfoMapper businessInfoMapper;
-
-  @Autowired private SysLanService sysLanService;
 
   @Override
   public ResultBean<Body> exportExcel() {

@@ -70,8 +70,6 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
 
   @Autowired private PcacConfig pcacConfig;
 
-  @Autowired private SysLanService sysLanService;
-
   @Override
   public ResultBean<Page<RiskMerchantResp>> pageRiskMerchant(RiskMerchantReq riskMerchantReq) {
     log.info("pageRiskMerchant req={}", com.alibaba.fastjson.JSON.toJSON(riskMerchantReq));

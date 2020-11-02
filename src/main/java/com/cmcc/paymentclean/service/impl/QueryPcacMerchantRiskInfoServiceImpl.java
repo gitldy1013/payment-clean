@@ -21,10 +21,10 @@ import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
+import com.cmcc.paymentclean.consts.SysLanEnum;
 import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
-import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.BankInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.BankList;
@@ -42,7 +42,6 @@ import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
 import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.QueryPcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
-import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -79,7 +78,6 @@ public class QueryPcacMerchantRiskInfoServiceImpl
 
   @Autowired private PcacConfig pcacConfig;
 
-  @Autowired private SysLanService sysLanService;
   @Autowired private QueryPcacMerchantRiskInfoMapper queryPcacMerchantRiskInfoMapper;
 
   @Override
@@ -151,8 +149,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl
   private Body pushQueryPcacMerchantRiskReqToPcac(String xml) {
     // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
-    if (org.apache.commons.lang3.StringUtils.isEmpty(post)){
-      throw new SubmitPCACException(ResultBean.UNSPECIFIED_CODE,"协会接口异常");
+    if (org.apache.commons.lang3.StringUtils.isEmpty(post)) {
+      throw new SubmitPCACException(ResultBean.UNSPECIFIED_CODE, "协会接口异常");
     }
     log.info("响应报文：{}", XmlJsonUtils.formatXml(post));
     log.info("url:{}", pcacConfig.getUrl());
@@ -321,10 +319,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl
           HandleResultEnum.getHandleResultDesc(queryPcacMerchantRiskInfoResp.getHandleResult()));
       queryPcacMerchantRiskInfoResp.setOccurchan(
           OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
-      SysLan sysLan = sysLanService.getLanInfoById(queryPcacMerchantRiskInfoResp.getOccurarea());
-      if (null != sysLan) {
-        queryPcacMerchantRiskInfoResp.setOccurarea(sysLan.getLanName());
-      }
+      queryPcacMerchantRiskInfoResp.setOccurarea(
+          SysLanEnum.getSysLanEnumDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
     }
 
     // 生成excel文件

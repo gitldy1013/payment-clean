@@ -68,7 +68,6 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
   @Autowired private PcacConfig pcacConfig;
   @Autowired private PcacRiskInfoService pcacRiskInfoService;
   @Autowired private PcacRiskInfoMapper pcacRiskInfoMapper;
-  @Autowired private SysLanService sysLanService;
 
   @Override
   public ResultBean<Page<PcacRiskInfoResp>> pagePcacRiskInfo(PcacRiskInfoReq riskInfoReq) {

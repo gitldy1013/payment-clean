@@ -14,9 +14,9 @@ import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
 import com.cmcc.paymentclean.consts.SubmitStatusEnum;
+import com.cmcc.paymentclean.consts.SysLanEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.PcacEnterpriseRiskSubmitInfo;
-import com.cmcc.paymentclean.entity.SysLan;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.BankInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac059.BankList;
@@ -31,7 +31,6 @@ import com.cmcc.paymentclean.entity.dto.response.RiskEnterpriseResp;
 import com.cmcc.paymentclean.entity.dto.resquest.RiskEnterpriseReq;
 import com.cmcc.paymentclean.mapper.PcacEnterpriseRiskSubmitInfoMapper;
 import com.cmcc.paymentclean.service.PcacEnterpriseRiskSubmitInfoService;
-import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
 import com.cmcc.paymentclean.utils.CFCACipherUtils;
 import com.cmcc.paymentclean.utils.DateUtils;
@@ -63,8 +62,6 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl
   @Autowired private PcacEnterpriseRiskSubmitInfoMapper pcacEnterpriseRiskSubmitInfoMapper;
 
   @Autowired private PcacConfig pcacConfig;
-
-  @Autowired private SysLanService sysLanService;
 
   @Override
   public ResultBean<Page<RiskEnterpriseResp>> pageRiskEnterprise(
@@ -99,10 +96,8 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl
         riskEnterpriseResp.setRiskType(
             RiskTypeEnum.getRiskTypeDesc(riskEnterpriseResp.getRiskType()));
         riskEnterpriseResp.setMsgType(MsgTypeEnum.MsgTypeEnum_04.getDesc());
-        SysLan sysLan = sysLanService.getLanInfoById(riskEnterpriseResp.getOccurarea());
-        if (null != sysLan) {
-          riskEnterpriseResp.setOccurarea(sysLan.getLanName());
-        }
+        riskEnterpriseResp.setOccurarea(
+            SysLanEnum.getSysLanEnumDesc(riskEnterpriseResp.getOccurarea()));
       }
     }
     resultBean.setData(pagePcacEnterpriseRiskSubmitInfo);

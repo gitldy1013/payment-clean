@@ -35,8 +35,6 @@ public class SftpPcacRiskInfo {
 
   @Autowired private SftpConfig sftpConfig;
 
-  @Autowired private SysLanService sysLanService;
-
   public void run() {
     Date startDate = new Date();
     log.info("SftpPcacRiskInfoJob run start.....{}", startDate);
