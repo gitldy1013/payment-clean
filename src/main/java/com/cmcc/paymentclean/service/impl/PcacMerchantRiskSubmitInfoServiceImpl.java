@@ -241,6 +241,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       bankInfos.add(bankInfo);
       bankList.setBankInfo(bankInfos);
       riskInfo.setBankList(bankList);
+      riskInfo.setOrgId(pcacConfig.getOrigSender());
       riskInfo.setRepDate(DateUtils.formatTime(new Date(System.currentTimeMillis()), null));
       BenList benList = new BenList();
       List<BenInfo> benInfos = new ArrayList<>();

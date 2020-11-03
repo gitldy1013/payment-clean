@@ -114,6 +114,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl
       // 上报日期库里有就不加了，没有的再自己生成
       String repDateStr = DateUtils.formatTime(date, "yyyy-MM-dd HH:mm:ss");
       riskInfo.setRepDate(repDateStr);
+      riskInfo.setOrgId(pcacConfig.getOrigSender());
       log.info("riskInfo复制的对象属性包括：{}", riskInfo);
 
       BankList bankList = new BankList();
