@@ -249,6 +249,8 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
       benInfos.add(benInfo);
       benList.setBenInfo(benInfos);
+      benList.setCount(benInfos.size()+"");
+      bankList.setCount(bankList.getBankInfo().size()+"");
       riskInfo.setBenList(benList);
       riskInfos.add(riskInfo);
       pcacList.setRiskInfo(riskInfos);

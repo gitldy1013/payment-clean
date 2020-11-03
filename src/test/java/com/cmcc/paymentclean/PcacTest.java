@@ -180,7 +180,6 @@ public class PcacTest<T> {
     riskInfo.setTelephone(CFCACipherUtils.encrypt(symmetricKeyEncoded, "010-67891234"));
     riskInfo.setRecHostArea("CN");
     BankList bankList = new BankList();
-    bankList.setCount("1");
     List<BankInfo> bankInfos = new ArrayList<>();
     BankInfo bankInfo = new BankInfo();
     bankInfo.setIsTransfer("0");
@@ -191,6 +190,7 @@ public class PcacTest<T> {
     bankInfo.setRecOpenBank("工商银行");
     bankInfos.add(bankInfo);
     bankList.setBankInfo(bankInfos);
+    bankList.setCount(bankInfos.size()+"");
     riskInfo.setBankList(bankList);
     riskInfo.setEmail("qq@126.com");
     riskInfo.setValidDate("2099-12-30");

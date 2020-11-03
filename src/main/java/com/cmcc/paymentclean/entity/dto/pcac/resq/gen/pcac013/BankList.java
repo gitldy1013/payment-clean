@@ -44,7 +44,7 @@ import java.util.List;
 public class BankList {
 
   @XmlElement(name = "Count", required = true)
-  protected String count = this.bankInfo.size()+"";
+  protected String count;
 
   @XmlElement(name = "BankInfo", required = true)
   protected List<BankInfo> bankInfo;

@@ -44,7 +44,7 @@ import java.util.List;
 public class BenList {
 
   @XmlElement(name = "Count", required = true)
-  protected String count = this.benInfo.size()+"";
+  protected String count;
 
   @XmlElement(name = "BenInfo", required = true)
   protected List<BenInfo> benInfo;
