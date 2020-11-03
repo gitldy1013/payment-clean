@@ -61,6 +61,8 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 服务实现类
@@ -74,10 +76,9 @@ public class QueryPcacMerchantRiskInfoServiceImpl
     extends ServiceImpl<QueryPcacMerchantRiskInfoMapper, QueryPcacMerchantRiskInfo>
     implements QueryPcacMerchantRiskInfoService {
 
+  private static ExecutorService executor = Executors.newSingleThreadExecutor();
   @Autowired private SftpConfig sftpConfig;
-
   @Autowired private PcacConfig pcacConfig;
-
   @Autowired private QueryPcacMerchantRiskInfoMapper queryPcacMerchantRiskInfoMapper;
 
   @Override
@@ -141,6 +142,12 @@ public class QueryPcacMerchantRiskInfoServiceImpl
                 : respInfo.getMsgDetail();
       }
     }
+    executor.execute(
+        () -> {
+          log.info("------------------开始执行上传文件----------------");
+          exportExcel();
+          log.info("------------------结束执行上传文件----------------");
+        });
     resultBean.setResCode(resCode);
     resultBean.setResMsg(resMsg);
     return resultBean;
@@ -249,14 +256,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
             OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
         queryPcacMerchantRiskInfoResp.setOccurarea(
             SysLanLocalEnum.getSysLanLocalMerDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
-        // 联调测试
-        queryPcacMerchantRiskInfoResp.setCount("99");
-        queryPcacMerchantRiskInfoResp.setSubmitAmount("99");
-        queryPcacMerchantRiskInfoResp.setCusCodeCount("99");
-        queryPcacMerchantRiskInfoResp.setTotalOrganNum("99");
-        queryPcacMerchantRiskInfoResp.setBenListcount("99");
-        queryPcacMerchantRiskInfoResp.setOperator("联调测试");
-        queryPcacMerchantRiskInfoResp.setErrInfo("联调测试");
+        queryPcacMerchantRiskInfoResp.setCount(queryPcacMerchantRiskInfoResps.size() + "");
       }
     }
     resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
@@ -363,11 +363,6 @@ public class QueryPcacMerchantRiskInfoServiceImpl
   public ResultBean<Body> queryPcacMerchantRiskInfoBack(
       List<QueryPcacMerchantRiskInfoBackReq> queryPcacMerchantRiskInfoBackReqs) {
     ResultBean<Body> resultBean = new ResultBean<>();
-    //        if(true){
-    //            resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
-    //            resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
-    //            return resultBean;
-    //        }
     // 拼装报文
     byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
     Document document = new Document();
