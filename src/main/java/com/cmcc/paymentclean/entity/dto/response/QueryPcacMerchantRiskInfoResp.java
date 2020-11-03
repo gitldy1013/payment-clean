@@ -17,6 +17,7 @@ public class QueryPcacMerchantRiskInfoResp implements Serializable {
   @ApiModelProperty(value = "queryPcacMerchantRiskInfoId")
   private String queryPcacMerchantRiskInfoId;
 
+  @ExcelExportField(name = "风险反馈主键编码", index = 0)
   @ApiModelProperty(value = "id")
   private String id;
 
