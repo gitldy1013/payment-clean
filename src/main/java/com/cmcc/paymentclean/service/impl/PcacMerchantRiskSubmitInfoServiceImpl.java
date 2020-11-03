@@ -252,14 +252,10 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       boolean beanIsNotNull = BeanUtilsEx.checkObjFieldIsNotNull(benInfo);
       if (beanIsNotNull) {
         benList.setCount(benInfos.size() + "");
-      }else {
+      } else {
         benList.setCount("0");
       }
-      if (BeanUtilsEx.checkObjFieldIsNotNull(bankInfo)) {
-        bankList.setCount(bankInfos.size() + "");
-      }else {
-        bankList.setCount("0");
-      }
+      bankList.setCount(bankInfos.size() + "");
       riskInfo.setBenList(benList);
       riskInfos.add(riskInfo);
       pcacList.setRiskInfo(riskInfos);

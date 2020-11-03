@@ -147,17 +147,23 @@ public class BeanUtilsEx extends BeanUtils {
     }
   }
 
+  /**
+   * 检查对象字段 全部不为空返回true 否则返回false
+   *
+   * @param obj
+   * @return
+   */
   public static boolean checkObjFieldIsNotNull(Object obj) {
     try {
       for (Field f : obj.getClass().getDeclaredFields()) {
         f.setAccessible(true);
-        if (f.get(obj) != null || !StringUtils.isEmpty(f.get(obj).toString().trim())) {
-          return true;
+        if (f.get(obj) == null || StringUtils.isEmpty(f.get(obj).toString().trim())) {
+          return false;
         }
       }
     } catch (IllegalAccessException e) {
       log.error("错误:", e);
     }
-    return false;
+    return true;
   }
 }
