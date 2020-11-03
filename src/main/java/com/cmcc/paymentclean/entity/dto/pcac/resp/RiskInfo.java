@@ -421,7 +421,7 @@ public class RiskInfo {
   }
 
   public String getOccurarea() {
-    return SysLanEnum.getSysLanEnumDesc(Occurarea);
+    return Occurarea;
   }
 
   public void setOccurarea(String occurarea) {
