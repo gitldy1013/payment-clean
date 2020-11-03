@@ -56,7 +56,7 @@ public enum SysLanLocalEnum {
       return "";
     }
     for (SysLanLocalEnum sysLanEnum : SysLanLocalEnum.values()) {
-      if (sysLanEnum.getDesc().equalsIgnoreCase(pCode)) {
+      if (sysLanEnum.getPcode().equalsIgnoreCase(pCode)) {
         return sysLanEnum.getCode();
       }
     }
