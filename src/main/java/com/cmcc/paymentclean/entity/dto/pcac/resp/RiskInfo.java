@@ -1,6 +1,6 @@
 package com.cmcc.paymentclean.entity.dto.pcac.resp;
 
-import lombok.Data;
+import com.cmcc.paymentclean.consts.SysLanEnum;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -421,7 +421,7 @@ public class RiskInfo {
   }
 
   public String getOccurarea() {
-    return Occurarea;
+    return SysLanEnum.getSysLanEnumDesc(Occurarea);
   }
 
   public void setOccurarea(String occurarea) {
