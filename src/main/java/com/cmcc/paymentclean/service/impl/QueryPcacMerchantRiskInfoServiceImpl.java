@@ -447,7 +447,6 @@ public class QueryPcacMerchantRiskInfoServiceImpl
     for (int i = 0; i < list.size(); i++) {
       queryPcacMerchantRiskInfoMapper.update(list.get(i), updateWrapper);
     }
-    resultBean.setResCode(resultCode);
     resultBean.setResMsg(
         PcacResultCodeEnum.getPcacResultCodeEnum(resultCode) + respInfo.getMsgDetail());
     return resultBean;
