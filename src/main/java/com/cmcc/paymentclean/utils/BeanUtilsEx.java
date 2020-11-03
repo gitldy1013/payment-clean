@@ -146,4 +146,18 @@ public class BeanUtilsEx extends BeanUtils {
               getDocTypeValue.toString(), getValue.toString(), symmetricKeyEncoded));
     }
   }
+
+  public static boolean checkObjFieldIsNotNull(Object obj) {
+    try {
+      for (Field f : obj.getClass().getDeclaredFields()) {
+        f.setAccessible(true);
+        if (f.get(obj) != null || !StringUtils.isEmpty(f.get(obj).toString().trim())) {
+          return true;
+        }
+      }
+    } catch (IllegalAccessException e) {
+      log.error("错误:", e);
+    }
+    return false;
+  }
 }

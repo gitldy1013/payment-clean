@@ -249,8 +249,17 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       BeanUtilsEx.copyProperties(benInfo, pcacMerchantRiskSubmitInfo);
       benInfos.add(benInfo);
       benList.setBenInfo(benInfos);
-      benList.setCount(benInfos.size()+"");
-      bankList.setCount(bankList.getBankInfo().size()+"");
+      boolean beanIsNotNull = BeanUtilsEx.checkObjFieldIsNotNull(benInfo);
+      if (beanIsNotNull) {
+        benList.setCount(benInfos.size() + "");
+      }else {
+        benList.setCount("0");
+      }
+      if (BeanUtilsEx.checkObjFieldIsNotNull(bankInfo)) {
+        bankList.setCount(bankInfos.size() + "");
+      }else {
+        bankList.setCount("0");
+      }
       riskInfo.setBenList(benList);
       riskInfos.add(riskInfo);
       pcacList.setRiskInfo(riskInfos);
