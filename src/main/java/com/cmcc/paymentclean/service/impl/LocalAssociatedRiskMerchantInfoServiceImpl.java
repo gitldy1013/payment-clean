@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
+import com.cmcc.paymentclean.consts.BlackHandleResultEnum;
 import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.CusTypeEnum;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.consts.FeedbackStatusEnum;
-import com.cmcc.paymentclean.consts.HandleResultEnum;
 import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
@@ -108,7 +108,8 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
         associatedRiskMerchantInfoResp.setRiskType(
             RiskTypeEnum.getRiskTypeDesc(associatedRiskMerchantInfoResp.getRiskType()));
         associatedRiskMerchantInfoResp.setHandleResult(
-            HandleResultEnum.getHandleResultDesc(associatedRiskMerchantInfoResp.getHandleResult()));
+            BlackHandleResultEnum.getBlackHandleResultDesc(
+                associatedRiskMerchantInfoResp.getHandleResult()));
         associatedRiskMerchantInfoResp.setCusType(
             CusTypeEnum.getCusTypeEnum(associatedRiskMerchantInfoResp.getCusType()));
         associatedRiskMerchantInfoResp.setStatus(
@@ -151,9 +152,9 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     for (AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq :
         associatedRiskMerchantInfoBackReqs) {
       QueryWrapper<PcacRiskInfo> wrapper = new QueryWrapper<>();
-      log.info("风控反馈的商户信息：{}",associatedRiskMerchantInfoBackReq);
-      wrapper.eq("doc_type", associatedRiskMerchantInfoBackReq.getDocType());
-      wrapper.eq("doc_code", associatedRiskMerchantInfoBackReq.getDocCode());
+      log.info("风控反馈的商户信息：{}", associatedRiskMerchantInfoBackReq);
+      wrapper.eq("doc_type", this.splitStrs(associatedRiskMerchantInfoBackReq.getDocType()).trim());
+      wrapper.eq("doc_code", associatedRiskMerchantInfoBackReq.getDocCode().trim());
       List<PcacRiskInfo> pcacRiskInfos = pcacRiskInfoMapper.selectList(wrapper);
       if (pcacRiskInfos.size() > 0) {
         pcacRiskInfo = pcacRiskInfos.get(0);
@@ -196,7 +197,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     document.setSignature("");
     // 发起反馈
     String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);
-    log.info("未加密的xml数据：{}",xmlStr);
+    log.info("未加密的xml数据：{}", xmlStr);
     boolean validateXML = ValidateUtils.validateXMLByXSD(xmlStr, "pcac.ries.046");
     if (!validateXML) {
       log.info("XSD校验失败{}", xmlStr);
