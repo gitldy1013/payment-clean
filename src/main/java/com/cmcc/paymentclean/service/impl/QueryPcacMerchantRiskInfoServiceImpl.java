@@ -255,7 +255,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
         queryPcacMerchantRiskInfoResp.setOccurchan(
             OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
         queryPcacMerchantRiskInfoResp.setOccurarea(
-            SysLanLocalEnum.getSysLanLocalMerDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
+            SysLanEnum.getSysLanEnumDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
         queryPcacMerchantRiskInfoResp.setCount(queryPcacMerchantRiskInfoResps.size() + "");
       }
     }
@@ -387,7 +387,9 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       BeanUtilsEx.copyProperties(riskInfo, queryPcacMerchantRiskInfoBackReqs.get(i));
       riskInfo.setCusType(this.splitStrs(riskInfo.getCusType()));
       riskInfo.setHandleResult(this.splitStrs(riskInfo.getHandleResult()));
-      riskInfos.add(riskInfo);
+        String repDateStr = DateUtils.formatTime(new Date(), "yyyy-MM-dd");
+        riskInfo.setHandleTime(repDateStr);
+        riskInfos.add(riskInfo);
     }
     pcacList.setRiskInfo(riskInfos);
     body.setPcacList(pcacList);
