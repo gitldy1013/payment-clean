@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
+import com.cmcc.paymentclean.consts.BlackHandleResultEnum;
 import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.CusTypeEnum;
 import com.cmcc.paymentclean.consts.DocTypeEnum;
 import com.cmcc.paymentclean.consts.FeedbackStatusEnum;
-import com.cmcc.paymentclean.consts.HandleResultEnum;
 import com.cmcc.paymentclean.consts.IsBlackEnum;
 import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
@@ -108,7 +108,8 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
         associatedRiskMerchantInfoResp.setRiskType(
             RiskTypeEnum.getRiskTypeDesc(associatedRiskMerchantInfoResp.getRiskType()));
         associatedRiskMerchantInfoResp.setHandleResult(
-            HandleResultEnum.getHandleResultDesc(associatedRiskMerchantInfoResp.getHandleResult()));
+            BlackHandleResultEnum.getBlackHandleResultDesc(
+                associatedRiskMerchantInfoResp.getHandleResult()));
         associatedRiskMerchantInfoResp.setCusType(
             CusTypeEnum.getCusTypeEnum(associatedRiskMerchantInfoResp.getCusType()));
         associatedRiskMerchantInfoResp.setStatus(

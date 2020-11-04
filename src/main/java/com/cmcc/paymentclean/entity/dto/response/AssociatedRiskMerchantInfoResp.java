@@ -41,10 +41,7 @@ public class AssociatedRiskMerchantInfoResp implements Serializable {
   @ApiModelProperty(value = "商户名称")
   private String regName;
 
-  @ApiModelProperty(
-      value =
-          "处理结果:01. 终止合作 02. 拒绝拓展 03. 暂停办理资金结算 04. 冻结账户 05. 调整结算周期 06. 延迟资金结算 07. 设置收款限额 08. 暂停银行卡交易 "
-              + "09. 收回受理终端 (关闭网络支付接口) 10. 暂未采取控制措施,持续关注客户 11. 报送反洗钱可疑交易 99. 其他")
+  @ApiModelProperty(value = "处理结果:02.处理中 03.已清退 04.拒绝拓展")
   private String handleResult;
 
   @ApiModelProperty(value = "反馈状态")
