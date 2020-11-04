@@ -1,6 +1,6 @@
 package com.cmcc.paymentclean.wapper;
 
-import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+@Slf4j
 public class RequestWrapper extends HttpServletRequestWrapper {
   private final String body;
 
@@ -25,28 +26,26 @@ public class RequestWrapper extends HttpServletRequestWrapper {
       if (inputStream != null) {
         bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         char[] charBuffer = new char[128];
-        int bytesRead = -1;
+        int bytesRead;
         while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
           stringBuilder.append(charBuffer, 0, bytesRead);
         }
-      } else {
-        stringBuilder.append("");
       }
-    } catch (IOException ex) {
-
+    } catch (IOException e) {
+      log.error("获取请求体数据流异常：", e);
     } finally {
       if (inputStream != null) {
         try {
           inputStream.close();
         } catch (IOException e) {
-          e.printStackTrace();
+          log.error("获取请求体数据流异常：", e);
         }
       }
       if (bufferedReader != null) {
         try {
           bufferedReader.close();
         } catch (IOException e) {
-          e.printStackTrace();
+          log.error("获取请求体数据流异常：", e);
         }
       }
     }
