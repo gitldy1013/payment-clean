@@ -159,7 +159,7 @@ public class PcacRiskInfoPushController {
       String encryptLegDocCode = null;
       // 判断证件类型是身份证就进行内部加密
       if (!StringUtils.isEmpty(riskInfo.getLegDocCode())
-          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocCode())) {
+          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
         encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
       }
 
