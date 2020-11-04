@@ -30,9 +30,9 @@ class LocalAssociatedRiskMerchantInfoServiceImplTest {
         new AssociatedRiskMerchantInfoBackReq();
 
     associatedRiskMerchantInfoBackReq.setAmount("123.23");
-    associatedRiskMerchantInfoBackReq.setDocCode("222000399940408");
+    associatedRiskMerchantInfoBackReq.setDocCode("888200700371624");
     associatedRiskMerchantInfoBackReq.setDocType("01");
-    associatedRiskMerchantInfoBackReq.setHandleResult("02");
+    associatedRiskMerchantInfoBackReq.setHandleResult("05");
     associatedRiskMerchantInfoBackReq.setOperator("东东");
     associatedRiskMerchantInfoBackReqs.add(associatedRiskMerchantInfoBackReq);
     ResultBean<Body> resultBean =
