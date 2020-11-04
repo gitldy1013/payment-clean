@@ -255,7 +255,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
         queryPcacMerchantRiskInfoResp.setOccurchan(
             OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
         queryPcacMerchantRiskInfoResp.setOccurarea(
-            SysLanLocalEnum.getSysLanLocalPerDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
+            SysLanEnum.getSysLanEnumDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
         queryPcacMerchantRiskInfoResp.setCount(queryPcacMerchantRiskInfoResps.size() + "");
       }
     }
