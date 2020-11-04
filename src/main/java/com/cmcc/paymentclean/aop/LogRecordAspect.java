@@ -3,6 +3,7 @@ package com.cmcc.paymentclean.aop;
 import com.cmcc.paymentclean.entity.PcacOptLog;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.service.impl.PcacOptLogServiceImpl;
+import com.cmcc.paymentclean.wapper.RequestWrapper;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -11,7 +12,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -32,15 +32,21 @@ public class LogRecordAspect {
 
   @Around("excudeService()")
   public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
-    RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-    ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+    String separator = System.getProperty("line.separator");
+    ServletRequestAttributes sra =
+        (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     assert sra != null;
     HttpServletRequest request = sra.getRequest();
     String url = request.getRequestURL().toString();
     String method = request.getMethod();
     String uri = request.getRequestURI();
-    String queryString = request.getQueryString();
-    log.info("请求开始, 各个参数, url: {}, method: {}, uri: {}, params: {}", url, method, uri, queryString);
+    log.info(
+        "请求开始, 各个参数{} url: {} method: {} uri: {} params: {}",
+        separator,
+        url + separator,
+        method + separator,
+        uri + separator,
+        ((RequestWrapper) request).getBody() + separator);
     // result的值就是被拦截方法的返回值
     Object result = pjp.proceed();
     if (result instanceof ResultBean) {
