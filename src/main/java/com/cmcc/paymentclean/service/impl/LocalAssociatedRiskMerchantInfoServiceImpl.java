@@ -151,6 +151,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     for (AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq :
         associatedRiskMerchantInfoBackReqs) {
       QueryWrapper<PcacRiskInfo> wrapper = new QueryWrapper<>();
+      log.info("风控反馈的商户信息：{}",associatedRiskMerchantInfoBackReq);
       wrapper.eq("doc_type", associatedRiskMerchantInfoBackReq.getDocType());
       wrapper.eq("doc_code", associatedRiskMerchantInfoBackReq.getDocCode());
       List<PcacRiskInfo> pcacRiskInfos = pcacRiskInfoMapper.selectList(wrapper);
@@ -195,6 +196,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     document.setSignature("");
     // 发起反馈
     String xmlStr = XmlJsonUtils.convertObjectToXmlStr(document);
+    log.info("未加密的xml数据：{}",xmlStr);
     boolean validateXML = ValidateUtils.validateXMLByXSD(xmlStr, "pcac.ries.046");
     if (!validateXML) {
       log.info("XSD校验失败{}", xmlStr);
