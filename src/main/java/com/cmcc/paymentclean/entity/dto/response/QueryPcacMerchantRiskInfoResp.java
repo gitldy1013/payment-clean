@@ -273,6 +273,22 @@ public class QueryPcacMerchantRiskInfoResp implements Serializable {
   @ApiModelProperty(value = "失败原因")
   private String errInfo;
 
+  public String getTotalOrganNum() {
+    return String.valueOf(
+        Integer.parseInt(this.stopNum)
+            + Integer.parseInt(this.refuseNum)
+            + Integer.parseInt(this.useRiseNum)
+            + Integer.parseInt(this.frozenNum)
+            + Integer.parseInt(this.adjustmentCycleNum)
+            + Integer.parseInt(this.delayNum)
+            + Integer.parseInt(this.quotaNum)
+            + Integer.parseInt(this.suspendNum)
+            + Integer.parseInt(this.closeNum)
+            + Integer.parseInt(this.followNum)
+            + Integer.parseInt(this.antiMoneyNum)
+            + Integer.parseInt(this.otherNum));
+  }
+
   //    @ApiModelProperty(value = "交易币种")
   //    private String currency;
   //    @ApiModelProperty(value = "推送状态0为未推送，1为已推送")
