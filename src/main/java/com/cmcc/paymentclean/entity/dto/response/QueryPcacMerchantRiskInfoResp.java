@@ -153,11 +153,6 @@ public class QueryPcacMerchantRiskInfoResp implements Serializable {
   @ApiModelProperty(value = "涉及机构数")
   private String totalOrganNum;
 
-
-  public String getTotalOrganNum() {
-    return String.valueOf(Integer.parseInt(this.stopNum)+Integer.parseInt(this.refuseNum));
-  }
-
   @ExcelExportField(name = "拒绝拓展的机构数量", index = 34)
   @ApiModelProperty(value = "拒绝拓展的机构数量")
   private String refuseNum;
@@ -277,6 +272,22 @@ public class QueryPcacMerchantRiskInfoResp implements Serializable {
   @ExcelExportField(name = "失败原因", index = 63)
   @ApiModelProperty(value = "失败原因")
   private String errInfo;
+
+  public String getTotalOrganNum() {
+    return String.valueOf(
+        Integer.parseInt(this.stopNum)
+            + Integer.parseInt(this.refuseNum)
+            + Integer.parseInt(this.useRiseNum)
+            + Integer.parseInt(this.frozenNum)
+            + Integer.parseInt(this.adjustmentCycleNum)
+            + Integer.parseInt(this.delayNum)
+            + Integer.parseInt(this.quotaNum)
+            + Integer.parseInt(this.suspendNum)
+            + Integer.parseInt(this.closeNum)
+            + Integer.parseInt(this.followNum)
+            + Integer.parseInt(this.antiMoneyNum)
+            + Integer.parseInt(this.otherNum));
+  }
 
   //    @ApiModelProperty(value = "交易币种")
   //    private String currency;
