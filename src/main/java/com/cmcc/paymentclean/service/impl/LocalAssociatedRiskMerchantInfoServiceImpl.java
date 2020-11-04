@@ -1,7 +1,6 @@
 package com.cmcc.paymentclean.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
@@ -148,7 +147,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     pcacList.setCount(associatedRiskMerchantInfoBackReqs.size() + "");
     List<RiskInfo> riskInfos = new ArrayList<>();
     PcacRiskInfo pcacRiskInfo;
-    List<LocalAssociatedRiskMerchantInfo> localAssociatedRiskMerchantInfos = new ArrayList<>();
+    List<LocalAssociatedRiskMerchantInfo> localAssociatedRiskMerchantInfos_all = new ArrayList<>();
     for (AssociatedRiskMerchantInfoBackReq associatedRiskMerchantInfoBackReq :
         associatedRiskMerchantInfoBackReqs) {
       QueryWrapper<PcacRiskInfo> wrapper = new QueryWrapper<>();
@@ -188,8 +187,15 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
           .eq("doc_code", associatedRiskMerchantInfoBackReq.getDocCode())
           .or()
           .eq("leg_doc_code", pcacRiskInfo.getLegDocCode());
-      localAssociatedRiskMerchantInfos =
+      List<LocalAssociatedRiskMerchantInfo> localAssociatedRiskMerchantInfos =
           localAssociatedRiskMerchantInfoMapper.selectList(localWapper);
+
+      for (int i = 0; i < localAssociatedRiskMerchantInfos.size(); i++) {
+        LocalAssociatedRiskMerchantInfo larmi = localAssociatedRiskMerchantInfos.get(i);
+        larmi.setHandleResult(this.splitStrs(riskInfo.getHandleResult()));
+        larmi.setOperator(associatedRiskMerchantInfoBackReq.getOperator());
+      }
+      localAssociatedRiskMerchantInfos_all.addAll(localAssociatedRiskMerchantInfos);
     }
     document.setRequest(request);
     // 加签
@@ -219,19 +225,15 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
                 post, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
     com.cmcc.paymentclean.entity.dto.pcac.resp.Body resBody = resDoc.getRespone().getBody();
     String resultCode = resBody.getRespInfo().getResultCode();
-    for (int i = 0; i < localAssociatedRiskMerchantInfos.size(); i++) {
+    for (int i = 0; i < localAssociatedRiskMerchantInfos_all.size(); i++) {
       LocalAssociatedRiskMerchantInfo localAssociatedRiskMerchantInfo =
-          localAssociatedRiskMerchantInfos.get(i);
-      UpdateWrapper<LocalAssociatedRiskMerchantInfo> updateWrapper = new UpdateWrapper<>();
-      updateWrapper.set("feedback_status", "已反馈");
-      updateWrapper.set(
-          "handle_result", associatedRiskMerchantInfoBackReqs.get(i).getHandleResult());
-      updateWrapper.set("operator", associatedRiskMerchantInfoBackReqs.get(i).getOperator());
-      updateWrapper.set(
-          "msg_detail",
+          localAssociatedRiskMerchantInfos_all.get(i);
+      localAssociatedRiskMerchantInfo.setFeedbackStatus(
+          FeedbackStatusEnum.FEEDBACKSTATUS_02.getCode());
+      localAssociatedRiskMerchantInfo.setMsgDetail(
           FeedbackStatusEnum.getFeedbackStatusDesc(resultCode)
               + resBody.getRespInfo().getMsgDetail());
-      localAssociatedRiskMerchantInfoMapper.update(localAssociatedRiskMerchantInfo, updateWrapper);
+      localAssociatedRiskMerchantInfoMapper.updateById(localAssociatedRiskMerchantInfo);
     }
     resultBean.setData(resBody);
     resultBean.setResCode(resBody.getRespInfo().getResultCode());
