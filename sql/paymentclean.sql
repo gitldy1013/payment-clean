@@ -930,3 +930,23 @@ values ('1', '全国', NULL, '0'),
        ('820000', '澳门特别行政区', NULL, '1');
 
 
+/* 根据法人证件号码和法定代表人证件号码获取近三个月的交易额  */
+DELIMITER $$
+DROP FUNCTION IF EXISTS get_amount_by_code$$
+CREATE FUNCTION get_amount_by_code(v_doc_code VARCHAR(64),v_leg_doc_code VARCHAR(64))
+RETURNS VARCHAR(11)
+BEGIN
+  DECLARE v_amount VARCHAR(11);
+	IF v_doc_code <> '' AND v_leg_doc_code <> '' THEN
+		SELECT SUM(a.amount)  INTO v_amount
+		FROM local_associated_risk_merchant_info a WHERE a.doc_code = v_doc_code OR a.leg_doc_code = v_leg_doc_code;
+	ELSEIF v_doc_code <> '' AND v_leg_doc_code = '' THEN
+		SELECT SUM(a.amount)  INTO v_amount
+		FROM local_associated_risk_merchant_info a WHERE a.doc_code = v_doc_code;
+	ELSEIF v_doc_code = '' AND v_leg_doc_code <> '' THEN
+		SELECT SUM(a.amount)  INTO v_amount
+		FROM local_associated_risk_merchant_info a WHERE a.leg_doc_code = v_leg_doc_code;
+	END IF;
+  RETURN v_amount;
+END $$
+DELIMITER ;

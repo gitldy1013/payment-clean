@@ -104,7 +104,7 @@
     <select id="qryByPushStatus" resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
             parameterType="java.lang.String">
         SELECT
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>,get_amount_by_code(doc_code,leg_doc_code) as submitAmount
         FROM
         query_pcac_merchant_risk_info t
         WHERE  t.push_Status = #{pushStatus}
