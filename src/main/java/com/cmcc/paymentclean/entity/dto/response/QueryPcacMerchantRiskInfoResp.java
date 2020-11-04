@@ -153,6 +153,11 @@ public class QueryPcacMerchantRiskInfoResp implements Serializable {
   @ApiModelProperty(value = "涉及机构数")
   private String totalOrganNum;
 
+
+  public String getTotalOrganNum() {
+    return String.valueOf(Integer.parseInt(this.stopNum)+Integer.parseInt(this.refuseNum));
+  }
+
   @ExcelExportField(name = "拒绝拓展的机构数量", index = 34)
   @ApiModelProperty(value = "拒绝拓展的机构数量")
   private String refuseNum;
