@@ -161,9 +161,11 @@ public class PcacRiskInfoPushController {
       if (!StringUtils.isEmpty(riskInfo.getLegDocCode())
           && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
         encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+          riskInfo.setLegDocCode(encryptLegDocCode);
+      }else {
+          riskInfo.setLegDocCode(decryptLegDocCode);
       }
 
-      riskInfo.setLegDocCode(encryptLegDocCode);
       String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
       riskInfo.setBankNo(encryptBankNo);
       PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
