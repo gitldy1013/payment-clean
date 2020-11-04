@@ -218,6 +218,11 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     log.info("反馈数据：{}", XmlJsonUtils.formatXml(encrXmlStr));
     // 解析响应
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), encrXmlStr);
+    if (null == post) {
+      resultBean.setResCode(ResultBean.SERVICE_OUT);
+      resultBean.setResMsg("支付清算服务接口超时");
+      return resultBean;
+    }
     log.info("响应数据：{}", XmlJsonUtils.formatXml(post));
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc =
         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)
