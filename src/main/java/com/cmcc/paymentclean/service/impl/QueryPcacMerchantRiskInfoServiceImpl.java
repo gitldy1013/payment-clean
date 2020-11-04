@@ -346,11 +346,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl
           OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
       queryPcacMerchantRiskInfoResp.setOccurarea(
           SysLanEnum.getSysLanEnumDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
+        queryPcacMerchantRiskInfoResp.setTotalOrganNum(queryPcacMerchantRiskInfoResp.getTotalOrganNum());
     }
 
-    // 生成excel文件
-    ExcelUtils excelUtils = new ExcelUtils();
-    String fileName =
+
+              // 生成excel文件
+              ExcelUtils excelUtils = new ExcelUtils();
+      String fileName =
         sftpConfig.getQueryPcacMerchantRiskInfoFileNamePrefix()
             + DateUtils.curDateString()
             + CommonConst.SFTP_FILE_NAME_SUFFIX;
