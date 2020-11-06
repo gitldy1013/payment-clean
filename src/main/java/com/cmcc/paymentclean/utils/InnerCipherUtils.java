@@ -18,8 +18,8 @@ public class InnerCipherUtils {
 
   private static UnionCSSP cssp = new UnionCSSP();
 
-  private static final String BANKKN = "HX.BANKDATA.zek";
-  private static final String USERKN = "HX.USERDATA.zek";
+  private static final String BANKKN = "HX.Bankdata.edk";
+  private static final String USERKN = "HX.Userdata.edk";
 
   /** 加密用户身份证号 */
   public static String encryptUserData(String message) {
@@ -37,11 +37,12 @@ public class InnerCipherUtils {
     // String keyName = "HX.USERDATA.zek";
     String keyValue = "";
     String algorithmID = "0";
-    byte[] data = message.getBytes();
-    String iv = "";
-    String format = "2";
+    //byte[] data = message.getBytes();
+    byte[] data = message.getBytes(Charset.forName("GBK"));
+    String iv = "000000000000";
+    String format = "1";
     String dataType = "0";
-    String separator = "";
+    String separator = null;
     UnionCSSP.Recv recv =
         cssp.servE160(mode, keyName, keyValue, algorithmID, data, iv, format, dataType, separator);
     if (recv != null) {
@@ -83,10 +84,11 @@ public class InnerCipherUtils {
     String keyValue = "";
     String algorithmID = "0";
     String exportFlag = "0";
-    byte[] data = message.getBytes();
-    String iv = "";
-    String format = "0";
-    String separator = ";";
+    //byte[] data = message.getBytes();
+    byte[] data = message.getBytes(Charset.forName("GBK"));
+    String iv = "000000000000";
+    String format = "1";
+    String separator = null;
     UnionCSSP.Recv recv =
         cssp.servE161(
             mode, keyName, keyValue, algorithmID, exportFlag, data, iv, format, separator);
@@ -119,17 +121,13 @@ public class InnerCipherUtils {
   }
 
   public static void main(String[] args) {
-    /*String encrypt = encryptUserData("110225199111182217");
-    System.out.println(encrypt);*/
-    String abc123123123123 = encryptBankData("123123123123");
+
+    String abc123123123123 = encryptUserData("330225199808274828");
     System.out.println(abc123123123123);
+
     String decrypt =
-        decryptUserData("D9FCB2D647931BF7B38459D2C4921525");
+        decryptUserData(abc123123123123);
     System.out.println(decrypt);
 
-    /*String s = encryptBankData("67213131");
-    System.out.println(s);
-    String s1 = decryptBankData("32DB835BDCF8E8C812F6630E43A4A641");
-    System.out.println(s1);*/
   }
 }
