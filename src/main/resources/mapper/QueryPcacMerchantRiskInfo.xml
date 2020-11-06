@@ -78,8 +78,12 @@
             resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
             parameterType="com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq">
         SELECT
-        <include refid="Base_Column_List"/>, t.result_status as handleResult, t.push_status as feedbackStatus,
-        DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate,get_amount_by_code(doc_code,leg_doc_code) as submitAmount
+        <include refid="Base_Column_List"/>,
+        t.result_status as handleResult,
+        t.push_status as feedbackStatus,
+        DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate,
+        get_amount_by_code(doc_code,leg_doc_code) as submitAmount,
+        t.result_code as errInfo
         FROM
         query_pcac_merchant_risk_info t
         WHERE
@@ -107,8 +111,12 @@
     <select id="qryByPushStatus" resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
             parameterType="java.lang.String">
         SELECT
-        <include refid="Base_Column_List"/>, t.result_status as handleResult, t.push_status as feedbackStatus,
-        DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate,get_amount_by_code(doc_code,leg_doc_code) as submitAmount
+        <include refid="Base_Column_List"/>,
+        t.result_status as handleResult,
+        t.push_status as feedbackStatus,
+        DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate,
+        get_amount_by_code(doc_code,leg_doc_code) as submitAmount,
+        t.result_code as errInfo
         FROM
         query_pcac_merchant_risk_info t
         WHERE t.push_Status = #{pushStatus}

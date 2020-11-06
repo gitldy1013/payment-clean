@@ -1,8 +1,6 @@
 package com.cmcc.paymentclean.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
@@ -368,6 +366,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
           SysLanEnum.getSysLanEnumDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
       queryPcacMerchantRiskInfoResp.setTotalOrganNum(
           queryPcacMerchantRiskInfoResp.getTotalOrganNum());
+      queryPcacMerchantRiskInfoResp.setErrInfo(queryPcacMerchantRiskInfoResp.getErrInfo());
     }
 
     // 生成excel文件
@@ -496,12 +495,12 @@ public class QueryPcacMerchantRiskInfoServiceImpl
     QueryWrapper queryWrapper = new QueryWrapper();
     queryWrapper.in("Id", ids);
     List<QueryPcacMerchantRiskInfo> list = queryPcacMerchantRiskInfoMapper.selectList(queryWrapper);
-    UpdateWrapper updateWrapper = new UpdateWrapper();
-    updateWrapper.set("result_status", resultStatus);
-    updateWrapper.set("result_code", resultCode);
-    updateWrapper.set("push_status", PushStatusEnum.PUSHSTATUSENUM_1.getCode());
     for (int i = 0; i < list.size(); i++) {
-      queryPcacMerchantRiskInfoMapper.update(list.get(i), updateWrapper);
+      QueryPcacMerchantRiskInfo queryPcacMerchantRiskInfo = list.get(i);
+      queryPcacMerchantRiskInfo.setResultStatus(resultStatus);
+      queryPcacMerchantRiskInfo.setResultCode(resultCode);
+      queryPcacMerchantRiskInfo.setPushStatus(PushStatusEnum.PUSHSTATUSENUM_1.getCode());
+      queryPcacMerchantRiskInfoMapper.updateById(queryPcacMerchantRiskInfo);
     }
     resultBean.setResMsg(
         PcacResultCodeEnum.getPcacResultCodeEnum(resultCode) + respInfo.getMsgDetail());
