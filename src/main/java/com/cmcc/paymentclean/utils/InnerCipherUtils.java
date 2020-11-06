@@ -18,7 +18,7 @@ public class InnerCipherUtils {
 
   private static UnionCSSP cssp = new UnionCSSP();
 
-  private static final String BANKKN = "HX.Bankdata.edk";
+  private static final String BANKKN = "HX.BANKCARD.EDK";
   private static final String USERKN = "HX.Userdata.edk";
 
   /** 加密用户身份证号 */
@@ -38,7 +38,7 @@ public class InnerCipherUtils {
     String keyValue = "";
     String algorithmID = "0";
     //byte[] data = message.getBytes();
-    byte[] data = message.getBytes(Charset.forName("GBK"));
+    byte[] data = message.getBytes(default_charset);
     String iv = "000000000000";
     String format = "1";
     String dataType = "0";
@@ -85,7 +85,7 @@ public class InnerCipherUtils {
     String algorithmID = "0";
     String exportFlag = "0";
     //byte[] data = message.getBytes();
-    byte[] data = message.getBytes(Charset.forName("GBK"));
+    byte[] data = message.getBytes(default_charset);
     String iv = "000000000000";
     String format = "1";
     String separator = null;
@@ -122,12 +122,16 @@ public class InnerCipherUtils {
 
   public static void main(String[] args) {
 
-    String abc123123123123 = encryptUserData("330225199808274828");
+  /*  String abc123123123123 = encryptUserData("330225199808274828");
     System.out.println(abc123123123123);
 
     String decrypt =
         decryptUserData(abc123123123123);
-    System.out.println(decrypt);
+    System.out.println(decrypt);*/
+      String encryptBankData = encryptBankData("626699000032111");
+      System.out.println(encryptBankData);
+    String decryptBankData = decryptBankData(encryptBankData);
+    System.out.println(decryptBankData);
 
   }
 }
