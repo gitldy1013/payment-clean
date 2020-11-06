@@ -179,7 +179,7 @@ public class RiskInfo {
   protected String sourceChannel;
 
   @XmlElement(name = "Currency", required = true)
-  protected String currency;
+  protected String currency = "CNY";
 
   @XmlElement(name = "Amount", required = true)
   protected String amount;

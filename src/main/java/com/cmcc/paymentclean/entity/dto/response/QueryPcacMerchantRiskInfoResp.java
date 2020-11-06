@@ -1,6 +1,7 @@
 package com.cmcc.paymentclean.entity.dto.response;
 
 import com.cmcc.paymentclean.annotation.ExcelExportField;
+import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -287,6 +288,10 @@ public class QueryPcacMerchantRiskInfoResp implements Serializable {
             + Integer.parseInt(this.followNum)
             + Integer.parseInt(this.antiMoneyNum)
             + Integer.parseInt(this.otherNum));
+  }
+
+  public String getErrInfo() {
+    return PcacResultCodeEnum.getPcacResultCodeEnum(this.errInfo);
   }
 
   //    @ApiModelProperty(value = "交易币种")
