@@ -4,79 +4,82 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo">
-        <id column="query_pcac_merchant_risk_info_id" property="queryPcacMerchantRiskInfoId" />
-        <result column="Id" property="Id" />
-        <result column="cus_type" property="cusType" />
-        <result column="cus_property" property="cusProperty" />
-        <result column="risk_type" property="riskType" />
-        <result column="cus_nature" property="cusNature" />
-        <result column="cus_name" property="cusName" />
-        <result column="reg_name" property="regName" />
-        <result column="cus_code" property="cusCode" />
-        <result column="doc_type" property="docType" />
-        <result column="doc_code" property="docCode" />
-        <result column="leg_rep_name" property="legRepName" />
-        <result column="leg_doc_type" property="legDocType" />
-        <result column="leg_doc_code" property="legDocCode" />
-        <result column="is_transfer" property="isTransfer" />
-        <result column="bank_no" property="bankNo" />
-        <result column="open_bank" property="openBank" />
-        <result column="url" property="url" />
-        <result column="server_ip" property="serverIp" />
-        <result column="mobile_no" property="mobileNo" />
-        <result column="address" property="address" />
-        <result column="icp" property="icp" />
-        <result column="level" property="level" />
-        <result column="occurtimeb" property="occurtimeb" />
-        <result column="occurtimee" property="occurtimee" />
-        <result column="occurchan" property="occurchan" />
-        <result column="stop_num" property="stopNum" />
-        <result column="refuse_num" property="refuseNum" />
-        <result column="use_rise_num" property="useRiseNum" />
-        <result column="frozen_num" property="frozenNum" />
-        <result column="adjustment_cycle_num" property="adjustmentCycleNum" />
-        <result column="delay_num" property="delayNum" />
-        <result column="quota_num" property="quotaNum" />
-        <result column="anti_money_num" property="antiMoneyNum" />
-        <result column="other_num" property="otherNum" />
-        <result column="risk_find_time" property="riskFindTime" />
-        <result column="amount" property="amount" />
-        <result column="suspend_num" property="suspendNum" />
-        <result column="close_num" property="closeNum" />
-        <result column="follow_num" property="followNum" />
-        <result column="valid_status" property="validStatus" />
-        <result column="occurarea" property="occurarea" />
-        <result column="note" property="note" />
-        <result column="valid_date" property="validDate" />
-        <result column="registered_area" property="registeredArea" />
-        <result column="registered_code" property="registeredCode" />
-        <result column="source_channel" property="sourceChannel" />
-        <result column="currency" property="currency" />
-        <result column="leg_control_name" property="legControlName" />
-        <result column="leg_control_card_type" property="legControlCardType" />
-        <result column="leg_control_card_code" property="legControlCardCode" />
-        <result column="remarks" property="remarks" />
-        <result column="leg_ben_name" property="legBenName" />
-        <result column="leg_ben_card_type" property="legBenCardType" />
-        <result column="leg_ben_card_code" property="legBenCardCode" />
-        <result column="push_status" property="pushStatus" />
-        <result column="result_status" property="resultStatus" />
-        <result column="result_code" property="resultCode" />
-        <result column="up_date" property="upDate" />
-        <result column="merc_ids" property="mercIds" />
-        <result column="operate_time" property="operateTime" />
+        <id column="query_pcac_merchant_risk_info_id" property="queryPcacMerchantRiskInfoId"/>
+        <result column="Id" property="Id"/>
+        <result column="cus_type" property="cusType"/>
+        <result column="cus_property" property="cusProperty"/>
+        <result column="risk_type" property="riskType"/>
+        <result column="cus_nature" property="cusNature"/>
+        <result column="cus_name" property="cusName"/>
+        <result column="reg_name" property="regName"/>
+        <result column="cus_code" property="cusCode"/>
+        <result column="doc_type" property="docType"/>
+        <result column="doc_code" property="docCode"/>
+        <result column="leg_rep_name" property="legRepName"/>
+        <result column="leg_doc_type" property="legDocType"/>
+        <result column="leg_doc_code" property="legDocCode"/>
+        <result column="is_transfer" property="isTransfer"/>
+        <result column="bank_no" property="bankNo"/>
+        <result column="open_bank" property="openBank"/>
+        <result column="url" property="url"/>
+        <result column="server_ip" property="serverIp"/>
+        <result column="mobile_no" property="mobileNo"/>
+        <result column="address" property="address"/>
+        <result column="icp" property="icp"/>
+        <result column="level" property="level"/>
+        <result column="occurtimeb" property="occurtimeb"/>
+        <result column="occurtimee" property="occurtimee"/>
+        <result column="occurchan" property="occurchan"/>
+        <result column="stop_num" property="stopNum"/>
+        <result column="refuse_num" property="refuseNum"/>
+        <result column="use_rise_num" property="useRiseNum"/>
+        <result column="frozen_num" property="frozenNum"/>
+        <result column="adjustment_cycle_num" property="adjustmentCycleNum"/>
+        <result column="delay_num" property="delayNum"/>
+        <result column="quota_num" property="quotaNum"/>
+        <result column="anti_money_num" property="antiMoneyNum"/>
+        <result column="other_num" property="otherNum"/>
+        <result column="risk_find_time" property="riskFindTime"/>
+        <result column="amount" property="amount"/>
+        <result column="suspend_num" property="suspendNum"/>
+        <result column="close_num" property="closeNum"/>
+        <result column="follow_num" property="followNum"/>
+        <result column="valid_status" property="validStatus"/>
+        <result column="occurarea" property="occurarea"/>
+        <result column="note" property="note"/>
+        <result column="valid_date" property="validDate"/>
+        <result column="registered_area" property="registeredArea"/>
+        <result column="registered_code" property="registeredCode"/>
+        <result column="source_channel" property="sourceChannel"/>
+        <result column="currency" property="currency"/>
+        <result column="leg_control_name" property="legControlName"/>
+        <result column="leg_control_card_type" property="legControlCardType"/>
+        <result column="leg_control_card_code" property="legControlCardCode"/>
+        <result column="remarks" property="remarks"/>
+        <result column="leg_ben_name" property="legBenName"/>
+        <result column="leg_ben_card_type" property="legBenCardType"/>
+        <result column="leg_ben_card_code" property="legBenCardCode"/>
+        <result column="push_status" property="pushStatus"/>
+        <result column="result_status" property="resultStatus"/>
+        <result column="result_code" property="resultCode"/>
+        <result column="up_date" property="upDate"/>
+        <result column="merc_ids" property="mercIds"/>
+        <result column="operate_time" property="operateTime"/>
+        <result column="operator" property="operator"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         Id,
-        query_pcac_merchant_risk_info_id, cus_type, cus_property, risk_type, cus_nature, cus_name, reg_name, cus_code, doc_type, doc_code, leg_rep_name, leg_doc_type, leg_doc_code, is_transfer, bank_no, open_bank, url, server_ip, mobile_no, address, icp, level, occurtimeb, occurtimee, occurchan, stop_num, refuse_num, use_rise_num, frozen_num, adjustment_cycle_num, delay_num, quota_num, anti_money_num, other_num, risk_find_time, amount, suspend_num, close_num, follow_num, valid_status, occurarea, note, valid_date, registered_area, registered_code, source_channel, currency, leg_control_name, leg_control_card_type, leg_control_card_code, remarks, leg_ben_name, leg_ben_card_type, leg_ben_card_code, push_status, result_status, result_code,up_date,merc_ids,operate_time
+        query_pcac_merchant_risk_info_id, cus_type, cus_property, risk_type, cus_nature, cus_name, reg_name, cus_code, doc_type, doc_code, leg_rep_name, leg_doc_type, leg_doc_code, is_transfer, bank_no, open_bank, url, server_ip, mobile_no, address, icp, level, occurtimeb, occurtimee, occurchan, stop_num, refuse_num, use_rise_num, frozen_num, adjustment_cycle_num, delay_num, quota_num, anti_money_num, other_num, risk_find_time, amount, suspend_num, close_num, follow_num, valid_status, occurarea, note, valid_date, registered_area, registered_code, source_channel, currency, leg_control_name, leg_control_card_type, leg_control_card_code, remarks, leg_ben_name, leg_ben_card_type, leg_ben_card_code, push_status, result_status, result_code,up_date,merc_ids,operate_time,operator
     </sql>
 
-    <select id="pageLocalAssociatedRiskMerchantInfo" resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
+    <select id="pageLocalAssociatedRiskMerchantInfo"
+            resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
             parameterType="com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq">
         SELECT
-        <include refid="Base_Column_List"/>, t.result_status as handleResult, t.push_status as feedbackStatus, DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate
+        <include refid="Base_Column_List"/>, t.result_status as handleResult, t.push_status as feedbackStatus,
+        DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate,get_amount_by_code(doc_code,leg_doc_code) as submitAmount
         FROM
         query_pcac_merchant_risk_info t
         WHERE
@@ -104,10 +107,11 @@
     <select id="qryByPushStatus" resultType="com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp"
             parameterType="java.lang.String">
         SELECT
-        <include refid="Base_Column_List"/>,get_amount_by_code(doc_code,leg_doc_code) as submitAmount
+        <include refid="Base_Column_List"/>, t.result_status as handleResult, t.push_status as feedbackStatus,
+        DATE_FORMAT(t.up_date, "%Y-%m-%d") as feedbackDate,get_amount_by_code(doc_code,leg_doc_code) as submitAmount
         FROM
         query_pcac_merchant_risk_info t
-        WHERE  t.push_Status = #{pushStatus}
+        WHERE t.push_Status = #{pushStatus}
     </select>
 
     <update id="updatePushStatus" parameterType="java.lang.String">
@@ -119,5 +123,14 @@
             #{id}
         </foreach>
         and push_Status = "0"
+    </update>
+
+    <update id="updateByProId"
+            parameterType="com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoBackReq">
+        UPDATE query_pcac_merchant_risk_info
+        SET
+        operator = #{req.operator},
+        operate_time = NOW()
+        WHERE Id = #{req.id}
     </update>
 </mapper>

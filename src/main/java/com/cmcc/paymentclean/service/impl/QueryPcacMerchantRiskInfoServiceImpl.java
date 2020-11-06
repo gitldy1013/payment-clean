@@ -18,15 +18,22 @@ import com.cmcc.paymentclean.consts.LegDocTypeEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
 import com.cmcc.paymentclean.consts.OccurChanEnum;
 import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
+import com.cmcc.paymentclean.consts.PushStatusEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
 import com.cmcc.paymentclean.consts.SysLanEnum;
-import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.*;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.BankInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.BankList;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.BenInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.BenList;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.PcacList;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RespInfo;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
@@ -36,7 +43,15 @@ import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
 import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.QueryPcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
-import com.cmcc.paymentclean.utils.*;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.DateUtils;
+import com.cmcc.paymentclean.utils.ExcelUtils;
+import com.cmcc.paymentclean.utils.HttpClientUtils;
+import com.cmcc.paymentclean.utils.InnerCipherUtils;
+import com.cmcc.paymentclean.utils.SFTPUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
+import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -164,18 +179,17 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       riskInfo.setRegName(CFCACipherUtils.decrypt(secretKey, riskInfo.getRegName()));
       riskInfo.setDocCode(CFCACipherUtils.decrypt(secretKey, riskInfo.getDocCode()));
       riskInfo.setLegRepName(CFCACipherUtils.decrypt(secretKey, riskInfo.getLegRepName()));
-      //新增身份证号加密
-      String  encryptLegDocCode = null;
-      String  decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
+      // 新增身份证号加密
+      String encryptLegDocCode = null;
+      String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
       // 判断证件类型是身份证就进行内部加密
-        if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode())
-                && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
-            encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
-            riskInfo.setLegDocCode(encryptLegDocCode);
-        }else {
-            riskInfo.setLegDocCode(decryptLegDocCode);
-        }
-
+      if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode())
+          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
+        encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
+        riskInfo.setLegDocCode(encryptLegDocCode);
+      } else {
+        riskInfo.setLegDocCode(decryptLegDocCode);
+      }
 
       riskInfo.setUrl(CFCACipherUtils.decrypt(secretKey, riskInfo.getUrl()));
       riskInfo.setServerIp(CFCACipherUtils.decrypt(secretKey, riskInfo.getServerIp()));
@@ -183,36 +197,41 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       riskInfo.setIcp(CFCACipherUtils.decrypt(secretKey, riskInfo.getIcp()));
       riskInfo.setRegisteredCode(CFCACipherUtils.decrypt(secretKey, riskInfo.getRegisteredCode()));
 
-        //新增实控人身份证号加密
-        String  encryptLegControlCardCode = null;
-        String  decryptLegControlCardCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegControlCardCode());
-        // 判断证件类型是身份证就进行内部加密
-        if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegControlCardCode())
-                && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegControlCardType())) {
-            encryptLegControlCardCode = InnerCipherUtils.encryptUserData(decryptLegControlCardCode);
-            riskInfo.setLegControlCardCode(encryptLegControlCardCode);
-        }else {
-            riskInfo.setLegControlCardCode(decryptLegControlCardCode);
-        }
+      // 新增实控人身份证号加密
+      String encryptLegControlCardCode = null;
+      String decryptLegControlCardCode =
+          CFCACipherUtils.decrypt(secretKey, riskInfo.getLegControlCardCode());
+      // 判断证件类型是身份证就进行内部加密
+      if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegControlCardCode())
+          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegControlCardType())) {
+        encryptLegControlCardCode = InnerCipherUtils.encryptUserData(decryptLegControlCardCode);
+        riskInfo.setLegControlCardCode(encryptLegControlCardCode);
+      } else {
+        riskInfo.setLegControlCardCode(decryptLegControlCardCode);
+      }
 
       BankInfo bankInfo = riskInfo.getBankInfo() != null ? riskInfo.getBankInfo() : new BankInfo();
       BankList bankList = riskInfo.getBankList() != null ? riskInfo.getBankList() : new BankList();
       BenList benList = riskInfo.getBenList() != null ? riskInfo.getBenList() : new BenList();
-        BenInfo benInfo = riskInfo.getBenList().getBenInfo() != null ? riskInfo.getBenList().getBenInfo() : new BenInfo();
-        QueryPcacMerchantRiskInfo queryPcacMerchantRiskInfo = new QueryPcacMerchantRiskInfo();
-      //银行卡加密
-        bankInfo.setBankNo(InnerCipherUtils.encryptBankData(bankInfo.getBankNo()));
+      BenInfo benInfo =
+          riskInfo.getBenList().getBenInfo() != null
+              ? riskInfo.getBenList().getBenInfo()
+              : new BenInfo();
+      QueryPcacMerchantRiskInfo queryPcacMerchantRiskInfo = new QueryPcacMerchantRiskInfo();
+      // 银行卡加密
+      bankInfo.setBankNo(InnerCipherUtils.encryptBankData(bankInfo.getBankNo()));
 
-        String  encryptLegBenCardCode = null;
-        String  decryptLegBenCardCode = CFCACipherUtils.decrypt(secretKey, benInfo.getLegBenCardCode());
-        // 判断证件类型是身份证就进行内部加密
-        if (!org.springframework.util.StringUtils.isEmpty(benInfo.getLegBenCardCode())
-                && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(benInfo.getLegBenCardType())) {
-            encryptLegBenCardCode = InnerCipherUtils.encryptUserData(decryptLegBenCardCode);
-            benInfo.setLegBenCardCode(encryptLegBenCardCode);
-        }else {
-            benInfo.setLegBenCardCode(decryptLegBenCardCode);
-        }
+      String encryptLegBenCardCode = null;
+      String decryptLegBenCardCode =
+          CFCACipherUtils.decrypt(secretKey, benInfo.getLegBenCardCode());
+      // 判断证件类型是身份证就进行内部加密
+      if (!org.springframework.util.StringUtils.isEmpty(benInfo.getLegBenCardCode())
+          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(benInfo.getLegBenCardType())) {
+        encryptLegBenCardCode = InnerCipherUtils.encryptUserData(decryptLegBenCardCode);
+        benInfo.setLegBenCardCode(encryptLegBenCardCode);
+      } else {
+        benInfo.setLegBenCardCode(decryptLegBenCardCode);
+      }
       BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, bankInfo);
       BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, bankList);
       BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, benList);
@@ -346,13 +365,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl
           OccurChanEnum.getOccurChanEnum(queryPcacMerchantRiskInfoResp.getOccurchan()));
       queryPcacMerchantRiskInfoResp.setOccurarea(
           SysLanEnum.getSysLanEnumDesc(queryPcacMerchantRiskInfoResp.getOccurarea()));
-        queryPcacMerchantRiskInfoResp.setTotalOrganNum(queryPcacMerchantRiskInfoResp.getTotalOrganNum());
+      queryPcacMerchantRiskInfoResp.setTotalOrganNum(
+          queryPcacMerchantRiskInfoResp.getTotalOrganNum());
     }
 
-
-              // 生成excel文件
-              ExcelUtils excelUtils = new ExcelUtils();
-      String fileName =
+    // 生成excel文件
+    ExcelUtils excelUtils = new ExcelUtils();
+    String fileName =
         sftpConfig.getQueryPcacMerchantRiskInfoFileNamePrefix()
             + DateUtils.curDateString()
             + CommonConst.SFTP_FILE_NAME_SUFFIX;
@@ -414,9 +433,9 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       BeanUtilsEx.copyProperties(riskInfo, queryPcacMerchantRiskInfoBackReqs.get(i));
       riskInfo.setCusType(this.splitStrs(riskInfo.getCusType()));
       riskInfo.setHandleResult(this.splitStrs(riskInfo.getHandleResult()));
-        String repDateStr = DateUtils.formatTime(new Date(), "yyyy-MM-dd");
-        riskInfo.setHandleTime(repDateStr);
-        riskInfos.add(riskInfo);
+      String repDateStr = DateUtils.formatTime(new Date(), "yyyy-MM-dd");
+      riskInfo.setHandleTime(repDateStr);
+      riskInfos.add(riskInfo);
     }
     pcacList.setRiskInfo(riskInfos);
     body.setPcacList(pcacList);
@@ -466,6 +485,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
     List<String> ids = new ArrayList<>();
     for (int i = 0; i < queryPcacMerchantRiskInfoBackReqs.size(); i++) {
       ids.add(queryPcacMerchantRiskInfoBackReqs.get(i).getId());
+      queryPcacMerchantRiskInfoMapper.updateByProId(queryPcacMerchantRiskInfoBackReqs.get(i));
     }
     QueryWrapper queryWrapper = new QueryWrapper();
     queryWrapper.in("Id", ids);
@@ -473,6 +493,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
     UpdateWrapper updateWrapper = new UpdateWrapper();
     updateWrapper.set("result_status", resultStatus);
     updateWrapper.set("result_code", resultCode);
+    updateWrapper.set("push_status", PushStatusEnum.PUSHSTATUSENUM_1.getCode());
     for (int i = 0; i < list.size(); i++) {
       queryPcacMerchantRiskInfoMapper.update(list.get(i), updateWrapper);
     }

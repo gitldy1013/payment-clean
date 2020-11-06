@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
 import com.cmcc.paymentclean.entity.dto.response.QueryPcacMerchantRiskInfoResp;
+import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoBackReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,4 +28,6 @@ public interface QueryPcacMerchantRiskInfoMapper extends BaseMapper<QueryPcacMer
   List<QueryPcacMerchantRiskInfoResp> qryByPushStatus(@Param("pushStatus") String pushStatus);
 
   void updatePushStatus(@Param("ids") List<String> ids);
+
+  void updateByProId(@Param("req")QueryPcacMerchantRiskInfoBackReq queryPcacMerchantRiskInfoBackReq);
 }
