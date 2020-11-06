@@ -1,5 +1,6 @@
 package com.cmcc.paymentclean.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -471,6 +472,11 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       List<QueryPcacMerchantRiskInfoBackReq> queryPcacMerchantRiskInfoBackReqs) {
     // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+    if (null == post) {
+      resultBean.setResCode(ResultBean.SERVICE_OUT);
+      resultBean.setResMsg("支付清算服务接口超时");
+      return resultBean;
+    }
     log.info("响应报文:{}", XmlJsonUtils.formatXml(post));
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document resDoc =
         (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)

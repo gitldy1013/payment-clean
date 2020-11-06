@@ -207,7 +207,7 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
   private Date operateTime;
 
   @ApiModelProperty(value = "操作人")
-  private Date operator;
+  private String operator;
 
   @Override
   protected Serializable pkVal() {
