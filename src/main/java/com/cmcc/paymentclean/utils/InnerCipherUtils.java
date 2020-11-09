@@ -4,8 +4,14 @@ import com.cmcc.paymentclean.exception.InnerCipherException;
 import com.union.api.UnionCSSP;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESedeKeySpec;
 import java.nio.charset.Charset;
+import java.security.Key;
 
 /**
  * @author zhaolei
@@ -14,12 +20,15 @@ import java.nio.charset.Charset;
 @Slf4j
 public class InnerCipherUtils {
 
+
+
   static final Charset default_charset = Charset.forName("GBK");
 
   private static UnionCSSP cssp = new UnionCSSP();
-
+//1504172011060120302044800171819
   private static final String BANKKN = "HX.BANKCARD.EDK";
   private static final String USERKN = "HX.Userdata.edk";
+  private static final String CIPHERSTR = "578F87458E1B8877AF22C3ACADC3CF49EA3664FA367959A595127BD852B4852507918FBD1515DE3C";
 
   /** 加密用户身份证号 */
   public static String encryptUserData(String message) {
@@ -73,9 +82,15 @@ public class InnerCipherUtils {
   }
 
   /** 加密银行卡号 */
-  public static String encryptBankData(String message) {
-    return StringUtils.isEmpty(message) ? "" : encrypt(message, BANKKN);
-  }
+ public static String encryptBankData(String message) {
+     try {
+         log.info("银行卡密钥明文：{}",decrypt(CIPHERSTR, BANKKN));
+         return StringUtils.isEmpty(message) ? "" : encryptMode(decrypt(CIPHERSTR, BANKKN),message);
+     } catch (Exception e) {
+         log.error("银行卡加密异常："+e);
+         return message;
+     }
+ }
 
   private static String decrypt(String message, String keyName) {
     log.debug("需解密数据：{}", message);
@@ -117,7 +132,13 @@ public class InnerCipherUtils {
 
   /** 解密银行卡号 */
   public static String decryptBankData(String message) {
-    return StringUtils.isEmpty(message) ? "" : decrypt(message, BANKKN);
+      try {
+          log.info("银行卡密钥明文：{}",decrypt(CIPHERSTR, BANKKN));
+          return StringUtils.isEmpty(message) ? "" : decryptMode(decrypt(CIPHERSTR, BANKKN),message);
+      } catch (Exception e) {
+          log.error("银行卡解密异常："+e);
+          return message;
+      }
   }
 
   public static void main(String[] args) {
@@ -134,4 +155,38 @@ public class InnerCipherUtils {
     System.out.println(decryptBankData);
 
   }
+    public static String decryptMode(String skey, String sdata) throws Exception
+    {
+        byte[] key = new BASE64Decoder().decodeBuffer(skey);
+        byte[] data = new BASE64Decoder().decodeBuffer(sdata);
+
+        Key deskey = null;
+        DESedeKeySpec spec = new DESedeKeySpec(key);
+        SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
+        deskey = keyfactory.generateSecret(spec);
+        Cipher cipher = Cipher.getInstance("desede/ECB/PKCS5Padding");
+        cipher.init(2, deskey);
+        byte[] bOut = cipher.doFinal(data);
+        return new String(bOut, "UTF-8");
+    }
+
+
+    public static String encryptMode(String skey, String sdata) throws Exception {
+        byte[] key = new BASE64Decoder().decodeBuffer(skey);
+        byte[] data = sdata.getBytes("UTF-8");
+
+        Key deskey = null;
+        DESedeKeySpec spec = new DESedeKeySpec(key);
+        SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
+        deskey = keyfactory.generateSecret(spec);
+
+        Cipher cipher = Cipher.getInstance("desede/ECB/PKCS5Padding");
+        cipher.init(1, deskey);
+        byte[] bOut = cipher.doFinal(data);
+
+        return new BASE64Encoder().encode(bOut);
+    }
+
+
+
 }
