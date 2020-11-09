@@ -472,12 +472,12 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     // 法定代表人证件号码
     if (StringUtils.isNotEmpty(businessInfo.getLegDocCode())) {
       String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, businessInfo.getLegDocCode());
-      if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(businessInfo.getLegDocType())) {
+     /* if (LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(businessInfo.getLegDocType())) {*/
         String encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
         businessInfo.setLegDocCode(encryptLegDocCode);
-      } else {
+     /* } else {
         businessInfo.setLegDocCode(decryptLegDocCode);
-      }
+      }*/
     }
     // 商户代码
     if (StringUtils.isNotEmpty(businessInfo.getCusCode())) {
@@ -486,7 +486,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     // 收款账\卡号
     if (StringUtils.isNotEmpty(businessInfo.getBankNo())) {
       String decryptBankNo = CFCACipherUtils.decrypt(secretKey, businessInfo.getBankNo());
-      businessInfo.setBankNo(InnerCipherUtils.encryptUserData(decryptBankNo));
+      businessInfo.setBankNo(InnerCipherUtils.encryptBankData(decryptBankNo));
     }
     // 商户注册地址
     if (StringUtils.isNotEmpty(businessInfo.getRegAddrDetail())) {
@@ -533,15 +533,15 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     if (StringUtils.isNotEmpty(businessInfo.getOutServiceLegCardCode())) {
       String decryptOutServiceLegCardCode =
           CFCACipherUtils.decrypt(secretKey, businessInfo.getOutServiceLegCardCode());
-      if (LegDocTypeEnum.LEGDOCTYPEENUM_01
+     /* if (LegDocTypeEnum.LEGDOCTYPEENUM_01
           .getCode()
-          .equals(businessInfo.getOutServiceLegCardType())) {
+          .equals(businessInfo.getOutServiceLegCardType())) {*/
         String encryptOutServiceLegCardCode =
             InnerCipherUtils.encryptUserData(decryptOutServiceLegCardCode);
         businessInfo.setOutServiceLegCardCode(encryptOutServiceLegCardCode);
-      } else {
+     /* } else {
         businessInfo.setOutServiceLegCardCode(decryptOutServiceLegCardCode);
-      }
+      }*/
     }
     // ICP
     if (StringUtils.isNotEmpty(businessInfo.getIcp())) {

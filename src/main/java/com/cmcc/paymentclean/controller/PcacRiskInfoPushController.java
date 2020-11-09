@@ -158,13 +158,13 @@ public class PcacRiskInfoPushController {
       String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
       String encryptLegDocCode = null;
       // 判断证件类型是身份证就进行内部加密
-      if (!StringUtils.isEmpty(riskInfo.getLegDocCode())
-          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
+     /* if (!StringUtils.isEmpty(riskInfo.getLegDocCode())
+          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {*/
         encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
           riskInfo.setLegDocCode(encryptLegDocCode);
-      }else {
+     /* }else {
           riskInfo.setLegDocCode(decryptLegDocCode);
-      }
+      }*/
 
       String encryptBankNo = InnerCipherUtils.encryptBankData(riskInfo.getBankNo());
       riskInfo.setBankNo(encryptBankNo);

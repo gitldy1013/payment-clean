@@ -325,13 +325,13 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                     decryptLegDocCode =
                         CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
                     // 判断证件类型是身份证就进行内部加密
-                    if (LegDocTypeEnum.LEGDOCTYPEENUM_01
+                    /*if (LegDocTypeEnum.LEGDOCTYPEENUM_01
                         .getCode()
-                        .equals(riskInfo.getLegDocType())) {
+                        .equals(riskInfo.getLegDocType())) {*/
                       String encryptLegDocCode =
                           InnerCipherUtils.encryptUserData(decryptLegDocCode);
                       riskInfo.setLegDocCode(encryptLegDocCode);
-                    } else riskInfo.setLegDocCode(decryptLegDocCode);
+                    /*} else riskInfo.setLegDocCode(decryptLegDocCode);*/
                   }
 
                   String decryptBankNo = CFCACipherUtils.decrypt(secretKey, riskInfo.getBankNo());

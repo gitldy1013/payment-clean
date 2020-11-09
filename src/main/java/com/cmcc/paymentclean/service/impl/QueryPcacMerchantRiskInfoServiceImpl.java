@@ -182,13 +182,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       String encryptLegDocCode = null;
       String decryptLegDocCode = CFCACipherUtils.decrypt(secretKey, riskInfo.getLegDocCode());
       // 判断证件类型是身份证就进行内部加密
-      if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode())
-          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {
+      /*if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegDocCode())
+          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegDocType())) {*/
         encryptLegDocCode = InnerCipherUtils.encryptUserData(decryptLegDocCode);
         riskInfo.setLegDocCode(encryptLegDocCode);
-      } else {
+    /*  } else {
         riskInfo.setLegDocCode(decryptLegDocCode);
-      }
+      }*/
 
       riskInfo.setUrl(CFCACipherUtils.decrypt(secretKey, riskInfo.getUrl()));
       riskInfo.setServerIp(CFCACipherUtils.decrypt(secretKey, riskInfo.getServerIp()));
@@ -201,13 +201,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       String decryptLegControlCardCode =
           CFCACipherUtils.decrypt(secretKey, riskInfo.getLegControlCardCode());
       // 判断证件类型是身份证就进行内部加密
-      if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegControlCardCode())
-          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegControlCardType())) {
+     /* if (!org.springframework.util.StringUtils.isEmpty(riskInfo.getLegControlCardCode())
+          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(riskInfo.getLegControlCardType())) {*/
         encryptLegControlCardCode = InnerCipherUtils.encryptUserData(decryptLegControlCardCode);
         riskInfo.setLegControlCardCode(encryptLegControlCardCode);
-      } else {
+     /* } else {
         riskInfo.setLegControlCardCode(decryptLegControlCardCode);
-      }
+      }*/
 
       BankInfo bankInfo = riskInfo.getBankInfo() != null ? riskInfo.getBankInfo() : new BankInfo();
       BankList bankList = riskInfo.getBankList() != null ? riskInfo.getBankList() : new BankList();
@@ -224,13 +224,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       String decryptLegBenCardCode =
           CFCACipherUtils.decrypt(secretKey, benInfo.getLegBenCardCode());
       // 判断证件类型是身份证就进行内部加密
-      if (!org.springframework.util.StringUtils.isEmpty(benInfo.getLegBenCardCode())
-          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(benInfo.getLegBenCardType())) {
+     /* if (!org.springframework.util.StringUtils.isEmpty(benInfo.getLegBenCardCode())
+          && LegDocTypeEnum.LEGDOCTYPEENUM_01.getCode().equals(benInfo.getLegBenCardType())) {*/
         encryptLegBenCardCode = InnerCipherUtils.encryptUserData(decryptLegBenCardCode);
         benInfo.setLegBenCardCode(encryptLegBenCardCode);
-      } else {
+      /*} else {
         benInfo.setLegBenCardCode(decryptLegBenCardCode);
-      }
+      }*/
       BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, bankInfo);
       BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, bankList);
       BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, benList);
