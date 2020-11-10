@@ -215,21 +215,22 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       pcacList.setCount(pcacMerchantRiskSubmitInfos.size() + "");
       RiskInfo riskInfo = new RiskInfo();
       PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
+        BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
       // 地域
       if ("1".equals(pcacMerchantRiskSubmitInfo.getMercTyp())
           || "3".equals(pcacMerchantRiskSubmitInfo.getMercTyp())) {
-        pcacMerchantRiskSubmitInfo.setOccurarea(SysLanLocalEnum.SysLanLocalEnum_100000.getCode());
+          riskInfo.setOccurarea(SysLanLocalEnum.SysLanLocalEnum_100000.getCode());
       } else {
-        pcacMerchantRiskSubmitInfo.setOccurarea(
+          riskInfo.setOccurarea(
             SysLanLocalEnum.getSysLanLocalEnumCode(pcacMerchantRiskSubmitInfo.getOccurarea()));
       }
       // 法人证件类型
-      pcacMerchantRiskSubmitInfo.setDocType(
+        riskInfo.setDocType(
           MerdocTypeEnum.getMerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getDocType()));
       // 法定代表人证件类型
-      pcacMerchantRiskSubmitInfo.setLegDocType(
+        riskInfo.setLegDocType(
           PerdocTypeEnum.getPerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getLegDocType()));
-      BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
+      //BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
       BankList bankList = new BankList();
       List<BankInfo> bankInfos = new ArrayList<>();
       BankInfo bankInfo = new BankInfo();

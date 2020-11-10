@@ -152,7 +152,7 @@ public class BaseInfo {
   @XmlElement(name = "DocType", required = true)
   protected String docType;
 
-  @EncrField("DocType")
+  @EncrField
   @XmlElement(name = "DocCode", required = true)
   protected String docCode;
 
