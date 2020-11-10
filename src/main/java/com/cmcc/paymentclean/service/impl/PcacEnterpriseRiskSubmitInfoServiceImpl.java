@@ -220,7 +220,7 @@ public class PcacEnterpriseRiskSubmitInfoServiceImpl
       // 法人证件号码
       riskInfo.setDocCode(
           CFCACipherUtils.getInnerToCFCA(
-              PcacEnterpriseRiskSubmitInfo.getDocType(),
+              //PcacEnterpriseRiskSubmitInfo.getDocType(),
               PcacEnterpriseRiskSubmitInfo.getDocCode(),
               symmetricKeyEncoded));
       riskInfo.setBenList(benList);

@@ -233,11 +233,12 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       BankList bankList = new BankList();
       List<BankInfo> bankInfos = new ArrayList<>();
       BankInfo bankInfo = new BankInfo();
-      String decryptBankData =
+     String decryptBankData =
           InnerCipherUtils.decryptBankData(pcacMerchantRiskSubmitInfo.getBankNo());
       log.info("解密后的银行卡号是：{}", decryptBankData);
-      pcacMerchantRiskSubmitInfo.setBankNo(decryptBankData);
+     // pcacMerchantRiskSubmitInfo.setBankNo(decryptBankData);
       BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
+      bankInfo.setBankNo(decryptBankData);
       bankInfos.add(bankInfo);
       bankList.setBankInfo(bankInfos);
       riskInfo.setBankList(bankList);

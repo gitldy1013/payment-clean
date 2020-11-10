@@ -148,7 +148,7 @@ public class RiskInfo {
   @XmlElement(name = "DocType", required = true)
   protected String docType;
 
-  @EncrField("DocType")
+  @EncrField
   @XmlElement(name = "DocCode", required = true)
   protected String docCode;
 
@@ -159,7 +159,7 @@ public class RiskInfo {
   @XmlElement(name = "LegDocType", required = true)
   protected String legDocType;
 
-  @EncrField
+  @EncrField("LegDocCode")
   @XmlElement(name = "LegDocCode", required = true)
   protected String legDocCode;
 

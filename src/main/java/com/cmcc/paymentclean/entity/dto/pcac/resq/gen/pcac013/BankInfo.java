@@ -46,6 +46,7 @@ public class BankInfo {
   @XmlElement(name = "IsTransfer", required = true)
   protected String isTransfer;
 
+  //注意商户上报银行卡号不需要协会加密
   //@EncrField("BankNo")
   @XmlElement(name = "BankNo", required = true)
   protected String bankNo;

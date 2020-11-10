@@ -136,14 +136,19 @@ public class BeanUtilsEx extends BeanUtils {
       Object getValue = getMethod.invoke(bean);
       setMethod.invoke(bean, CFCACipherUtils.encrypt(symmetricKeyEncoded, getValue.toString()));
     } else {
-      Method getDocTypeMethod = bean.getClass().getMethod("get" + flag);
-      Object getDocTypeValue = getDocTypeMethod.invoke(bean);
+      /*Method getDocTypeMethod = bean.getClass().getMethod("get" + flag);
+      Object getDocTypeValue = getDocTypeMethod.invoke(bean);*/
       Method getMethod = bean.getClass().getMethod(getMethodName);
       Object getValue = getMethod.invoke(bean);
-      setMethod.invoke(
-          bean,
-          CFCACipherUtils.getInnerToCFCA(
-              getDocTypeValue.toString(), getValue.toString(), symmetricKeyEncoded));
+      if ("BankNo".equals(flag)){
+        setMethod.invoke(bean,
+                CFCACipherUtils.getInnerByBankNoToCFCA(getValue.toString(), symmetricKeyEncoded));
+      }else {
+        setMethod.invoke(bean,
+                // CFCACipherUtils.getInnerToCFCA(getDocTypeValue.toString(), getValue.toString(), symmetricKeyEncoded));
+                CFCACipherUtils.getInnerToCFCA(getValue.toString(), symmetricKeyEncoded));
+      }
+
     }
   }
 

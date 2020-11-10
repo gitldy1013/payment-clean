@@ -225,14 +225,28 @@ public class CFCACipherUtils {
     return decryptedData;
   }
 
-  public static String getInnerToCFCA(String docType, String docCode, byte[] symmetrickeyencoded) {
+  //public static String getInnerToCFCA(String docType, String docCode, byte[] symmetrickeyencoded) {
+  public static String getInnerToCFCA(String docCode, byte[] symmetrickeyencoded) {
    /* if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {*/
       // 内部解密
       docCode = InnerCipherUtils.decryptUserData(docCode);
     /*}*/
     // 协会加密
+    log.info("---------解密身份证号明文-----------：{}",docCode);
     return CFCACipherUtils.encrypt(symmetrickeyencoded, docCode);
   }
+
+  public static String getInnerByBankNoToCFCA(String bankNo, byte[] symmetrickeyencoded) {
+   /* if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {*/
+      // 内部解密
+    bankNo = InnerCipherUtils.decryptBankData(bankNo);
+    /*}*/
+    // 协会加密
+    log.info("---------解密银行卡号明文-----------：{}",bankNo);
+    return CFCACipherUtils.encrypt(symmetrickeyencoded, bankNo);
+  }
+
+
 
   public static void main(String[] args) {
     /*String signature =
