@@ -9,10 +9,10 @@ import com.cmcc.paymentclean.consts.CommonConst;
 import com.cmcc.paymentclean.consts.CusNatureEnum;
 import com.cmcc.paymentclean.consts.CusPropertyEnum;
 import com.cmcc.paymentclean.consts.CusTypeEnum;
-import com.cmcc.paymentclean.consts.FeedbackStatusEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
 import com.cmcc.paymentclean.consts.MerdocTypeEnum;
 import com.cmcc.paymentclean.consts.MsgTypeEnum;
+import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import com.cmcc.paymentclean.consts.PerdocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
@@ -183,9 +183,11 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
         pcacMerchantRiskSubmitInfo.setResultStatus(
             doc.getRespone().getBody().getRespInfo().getResultStatus());
         pcacMerchantRiskSubmitInfo.setMsgDetail(
-            FeedbackStatusEnum.getFeedbackStatusDesc(
-                    doc.getRespone().getBody().getRespInfo().getResultCode())
-                + doc.getRespone().getBody().getRespInfo().getMsgDetail());
+            PcacResultCodeEnum.S00000
+                    .getCode()
+                    .equals(doc.getRespone().getBody().getRespInfo().getResultCode())
+                ? ""
+                : doc.getRespone().getBody().getRespInfo().getMsgDetail().replaceAll("商户风险信息，第1条数据有错误：", "").replaceAll("第1条",""));
         pcacMerchantRiskSubmitInfo.setRepDate(new Date());
         pcacMerchantRiskSubmitInfoMapper.updateById(pcacMerchantRiskSubmitInfo);
       }
