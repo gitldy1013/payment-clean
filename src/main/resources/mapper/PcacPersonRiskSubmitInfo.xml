@@ -111,7 +111,7 @@
         update  pcac_person_risk_submit_info <set>
         submit_time = #{submitTime},submit_status = #{submitStatus},result_status = #{resultStatus},result_code = #{resultCode},msg_detail=#{msgDetail},rep_date=#{repDate}
     </set>  <where>
-        submit_status = '0'
+        submit_status = '0' and pcac_person_risk_submit_info_id = #{pcacPersonRiskSubmitInfoId}
     </where>
     </update>
 
