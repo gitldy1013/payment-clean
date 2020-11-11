@@ -155,7 +155,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       XmlJsonUtils.doSignature(encrBean);
       xml = XmlJsonUtils.convertObjectToXmlStr(encrBean);
       log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
-      pushToPcac(pcacMerchantRiskSubmitInfos, xml);
+      pushToPcac(pcacMerchantRiskSubmitInfoPush, xml);
     }
   }
 
