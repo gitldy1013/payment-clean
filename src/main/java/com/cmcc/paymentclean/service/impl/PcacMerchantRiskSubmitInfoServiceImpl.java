@@ -13,7 +13,6 @@ import com.cmcc.paymentclean.consts.FeedbackStatusEnum;
 import com.cmcc.paymentclean.consts.LevelCodeEnum;
 import com.cmcc.paymentclean.consts.MerdocTypeEnum;
 import com.cmcc.paymentclean.consts.MsgTypeEnum;
-import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import com.cmcc.paymentclean.consts.PerdocTypeEnum;
 import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.consts.RiskTypeEnum;
@@ -134,32 +133,40 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       return;
     }
     byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
-    Document<Body> document = getDocument(pcacMerchantRiskSubmitInfos, symmetricKeyEncoded);
-    // 报文转换
-    String xml = XmlJsonUtils.convertObjectToXmlStr(document);
-    log.info("获取到的xml数据:{}", XmlJsonUtils.formatXml(xml));
-    if (StringUtils.isEmpty(xml)) {
-      log.info("xml报文转换失败");
-      return;
+    for (int i = 0; i < pcacMerchantRiskSubmitInfos.size(); i++) {
+      List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfoPush = new ArrayList<>();
+      pcacMerchantRiskSubmitInfoPush.add(pcacMerchantRiskSubmitInfos.get(i));
+      Document<Body> document = getDocument(pcacMerchantRiskSubmitInfoPush, symmetricKeyEncoded);
+      // 报文转换
+      String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+      log.info("获取到的xml数据:{}", XmlJsonUtils.formatXml(xml));
+      if (StringUtils.isEmpty(xml)) {
+        log.info("xml报文转换失败");
+        return;
+      }
+      // 校验xml报文
+      if (!ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013")) {
+        log.info("XML校验失败");
+        return;
+      }
+      // 报文转换
+      Document<Body> encrBean = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
+      // 加签
+      XmlJsonUtils.doSignature(encrBean);
+      xml = XmlJsonUtils.convertObjectToXmlStr(encrBean);
+      log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
+      pushToPcac(pcacMerchantRiskSubmitInfos, xml);
     }
-    // 校验xml报文
-    if (!ValidateUtils.validateXMLByXSD(xml, "pcac.ries.013")) {
-      log.info("XML校验失败");
-      return;
-    }
-    // 报文转换
-    Document<Body> encrBean = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
-    // 加签
-    XmlJsonUtils.doSignature(encrBean);
-    xml = XmlJsonUtils.convertObjectToXmlStr(encrBean);
-    log.info("请求报文: {}", XmlJsonUtils.formatXml(xml));
-    pushToPcac(pcacMerchantRiskSubmitInfos, xml);
   }
 
   private void pushToPcac(
       List<PcacMerchantRiskSubmitInfo> pcacMerchantRiskSubmitInfos, String xml) {
     // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+    if (post == null) {
+      log.error("协会接口异常！");
+      return;
+    }
     log.info("url:{}", pcacConfig.getUrl());
     log.info("协会返回数据字符串:{}", XmlJsonUtils.formatXml(post));
     com.cmcc.paymentclean.entity.dto.pcac.resp.Document doc =
@@ -208,29 +215,29 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       pcacList.setCount(pcacMerchantRiskSubmitInfos.size() + "");
       RiskInfo riskInfo = new RiskInfo();
       PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo = pcacMerchantRiskSubmitInfos.get(i);
-        BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
+      BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
       // 地域
       if ("1".equals(pcacMerchantRiskSubmitInfo.getMercTyp())
           || "3".equals(pcacMerchantRiskSubmitInfo.getMercTyp())) {
-          riskInfo.setOccurarea(SysLanLocalEnum.SysLanLocalEnum_100000.getCode());
+        riskInfo.setOccurarea(SysLanLocalEnum.SysLanLocalEnum_100000.getCode());
       } else {
-          riskInfo.setOccurarea(
+        riskInfo.setOccurarea(
             SysLanLocalEnum.getSysLanLocalEnumCode(pcacMerchantRiskSubmitInfo.getOccurarea()));
       }
       // 法人证件类型
-        riskInfo.setDocType(
+      riskInfo.setDocType(
           MerdocTypeEnum.getMerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getDocType()));
       // 法定代表人证件类型
-        riskInfo.setLegDocType(
+      riskInfo.setLegDocType(
           PerdocTypeEnum.getPerdocTypeEnumDesc(pcacMerchantRiskSubmitInfo.getLegDocType()));
-      //BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
+      // BeanUtilsEx.copyProperties(riskInfo, pcacMerchantRiskSubmitInfo);
       BankList bankList = new BankList();
       List<BankInfo> bankInfos = new ArrayList<>();
       BankInfo bankInfo = new BankInfo();
-     String decryptBankData =
+      String decryptBankData =
           InnerCipherUtils.decryptBankData(pcacMerchantRiskSubmitInfo.getBankNo());
       log.info("解密后的银行卡号是：{}", decryptBankData);
-     // pcacMerchantRiskSubmitInfo.setBankNo(decryptBankData);
+      // pcacMerchantRiskSubmitInfo.setBankNo(decryptBankData);
       BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
       bankInfo.setBankNo(decryptBankData);
       bankInfos.add(bankInfo);
