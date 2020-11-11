@@ -170,14 +170,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
     if (doc.getRespone().getBody().getRespInfo().getResultCode() != null) {
       for (PcacMerchantRiskSubmitInfo pcacMerchantRiskSubmitInfo : pcacMerchantRiskSubmitInfos) {
         pcacMerchantRiskSubmitInfo.setSubmitTime(new Date());
-        pcacMerchantRiskSubmitInfo.setSubmitStatus(
-            doc.getRespone()
-                    .getBody()
-                    .getRespInfo()
-                    .getResultCode()
-                    .equals(PcacResultCodeEnum.S00000.getCode())
-                ? SubmitStatusEnum.ISBLACKENUM_1.getCode()
-                : SubmitStatusEnum.ISBLACKENUM_0.getCode());
+        pcacMerchantRiskSubmitInfo.setSubmitStatus(SubmitStatusEnum.ISBLACKENUM_1.getCode());
         pcacMerchantRiskSubmitInfo.setResultCode(
             doc.getRespone().getBody().getRespInfo().getResultCode());
         pcacMerchantRiskSubmitInfo.setResultStatus(
