@@ -37,6 +37,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Request033Wapper;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
+import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
@@ -448,7 +449,63 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
     // return XmlJsonUtils.convertObjectToXmlStr(document);
   }
 
-  private BusinessInfo decryptBusinessInfo(BusinessInfo businessInfo, String secretKey) {
+  @Override
+  public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> businessInfoQuery(String docCode) {
+    ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> resultBean = null;
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body();
+    body.setRegName("");
+    body.setLegDocCode("");
+    body.setLegDocName("");
+    body.setResultSequence("");
+    body.setDocCode(docCode);
+    //需求是通过营业执照编号去查询数据，所以类型为
+    body.setDocType("01");
+    Document<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> document = new Document<>();
+    byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
+    Request<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> request = XmlJsonUtils.getRequest(symmetricKeyEncoded, document, pcacConfig, TrnxCodeEnum.SINGLE_BUSINESS_INFO_REQ.getCode());
+    request.setBody(body);
+    document.setRequest(request);
+    XmlJsonUtils.doSignature(document);
+    String xml = XmlJsonUtils.convertObjectToXmlStr(document);
+      boolean validate = ValidateUtils.validateXMLByXSD(xml, "pcac.ries.041");
+      if (validate){
+          log.info("--------请求清算协会数据：{}",xml);
+          String result = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
+          if (StringUtils.isEmpty(result)) {
+              return new ResultBean("企业商户信息查询接口异常", ResultBean.UNSPECIFIED_CODE);
+          }
+          log.info("--------清算协会返回数据报文数据：{}",result);
+          resultBean =  doBusinessInfo(result);
+          return resultBean;
+      }else {
+          log.info("----------xsd文件校验xml格式失败-------");
+          throw new SubmitPCACException(
+                  ResultCodeEnum.XSD_FILE_VALID_FALSE.getCode(),
+                  ResultCodeEnum.XSD_FILE_VALID_FALSE.getDesc());
+      }
+
+
+
+  }
+
+    private ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> doBusinessInfo(String result) {
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
+                (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(result, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
+        String signature = documentResp.getSignature();
+        documentResp.setSignature(null);
+        String noSignXmlResp = XmlJsonUtils.convertObjectToXmlStr(documentResp);
+        // 验签失败的原因是去掉signature的document对象转xml串后顺序与协会返回结果串字段不一致
+        boolean isSign = CFCACipherUtils.verifySignature(noSignXmlResp, signature);
+        // log.info("-------信息补发验证签名结果为：{}", isSign);
+        Respone respone = documentResp.getRespone();
+        com.cmcc.paymentclean.entity.dto.pcac.resp.Head respHead = respone.getHead();
+        String secretKey = respHead.getSecretKey();
+        Body body = respone.getBody();
+        return null;
+
+    }
+
+    private BusinessInfo decryptBusinessInfo(BusinessInfo businessInfo, String secretKey) {
     // 商户名称
     if (StringUtils.isNotEmpty(businessInfo.getRegName())) {
       businessInfo.setRegName(CFCACipherUtils.decrypt(secretKey, businessInfo.getRegName()));

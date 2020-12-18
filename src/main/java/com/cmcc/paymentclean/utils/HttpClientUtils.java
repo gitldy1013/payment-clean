@@ -197,4 +197,13 @@ public class HttpClientUtils {
     httpPost.setEntity(urlEncodedFormEntity);
     return execute(httpClient, httpPost);
   }
+
+  public static void main(String[] args) throws Exception{
+    String s = sendHttpPost("https://36.158.218.159:9001/localRisk/pcacPushInfo", "---asdfadf---");
+    //String s = sendHttpPost("https://blog.csdn.net/pzysoft/article/details/62888780", "---asdfadf---");
+    //String s = sendHttpPost("https://pcspinterface.pcac.org.cn/ries_interface/loginServlet", "---asdfadf---");
+    //String s = sendHttpPost("https://www.baidu.com/", "---asdfadf---");
+    //String s = sendHttpPost("https://sms.liudongyang.top/", "---asdfadf---");
+    System.out.println(s);
+  }
 }

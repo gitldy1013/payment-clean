@@ -19,6 +19,7 @@ public enum TrnxCodeEnum {
   LOCAL_ASSOCIATED_RISK_INFO_BACK("UP0006", "商户黑名单信息反馈"),
   QUERY_MERCHANT_RISK_INFO_BACK("UP0005", "批量商户风险信息查询使用情况反馈"),
   QUERY_MERCHANT_RISK_INFO("QR0003", "批量查询商户风险信息"),
+  SINGLE_BUSINESS_INFO_REQ("QE0003", "企业商户查询请求"),
   BUSINESS_INFO_REQ("QE0004", "企业商户批量查询请求"),
   MERCHANT_INFO_ASSISTANCE_PUSH("TS0003", "商户信息比对协查推送"),
   BUSINESS_INFO_BATCH_QUERY_RESULT_PUSH("TS0007", "企业商户批量查询结果推送");

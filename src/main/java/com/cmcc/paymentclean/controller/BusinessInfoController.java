@@ -1,14 +1,15 @@
 package com.cmcc.paymentclean.controller;
 
+import com.cmcc.paymentclean.consts.ResultCodeEnum;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.service.BusinessInfoService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * @since 2020-09-15
  * @version v1.0
  */
+@Slf4j
 @RestController
 @RequestMapping("/specReg/specRegCom")
 public class BusinessInfoController {
@@ -41,4 +43,16 @@ public class BusinessInfoController {
       return  businessInfoService.getBusinessInfoXML(xml);
 
   }*/
+
+  /** 单个企业商户查询请求接口 */
+  @ApiOperation(value = "单个企业商户查询请求接口", notes = "单个企业商户查询请求接口")
+  @RequestMapping(value = "/businessInfoQuery", method = RequestMethod.POST)
+  public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> businessInfoQuery(@RequestParam  String docCode) {
+    log.info("---------企业商户查询请求入参：{}",docCode);
+    if(StringUtils.isEmpty(docCode)){
+      return new ResultBean("请求参数无效",ResultCodeEnum.INVALID_REQUEST_PARAMETER);
+    }
+    return businessInfoService.businessInfoQuery(docCode);
+  }
+
 }
