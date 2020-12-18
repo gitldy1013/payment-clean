@@ -2,10 +2,7 @@ package com.cmcc.paymentclean.entity.dto.pcac.resp;
 
 import lombok.Data;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 // XML文件中的根标识
@@ -16,6 +13,7 @@ import javax.xml.bind.annotation.XmlType;
       "RespInfo",
       "QueryInfo",
       "PcacList",
+      "ResultInfo"
     })
 @Data
 public class Body {
@@ -24,4 +22,7 @@ public class Body {
   private QueryInfo QueryInfo;
 
   private PcacList PcacList;
+
+  private ResultInfo ResultInfo;
+
 }

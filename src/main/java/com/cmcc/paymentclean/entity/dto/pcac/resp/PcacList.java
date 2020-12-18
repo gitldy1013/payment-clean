@@ -19,6 +19,7 @@ import java.util.List;
       "UpDate",
       "RiskInfo",
       "BenList",
+      "ResultInfo"
     })
 @Data
 public class PcacList implements Serializable {
@@ -30,4 +31,6 @@ public class PcacList implements Serializable {
   private List<RiskInfo> RiskInfo;
 
   private BenList BenList;
+
+  private List<ResultInfo> ResultInfo;
 }
