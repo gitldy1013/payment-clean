@@ -60,12 +60,12 @@ public class ResultInfo {
     private String ResultSequence;
 
     private BaseInfo BaseInfo;
-    private List<HisSignList> HisSignList;
-    private List<CurSignList> CurSignList;
-    private List<BlackList> BlackList;
-    private List<WarningList> WarningList;
-    private List<LegBlackList> LegBlackList;
-    private List<LegWarningList> LegWarningList;
+    private HisSignList HisSignList;
+    private CurSignList CurSignList;
+    private BlackList BlackList;
+    private WarningList WarningList;
+    private LegBlackList LegBlackList;
+    private LegWarningList LegWarningList;
 
 
 

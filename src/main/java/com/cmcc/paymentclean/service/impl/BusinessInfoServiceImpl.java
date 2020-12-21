@@ -5,24 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cmcc.paymentclean.config.PcacConfig;
 import com.cmcc.paymentclean.config.SftpConfig;
-import com.cmcc.paymentclean.consts.AccountTypeEnum;
-import com.cmcc.paymentclean.consts.ChageTypeEnum;
-import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.DocTypeEnum;
-import com.cmcc.paymentclean.consts.ExpandTypeEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.OpenTypeEnum;
-import com.cmcc.paymentclean.consts.ResultCodeEnum;
-import com.cmcc.paymentclean.consts.RiskTypeEnum;
-import com.cmcc.paymentclean.consts.StatusEnum;
-import com.cmcc.paymentclean.consts.SubmitStatusEnum;
-import com.cmcc.paymentclean.consts.SysLanLocalEnum;
-import com.cmcc.paymentclean.consts.TrnxCodeEnum;
-import com.cmcc.paymentclean.consts.UnitPropEnum;
+import com.cmcc.paymentclean.consts.*;
 import com.cmcc.paymentclean.entity.BusinessInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Body;
-import com.cmcc.paymentclean.entity.dto.pcac.resp.Respone;
+import com.cmcc.paymentclean.entity.dto.pcac.resp.*;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac025.PcacList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac033.Condition;
@@ -36,6 +22,7 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Head;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcacwapper.Request033Wapper;
 import com.cmcc.paymentclean.entity.dto.response.BusinessInfoResp;
+import com.cmcc.paymentclean.entity.dto.response.BusinessResultInfo;
 import com.cmcc.paymentclean.entity.dto.resquest.BusinessInfoReq;
 import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.BusinessInfoMapper;
@@ -450,8 +437,8 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
   }
 
   @Override
-  public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> businessInfoQuery(String docCode) {
-    ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> resultBean = null;
+  public ResultBean businessInfoQuery(String docCode) {
+    ResultBean resultBean = null;
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body();
     body.setRegName("");
     body.setLegDocCode("");
@@ -488,7 +475,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
 
   }
 
-    private ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> doBusinessInfo(String result) {
+    private ResultBean doBusinessInfo(String result) {
         com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                 (com.cmcc.paymentclean.entity.dto.pcac.resp.Document) XmlJsonUtils.convertXmlStrToObject(result, com.cmcc.paymentclean.entity.dto.pcac.resp.Document.class);
         String signature = documentResp.getSignature();
@@ -501,8 +488,146 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
         com.cmcc.paymentclean.entity.dto.pcac.resp.Head respHead = respone.getHead();
         String secretKey = respHead.getSecretKey();
         Body body = respone.getBody();
-        return null;
+        RespInfo respInfo = body.getRespInfo();
+        if (PcacResultCodeEnum.S00000.getCode().equals(respInfo.getResultCode())
+                && "01".equals(respInfo.getResultStatus())) {
+            com.cmcc.paymentclean.entity.dto.pcac.resp.PcacList pcacList = body.getPcacList();
+            if(null !=pcacList &&pcacList.getCount()>1){
+                log.info("---------商户信息查询是多个商户信息--------");
+                /*List<com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo> riskInfos = pcacList.getRiskInfo();
+                for (com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo riskInfo:riskInfos){
+                 */
+                }
+            else {
+                com.cmcc.paymentclean.entity.dto.pcac.resp.ResultInfo resultInfo = body.getResultInfo();
+                com.cmcc.paymentclean.entity.dto.pcac.resp.BaseInfo baseInfo = resultInfo.getBaseInfo();
+                BusinessResultInfo businessResultInfo = new BusinessResultInfo();
 
+                com.cmcc.paymentclean.entity.dto.response.business.BaseInfo baseInfo1 = new com.cmcc.paymentclean.entity.dto.response.business.BaseInfo();
+                BeanUtilsEx.copyProperties(baseInfo1,baseInfo);
+                baseInfo1.setSignCurrentState(SignCurrentStatusEnum.getSignCurrentStatusDesc(baseInfo.getSignCurrentState()));
+                businessResultInfo.setBaseInfo(baseInfo1);
+
+                BlackList blackList = resultInfo.getBlackList();
+
+                HisSignList hisSignList = resultInfo.getHisSignList();
+                if (null != hisSignList){
+                    List<com.cmcc.paymentclean.entity.dto.response.business.SignInfo> signInfos = standardBussinessSignInfo(hisSignList.getSignInfo());
+                    businessResultInfo.setHisSignList(new com.cmcc.paymentclean.entity.dto.response.business.HisSignList(signInfos));
+                }
+
+                CurSignList curSignList = resultInfo.getCurSignList();
+                if (null != curSignList){
+                    List<com.cmcc.paymentclean.entity.dto.response.business.SignInfo> signInfos = standardBussinessSignInfo(curSignList.getSignInfo());
+                    businessResultInfo.setCurSignList(new com.cmcc.paymentclean.entity.dto.response.business.CurSignList(signInfos));
+                }
+                if (null !=blackList){
+
+                    List<com.cmcc.paymentclean.entity.dto.response.business.RiskInfo> riskInfos = decryptBusinessRiskInfo(blackList.getRiskInfo(), secretKey);
+                    businessResultInfo.setBlackList(new com.cmcc.paymentclean.entity.dto.response.business.BlackList(riskInfos));
+                }
+
+                LegBlackList legBlackList = resultInfo.getLegBlackList();
+                if (null != legBlackList){
+
+                    List<com.cmcc.paymentclean.entity.dto.response.business.RiskInfo> riskInfos = decryptBusinessRiskInfo(legBlackList.getRiskInfo(), secretKey);
+                    businessResultInfo.setLegBlackList(new com.cmcc.paymentclean.entity.dto.response.business.LegBlackList(riskInfos));
+
+                }
+
+                WarningList warningList = resultInfo.getWarningList();
+                if (null != warningList){
+
+                    List<com.cmcc.paymentclean.entity.dto.response.business.RiskInfo> riskInfos = decryptBusinessRiskInfo(warningList.getRiskInfo(), secretKey);
+                    businessResultInfo.setWarningList(new com.cmcc.paymentclean.entity.dto.response.business.WarningList(riskInfos));
+                }
+                LegWarningList legWarningList = resultInfo.getLegWarningList();
+                if (null !=legWarningList){
+                    List<com.cmcc.paymentclean.entity.dto.response.business.RiskInfo> riskInfos = decryptBusinessRiskInfo(legWarningList.getRiskInfo(), secretKey);
+                    businessResultInfo.setLegWarningList(new com.cmcc.paymentclean.entity.dto.response.business.LegWarningList(riskInfos));
+                }
+                ResultBean resultBean = new ResultBean(businessResultInfo);
+                resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
+                resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
+                return resultBean;
+            }
+        }else {
+            if (StringUtils.isEmpty(respInfo.getMsgDetail())) {
+
+                return new ResultBean("企业商户信息查询接口异常", ResultBean.UNSPECIFIED_CODE);
+            }
+            if ("S00001".equals(respInfo.getResultCode())){
+                return new ResultBean(respInfo.getMsgDetail(), ResultBean.SUCCESS_CODE);
+            }
+            return new ResultBean(respInfo.getMsgDetail(), ResultBean.UNSPECIFIED_CODE);
+        }
+            return null;
+    }
+
+    private List<com.cmcc.paymentclean.entity.dto.response.business.SignInfo> standardBussinessSignInfo(List<SignInfo> signInfos) {
+        ArrayList<com.cmcc.paymentclean.entity.dto.response.business.SignInfo> signInfoList = new ArrayList<>();
+        for (SignInfo signInfo:signInfos){
+          com.cmcc.paymentclean.entity.dto.response.business.SignInfo signInfo1 = new com.cmcc.paymentclean.entity.dto.response.business.SignInfo();
+          BeanUtilsEx.copyProperties(signInfo1,signInfo);
+          signInfo1.setStatus(CusStatusEnum.getCusStatusEnum(signInfo.getStatus()));
+          signInfo1.setRiskStatus(RiskStatusEnum.getRiskStatusDesc(signInfo.getRiskStatus()));
+          signInfo1.setOpenType(OpenTypeEnum.getOpenTypeDesc(signInfo.getOpenType()));
+          signInfoList.add(signInfo1);
+      }
+        return signInfoList;
+    }
+
+
+    private List<com.cmcc.paymentclean.entity.dto.response.business.RiskInfo> decryptBusinessRiskInfo(List<com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo> riskInfos, String secretKey) {
+        ArrayList<com.cmcc.paymentclean.entity.dto.response.business.RiskInfo> riskInfoList = new ArrayList<>();
+        for (com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo riskInfo:riskInfos){
+            com.cmcc.paymentclean.entity.dto.response.business.RiskInfo riskInfo1 = new com.cmcc.paymentclean.entity.dto.response.business.RiskInfo();
+            BeanUtilsEx.copyProperties(riskInfo1,riskInfo);
+            if(StringUtils.isNotEmpty(riskInfo.getRegName())){
+
+                riskInfo1.setRegName(CFCACipherUtils.decrypt(secretKey,riskInfo.getRegName()));
+          }
+          if(StringUtils.isNotEmpty(riskInfo.getCusName())){
+
+              riskInfo1.setCusName(CFCACipherUtils.decrypt(secretKey,riskInfo.getCusName()));
+          }
+          if(StringUtils.isNotEmpty(riskInfo.getDocCode())){
+
+              riskInfo1.setDocCode(CFCACipherUtils.decrypt(secretKey,riskInfo.getDocCode()));
+          }
+          if(StringUtils.isNotEmpty(riskInfo.getLegDocName())){
+
+              riskInfo1.setLegDocName(CFCACipherUtils.decrypt(secretKey,riskInfo.getLegDocName()));
+          }
+          if(StringUtils.isNotEmpty(riskInfo.getLegDocCode())){
+
+              riskInfo1.setLegDocCode(CFCACipherUtils.decrypt(secretKey,riskInfo.getLegDocCode()));
+          }
+          if (StringUtils.isNotEmpty(riskInfo.getDocType())){
+              riskInfo1.setDocType(DocTypeEnum.getDocTypeDesc(riskInfo.getDocType()));
+          }
+          if (StringUtils.isNotEmpty(riskInfo.getLegDocType())){
+              riskInfo1.setLegDocType(LegDocTypeEnum.getLegDocTypeDesc(riskInfo.getLegDocType()));
+          }
+          if (StringUtils.isNotEmpty(riskInfo.getLevel())){
+              riskInfo1.setLevel(LevelCodeEnum.getLevelDesc(riskInfo.getLevel()));
+          }
+          if (StringUtils.isNotEmpty(riskInfo.getRiskType())){
+              riskInfo1.setRiskType(RiskTypeEnum.getRiskTypeDesc(riskInfo.getRiskType()));
+          }
+          if (StringUtils.isNotEmpty(riskInfo.getValidStatus())){
+              riskInfo1.setValidStatus(ValidStatusEnum.getValidStatusDesc(riskInfo.getValidStatus()));
+          }
+          if (StringUtils.isNotEmpty(riskInfo.getCusType())){
+              riskInfo1.setCusType(CusTypeEnum.getCusTypeEnum(riskInfo.getCusType()));
+          }
+          if (StringUtils.isNotEmpty(riskInfo.getOccurarea())){
+              riskInfo1.setOccurarea(SysLanEnum.getSysLanEnumDesc(riskInfo.getOccurarea()));
+          }
+            riskInfoList.add(riskInfo1);
+
+      }
+      return riskInfoList;
     }
 
     private BusinessInfo decryptBusinessInfo(BusinessInfo businessInfo, String secretKey) {

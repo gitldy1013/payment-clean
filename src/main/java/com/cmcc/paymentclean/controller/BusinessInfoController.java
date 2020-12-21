@@ -47,10 +47,10 @@ public class BusinessInfoController {
   /** 单个企业商户查询请求接口 */
   @ApiOperation(value = "单个企业商户查询请求接口", notes = "单个企业商户查询请求接口")
   @RequestMapping(value = "/businessInfoQuery", method = RequestMethod.POST)
-  public ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> businessInfoQuery(@RequestParam  String docCode) {
+  public ResultBean businessInfoQuery(@RequestParam  String docCode) {
     log.info("---------企业商户查询请求入参：{}",docCode);
     if(StringUtils.isEmpty(docCode)){
-      return new ResultBean("请求参数无效",ResultCodeEnum.INVALID_REQUEST_PARAMETER);
+      return new ResultBean(ResultCodeEnum.INVALID_REQUEST_PARAMETER.getCode(),ResultCodeEnum.INVALID_REQUEST_PARAMETER.getDesc());
     }
     return businessInfoService.businessInfoQuery(docCode);
   }

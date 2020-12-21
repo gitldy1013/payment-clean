@@ -27,5 +27,5 @@ public interface BusinessInfoService {
   /** 批量查询企业信息结果推送 */
   void getBusinessInfoXML(String xml);
 
-    ResultBean<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body> businessInfoQuery(String docCode);
+    ResultBean businessInfoQuery(String docCode);
 }
