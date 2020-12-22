@@ -47,7 +47,7 @@ public class BusinessInfoController {
   /** 单个企业商户查询请求接口 */
   @ApiOperation(value = "单个企业商户查询请求接口", notes = "单个企业商户查询请求接口")
   @RequestMapping(value = "/businessInfoQuery", method = RequestMethod.POST)
-  public ResultBean businessInfoQuery(@RequestParam  String docCode) {
+  public ResultBean businessInfoQuery(@RequestBody String docCode) {
     log.info("---------企业商户查询请求入参：{}",docCode);
     if(StringUtils.isEmpty(docCode)){
       return new ResultBean(ResultCodeEnum.INVALID_REQUEST_PARAMETER.getCode(),ResultCodeEnum.INVALID_REQUEST_PARAMETER.getDesc());
