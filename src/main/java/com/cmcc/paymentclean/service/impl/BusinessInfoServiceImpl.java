@@ -497,6 +497,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
                 /*List<com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo> riskInfos = pcacList.getRiskInfo();
                 for (com.cmcc.paymentclean.entity.dto.pcac.resp.RiskInfo riskInfo:riskInfos){
                  */
+                return new ResultBean("商户信息查询是多个商户未处理");
                 }
             else {
                 com.cmcc.paymentclean.entity.dto.pcac.resp.ResultInfo resultInfo = body.getResultInfo();
@@ -561,7 +562,7 @@ public class BusinessInfoServiceImpl extends ServiceImpl<BusinessInfoMapper, Bus
             }
             return new ResultBean(respInfo.getMsgDetail(), ResultBean.UNSPECIFIED_CODE);
         }
-            return null;
+
     }
 
     private List<com.cmcc.paymentclean.entity.dto.response.business.SignInfo> standardBussinessSignInfo(List<SignInfo> signInfos) {
