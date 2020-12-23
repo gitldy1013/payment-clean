@@ -1236,6 +1236,154 @@
 }
 ```
 
+#### 4.5.2企业商户单个查询
+
+>* 请求类型：POST
+>* 请求路径：/specReg/specRegCom/businessInfoQuery
+
+* 请求报文字段
+
+*查询条件：*
+>* 营业执照编号
+
+|字段名称|字段说明|参数类型|
+|-------|------|-----|
+|docCode|营业执照编号|String|
+
+>* 请求报文示例：
+
+```json
+{
+    "docCode":""
+}
+```
+
+* 响应报文字段
+
+|字段名称|字段说明|参数类型|
+|-------|------|-----|
+|resCode|同步状态码(详见附录)|String|
+|resMsg|同步状态码说明|String|
+|data|返回数据对象|T|
+* 响应报文示例：
+
+```json
+  {
+    "resMsg": "String",
+    "resCode": "String",
+    "data": {
+      "baseInfo": {
+        "signCurrentNum": "String",
+        "blackNum": "String",
+        "signNum": "String",
+        "riskNum": "String",
+        "signCurrentState": "String"
+      },
+      "hisSignList": {
+        "signInfo": [
+          {
+            "orgName": "String",
+            "status": "String",
+            "startTime": "String",
+            "endTime": "String",
+            "riskStatus": "String",
+            "openType": "String"
+          }
+        ]
+      },
+      "curSignList": {
+        "signInfo": [
+          {
+            "orgName": "String",
+            "status": "String",
+            "startTime": "String",
+            "endTime": "String",
+            "riskStatus": "String",
+            "openType": "String"
+          }
+        ]
+      },
+      "blackList": {
+        "riskInfo": [
+          {
+            "regName": "String",
+            "cusName": "String",
+            "docType": "String",
+            "docCode": "String",
+            "legDocName": "String",
+            "legDocType": "String",
+            "legDocCode": "String",
+            "level": "String",
+            "riskType": "String",
+            "validDate": "String",
+            "validStatus": "String",
+            "cusType": "String",
+            "occurarea": "String"
+          }        
+        ]
+      },
+      "warningList": {
+        "riskInfo": [
+          {
+            "regName": "String",
+            "cusName": "String",
+            "docType": "String",
+            "docCode": "String",
+            "legDocName": "String",
+            "legDocType": "String",
+            "legDocCode": "String",
+            "level": "String",
+            "riskType": "String",
+            "validDate": "String",
+            "validStatus": "String",
+            "cusType": "String",
+            "occurarea": "String"
+          }
+        ]
+      },
+      "legBlackList": {
+        "riskInfo": [
+          {
+            "regName": "String",
+            "cusName": "String",
+            "docType": "String",
+            "docCode": "String",
+            "legDocName": "String",
+            "legDocType": "String",
+            "legDocCode": "String",
+            "level": "String",
+            "riskType": "String",
+            "validDate": "String",
+            "validStatus": "String",
+            "cusType": "String",
+            "occurarea": "String"
+          }
+        ]
+      },
+      "legWarningList": {
+        "riskInfo": [
+          {
+            "regName": "String",
+            "cusName": "String",
+            "docType": "String",
+            "docCode": "String",
+            "legDocName": "String",
+            "legDocType": "String",
+            "legDocCode": "String",
+            "level": "String",
+            "riskType": "String",
+            "validDate": "String",
+            "validStatus": "String",
+            "cusType": "String",
+            "occurarea": "String"
+          }
+         
+        ]
+      }
+    }
+  }
+```
+
 >* 大数据平台与特约商户系统相关接口统一按照支付清算协会接口规范开发。
 >* [支付清算综合服务平台系统接口规范V3.2.1(修订版).pdf](doc/支付清算综合服务平台系统接口规范V3.2.1(修订版).pdf)
 

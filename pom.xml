@@ -270,7 +270,7 @@
         </plugins>
     </build>
 
-    <repositories>
+   <!-- <repositories>
         <repository>
             <id>maven-leg</id>
             <name>legMirror</name>
@@ -327,6 +327,6 @@
             <id>maven-snapshot</id>
             <url>http://leg.liudongyang.top:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement>-->
 
 </project>
