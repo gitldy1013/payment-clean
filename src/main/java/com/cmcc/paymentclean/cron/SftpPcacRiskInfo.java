@@ -2,26 +2,16 @@ package com.cmcc.paymentclean.cron;
 
 import com.cmcc.paymentclean.config.SftpConfig;
 import com.cmcc.paymentclean.consts.CommonConst;
-import com.cmcc.paymentclean.consts.CusTypeEnum;
-import com.cmcc.paymentclean.consts.DocTypeEnum;
-import com.cmcc.paymentclean.consts.LegDocTypeEnum;
-import com.cmcc.paymentclean.consts.LevelCodeEnum;
-import com.cmcc.paymentclean.consts.PushListTypeEnum;
-import com.cmcc.paymentclean.consts.RiskTypeEnum;
-import com.cmcc.paymentclean.consts.SysLanEnum;
 import com.cmcc.paymentclean.entity.dto.PcacRiskInfoDTO;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
-import com.cmcc.paymentclean.service.SysLanService;
 import com.cmcc.paymentclean.utils.DateUtils;
-import com.cmcc.paymentclean.utils.ExcelUtils;
 import com.cmcc.paymentclean.utils.SFTPUtils;
+import com.cmcc.paymentclean.utils.TxtFileUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,41 +33,47 @@ public class SftpPcacRiskInfo {
     if (CollectionUtils.isEmpty(pcacRiskInfos)) {
       return;
     }
+    List<String> fileList = new ArrayList<>();
+    //        fileList.add("推送名单类型|推送日期|商户名称|商户简称|法人证件类型|法人证件号码|法定代表人姓名|法定代表人类型|法定代表人（负责人）
+    // 证件号码|风险信息等级|" +
+    //                "风险类型|有效期|有效性|商户类型|风险事件发生地域|银行结算账户|网址|商户注册号");
+
+    for (PcacRiskInfoDTO pcacRiskInfoDTO : pcacRiskInfos) {
+      String str = "";
+      str = setStr(str, pcacRiskInfoDTO.getPushListType(), true);
+      str = setStr(str, pcacRiskInfoDTO.getUpDate(), true);
+      str = setStr(str, pcacRiskInfoDTO.getRegName(), true);
+      str = setStr(str, pcacRiskInfoDTO.getCusName(), true);
+      str = setStr(str, pcacRiskInfoDTO.getDocType(), true);
+      str = setStr(str, pcacRiskInfoDTO.getDocCode(), true);
+      str = setStr(str, pcacRiskInfoDTO.getLegDocName(), true);
+      str = setStr(str, pcacRiskInfoDTO.getLegDocType(), true);
+      str = setStr(str, pcacRiskInfoDTO.getLegDocCode(), true);
+      str = setStr(str, pcacRiskInfoDTO.getLevel(), true);
+      str = setStr(str, pcacRiskInfoDTO.getRiskType(), true);
+      str = setStr(str, pcacRiskInfoDTO.getValidDate(), true);
+      str = setStr(str, pcacRiskInfoDTO.getValidStatus(), true);
+      str = setStr(str, pcacRiskInfoDTO.getCusType(), true);
+      str = setStr(str, pcacRiskInfoDTO.getOccurarea(), true);
+      str = setStr(str, pcacRiskInfoDTO.getBankNo(), true);
+      str = setStr(str, pcacRiskInfoDTO.getUrl(), true);
+      str = setStr(str, pcacRiskInfoDTO.getRegisteredCode(), false);
+      fileList.add(str);
+    }
     List<String> ids = new ArrayList<>();
     for (PcacRiskInfoDTO pcacRiskInfoDTO : pcacRiskInfos) {
-      pcacRiskInfoDTO.setDocType(DocTypeEnum.getDocTypeDesc(pcacRiskInfoDTO.getDocType()));
-      pcacRiskInfoDTO.setLegDocType(
-          LegDocTypeEnum.getLegDocTypeDesc(pcacRiskInfoDTO.getLegDocType()));
-      pcacRiskInfoDTO.setLevel(LevelCodeEnum.getLevelDesc(pcacRiskInfoDTO.getLevel()));
-      pcacRiskInfoDTO.setRiskType(RiskTypeEnum.getRiskTypeDesc(pcacRiskInfoDTO.getRiskType()));
-      pcacRiskInfoDTO.setCusType(CusTypeEnum.getCusTypeEnum(pcacRiskInfoDTO.getRiskType()));
-      pcacRiskInfoDTO.setOccurarea(SysLanEnum.getSysLanEnumDesc(pcacRiskInfoDTO.getOccurarea()));
-      pcacRiskInfoDTO.setPushListType(
-          PushListTypeEnum.getPushListTypeDesc(pcacRiskInfoDTO.getPushListType()));
-      pcacRiskInfoDTO.setValidStatus(
-          (new Date()
-                  .before(
-                      DateUtils.stringToDate(
-                          pcacRiskInfoDTO.getValidDate(), DateUtils.FORMAT_DATE)))
-              ? CommonConst.VALIDSTATUS_01
-              : CommonConst.VALIDSTATUS_02);
       ids.add(pcacRiskInfoDTO.getPcacRiskInfoId());
     }
 
-    // 生成excel文件
-    ExcelUtils excelUtils = new ExcelUtils();
+    // 生成txt文件
     String fileName =
         sftpConfig.getPcacRiskInfoFileNamePrefix()
             + DateUtils.curDateString()
-            + CommonConst.SFTP_FILE_NAME_SUFFIX;
+            + CommonConst.SFTP_TXT_FILE_NAME_SUFFIX;
     // 写本地文件
     try {
-      // 文件名
-      SXSSFWorkbook sxssfWorkbook = excelUtils.exportExcel(pcacRiskInfos, PcacRiskInfoDTO.class);
-      FileOutputStream fos = new FileOutputStream(sftpConfig.getModDir() + fileName);
-      sxssfWorkbook.write(fos);
-      sxssfWorkbook.dispose();
-      fos.close();
+      TxtFileUtil.writeFileContext(fileList, sftpConfig.getModDir(), fileName);
+      log.info("本地文件生成：{}" + sftpConfig.getModDir() + fileName);
       // 上传文件
       boolean uploadFlag =
           SFTPUtils.operateSFTP(
