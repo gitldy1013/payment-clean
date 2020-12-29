@@ -33,6 +33,7 @@ public class DateConvert implements Converter {
             return dateFormat.parse(value.toString());
           } catch (ParseException exc) {
             log.info("解析String转换Date类型出错。");
+            return null;
           }
         }
       }
