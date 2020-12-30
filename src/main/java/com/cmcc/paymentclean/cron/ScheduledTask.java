@@ -36,11 +36,11 @@ public class ScheduledTask {
   private PcacRiskInfoService pcacRiskInfoService;
 
   /** 上报个人风险信息 */
-  @Scheduled(cron = "0 0 23 ? * *")
+  @Scheduled(cron = "0 0 6 ? * *")
   public void submitPcacPersonRiskInfoJob() {
-    log.info("每天23:00执行上报个人风险信息到清算协会任务==START==");
+    log.info("每天6:00执行上报个人风险信息到清算协会任务==START==");
     pcacPersonRiskSubmitInfoService.submit();
-    log.info("每天23:00执行上报个人风险信息到清算协会任务==END==");
+    log.info("每天6:00执行上报个人风险信息到清算协会任务==END==");
   }
 
   /** 上报企业风险信息 */
@@ -52,11 +52,11 @@ public class ScheduledTask {
   }
 
   /** 上报商户风险信息 */
-  @Scheduled(cron = "0 0 23 ? * *")
+  @Scheduled(cron = "0 0 6 ? * *")
   public void runRiskMerchantAndPush() {
-    log.info("每天23:00上报商户风险信息==START==");
+    log.info("每天6:00上报商户风险信息==START==");
     pcacMerchantRiskSubmitInfoService.queryRiskMerchantAndPushPcac();
-    log.info("每天23:00上报商户风险信息==END==");
+    log.info("每天6:00上报商户风险信息==END==");
   }
 
   @Scheduled(cron = "0 0 11 ? * *")
