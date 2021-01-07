@@ -199,7 +199,11 @@ public class HttpClientUtils {
   }
 
   public static void main(String[] args) throws Exception{
-    String s = sendHttpPost("https://36.158.218.159:9001/localRisk/pcacPushInfo", "---asdfadf---");
+    //String s = sendHttpPost("https://openapi.t.payeco.com/risk-dna-pcac-service/riskInfo/receivePush", "---asdfadf---");
+    //String s = sendHttpPost("https://zyjk.cmftit.com:9001/localRisk/pcacPushInfo", "---asdfadf---");
+    String s = sendHttpPost("http://localhost:8081/specReg/specRegCom/businessInfoQuery", "{\"docCode\":\"123456789123456\"}");
+    //String s = sendHttpPost("http://172.16.48.224:8081/specReg/specRegCom/businessInfoQuery", "555555555555555");
+    //String s = sendHttpPost("http://localhost:8081/localRisk/pcacPushInfo", "12341234");
     //String s = sendHttpPost("https://blog.csdn.net/pzysoft/article/details/62888780", "---asdfadf---");
     //String s = sendHttpPost("https://pcspinterface.pcac.org.cn/ries_interface/loginServlet", "---asdfadf---");
     //String s = sendHttpPost("https://www.baidu.com/", "---asdfadf---");

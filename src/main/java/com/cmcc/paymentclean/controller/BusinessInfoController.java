@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 企业商户信息表 前端控制器
@@ -47,7 +48,8 @@ public class BusinessInfoController {
   /** 单个企业商户查询请求接口 */
   @ApiOperation(value = "单个企业商户查询请求接口", notes = "单个企业商户查询请求接口")
   @RequestMapping(value = "/businessInfoQuery", method = RequestMethod.POST)
-  public ResultBean businessInfoQuery(@RequestBody String docCode) {
+  public ResultBean businessInfoQuery( @RequestBody Map<String,String> map) {
+    String docCode = map.get("docCode");
     log.info("---------企业商户查询请求入参：{}",docCode);
     if(StringUtils.isEmpty(docCode)){
       return new ResultBean(ResultCodeEnum.INVALID_REQUEST_PARAMETER.getCode(),ResultCodeEnum.INVALID_REQUEST_PARAMETER.getDesc());
