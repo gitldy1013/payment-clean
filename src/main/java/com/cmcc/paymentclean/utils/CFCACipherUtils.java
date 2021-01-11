@@ -83,7 +83,7 @@ public class CFCACipherUtils {
       byte[] signature =
           sigUtil.p1SignMessage(
               Mechanism.SHA1_RSA, srcData.getBytes(StandardCharsets.UTF_8), priKey, session);
-      /** ******注意********** */
+      /* ******注意********** */
       // 签名结果已经做过Base64编码
       encodedSignature = new String(signature);
     } catch (Exception e) {
@@ -208,7 +208,7 @@ public class CFCACipherUtils {
 
       // 解密对称密钥
       PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
-      /** ****************************************** */
+      /* ****************************************** */
       // 去掉外层Base64解码，在方法体内部已经做过Base64解码
       byte[] keyData = EncryptUtil.decryptMessageByRSA(secretKey.getBytes(), priKey, session);
       SecretKeySpec symmetricKey = new SecretKeySpec(keyData, "AES");
@@ -258,9 +258,9 @@ public class CFCACipherUtils {
     String srcData =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Document><Respone><Head><Version>V1.3.0</Version><Identification>202009161000001371</Identification><OrigSender>Z2015044000015</OrigSender><OrigSenderSID>zf_sysstem</OrigSenderSID><RecSystemId>R0001</RecSystemId><TrnxCode>LR0001</TrnxCode><TrnxTime>20200916153928</TrnxTime><SecretKey></SecretKey></Head><Body><RespInfo><ResultStatus>02</ResultStatus><ResultCode>F00005</ResultCode><MsgDetail>验证签名失败</MsgDetail></RespInfo></Body></Respone></Document>";
     boolean b = verifySignature(srcData, signature);
-    System.out.println("验签结果：" + b);*/
+    System.out.println("验签结果：" + b);
     String secrit = "lleNS0s4RooCSVCkC5enwrdcdTRM8w0wkOAyArK/i3VyGFAgsjkMggDs79PcWxATJuZCVErQZyJ02JxuJmoVag3PaEo2LWrGSN13Wn9UqlFPGb6MyxLH+E5mWFsbNyF7wdrqKaf64rDvPqW8KpN7Z4/GlyT3W2CTop8WLCfhJWYuhzeCAvatBq3B6Amq0o8RzcVkps9OcoauGiGnfaeSaTdjSzvbSASLkF25GGRJ55q3mCYSGB6O+I0JRNomLUsMwPjEsPJrLrq0PESASYZlGkq3AkLC+wWiENjVi8OmMwtn+GGWRfKMh4LFR+Sww2fFPeaNa64o70gkrkputWj4ZQ==";
     String decrypt = decrypt(secrit, "ZSl26rc2RoY+nDE52jkT8w==");
-    System.out.println(decrypt);
+    System.out.println(decrypt);*/
   }
 }

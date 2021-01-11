@@ -168,7 +168,7 @@ public class HttpClientUtils {
 
           @Override
           public X509Certificate[] getAcceptedIssuers() {
-            return null;
+            return new java.security.cert.X509Certificate[0];
           }
         };
     sslContext.init(null, new TrustManager[] {trustManager}, null);

@@ -171,7 +171,7 @@ public class InnerCipherUtils {
     byte[] key = new BASE64Decoder().decodeBuffer(skey);
     byte[] data = new BASE64Decoder().decodeBuffer(sdata);
 
-    Key deskey = null;
+    Key deskey;
     DESedeKeySpec spec = new DESedeKeySpec(key);
     SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
     deskey = keyfactory.generateSecret(spec);
@@ -187,7 +187,7 @@ public class InnerCipherUtils {
     byte[] key = new BASE64Decoder().decodeBuffer(skey);
     byte[] data = sdata.getBytes(StandardCharsets.UTF_8);
 
-    Key deskey = null;
+    Key deskey;
     DESedeKeySpec spec = new DESedeKeySpec(key);
     SecretKeyFactory keyfactory = SecretKeyFactory.getInstance("desede");
     deskey = keyfactory.generateSecret(spec);
