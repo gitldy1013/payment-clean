@@ -10,7 +10,11 @@ import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac019.BenList;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.BaseInfo;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document;
 import com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Request;
-import com.cmcc.paymentclean.utils.*;
+import com.cmcc.paymentclean.utils.BeanUtilsEx;
+import com.cmcc.paymentclean.utils.CFCACipherUtils;
+import com.cmcc.paymentclean.utils.HttpClientUtils;
+import com.cmcc.paymentclean.utils.ValidateUtils;
+import com.cmcc.paymentclean.utils.XmlJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Test;
@@ -32,14 +36,14 @@ import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
 @ActiveProfiles("dev")
 @Slf4j
 public class PcacTest<T> {
+  public static String ENTER = System.getProperty("line.separator"); // 换行
   @Autowired private PcacConfig pcacConfig;
-
   private byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
 
   public static void creatFile(String xml, String fileName) {
     Writer write;
     try {
-      write = new FileWriter(new File(PROJECT_PATH + "/bw/" + fileName + ".txt"));
+      write = new FileWriter(new File(PROJECT_PATH + ENTER + "bw" + ENTER + fileName + ".txt"));
       FileCopyUtils.copy(xml, write);
     } catch (IOException e) {
       log.error("异常:" + e);
@@ -109,8 +113,8 @@ public class PcacTest<T> {
     body.setRegisteredArea("CN");
     body.setRegisteredCode("1231");
     String[] QR0002 = pushPcac((T) body, "015", "QR0002");
-//            creatFile(QR0002[0], "QR0002-商户风险信息查询-请求");
-//            creatFile(QR0002[1], "QR0002-商户风险信息查询-响应");
+    //            creatFile(QR0002[0], "QR0002-商户风险信息查询-请求");
+    //            creatFile(QR0002[1], "QR0002-商户风险信息查询-响应");
   }
 
   @Test
@@ -125,6 +129,7 @@ public class PcacTest<T> {
     //        creatFile(QR0003[0], "QR0003-风险信息批量导入查询-个人-请求");
     //        creatFile(QR0003[1], "QR0003-风险信息批量导入查询-个人-响应");
   }
+
   @Test
   void QR0003MER() {
     // 拼装Body QR0003-风险信息批量导入查询
@@ -134,8 +139,8 @@ public class PcacTest<T> {
     body.setKeyWord("01");
     body.setInfos("中移金科");
     String[] QR0003 = pushPcac((T) body, "005", "QR0003");
-//            creatFile(QR0003[0], "QR0003-风险信息批量导入查询-商户-请求");
-//            creatFile(QR0003[1], "QR0003-风险信息批量导入查询-商户-响应");
+    //            creatFile(QR0003[0], "QR0003-风险信息批量导入查询-商户-请求");
+    //            creatFile(QR0003[1], "QR0003-风险信息批量导入查询-商户-响应");
   }
 
   @Test
@@ -190,7 +195,7 @@ public class PcacTest<T> {
     bankInfo.setRecOpenBank("工商银行");
     bankInfos.add(bankInfo);
     bankList.setBankInfo(bankInfos);
-    bankList.setCount(bankInfos.size()+"");
+    bankList.setCount(bankInfos.size() + "");
     riskInfo.setBankList(bankList);
     riskInfo.setEmail("qq@126.com");
     riskInfo.setValidDate("2099-12-30");
@@ -290,17 +295,17 @@ public class PcacTest<T> {
     body.setDocCode("222000399940408");
     body.setLegRepName("刘东东");
     body.setLegDocCode("229339029203948764");
-/*
-    body.setRiskType("01");
-    body.setCusName("T1");
-    body.setDocType("01");
-    body.setDocCode("111123123123123");
-    body.setLegRepName("法定代表人T1");
-    body.setLegDocCode("211111111122335");
-*/
+    /*
+        body.setRiskType("01");
+        body.setCusName("T1");
+        body.setDocType("01");
+        body.setDocCode("111123123123123");
+        body.setLegRepName("法定代表人T1");
+        body.setLegDocCode("211111111122335");
+    */
     String[] UP0003 = pushPcac((T) body, "017", "UP0003");
-//            creatFile(UP0003[0], "UP0003-商户风险信息变更查询-请求");
-//            creatFile(UP0003[1], "UP0003-商户风险信息变更查询-响应");
+    //            creatFile(UP0003[0], "UP0003-商户风险信息变更查询-请求");
+    //            creatFile(UP0003[1], "UP0003-商户风险信息变更查询-响应");
   }
 
   @Test
@@ -447,7 +452,8 @@ public class PcacTest<T> {
     // 拼装Body UP0005-风险信息查询使用反馈-个人
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body body =
         new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList pcacList =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList();
     pcacList.setCount("1");
     List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo> riskInfos =
         new ArrayList<>();
@@ -464,23 +470,25 @@ public class PcacTest<T> {
     pcacList.setRiskInfo(riskInfos);
     body.setPcacList(pcacList);
     String[] UP0005 = pushPcac((T) body, "045", "UP0005");
-//            creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
-//            creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
+    //            creatFile(UP0005[0], "UP0005-风险信息查询使用反馈-个人-请求");
+    //            creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-个人-响应");
   }
+
   @Test
   void UP0005MER() {
     // 拼装Body UP0005-风险信息查询使用反馈-商户
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body body =
         new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.Body();
 
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList pcacList =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.PcacList();
     pcacList.setCount("1");
     List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo> riskInfos =
         new ArrayList<>();
     com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo riskInfo =
         new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac045.RiskInfo();
     riskInfo.setId("695191");
-    //riskInfo.setId("UO6ES8sc54i3NaCr9qRabA==");
+    // riskInfo.setId("UO6ES8sc54i3NaCr9qRabA==");
     riskInfo.setCusType("02");
     riskInfo.setHandleResult("01");
     riskInfo.setHandleTime("2019-01-01");
@@ -495,16 +503,16 @@ public class PcacTest<T> {
     //        creatFile(UP0005[1], "UP0005-风险信息查询使用反馈-商户-响应");
   }
 
-  /**
-   * pcac.ries.046
-   * 商户黑名单信息反馈请求
-   */
+  /** pcac.ries.046 商户黑名单信息反馈请求 */
   @Test
-  void UP0006(){
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList();
+  void UP0006() {
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList pcacList =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.PcacList();
     pcacList.setCount("1");
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo riskInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo riskInfo =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo();
     riskInfo.setCusType("03");
     riskInfo.setRegName("刘包子");
     riskInfo.setCurrency("CNY");
@@ -521,13 +529,14 @@ public class PcacTest<T> {
     riskInfo.setDocCode("222000399940408");
     riskInfo.setHandleResult("02");
     riskInfo.setHandleTime("2020-10-26");*/
-    List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo> riskInfos = new ArrayList<>();
+    List<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac046.RiskInfo> riskInfos =
+        new ArrayList<>();
     riskInfos.add(riskInfo);
     pcacList.setRiskInfo(riskInfos);
     body.setPcacList(pcacList);
     String[] UP0006 = pushPcac((T) body, "046", "UP0006");
-              creatFile(UP0006[0], "UP0006-商户黑名单信息反馈-请求");
-              creatFile(UP0006[1], "UP0006-商户黑名单信息反馈-响应");
+    creatFile(UP0006[0], "UP0006-商户黑名单信息反馈-请求");
+    creatFile(UP0006[1], "UP0006-商户黑名单信息反馈-响应");
   }
 
   @Test
@@ -566,15 +575,16 @@ public class PcacTest<T> {
     //        creatFile(UP0011[1], "UP0011-跨境商户黑名单信息反馈-响应");
   }
 
-  /**
-   * 特约商户信息差错处理
-   * */
+  /** 特约商户信息差错处理 */
   @Test
-  void EDEL01(){
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.Body();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.PcacList();
+  void EDEL01() {
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.PcacList pcacList =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.PcacList();
     pcacList.setCount("1");
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.BaseInfo();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.BaseInfo baseInfo =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac026.BaseInfo();
     baseInfo.setCusType("01");
     baseInfo.setDocType("01");
     baseInfo.setDocCode("220110199888011111");
@@ -584,18 +594,18 @@ public class PcacTest<T> {
     pushPcac((T) body, "026", "EDEL01");
   }
 
-  /**
-   * 特约商户
-   * 个人商户信息上报请求
-   * 测试RecSystemId是SECB01
-   * */
+  /** 特约商户 个人商户信息上报请求 测试RecSystemId是SECB01 */
   @Test
-  void EPR001(){
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.Body();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.PcacList();
+  void EPR001() {
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.PcacList pcacList =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.PcacList();
     pcacList.setCount("1");
-    ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo> baseInfos = new ArrayList<>();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo();
+    ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo> baseInfos =
+        new ArrayList<>();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo baseInfo =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac024.BaseInfo();
     baseInfo.setCusType("01");
     baseInfo.setCusNature("03");
     baseInfo.setRegName("中移动电子玩具店");
@@ -636,48 +646,48 @@ public class PcacTest<T> {
     baseInfo.setRepDate("2020-10-14 17:47:50");
     baseInfo.setRepType("03");
     baseInfo.setRepPerson("老刘");
-/*
-    baseInfo.setCusType("01");
-    baseInfo.setCusNature("03");
-    baseInfo.setRegName("中移动电子玩具店");
-    baseInfo.setCusName("中移玩具");
-    baseInfo.setCusNameEn("chinamobileEN");
-    baseInfo.setDocType("01");
-    baseInfo.setDocCode("220110199888018844");
-    baseInfo.setCusCode("yd123456789");
-    baseInfo.setInduType("01");
-    baseInfo.setBankNo("6266669909321");
-    baseInfo.setOpenBank("中粮支行");
-    baseInfo.setRegAddrProv("110000");
-    baseInfo.setRegAddrDetail("北京市东城区中粮置地");
-    baseInfo.setAddrProv("110000");
-    baseInfo.setAddrDetail("北京市东城区中粮置地");
-    baseInfo.setUrl("www.chinamobil.com");
-    baseInfo.setServerIp("192.128.120.22");
-    baseInfo.setIcp("浙ICP备06044328号");
-    baseInfo.setContName("刘东");
-    baseInfo.setContPhone("13334448767");
-    baseInfo.setCusEmail("999@126.com");
-    baseInfo.setOccurarea("110000");
-    baseInfo.setNetworkType("04");
-    baseInfo.setStatus("01");
-    baseInfo.setStartTime("2019-01-01");
-    baseInfo.setEndTime("2099-12-12");
-    baseInfo.setRiskStatus("01");
-    baseInfo.setOpenType("01");
-    baseInfo.setChageType("01");
-    baseInfo.setAccountType("04");
-    baseInfo.setExpandType("01");
-    baseInfo.setOutServiceName("外包");
-    baseInfo.setOutServiceCardType("01");
-    baseInfo.setOutServiceCardCode("129391930132318");
-    baseInfo.setOutServiceLegCardType("01");
-    baseInfo.setOutServiceLegCardCode("110220199011112222");
-    baseInfo.setOrgId("123123123");
-    baseInfo.setRepDate("2020-10-14 17:47:50");
-    baseInfo.setRepType("03");
-    baseInfo.setRepPerson("老赵");
-*/
+    /*
+        baseInfo.setCusType("01");
+        baseInfo.setCusNature("03");
+        baseInfo.setRegName("中移动电子玩具店");
+        baseInfo.setCusName("中移玩具");
+        baseInfo.setCusNameEn("chinamobileEN");
+        baseInfo.setDocType("01");
+        baseInfo.setDocCode("220110199888018844");
+        baseInfo.setCusCode("yd123456789");
+        baseInfo.setInduType("01");
+        baseInfo.setBankNo("6266669909321");
+        baseInfo.setOpenBank("中粮支行");
+        baseInfo.setRegAddrProv("110000");
+        baseInfo.setRegAddrDetail("北京市东城区中粮置地");
+        baseInfo.setAddrProv("110000");
+        baseInfo.setAddrDetail("北京市东城区中粮置地");
+        baseInfo.setUrl("www.chinamobil.com");
+        baseInfo.setServerIp("192.128.120.22");
+        baseInfo.setIcp("浙ICP备06044328号");
+        baseInfo.setContName("刘东");
+        baseInfo.setContPhone("13334448767");
+        baseInfo.setCusEmail("999@126.com");
+        baseInfo.setOccurarea("110000");
+        baseInfo.setNetworkType("04");
+        baseInfo.setStatus("01");
+        baseInfo.setStartTime("2019-01-01");
+        baseInfo.setEndTime("2099-12-12");
+        baseInfo.setRiskStatus("01");
+        baseInfo.setOpenType("01");
+        baseInfo.setChageType("01");
+        baseInfo.setAccountType("04");
+        baseInfo.setExpandType("01");
+        baseInfo.setOutServiceName("外包");
+        baseInfo.setOutServiceCardType("01");
+        baseInfo.setOutServiceCardCode("129391930132318");
+        baseInfo.setOutServiceLegCardType("01");
+        baseInfo.setOutServiceLegCardCode("110220199011112222");
+        baseInfo.setOrgId("123123123");
+        baseInfo.setRepDate("2020-10-14 17:47:50");
+        baseInfo.setRepType("03");
+        baseInfo.setRepPerson("老赵");
+    */
 
     baseInfos.add(baseInfo);
     pcacList.setBaseInfo(baseInfos);
@@ -686,36 +696,39 @@ public class PcacTest<T> {
   }
 
   @Test
-  void QE0001NO(){
+  void QE0001NO() {
     // 拼装Body QE0001-个人商户查询无数据
-      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body();
-      body.setDocCode("967522156112317186");
-      body.setRegName("中移动电子商务有限公司");
-      String[] QE0001 = pushPcac((T) body, "037", "QE0001");
-       //       creatFile(QE0001[0], "QE0001-个人商户查询无数据-请求");
-          //    creatFile(QE0001[1], "QE0001-个人商户查询无数据-响应");
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body();
+    body.setDocCode("967522156112317186");
+    body.setRegName("中移动电子商务有限公司");
+    String[] QE0001 = pushPcac((T) body, "037", "QE0001");
+    //       creatFile(QE0001[0], "QE0001-个人商户查询无数据-请求");
+    //    creatFile(QE0001[1], "QE0001-个人商户查询无数据-响应");
   }
 
-
   @Test
-  void QE0001YES(){
+  void QE0001YES() {
     // 拼装Body QE0001-个人商户查询有数据
-      com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body();
-      body.setDocCode("220110199888011111");
-      body.setRegName("中移动电子玩具店");
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac037.Body();
+    body.setDocCode("220110199888011111");
+    body.setRegName("中移动电子玩具店");
     String[] QE0001 = pushPcac((T) body, "037", "QE0001");
-    //creatFile(QE0001[0], "QE0001-个人商户查询有数据-请求");
-     //creatFile(QE0001[1], "QE0001-个人商户查询有数据-响应");
+    // creatFile(QE0001[0], "QE0001-个人商户查询有数据-请求");
+    // creatFile(QE0001[1], "QE0001-个人商户查询有数据-响应");
   }
 
   /**
-  * 个人商户批量查询
+   * 个人商户批量查询
    * <ResultSequence>Wzhdg7Ih6mjH83czy38ERMR9jd1WwrtDpJ1O8qc5MK+6MlNBaaZm4ZFz9JOxMoVR</ResultSequence>
-  * */
+   */
   @Test
-  void QE0002(){
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList();
+  void QE0002() {
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList pcacList =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac039.PcacList();
     pcacList.setCount("1");
     BaseInfo baseInfo = new BaseInfo();
     baseInfo.setDocCode("220110199888011111");
@@ -725,23 +738,25 @@ public class PcacTest<T> {
     pcacList.setBaseInfo(baseInfos);
     body.setPcacList(pcacList);
     String[] QE0002 = pushPcac((T) body, "039", "QE0002");
-    //creatFile(QE0002[0], "QE0002-个人商户批量查询-请求");
-    //creatFile(QE0002[1], "QE0002-个人商户批量查询-响应");
+    // creatFile(QE0002[0], "QE0002-个人商户批量查询-请求");
+    // creatFile(QE0002[1], "QE0002-个人商户批量查询-响应");
   }
 
   /**
-   *企业商户批量查询有数据
-   * NMJDh2a9OwnpaAdh1pikUNhzbBlpSMkPPrZj3X9HhGy6MlNBaaZm4ZFz9JOxMoVR
+   * 企业商户批量查询有数据 NMJDh2a9OwnpaAdh1pikUNhzbBlpSMkPPrZj3X9HhGy6MlNBaaZm4ZFz9JOxMoVR
    * titEqhNm9cDu4VVjyFiw1vd4qsm4738E/Ce0n/a8c9u6MlNBaaZm4ZFz9JOxMoVR
-   *
-  */
+   */
   @Test
-  void QE0004(){
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.PcacList pcacList = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.PcacList();
+  void QE0004() {
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.Body();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.PcacList pcacList =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.PcacList();
     pcacList.setCount("1");
-    ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo> baseInfos = new ArrayList<>();
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo baseInfo = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo();
+    ArrayList<com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo> baseInfos =
+        new ArrayList<>();
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo baseInfo =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac044.BaseInfo();
     baseInfo.setRegName("中移动");
     baseInfo.setLegDocCode("");
     baseInfo.setLegDocName("");
@@ -752,14 +767,11 @@ public class PcacTest<T> {
     pushPcac((T) body, "044", "QE0004");
   }
 
-  /**
-  * 企业商户查询单商户
-   * 企业商户查询多商户
-   * 企业商户查询无数据
-  * */
+  /** 企业商户查询单商户 企业商户查询多商户 企业商户查询无数据 */
   @Test
-  void QE0003(){
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body();
+  void QE0003() {
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac041.Body();
     body.setDocType("");
     body.setDocCode("967522156112317186");
     body.setRegName("");
@@ -767,36 +779,30 @@ public class PcacTest<T> {
     body.setLegDocName("");
     body.setResultSequence("");
     String[] qe0003s = pushPcac((T) body, "041", "QE0003");
-//    creatFile(qe0003s[0], "QE0003-企业商户查询多商户-请求");
-//    creatFile(qe0003s[1], "QE0003-企业商户查询多商户-响应");
+    //    creatFile(qe0003s[0], "QE0003-企业商户查询多商户-请求");
+    //    creatFile(qe0003s[1], "QE0003-企业商户查询多商户-响应");
 
   }
 
-  /**
-   *个人商户批量查询结果补发
-   * 商户批量查询结果补发
-   * */
+  /** 个人商户批量查询结果补发 商户批量查询结果补发 */
   @Test
-  void TS0008(){
-    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body body = new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body();
-    //商户批量查询结果补发序列
+  void TS0008() {
+    com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body body =
+        new com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcac034.Body();
+    // 商户批量查询结果补发序列
     body.setResultSequence("ImUnjN2APkBWtI/T/9oN6UnmGcAVipkkiCrjB30l0oC6MlNBaaZm4ZFz9JOxMoVR");
-    //个人商户批量查询结果补发序列
-    //body.setResultSequence("Wzhdg7Ih6mjH83czy38ERMR9jd1WwrtDpJ1O8qc5MK+6MlNBaaZm4ZFz9JOxMoVR");
+    // 个人商户批量查询结果补发序列
+    // body.setResultSequence("Wzhdg7Ih6mjH83czy38ERMR9jd1WwrtDpJ1O8qc5MK+6MlNBaaZm4ZFz9JOxMoVR");
     String[] TS0008 = pushPcac((T) body, "034", "TS0008");
-//    creatFile(TS0008[0], "TS0008-个人商户批量查询结果补发有数据-请求");
-//    creatFile(TS0008[1], "TS0008-个人商户批量查询结果补发有数据-响应");
-//    creatFile(TS0008[0], "TS0008-商户批量查询结果补发有数据-请求");
-//    creatFile(TS0008[1], "TS0008-商户批量查询结果补发有数据-响应");
+    //    creatFile(TS0008[0], "TS0008-个人商户批量查询结果补发有数据-请求");
+    //    creatFile(TS0008[1], "TS0008-个人商户批量查询结果补发有数据-响应");
+    //    creatFile(TS0008[0], "TS0008-商户批量查询结果补发有数据-请求");
+    //    creatFile(TS0008[1], "TS0008-商户批量查询结果补发有数据-响应");
 
   }
 
   @Test
-  void TS0009(){
-
-
-  }
-
+  void TS0009() {}
 
   public String[] pushPcac(T body, String code, String trnxCode) {
     Document<T> document = getDocument(body, trnxCode);
@@ -812,15 +818,15 @@ public class PcacTest<T> {
       log.info("XML校验失败");
       return null;
     }
-      Document<T> encrDocument = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
-      encrDocument.setSignature(null);
-      String noSignXml = XmlJsonUtils.convertObjectToXmlStr(encrDocument);
-      String signature = CFCACipherUtils.doSignature(noSignXml);
-      encrDocument.setSignature(signature);
-//      XmlJsonUtils.doSignature(encrDocument);
-      xml = XmlJsonUtils.convertObjectToXmlStr(encrDocument);
-      log.info("请求xml数据: {}", XmlJsonUtils.formatXml(xml));
-      // 上报数据
+    Document<T> encrDocument = BeanUtilsEx.getEncrBean(document, symmetricKeyEncoded);
+    encrDocument.setSignature(null);
+    String noSignXml = XmlJsonUtils.convertObjectToXmlStr(encrDocument);
+    String signature = CFCACipherUtils.doSignature(noSignXml);
+    encrDocument.setSignature(signature);
+    //      XmlJsonUtils.doSignature(encrDocument);
+    xml = XmlJsonUtils.convertObjectToXmlStr(encrDocument);
+    log.info("请求xml数据: {}", XmlJsonUtils.formatXml(xml));
+    // 上报数据
     String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
     log.info("url:{}", pcacConfig.getUrl());
     String formatXml = XmlJsonUtils.formatXml(post);

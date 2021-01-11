@@ -102,7 +102,6 @@ public class XmlJsonUtils {
 
   /** 将对象直接转换成String类型的 XML输出 */
   public static String convertObjectToXmlStr(Object obj) {
-    String enter = System.getProperty("line.separator"); // 换行
     // 创建输出流
     StringWriter sw = new StringWriter();
     try {
