@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo">
         <id column="query_pcac_merchant_risk_info_id" property="queryPcacMerchantRiskInfoId"/>
         <result column="Id" property="Id"/>
+        <result column="pcacId" property="pcacId"/>
         <result column="cus_type" property="cusType"/>
         <result column="cus_property" property="cusProperty"/>
         <result column="risk_type" property="riskType"/>
@@ -70,7 +71,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        Id,
+        Id,pcacId,pcacCusCode,
         query_pcac_merchant_risk_info_id, cus_type, cus_property, risk_type, cus_nature, cus_name, reg_name, cus_code, doc_type, doc_code, leg_rep_name, leg_doc_type, leg_doc_code, is_transfer, bank_no, open_bank, url, server_ip, mobile_no, address, icp, level, occurtimeb, occurtimee, occurchan, stop_num, refuse_num, use_rise_num, frozen_num, adjustment_cycle_num, delay_num, quota_num, anti_money_num, other_num, risk_find_time, amount, suspend_num, close_num, follow_num, valid_status, occurarea, note, valid_date, registered_area, registered_code, source_channel, currency, leg_control_name, leg_control_card_type, leg_control_card_code, remarks, leg_ben_name, leg_ben_card_type, leg_ben_card_code, push_status, result_status, result_code,up_date,merc_ids,operate_time,operator
     </sql>
 

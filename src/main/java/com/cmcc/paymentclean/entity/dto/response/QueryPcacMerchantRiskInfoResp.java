@@ -18,9 +18,12 @@ public class QueryPcacMerchantRiskInfoResp implements Serializable {
   @ApiModelProperty(value = "queryPcacMerchantRiskInfoId")
   private String queryPcacMerchantRiskInfoId;
 
-  @ExcelExportField(name = "风险反馈主键编码", index = 0)
   @ApiModelProperty(value = "id")
   private String id;
+
+  @ExcelExportField(name = "风险反馈主键编码", index = 0)
+  @ApiModelProperty(value = "pcacId")
+  private String pcacId;
 
   @ExcelExportField(name = "商户类型", index = 1)
   @ApiModelProperty(value = "商户类型")
@@ -45,6 +48,9 @@ public class QueryPcacMerchantRiskInfoResp implements Serializable {
   @ExcelExportField(name = "商户代码", index = 6)
   @ApiModelProperty(value = "商户代码，最长不能超过 32 个字符")
   private String cusCode;
+
+  @ApiModelProperty(value = "风控商户编码")
+  private String pcacCusCode;
 
   @ExcelExportField(name = "法人证件类型", index = 7)
   @ApiModelProperty(value = "法人证件类型")

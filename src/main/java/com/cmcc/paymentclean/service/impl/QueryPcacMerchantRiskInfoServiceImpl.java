@@ -136,7 +136,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
                 resultBean.setResCode("801");
                 return resultBean;
             }
-            Body resBody = pushQueryPcacMerchantRiskReqToPcac(xml);
+            Body resBody = pushQueryPcacMerchantRiskReqToPcac(xml,queryPcacMerchantRiskReq);
             RespInfo respInfo = resBody.getRespInfo();
 //            if (!respInfo.getResultCode().equals(PcacResultCodeEnum.S00000.getCode())) {
 //                resCode = respInfo.getResultCode();
@@ -160,7 +160,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
         return resultBean;
     }
 
-    private Body pushQueryPcacMerchantRiskReqToPcac(String xml) {
+    private Body pushQueryPcacMerchantRiskReqToPcac(String xml,QueryPcacMerchantRiskReq queryPcacMerchantRiskReq) {
         // 上报数据
         String post = HttpClientUtils.sendHttpsPost(pcacConfig.getUrl(), xml);
         if (org.apache.commons.lang3.StringUtils.isEmpty(post)) {
@@ -242,6 +242,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
             BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, benList);
             BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, benInfo);
             BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, riskInfo);
+            queryPcacMerchantRiskInfo.setPcacId(queryPcacMerchantRiskReq.getInfos());
             queryPcacMerchantRiskInfoMapper.insert(queryPcacMerchantRiskInfo);
         }
         return resBody;

@@ -26,8 +26,11 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
   @TableId(value = "query_pcac_merchant_risk_info_id", type = IdType.AUTO)
   private Integer queryPcacMerchantRiskInfoId;
 
-  @ApiModelProperty(value = "风险反馈主键编码")
+  @ApiModelProperty(value = "协会风险反馈主键编码")
   private String Id;
+
+  @ApiModelProperty(value = "风险反馈主键编码")
+  private String pcacId;
 
   @ApiModelProperty(value = "商户类型")
   private String cusType;
@@ -49,6 +52,9 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
 
   @ApiModelProperty(value = "商户代码，最长不能超过 32 个字符")
   private String cusCode;
+
+  @ApiModelProperty(value = "风控商户编码")
+  private String pcacCusCode;
 
   @ApiModelProperty(value = "法人证件类型")
   private String docType;

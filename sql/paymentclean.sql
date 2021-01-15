@@ -343,6 +343,7 @@ create table query_pcac_merchant_risk_info
 (
     query_pcac_merchant_risk_info_id int(64) not null auto_increment comment '序号id',
     Id                               varchar(64) comment '风险反馈主键编码',
+    pcac_Id                               varchar(64) comment '协会风险反馈主键编码',
     cus_type                         varchar(2) comment '商户类型',
     cus_property                     varchar(2) comment '客户属性',
     risk_type                        varchar(2) comment '风险类型',
@@ -350,6 +351,7 @@ create table query_pcac_merchant_risk_info
     cus_name                         varchar(128) comment '商户简称',
     reg_name                         varchar(128) comment '商户名称/企业名称',
     cus_code                         varchar(32) comment '商户代码，最长不能超过 32 个字符',
+    pcac_cus_code                    varchar(32) comment '风控商户编码',
     doc_type                         varchar(2) comment '法人证件类型',
     doc_code                         varchar(64) comment '法人证件号码',
     leg_rep_name                     varchar(64) comment '法定代表人姓名',
