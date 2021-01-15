@@ -503,9 +503,14 @@ public class QueryPcacMerchantRiskInfoServiceImpl
         List<QueryPcacMerchantRiskInfo> list = queryPcacMerchantRiskInfoMapper.selectList(queryWrapper);
         for (int i = 0; i < list.size(); i++) {
             QueryPcacMerchantRiskInfo queryPcacMerchantRiskInfo = list.get(i);
-            queryPcacMerchantRiskInfo.setResultStatus(resultStatus);
+            queryPcacMerchantRiskInfo.setResultStatus(queryPcacMerchantRiskInfoBackReqs.get(i).getHandleResult());
+            log.info("反馈状态："+resultStatus);
             queryPcacMerchantRiskInfo.setResultCode(resultCode);
+            log.info("反馈码："+resultCode);
             queryPcacMerchantRiskInfo.setPushStatus(PushStatusEnum.PUSHSTATUSENUM_1.getCode());
+            log.info("推送状态："+PushStatusEnum.PUSHSTATUSENUM_1.getCode());
+            queryPcacMerchantRiskInfo.setOperateTime(DateUtils.stringToDate(queryPcacMerchantRiskInfoBackReqs.get(i).getHandleTime(),DateUtils.FORMAT_TIME));
+            queryPcacMerchantRiskInfo.setOperator(queryPcacMerchantRiskInfoBackReqs.get(i).getOperator());
             queryPcacMerchantRiskInfoMapper.updateById(queryPcacMerchantRiskInfo);
         }
         resultBean.setResMsg(
