@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 商户黑名单提示信息表
@@ -83,6 +84,9 @@ public class PcacRiskInfo extends Model<PcacRiskInfo> {
 
   @ApiModelProperty(value = "商户注册号")
   private String registeredCode;
+
+  @ApiModelProperty(value = "操作时间")
+  private Date operateTime;
 
   @Override
   protected Serializable pkVal() {
