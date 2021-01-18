@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -170,10 +171,11 @@ public class PcacRiskInfoPushController {
       riskInfo.setBankNo(encryptBankNo);
       PcacRiskInfo pcacRiskInfo = new PcacRiskInfo();
       BeanUtilsEx.copyProperties(pcacRiskInfo, riskInfo);
-      log.info("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
+      log.debug("BeanUtilsEx.copyProperties方法封装进对象后风险信息：{}", pcacRiskInfo);
       pcacRiskInfo.setUpDate(upDate);
       // 设置类型01为黑名单,02为风险提示信息
       pcacRiskInfo.setPushListType(pushListType);
+      pcacRiskInfo.setOperateTime(new Date());
       pcacRiskInfoList.add(pcacRiskInfo);
     }
     log.debug("需要入库风险信息：{}", pcacRiskInfoList);
