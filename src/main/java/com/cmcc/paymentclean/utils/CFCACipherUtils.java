@@ -49,9 +49,9 @@ public class CFCACipherUtils {
   // 解密证书（带私钥）
   private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT + "cert/huiyuan.pfx";
   // 解密证书保护密码------生产环境证书密码
-  //private static String encPfxFilePwd = "51795179";
+  private static String encPfxFilePwd = "51795179";
   // 解密证书保护密码------测试环境证书密码
-  private static String encPfxFilePwd = "cfca1234";
+  //private static String encPfxFilePwd = "cfca1234";
   // 加密证书公钥证书
   // private static String encPublicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT
   // +"/cert/huiyuan.cer";
