@@ -58,6 +58,7 @@ create table pcac_risk_info
     push_status       varchar(2) default '0' comment '推送状态0为未推送，1为已推送',
     url               varchar(512) comment '网址',
     registered_code   varchar(256) comment '商户注册号',
+    operate_time      date   comment '操作时间',
     primary key (pcac_risk_info_id)
 ) comment = '清算协会推送黑名单和风险提示信息表 ';
 
