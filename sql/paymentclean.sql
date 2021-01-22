@@ -415,7 +415,7 @@ create table query_pcac_merchant_risk_info
 CREATE TABLE `pcac_merchant_risk_info` (
   `pcac_merchant_risk_info_id` INT(64) NOT NULL AUTO_INCREMENT COMMENT '序号id',
   `Id` VARCHAR(64) DEFAULT NULL COMMENT '协会风险反馈主键编码',
-  `pcac_Id` VARCHAR(64) DEFAULT NULL COMMENT '风险反馈主键编码',
+  `pcac_id` VARCHAR(64) DEFAULT NULL COMMENT '风险反馈主键编码',
   `cus_type` VARCHAR(2) DEFAULT NULL COMMENT '商户类型',
   `cus_property` VARCHAR(2) DEFAULT NULL COMMENT '客户属性',
   `risk_type` VARCHAR(2) DEFAULT NULL COMMENT '风险类型',
