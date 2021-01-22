@@ -343,7 +343,7 @@ create table query_pcac_merchant_risk_info
 (
     query_pcac_merchant_risk_info_id int(64) not null auto_increment comment '序号id',
     Id                               varchar(64) comment '风险反馈主键编码',
-    pcac_Id                               varchar(64) comment '协会风险反馈主键编码',
+    pcac_id                               varchar(64) comment '协会风险反馈主键编码',
     cus_type                         varchar(2) comment '商户类型',
     cus_property                     varchar(2) comment '客户属性',
     risk_type                        varchar(2) comment '风险类型',
