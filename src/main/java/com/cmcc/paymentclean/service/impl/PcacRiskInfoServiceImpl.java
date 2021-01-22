@@ -33,12 +33,7 @@ import com.cmcc.paymentclean.exception.SubmitPCACException;
 import com.cmcc.paymentclean.mapper.PcacRiskInfoMapper;
 import com.cmcc.paymentclean.service.PcacRiskInfoService;
 import com.cmcc.paymentclean.service.SysLanService;
-import com.cmcc.paymentclean.utils.BeanUtilsEx;
-import com.cmcc.paymentclean.utils.CFCACipherUtils;
-import com.cmcc.paymentclean.utils.HttpClientUtils;
-import com.cmcc.paymentclean.utils.InnerCipherUtils;
-import com.cmcc.paymentclean.utils.ValidateUtils;
-import com.cmcc.paymentclean.utils.XmlJsonUtils;
+import com.cmcc.paymentclean.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -344,6 +339,7 @@ public class PcacRiskInfoServiceImpl extends ServiceImpl<PcacRiskInfoMapper, Pca
                   pcacRiskInfo.setUpDate(riskInfo.getPushDate());
                   // 设置类型01为黑名单,02为风险提示信息
                   pcacRiskInfo.setPushListType(pushListType);
+                  pcacRiskInfo.setOperateTime(new Date());
                   pcacRiskInfoList.add(pcacRiskInfo);
                 }
                 log.info("需要入库风险信息：{}", pcacRiskInfoList);

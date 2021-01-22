@@ -24,6 +24,7 @@
         <result column="push_status" property="pushStatus" />
         <result column="url" property="url" />
         <result column="registered_code" property="registeredCode" />
+        <result column="operate_time" property="operateTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -67,10 +68,10 @@
     <insert id="insertBatchPcacRiskInfo" parameterType="java.util.List">
 
         insert into  pcac_risk_info ( push_list_type, up_date, reg_name, cus_name, doc_type, doc_code, leg_doc_name, leg_doc_type, leg_doc_code, level, risk_type,
-        valid_date, valid_status, cus_type, occurarea, bank_no, url, registered_code)  values
+        valid_date, valid_status, cus_type, occurarea, bank_no, url, registered_code,operate_time)  values
         <foreach collection="items" item="item" separator=",">
             (#{item.pushListType},#{item.upDate},#{item.regName},#{item.cusName},#{item.docType},#{item.docCode},#{item.legDocName},#{item.legDocType}
-            ,#{item.legDocCode},#{item.level},#{item.riskType},#{item.validDate},#{item.validStatus},#{item.cusType},#{item.occurarea},#{item.bankNo},#{item.url},#{item.registeredCode})
+            ,#{item.legDocCode},#{item.level},#{item.riskType},#{item.validDate},#{item.validStatus},#{item.cusType},#{item.occurarea},#{item.bankNo},#{item.url},#{item.registeredCode},#{item.operateTime})
         </foreach>
     </insert>
 
