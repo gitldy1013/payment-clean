@@ -27,7 +27,7 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
   private Integer queryPcacMerchantRiskInfoId;
 
   @ApiModelProperty(value = "协会风险反馈主键编码")
-  private String Id;
+  private String id;
 
   @ApiModelProperty(value = "风险反馈主键编码")
   private String pcacId;
@@ -214,6 +214,12 @@ public class QueryPcacMerchantRiskInfo extends Model<QueryPcacMerchantRiskInfo> 
 
   @ApiModelProperty(value = "操作人")
   private String operator;
+
+  @ApiModelProperty(value = "操作人")
+  private String createDate;
+
+  @ApiModelProperty(value = "操作人")
+  private String recType;
 
   @Override
   protected Serializable pkVal() {
