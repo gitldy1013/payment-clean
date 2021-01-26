@@ -23,6 +23,7 @@ import com.cmcc.paymentclean.consts.RiskTypeEnum;
 import com.cmcc.paymentclean.consts.SourChaEnum;
 import com.cmcc.paymentclean.consts.SysLanEnum;
 import com.cmcc.paymentclean.consts.TrnxCodeEnum;
+import com.cmcc.paymentclean.entity.PcacMerchantRiskInfo;
 import com.cmcc.paymentclean.entity.QueryPcacMerchantRiskInfo;
 import com.cmcc.paymentclean.entity.dto.ResultBean;
 import com.cmcc.paymentclean.entity.dto.pcac.resp.BankInfo;
@@ -40,6 +41,7 @@ import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoBackRe
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskInfoReq;
 import com.cmcc.paymentclean.entity.dto.resquest.QueryPcacMerchantRiskReq;
 import com.cmcc.paymentclean.exception.SubmitPCACException;
+import com.cmcc.paymentclean.mapper.PcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.mapper.QueryPcacMerchantRiskInfoMapper;
 import com.cmcc.paymentclean.service.QueryPcacMerchantRiskInfoService;
 import com.cmcc.paymentclean.utils.BeanUtilsEx;
@@ -84,6 +86,8 @@ public class QueryPcacMerchantRiskInfoServiceImpl
     private PcacConfig pcacConfig;
     @Autowired
     private QueryPcacMerchantRiskInfoMapper queryPcacMerchantRiskInfoMapper;
+    @Autowired
+    private PcacMerchantRiskInfoMapper pcacMerchantRiskInfoMapper;
 
     @Override
     public ResultBean<Body> batchQueryPcacMerchantRisk(
@@ -222,7 +226,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
                     riskInfo.getBenList().getBenInfo() != null
                             ? riskInfo.getBenList().getBenInfo()
                             : new BenInfo();
-            QueryPcacMerchantRiskInfo queryPcacMerchantRiskInfo = new QueryPcacMerchantRiskInfo();
+            PcacMerchantRiskInfo pcacMerchantRiskInfo = new PcacMerchantRiskInfo();
             // 银行卡加密
             bankInfo.setBankNo(InnerCipherUtils.encryptBankData(bankInfo.getBankNo()));
 
@@ -237,13 +241,13 @@ public class QueryPcacMerchantRiskInfoServiceImpl
       /*} else {
         benInfo.setLegBenCardCode(decryptLegBenCardCode);
       }*/
-            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, bankInfo);
-            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, bankList);
-            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, benList);
-            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, benInfo);
-            BeanUtilsEx.copyProperties(queryPcacMerchantRiskInfo, riskInfo);
-            queryPcacMerchantRiskInfo.setPcacId(queryPcacMerchantRiskReq.getInfos());
-            queryPcacMerchantRiskInfoMapper.insert(queryPcacMerchantRiskInfo);
+            BeanUtilsEx.copyProperties(pcacMerchantRiskInfo, bankInfo);
+            BeanUtilsEx.copyProperties(pcacMerchantRiskInfo, bankList);
+            BeanUtilsEx.copyProperties(pcacMerchantRiskInfo, benList);
+            BeanUtilsEx.copyProperties(pcacMerchantRiskInfo, benInfo);
+            BeanUtilsEx.copyProperties(pcacMerchantRiskInfo, riskInfo);
+            pcacMerchantRiskInfo.setPcacId(queryPcacMerchantRiskReq.getInfos());
+            pcacMerchantRiskInfoMapper.insert(pcacMerchantRiskInfo);
         }
         return resBody;
     }
