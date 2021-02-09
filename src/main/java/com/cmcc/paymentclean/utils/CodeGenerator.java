@@ -43,6 +43,12 @@ public class CodeGenerator {
   public static final String BASE_MAPPER_ROOT = "/src/main/resources/";
   /** 模板类型 */
   public static final int TEMPLATE_TYPE = 1;
+  /** 自定义模板位置 */
+  private String templatePath = "templates/mp/";
+  private String controllerTemplate = templatePath + "controller.java";
+  private String serviceTemplate = templatePath + "service.java";
+  private String serviceImplTemplate = templatePath + "serviceImpl.java";
+  private String mapperTemplate = templatePath + "mapper.java";
 
   /**
    * 数据源配置
@@ -79,14 +85,6 @@ public class CodeGenerator {
     return prop;
   }
 
-  /** 自定义模板位置 */
-  private String templatePath = "templates/mp/";
-
-  private String controllerTemplate = templatePath + "controller.java";
-  private String serviceTemplate = templatePath + "service.java";
-  private String serviceImplTemplate = templatePath + "serviceImpl.java";
-  private String mapperTemplate = templatePath + "mapper.java";
-
   /** 读取控制台内容 */
   public static String scanner(String tip) {
     Scanner scanner = new Scanner(System.in);
@@ -98,6 +96,10 @@ public class CodeGenerator {
       }
     }
     throw new MybatisPlusException("请输入正确的" + tip + "！");
+  }
+
+  public static void main(String[] args) {
+    new CodeGenerator().codeGenerate();
   }
 
   public void codeGenerate() {
@@ -175,9 +177,5 @@ public class CodeGenerator {
     mpg.setStrategy(strategy);
     mpg.setTemplateEngine(new FreemarkerTemplateEngine());
     mpg.execute();
-  }
-
-  public static void main(String[] args) {
-    new CodeGenerator().codeGenerate();
   }
 }
