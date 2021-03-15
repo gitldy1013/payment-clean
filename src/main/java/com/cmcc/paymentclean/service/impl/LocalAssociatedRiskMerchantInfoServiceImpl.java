@@ -243,9 +243,9 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     resultBean.setData(resBody);
     resultBean.setResCode(resBody.getRespInfo().getResultCode());
     if (resBody.getRespInfo().getMsgDetail() != null) {
-      resultBean.setResMsg(resBody.getRespInfo().getResultStatus());
-    } else {
       resultBean.setResMsg(resBody.getRespInfo().getMsgDetail());
+    } else {
+      resultBean.setResMsg(resBody.getRespInfo().getResultStatus());
     }
     return resultBean;
   }
