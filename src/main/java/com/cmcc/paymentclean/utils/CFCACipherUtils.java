@@ -1,6 +1,7 @@
 package com.cmcc.paymentclean.utils;
 
 import cfca.sadk.algorithm.common.Mechanism;
+import cfca.sadk.algorithm.common.PKIException;
 import cfca.sadk.lib.crypto.JCrypto;
 import cfca.sadk.lib.crypto.Session;
 import cfca.sadk.util.Base64;
@@ -19,11 +20,9 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SecureRandom;
+import java.security.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,11 +42,12 @@ public class CFCACipherUtils {
   // 签名证书保护密码
   // private static String pfxFilePwd = "11111111";
   // 签名证书公钥证书
-  // private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT +"/cert/pcac.cer";
   private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT + "cert/pcac.cer";
+  //private static String publicCertFilePath = "C:\\Users\\fairy\\Desktop\\清算协会接口开发\\生产密钥"+"/pcac.cer";
 
   // 解密证书（带私钥）
   private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT + "cert/huiyuan.pfx";
+  //private static String encPfxFilePath = "C:\\Users\\fairy\\Desktop\\清算协会接口开发\\生产密钥"+ "/huiyuan.pfx";
   // 解密证书保护密码------生产环境证书密码
   private static String encPfxFilePwd = "51795179";
   // 解密证书保护密码------测试环境证书密码
@@ -249,8 +249,39 @@ public class CFCACipherUtils {
   }
 
 
+  /**
+   * @param secretKey   协会的
+   * @param toBeEncData 需要加密的字段
+   * */
+  private static String getPcacEncrypt(String secretKey,String toBeEncData){
+    String encrypt =null;
+    try {
+      byte[] symmetricKeyEncoded = EncryptUtil.decryptMessageByRSA(secretKey.getBytes(), encPfxFilePath, encPfxFilePwd, session);
+      encrypt = encrypt(symmetricKeyEncoded, toBeEncData);
+      return encrypt;
+    } catch (PKIException e) {
+      log.info("加密数据异常");
+      e.printStackTrace();
+    }
+    return encrypt;
+  }
+
+
 
   public static void main(String[] args) {
+
+
+
+      // *********************************************//*
+      // 去掉外层Base64编码，在方法体内部已经做过Base64编码
+      String sk = "AUp/Ox7uih5TPm885tK5fyRd0UgYA+QhVhDJP8vwyCFodBs5WGyScOb1RoF32piKsMF6xvuqSLn0E5C//pz9d9mDTq8PGLE5ndy6XgOceDqbx/iGxz7VFPxdYcB5PVrvb2s5w9EWeErwEd7s9Z1kdMSMP0E3/lIPMdeOkIV8ouivwngwfQ2EmCTD0jCTc9UtbQoQ3FmeNWlqH3pVNxqqq7xaE+MtlVTk1HQgwxnKcFnn+aXajXui4Sl2bksm7cUttZYGzgRrGsLo8/ooQbKgvXbD0JzzqyGd4sBXynmGAs+Xh0omks/fiylTezW1GaNtChXPiEPTewZGJb5kmjk1NQ==";
+      String toBeEncData = "913301095832109572";
+      String pcacEncrypt = getPcacEncrypt(sk, toBeEncData);
+      System.out.println(pcacEncrypt);
+
+
+
+
     /*String signature =
         "Gx5kFLHK13WFj50I1HggC1cCOgA5RXLzs2sxk7WmyBq5ZYnrrFnkrYaym9jIbMOFBJsXb03/JWrtNAVXMiuZlNwCNudiKCmfzin84pAmLJUYTsa+MeMlkxagNkPPtEM2SSdn0pybWBVmTqYISswwcNOzZ8hfDIt3ezvK49oyMqrS6+5Tl8UfmKewecQAKGKSedJVAyD8uHkjZLgLjR4JvhWUZgz+SzRANnf4q5xf061v2Ek8c63bk0dPlc1YI5Ckq77Q9sBLnCUSBq/AuAsBaR6CrQySo7LgvAUnW/Y2ELW5WSgsxU4ZtZPiqnmpA5/MWud8HN8mCwqzbr845apg2A==";
     String a =
