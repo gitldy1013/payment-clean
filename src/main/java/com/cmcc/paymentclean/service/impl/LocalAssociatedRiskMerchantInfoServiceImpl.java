@@ -71,9 +71,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
   @Override
   public ResultBean<Page<AssociatedRiskMerchantInfoResp>> pageLocalAssociatedRiskMerchantInfo(
       AssociatedRiskMerchantInfoReq associatedRiskMerchantInfoReq) {
-    log.info(
-        "pageLocalAssociatedRiskMerchantInfo req={}",
-        com.alibaba.fastjson.JSON.toJSON(associatedRiskMerchantInfoReq));
+    log.info("pageLocalAssociatedRiskMerchantInfo req={}",associatedRiskMerchantInfoReq);
     ResultBean<Page<AssociatedRiskMerchantInfoResp>> resultBean = new ResultBean<>();
     Page<AssociatedRiskMerchantInfoResp> page =
         new Page<>(
@@ -120,9 +118,7 @@ public class LocalAssociatedRiskMerchantInfoServiceImpl
     resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
     resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
     resultBean.setData(pageLocalAssociatedRiskMerchantInfo);
-    log.info(
-        "pageLocalAssociatedRiskMerchantInfo resp={}",
-        com.alibaba.fastjson.JSON.toJSON(pageLocalAssociatedRiskMerchantInfo));
+    log.info("pageLocalAssociatedRiskMerchantInfo resp={}", pageLocalAssociatedRiskMerchantInfo);
     return resultBean;
   }
 

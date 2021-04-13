@@ -33,7 +33,7 @@ public class RiskPersonRiskSyncInfoServiceImpl
 
   @Override
   public ResultBean<Boolean> addRiskPerson(List<RiskPersonRiskSyncInfoReq> riskPersonList) {
-    log.info("addRiskPerson req={}", com.alibaba.fastjson.JSON.toJSON(riskPersonList));
+    log.info("addRiskPerson req={}", riskPersonList);
     ResultBean<Boolean> resultBean = new ResultBean<>();
     resultBean.setResCode(ResultCodeEnum.SUCCESS.getCode());
     resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());

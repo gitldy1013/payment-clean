@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Data
 @ApiModel(value = "RiskEnterprise对象", description = "风控企业风险信息同步表")
 @TableName("risk_enterprise_risk_sync_info")
+@ToString
 public class RiskEnterpriseRiskSyncInfoReq implements Serializable {
   private static final long serialVersionUID = 1L;
 

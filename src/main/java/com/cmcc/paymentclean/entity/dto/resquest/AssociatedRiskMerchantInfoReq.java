@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ApiModel(value = "本地关联风险商户查询请求参数")
+@ToString
 public class AssociatedRiskMerchantInfoReq extends PageVO implements Serializable {
   private static final long serialVersionUID = 1L;
 
