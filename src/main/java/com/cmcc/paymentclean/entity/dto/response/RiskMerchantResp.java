@@ -7,6 +7,7 @@ import com.cmcc.paymentclean.consts.SysLanLocalEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Date;
 /** Created by lumma on 2020/9/10. */
 @Data
 @ApiModel(value = "风险商户查询结果参数")
+@ToString
 public class RiskMerchantResp implements Serializable {
   private static final long serialVersionUID = 1L;
 

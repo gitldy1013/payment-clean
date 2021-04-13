@@ -57,7 +57,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl
 
   @Override
   public ResultBean<Page<RiskPersonResp>> pageRiskPerson(RiskPersonReq riskPersonReq) {
-    log.info("pageRiskPerson req={}", com.alibaba.fastjson.JSON.toJSON(riskPersonReq));
+    log.info("pageRiskPerson req={}", riskPersonReq);
     ResultBean<Page<RiskPersonResp>> resultBean = new ResultBean<>();
     Page<PcacPersonRiskSubmitInfo> page =
             new Page<>(riskPersonReq.getPageNo(), riskPersonReq.getPageSize());
@@ -84,7 +84,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl
     resultBean.setResMsg(ResultCodeEnum.SUCCESS.getDesc());
     resultBean.setData(pcacPersonRiskSubmitInfoPage);
     log.info(
-            "pageRiskPerson resp={}", com.alibaba.fastjson.JSON.toJSON(pcacPersonRiskSubmitInfoPage));
+            "pageRiskPerson resp={}", pcacPersonRiskSubmitInfoPage);
     return resultBean;
   }
 
@@ -170,7 +170,7 @@ public class PcacPersonRiskSubmitInfoServiceImpl
           String ss = XmlJsonUtils.formatXml(result);
           log.info(ss);
           log.info("----------------------------------------------打印个人风险信息响应参数：--------");
-          log.info("个人风险信息上报支付清算协会响应xml报文：", result);
+          log.info("个人风险信息上报支付清算协会响应xml报文：{}", result);
           com.cmcc.paymentclean.entity.dto.pcac.resp.Document documentResp =
                   (com.cmcc.paymentclean.entity.dto.pcac.resp.Document)
                           com.cmcc.paymentclean.utils.XmlJsonUtils.convertXmlStrToObject(

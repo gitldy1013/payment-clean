@@ -257,7 +257,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
             QueryPcacMerchantRiskInfoReq queryPcacMerchantRiskInfoReq) {
         log.info(
                 "pageLocalAssociatedRiskMerchantInfo req={}",
-                com.alibaba.fastjson.JSON.toJSON(queryPcacMerchantRiskInfoReq));
+                queryPcacMerchantRiskInfoReq);
         ResultBean<Page<QueryPcacMerchantRiskInfoResp>> resultBean = new ResultBean();
         Page<QueryPcacMerchantRiskInfoResp> page =
                 new Page<>(
@@ -318,7 +318,7 @@ public class QueryPcacMerchantRiskInfoServiceImpl
         resultBean.setData(queryPcacMerchantRiskInfoRespPage);
         log.info(
                 "pageLocalAssociatedRiskMerchantInfo resp={}",
-                com.alibaba.fastjson.JSON.toJSON(queryPcacMerchantRiskInfoRespPage));
+                queryPcacMerchantRiskInfoRespPage);
         return resultBean;
     }
 

@@ -5,6 +5,7 @@ import com.cmcc.paymentclean.consts.PcacResultCodeEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
 /** Created by lumma on 2020/9/14. */
 @Data
 @ApiModel(value = "商户风险信息查询使用情况查询结果参数")
+@ToString
 public class QueryPcacMerchantRiskInfoResp implements Serializable {
   private static final long serialVersionUID = 1L;
 
