@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.springframework.util.ReflectionUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -102,7 +103,7 @@ public class ExcelUtils {
           fieldInfo = fieldInfos.get(j);
           Field field = c.getDeclaredField(fieldInfo.getFieldName());
           // 开启私有字段的权限
-          field.setAccessible(true);
+          ReflectionUtils.makeAccessible(field);
           if (fieldInfo.enumClass != null
               && fieldInfo.enumClass.isEnum()
               && fieldInfo.enumField.length() > 0
@@ -174,7 +175,7 @@ public class ExcelUtils {
           fieldInfo = fieldInfos.get(j);
           Field field = c.getDeclaredField(fieldInfo.getFieldName());
           // 开启私有字段的权限
-          field.setAccessible(true);
+          ReflectionUtils.makeAccessible(field);
           if (fieldInfo.enumClass != null
               && fieldInfo.enumClass.isEnum()
               && fieldInfo.enumField.length() > 0
