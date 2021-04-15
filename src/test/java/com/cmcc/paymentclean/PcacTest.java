@@ -43,7 +43,8 @@ public class PcacTest<T> {
     public static void creatFile(String xml, String fileName) {
         Writer write = null;
         try {
-            write = new FileWriter(new File(PROJECT_PATH + File.separator + "bw" + File.separator + fileName + ".txt"));
+            String file = PROJECT_PATH + File.separator + "bw" + File.separator + fileName + ".txt";
+            write = new FileWriter(new File(file));
             FileCopyUtils.copy(xml, write);
         } catch (IOException e) {
             log.error("异常:" + e);

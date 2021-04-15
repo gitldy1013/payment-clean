@@ -94,8 +94,10 @@ public class XmlJsonUtils {
     boolean flag = true;
     try {
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-      documentBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
-      documentBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+      documentBuilderFactory.setFeature(
+          "http://xml.org/sax/features/external-general-entities", false);
+      documentBuilderFactory.setFeature(
+          "http://xml.org/sax/features/external-parameter-entities", false);
       DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
       builder.parse(new InputSource(new StringReader(rtnMsg)));
     } catch (Exception e) {
@@ -174,11 +176,6 @@ public class XmlJsonUtils {
     return pwd.toString();
   }
 
-  public static void main(String[] args) {
-    String s = genRandomNum(10);
-    System.out.println(s);
-  }
-
   public static <T> Request<T> getRequest(
       byte[] symmetricKeyEncoded,
       com.cmcc.paymentclean.entity.dto.pcac.resq.gen.pcaclogin.Document<T> document,
@@ -189,8 +186,8 @@ public class XmlJsonUtils {
     Head head = new Head();
     head.setVersion(pcacConfig.getVersion());
     head.setIdentification(
-        DateUtils.formatTime(
-            new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + genRandomNum(10)));
+        DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC)
+            + genRandomNum(10));
     head.setOrigSender(pcacConfig.getOrigSender());
     head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
     head.setRecSystemId("R0001");
