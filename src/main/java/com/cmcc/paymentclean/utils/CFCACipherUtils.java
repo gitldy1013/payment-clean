@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -50,7 +51,9 @@ public class CFCACipherUtils {
     private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT + "cert/huiyuan.pfx";
     //private static String encPfxFilePath = "C:\\Users\\fairy\\Desktop\\清算协会接口开发\\生产密钥"+ "/huiyuan.pfx";
     // 解密证书保护密码------生产环境证书密码
-    private static String encPfxFilePwd = "51795179";
+
+    //encPfxFilePwd = "51795179"
+    private static String encPfxFilePwd = System.getenv("CFCA_PFX");
     // 解密证书保护密码------测试环境证书密码
     //private static String encPfxFilePwd = "cfca1234";
     // 加密证书公钥证书

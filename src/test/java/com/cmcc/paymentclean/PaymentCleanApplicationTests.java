@@ -74,13 +74,5 @@ class PaymentCleanApplicationTests {
     System.out.println(result);
   }
 
-  public static void main(String[] args) {
-    Date date = new Date();
-    for (int i = 0; i < 10000; i++) {
 
-      int random = new Random().nextInt(1000) + 1000;
-      String identification = DateUtils.formatTime(date, "yyyyMMdd") + "100000" + random;
-      System.out.println(identification);
-    }
-  }
 }
