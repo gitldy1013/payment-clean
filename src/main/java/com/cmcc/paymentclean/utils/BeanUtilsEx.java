@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -40,7 +41,7 @@ public class BeanUtilsEx extends BeanUtils {
     Field[] fields = clazz.getDeclaredFields();
     for (Field field : fields) {
       // 可访问私有变量
-      field.setAccessible(true);
+      ReflectionUtils.makeAccessible(field);
       // 获取属性类型
       String type = field.getGenericType().toString();
       if (!Modifier.toString(field.getModifiers()).contains("static")) {
@@ -73,13 +74,13 @@ public class BeanUtilsEx extends BeanUtils {
   public static <T> T getEncrBean(T bean, byte[] symmetricKeyEncoded) {
     Field[] fields = bean.getClass().getDeclaredFields();
     for (Field field : fields) {
-      field.setAccessible(true);
+      ReflectionUtils.makeAccessible(field);
       if (field.getType().equals(List.class)) {
         // List集合
         Type type = field.getGenericType();
         if (type instanceof ParameterizedType) {
           if (!field.isAccessible()) {
-            field.setAccessible(true);
+            ReflectionUtils.makeAccessible(field);
           }
           // 获取到属性值的字节码
           try {
