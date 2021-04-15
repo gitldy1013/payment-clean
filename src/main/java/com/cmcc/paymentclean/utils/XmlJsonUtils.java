@@ -22,6 +22,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Date;
@@ -91,6 +94,10 @@ public class XmlJsonUtils {
     boolean flag = true;
     try {
       DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+      documentBuilderFactory.setFeature(
+          "http://xml.org/sax/features/external-general-entities", false);
+      documentBuilderFactory.setFeature(
+          "http://xml.org/sax/features/external-parameter-entities", false);
       DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
       builder.parse(new InputSource(new StringReader(rtnMsg)));
     } catch (Exception e) {
@@ -126,13 +133,20 @@ public class XmlJsonUtils {
     Object xmlObject = null;
     try {
       JAXBContext context = JAXBContext.newInstance(clazz);
+      XMLInputFactory xif = XMLInputFactory.newFactory();
+      xif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+      xif.setProperty(XMLInputFactory.SUPPORT_DTD, true);
+      XMLStreamReader xsr = xif.createXMLStreamReader(new StringReader(xmlStr));
       // 进行将Xml转成对象的核心接口
       Unmarshaller unmarshaller = context.createUnmarshaller();
-      StringReader sr = new StringReader(xmlStr);
-      xmlObject = unmarshaller.unmarshal(sr);
+      xmlObject = unmarshaller.unmarshal(xsr);
     } catch (JAXBException e) {
       log.error("异常:" + e);
       log.info("解析xml报文为对象出错");
+    } catch (XMLStreamException e) {
+      e.printStackTrace();
+      log.error("异常:" + e);
+      log.info("解析xml报文为对象流信息出错");
     }
     return xmlObject;
   }
@@ -152,8 +166,8 @@ public class XmlJsonUtils {
     StringBuilder pwd = new StringBuilder();
     Random r = new Random();
     while (count < cardLen) {
-      // 生成随机数，取绝对值，防止生成负数
-      i = Math.abs(r.nextInt(maxNum)); // 生成的数最大为36-1
+      // 生成随机数，取绝对值，防止生成负数 生成的数最大为36-1
+      i = Math.abs(r.nextInt(maxNum));
       if (i >= 0 && i < str.length) {
         pwd.append(str[i]);
         count++;
@@ -172,8 +186,8 @@ public class XmlJsonUtils {
     Head head = new Head();
     head.setVersion(pcacConfig.getVersion());
     head.setIdentification(
-        DateUtils.formatTime(
-            new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC + genRandomNum(10)));
+        DateUtils.formatTime(new Date(System.currentTimeMillis()), DateUtils.FORMAT_DATE_PCAC)
+            + genRandomNum(10));
     head.setOrigSender(pcacConfig.getOrigSender());
     head.setOrigSenderSID(pcacConfig.getOrigSenderSid());
     head.setRecSystemId("R0001");
@@ -228,7 +242,7 @@ public class XmlJsonUtils {
   }
 
   public static com.cmcc.paymentclean.entity.dto.pcac.resp.Document getRespDocument(
-      PcacConfig pcacConfig, String identification,String trnxCode) {
+      PcacConfig pcacConfig, String identification, String trnxCode) {
     Body body = new Body();
     RespInfo respInfo = new RespInfo();
     // 返回成功的状态码
@@ -239,7 +253,7 @@ public class XmlJsonUtils {
         new com.cmcc.paymentclean.entity.dto.pcac.resp.Document();
     Respone respone = new Respone();
     respone.setBody(body);
-    //String trnxCode = "";
+    // String trnxCode = "";
     com.cmcc.paymentclean.entity.dto.pcac.resp.Head head =
         getRespHead(trnxCode, pcacConfig, identification);
     respone.setHead(head);
@@ -271,7 +285,7 @@ public class XmlJsonUtils {
     head.setTrnxCode(trnxCode);
     String trnxTime = DateUtils.formatTime(date, "yyyyMMddHHmmss");
     head.setTrnxTime(trnxTime);
-    //响应协会的数据没有需要加密的字段，协会要求该字段必须有值，所以随便生成一个
+    // 响应协会的数据没有需要加密的字段，协会要求该字段必须有值，所以随便生成一个
     head.setSecretKey(CFCACipherUtils.getSecretKey(CFCACipherUtils.getSymmetricKeyEncoded()));
     return head;
   }

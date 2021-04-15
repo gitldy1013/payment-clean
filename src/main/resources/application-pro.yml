@@ -1,38 +1,38 @@
-logging:
-  config: classpath:log4j2-dev.xml
-
-spring:
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
-
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    username: zfqs
-    password: Zaq!@#123
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://172.27.132.239/zfqs?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&serverTimezone=Asia/Shanghai
-
-server:
-  port: 8081
-
-pcac:
-  url: https://pcspinterface.pcac.org.cn/ries_interface/httpServlet
-  version: V1.3.0
-  orig-sender: Z2004343000017
-  orig-sender-sid: zf_sysstem
-  login-url: https://pcspinterface.pcac.org.cn/ries_interface/loginServlet
-  user-token: Io2lrHofKybUc%2BmKeG6qo4ikMiVzGHhZKio%2BNx578YVVy4HRyI6Aw27KQd9INd9Y
-
-sftp:
-  host: 172.27.132.71
-  port: 22
-  username: zfqs
-  password: Root@123
-  modDir: /tmp/
-  remotePathUpload: /ftp_data/zfqs/input/
-  remotePathDownload: /ftp_data/zfqs/output/
-  queryPcacMerchantRiskInfoFileNamePrefix: Risk_
-  pcacRiskInfoFileNamePrefix: Black_
-  businessInfoFileNamePrefix: Business_
-  businessInfoBlackFileNamePrefix: Business_Black_
+#logging:
+#  config: classpath:log4j2-dev.xml
+#
+#spring:
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#    time-zone: GMT+8
+#
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    username: zfqs
+#    password: Zaq!@#123
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    url: jdbc:mysql://172.27.132.239/zfqs?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&serverTimezone=Asia/Shanghai
+#
+#server:
+#  port: 8081
+#
+#pcac:
+#  url: https://pcspinterface.pcac.org.cn/ries_interface/httpServlet
+#  version: V1.3.0
+#  orig-sender: Z2004343000017
+#  orig-sender-sid: zf_sysstem
+#  login-url: https://pcspinterface.pcac.org.cn/ries_interface/loginServlet
+#  user-token: Io2lrHofKybUc%2BmKeG6qo4ikMiVzGHhZKio%2BNx578YVVy4HRyI6Aw27KQd9INd9Y
+#
+#sftp:
+#  host: 172.27.132.71
+#  port: 22
+#  username: zfqs
+#  password: Root@123
+#  modDir: /tmp/
+#  remotePathUpload: /ftp_data/zfqs/input/
+#  remotePathDownload: /ftp_data/zfqs/output/
+#  queryPcacMerchantRiskInfoFileNamePrefix: Risk_
+#  pcacRiskInfoFileNamePrefix: Black_
+#  businessInfoFileNamePrefix: Business_
+#  businessInfoBlackFileNamePrefix: Business_Black_
