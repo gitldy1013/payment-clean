@@ -88,7 +88,7 @@ public class BeanUtilsEx extends BeanUtils {
             // 反射调用获取到list的size方法来获取到集合的大小
             Method sizeMethod = clzz.getDeclaredMethod("size");
             if (!sizeMethod.isAccessible()) {
-              sizeMethod.setAccessible(true);
+              ReflectionUtils.makeAccessible(sizeMethod);
             }
             // 集合长度
             int size = (int) sizeMethod.invoke(field.get(bean));
@@ -98,7 +98,7 @@ public class BeanUtilsEx extends BeanUtils {
               Method getMethod = clzz.getDeclaredMethod("get", int.class);
               // 调用get方法获取数据
               if (!getMethod.isAccessible()) {
-                getMethod.setAccessible(true);
+                ReflectionUtils.makeAccessible(getMethod);
               }
               getEncrBean(getMethod.invoke(field.get(bean), i), symmetricKeyEncoded);
             }
@@ -162,7 +162,7 @@ public class BeanUtilsEx extends BeanUtils {
   public static boolean checkObjFieldIsNotNull(Object obj) {
     try {
       for (Field f : obj.getClass().getDeclaredFields()) {
-        f.setAccessible(true);
+        ReflectionUtils.makeAccessible(f);
         if (f.get(obj) == null || StringUtils.isEmpty(f.get(obj).toString().trim())) {
           return false;
         }

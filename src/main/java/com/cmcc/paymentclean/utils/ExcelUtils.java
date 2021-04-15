@@ -213,9 +213,9 @@ public class ExcelUtils {
     Enum[] inter = (Enum[]) method.invoke(null);
     for (Enum cl : inter) {
       Field f1 = cl.getClass().getDeclaredField(enumField);
-      f1.setAccessible(true);
+      ReflectionUtils.makeAccessible(f1);
       Field f2 = cl.getClass().getDeclaredField(enumShowField);
-      f2.setAccessible(true);
+      ReflectionUtils.makeAccessible(f2);
       // 如果field的值等于枚举中的值，返回需要显示的值
       if (f1.get(cl).equals(field.get(item))) {
         return f2.get(cl);
