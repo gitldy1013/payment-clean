@@ -36,7 +36,6 @@ import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
 @ActiveProfiles("dev")
 @Slf4j
 public class PcacTest<T> {
-    public static String ENTER = System.getProperty("line.separator"); // 换行
     @Autowired
     private PcacConfig pcacConfig;
     private byte[] symmetricKeyEncoded = CFCACipherUtils.getSymmetricKeyEncoded();
@@ -44,7 +43,7 @@ public class PcacTest<T> {
     public static void creatFile(String xml, String fileName) {
         Writer write = null;
         try {
-            write = new FileWriter(new File(PROJECT_PATH + ENTER + "bw" + ENTER + fileName + ".txt"));
+            write = new FileWriter(new File(PROJECT_PATH + File.separator + "bw" + File.separator + fileName + ".txt"));
             FileCopyUtils.copy(xml, write);
         } catch (IOException e) {
             log.error("异常:" + e);
