@@ -9,7 +9,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: pcac_cmcc
+    #    password: pcac_cmcc
+    password: ${env.ZFQS_PWD}
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://101.200.86.90/zfqs?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT&serverTimezone=Asia/Shanghai
 
@@ -28,7 +29,8 @@ sftp:
   host: 172.21.72.19
   port: 22
   username: crm
-  password: crm
+  #  password: crm
+  password: ${CRM_PWD}
   modDir: /tmp/
   remotePathUpload: /ftp_data/zfqs/input/
   remotePathDownload: /ftp_data/zfqs/output/
