@@ -21,6 +21,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.HashMap;
@@ -36,248 +37,275 @@ import static com.cmcc.paymentclean.utils.CodeGenerator.PROJECT_PATH;
 @Slf4j
 public class CFCACipherUtils {
 
-  private static final Logger logger = LoggerFactory.getLogger(CFCACipherUtils.class);
-  // 签名证书（带私钥）
-  // private static String pfxFilePath = "E:/cert/协会证书私钥证书.pfx";
-  // 签名证书保护密码
-  // private static String pfxFilePwd = "11111111";
-  // 签名证书公钥证书
-  private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT + "cert/pcac.cer";
-  //private static String publicCertFilePath = "C:\\Users\\fairy\\Desktop\\清算协会接口开发\\生产密钥"+"/pcac.cer";
+    private static final Logger logger = LoggerFactory.getLogger(CFCACipherUtils.class);
+    // 签名证书（带私钥）
+    // private static String pfxFilePath = "E:/cert/协会证书私钥证书.pfx";
+    // 签名证书保护密码
+    // private static String pfxFilePwd = "11111111";
+    // 签名证书公钥证书
+    private static String publicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT + "cert/pcac.cer";
+    //private static String publicCertFilePath = "C:\\Users\\fairy\\Desktop\\清算协会接口开发\\生产密钥"+"/pcac.cer";
 
-  // 解密证书（带私钥）
-  private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT + "cert/huiyuan.pfx";
-  //private static String encPfxFilePath = "C:\\Users\\fairy\\Desktop\\清算协会接口开发\\生产密钥"+ "/huiyuan.pfx";
-  // 解密证书保护密码------生产环境证书密码
-  private static String encPfxFilePwd = "51795179";
-  // 解密证书保护密码------测试环境证书密码
-  //private static String encPfxFilePwd = "cfca1234";
-  // 加密证书公钥证书
-  // private static String encPublicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT
-  // +"/cert/huiyuan.cer";
-  private static Session session = null;
+    // 解密证书（带私钥）
+    private static String encPfxFilePath = PROJECT_PATH + BASE_MAPPER_ROOT + "cert/huiyuan.pfx";
+    //private static String encPfxFilePath = "C:\\Users\\fairy\\Desktop\\清算协会接口开发\\生产密钥"+ "/huiyuan.pfx";
+    // 解密证书保护密码------生产环境证书密码
+    private static String encPfxFilePwd = "51795179";
+    // 解密证书保护密码------测试环境证书密码
+    //private static String encPfxFilePwd = "cfca1234";
+    // 加密证书公钥证书
+    // private static String encPublicCertFilePath = PROJECT_PATH + BASE_MAPPER_ROOT
+    // +"/cert/huiyuan.cer";
+    private static Session session = null;
 
-  static {
-    try {
-      JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
+    static {
+        try {
+            JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
 
-      session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);
-    } catch (Exception e) {
-      log.error("异常:" + e);
+            session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);
+        } catch (Exception e) {
+            log.error("异常:" + e);
+        }
     }
-  }
 
-  /** 数据加签 发送方使用会员单位私钥对原文信息进行签名 */
-  public static String doSignature(String srcData) {
-    String encodedSignature = null;
-    // 初始化加密会话
-    try {
-      logger.info("需要加签原数据:{}", srcData);
+    /**
+     * 数据加签 发送方使用会员单位私钥对原文信息进行签名
+     */
+    public static String doSignature(String srcData) {
+        String encodedSignature = null;
+        // 初始化加密会话
+        try {
+            logger.info("需要加签原数据:{}", srcData);
       /*JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
       Session session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);*/
-      logger.info("私钥路径:{}", encPfxFilePath);
-      // 获取私钥
-      PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
+            logger.info("私钥路径:{}", encPfxFilePath);
+            // 获取私钥
+            PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
 
-      Signature sigUtil = new Signature();
-      byte[] signature =
-          sigUtil.p1SignMessage(
-              Mechanism.SHA1_RSA, srcData.getBytes(StandardCharsets.UTF_8), priKey, session);
-      /* ******注意********** */
-      // 签名结果已经做过Base64编码
-      encodedSignature = new String(signature);
-    } catch (Exception e) {
-      logger.info("-----数据加签失败");
-      log.error("异常:" + e);
+            Signature sigUtil = new Signature();
+            byte[] signature =
+                    sigUtil.p1SignMessage(
+                            Mechanism.SHA1_RSA, srcData.getBytes(StandardCharsets.UTF_8), priKey, session);
+            /* ******注意********** */
+            // 签名结果已经做过Base64编码
+            encodedSignature = new String(signature);
+        } catch (Exception e) {
+            logger.info("-----数据加签失败");
+            log.error("异常:" + e);
+        }
+
+        return encodedSignature;
     }
 
-    return encodedSignature;
-  }
+    /**
+     * 数据验签 发送方使用清算协会公钥对信息进行验签
+     */
+    public static boolean verifySignature(String srcData, String encodedSignature) {
 
-  /** 数据验签 发送方使用清算协会公钥对信息进行验签 */
-  public static boolean verifySignature(String srcData, String encodedSignature) {
-
-    try {
-      // 初始化加密会话
-      /*JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
-      Session session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);*/
-
-      // 获取清算协会公钥
-      // FileInputStream fin = new FileInputStream(publicCertFilePath);
-      FileInputStream fin = new FileInputStream(publicCertFilePath);
-      X509Cert cert = new X509Cert(fin);
-      Signature sigUtil = new Signature();
-      PublicKey pubKey = cert.getPublicKey();
-      if (sigUtil.p1VerifyMessage(
-          Mechanism.SHA1_RSA,
-          srcData.getBytes(StandardCharsets.UTF_8),
-          Base64.decode(encodedSignature),
-          pubKey,
-          session)) {
-        logger.info("RSA P1 verify OK!");
-        return true;
-      }
-    } catch (Exception e) {
-      logger.info("RSA P1 verify FAILER!");
-      log.error("异常:" + e);
-    }
-    logger.info("RSA P1 verify FAILER!");
-    return false;
-  }
-
-  /** 获取AES加密随机密码 */
-  public static byte[] getSymmetricKeyEncoded() {
-
-    byte[] symmetricKeyEncoded = null;
-    // 生成对称AES密钥
-    KeyGenerator kgen = null;
-    try {
-      kgen = KeyGenerator.getInstance("AES");
-      logger.info("---------------AES密钥:{}", new SecureRandom());
-      kgen.init(128, new SecureRandom());
-      SecretKey secretKey = kgen.generateKey();
-
-      symmetricKeyEncoded = secretKey.getEncoded();
-    } catch (NoSuchAlgorithmException e) {
-      log.error("异常:" + e);
-    }
-
-    return symmetricKeyEncoded;
-  }
-
-  /** 获取经过rsa公钥加密的AES密码密钥串 */
-  public static String getSecretKey(byte[] symmetricKeyEncoded) {
-
-    // AES密钥加密后数据
-    String encryptedKey = null;
-
-    try {
-      // 获取接收方公钥
-      FileInputStream fin = new FileInputStream(publicCertFilePath);
-      X509Cert cert = new X509Cert(fin);
-      // *********************************************//*
-      // 去掉外层Base64编码，在方法体内部已经做过Base64编码
-      encryptedKey =
-          new String(EncryptUtil.encryptMessageByRSA(symmetricKeyEncoded, cert, session));
-      logger.info("使用对方公钥加密后的密钥密文（经Base64编码）:{}", encryptedKey);
-    } catch (Exception e) {
-      log.error("异常:" + e);
-    }
-    return encryptedKey;
-  }
-
-  /** 数据加密，AES密钥加密字符串数据 */
-  public static String encrypt(byte[] symmetricKeyEncoded, String toBeEncData) {
-    // AES加密后数据
-    String encrytedData = null;
-    if (StringUtils.isEmpty(toBeEncData)) {
-      return "";
-    }
-
-    Map<String, String> encryptMap = new HashMap<String, String>();
-    try {
-
-      SecretKeySpec key = new SecretKeySpec(symmetricKeyEncoded, "AES");
-
-      // 对称加密
-      Cipher cipher = Cipher.getInstance("AES"); // 创建密码器
-      byte[] byteContent = toBeEncData.getBytes(StandardCharsets.UTF_8);
-      cipher.init(Cipher.ENCRYPT_MODE, key);
-      byte[] result = cipher.doFinal(byteContent);
-
-      encrytedData = new String(Base64.encode(result));
-      logger.info("使用AES对称密钥加密后的密文（经Base64编码）:{}", encrytedData);
-
-    } catch (Exception e) {
-      logger.info("加密数据失败");
-      log.error("异常:" + e);
-    }
-    return encrytedData;
-  }
-
-  /** 数据解密 secretKey为加密后的AES密钥 toBeDecStr为需要解密的字符串 */
-  public static String decrypt(String secretKey, String toBeDecStr) {
-    if (StringUtils.isEmpty(toBeDecStr)) {
-      return "";
-    }
-    String decryptedData = null;
-    try {
-      // 初始化加密会话
+        FileInputStream fin = null;
+        try {
+            // 初始化加密会话
       /*JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
       Session session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);*/
 
-      // 解密对称密钥
-      PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
-      /* ****************************************** */
-      // 去掉外层Base64解码，在方法体内部已经做过Base64解码
-      byte[] keyData = EncryptUtil.decryptMessageByRSA(secretKey.getBytes(), priKey, session);
-      SecretKeySpec symmetricKey = new SecretKeySpec(keyData, "AES");
-
-      // 解密被加密的项，可使用对称密钥对多个加密项进行解密
-      Cipher cipher = Cipher.getInstance("AES"); // 创建密码器
-      cipher.init(Cipher.DECRYPT_MODE, symmetricKey);
-      byte[] result = cipher.doFinal(Base64.decode(toBeDecStr));
-      decryptedData = new String(result, StandardCharsets.UTF_8);
-      logger.info("解密后的原文数据:{}", decryptedData);
-
-    } catch (Exception e) {
-      logger.info("解密数据失败");
-      log.error("异常:" + e);
+            // 获取清算协会公钥
+            // FileInputStream fin = new FileInputStream(publicCertFilePath);
+            fin = new FileInputStream(publicCertFilePath);
+            X509Cert cert = new X509Cert(fin);
+            Signature sigUtil = new Signature();
+            PublicKey pubKey = cert.getPublicKey();
+            if (sigUtil.p1VerifyMessage(
+                    Mechanism.SHA1_RSA,
+                    srcData.getBytes(StandardCharsets.UTF_8),
+                    Base64.decode(encodedSignature),
+                    pubKey,
+                    session)) {
+                logger.info("RSA P1 verify OK!");
+                return true;
+            }
+        } catch (Exception e) {
+            logger.info("RSA P1 verify FAILER!");
+            log.error("异常:" + e);
+        } finally {
+            if (fin != null) {
+                try {
+                    fin.close();
+                } catch (IOException e) {
+                    log.error("异常:" + e);
+                }
+            }
+        }
+        logger.info("RSA P1 verify FAILER!");
+        return false;
     }
-    return decryptedData;
-  }
 
-  //public static String getInnerToCFCA(String docType, String docCode, byte[] symmetrickeyencoded) {
-  public static String getInnerToCFCA(String docCode, byte[] symmetrickeyencoded) {
-   /* if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {*/
-      // 内部解密
-      docCode = InnerCipherUtils.decryptUserData(docCode);
-    /*}*/
-    // 协会加密
-    log.info("---------解密身份证号明文-----------：{}",docCode);
-    return CFCACipherUtils.encrypt(symmetrickeyencoded, docCode);
-  }
+    /**
+     * 获取AES加密随机密码
+     */
+    public static byte[] getSymmetricKeyEncoded() {
 
-  public static String getInnerByBankNoToCFCA(String bankNo, byte[] symmetrickeyencoded) {
-   /* if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {*/
-      // 内部解密
-    bankNo = InnerCipherUtils.decryptBankData(bankNo);
-    /*}*/
-    // 协会加密
-    log.info("---------解密银行卡号明文-----------：{}",bankNo);
-    return CFCACipherUtils.encrypt(symmetrickeyencoded, bankNo);
-  }
+        byte[] symmetricKeyEncoded = null;
+        // 生成对称AES密钥
+        KeyGenerator kgen = null;
+        try {
+            kgen = KeyGenerator.getInstance("AES");
+            logger.info("---------------AES密钥:{}", new SecureRandom());
+            kgen.init(128, new SecureRandom());
+            SecretKey secretKey = kgen.generateKey();
 
+            symmetricKeyEncoded = secretKey.getEncoded();
+        } catch (NoSuchAlgorithmException e) {
+            log.error("异常:" + e);
+        }
 
-  /**
-   * @param secretKey   协会的
-   * @param toBeEncData 需要加密的字段
-   * */
-  private static String getPcacEncrypt(String secretKey,String toBeEncData){
-    String encrypt =null;
-    try {
-      byte[] symmetricKeyEncoded = EncryptUtil.decryptMessageByRSA(secretKey.getBytes(), encPfxFilePath, encPfxFilePwd, session);
-      encrypt = encrypt(symmetricKeyEncoded, toBeEncData);
-      return encrypt;
-    } catch (PKIException e) {
-      log.info("加密数据异常");
-      e.printStackTrace();
+        return symmetricKeyEncoded;
     }
-    return encrypt;
-  }
+
+    /**
+     * 获取经过rsa公钥加密的AES密码密钥串
+     */
+    public static String getSecretKey(byte[] symmetricKeyEncoded) {
+
+        // AES密钥加密后数据
+        String encryptedKey = null;
+        FileInputStream fin = null;
+        try {
+            // 获取接收方公钥
+            fin = new FileInputStream(publicCertFilePath);
+            X509Cert cert = new X509Cert(fin);
+            // *********************************************//*
+            // 去掉外层Base64编码，在方法体内部已经做过Base64编码
+            encryptedKey =
+                    new String(EncryptUtil.encryptMessageByRSA(symmetricKeyEncoded, cert, session));
+            logger.info("使用对方公钥加密后的密钥密文（经Base64编码）:{}", encryptedKey);
+        } catch (Exception e) {
+            log.error("异常:" + e);
+        } finally {
+            if (fin != null) {
+                try {
+                    fin.close();
+                } catch (IOException e) {
+                    log.error("异常:" + e);
+                }
+            }
+        }
+        return encryptedKey;
+    }
+
+    /**
+     * 数据加密，AES密钥加密字符串数据
+     */
+    public static String encrypt(byte[] symmetricKeyEncoded, String toBeEncData) {
+        // AES加密后数据
+        String encrytedData = null;
+        if (StringUtils.isEmpty(toBeEncData)) {
+            return "";
+        }
+
+        Map<String, String> encryptMap = new HashMap<String, String>();
+        try {
+
+            SecretKeySpec key = new SecretKeySpec(symmetricKeyEncoded, "AES");
+
+            // 对称加密
+            Cipher cipher = Cipher.getInstance("AES"); // 创建密码器
+            byte[] byteContent = toBeEncData.getBytes(StandardCharsets.UTF_8);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] result = cipher.doFinal(byteContent);
+
+            encrytedData = new String(Base64.encode(result));
+            logger.info("使用AES对称密钥加密后的密文（经Base64编码）:{}", encrytedData);
+
+        } catch (Exception e) {
+            logger.info("加密数据失败");
+            log.error("异常:" + e);
+        }
+        return encrytedData;
+    }
+
+    /**
+     * 数据解密 secretKey为加密后的AES密钥 toBeDecStr为需要解密的字符串
+     */
+    public static String decrypt(String secretKey, String toBeDecStr) {
+        if (StringUtils.isEmpty(toBeDecStr)) {
+            return "";
+        }
+        String decryptedData = null;
+        try {
+            // 初始化加密会话
+      /*JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
+      Session session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);*/
+
+            // 解密对称密钥
+            PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
+            /* ****************************************** */
+            // 去掉外层Base64解码，在方法体内部已经做过Base64解码
+            byte[] keyData = EncryptUtil.decryptMessageByRSA(secretKey.getBytes(), priKey, session);
+            SecretKeySpec symmetricKey = new SecretKeySpec(keyData, "AES");
+
+            // 解密被加密的项，可使用对称密钥对多个加密项进行解密
+            Cipher cipher = Cipher.getInstance("AES"); // 创建密码器
+            cipher.init(Cipher.DECRYPT_MODE, symmetricKey);
+            byte[] result = cipher.doFinal(Base64.decode(toBeDecStr));
+            decryptedData = new String(result, StandardCharsets.UTF_8);
+            logger.info("解密后的原文数据:{}", decryptedData);
+
+        } catch (Exception e) {
+            logger.info("解密数据失败");
+            log.error("异常:" + e);
+        }
+        return decryptedData;
+    }
+
+    //public static String getInnerToCFCA(String docType, String docCode, byte[] symmetrickeyencoded) {
+    public static String getInnerToCFCA(String docCode, byte[] symmetrickeyencoded) {
+        /* if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {*/
+        // 内部解密
+        docCode = InnerCipherUtils.decryptUserData(docCode);
+        /*}*/
+        // 协会加密
+        log.info("---------解密身份证号明文-----------：{}", docCode);
+        return CFCACipherUtils.encrypt(symmetrickeyencoded, docCode);
+    }
+
+    public static String getInnerByBankNoToCFCA(String bankNo, byte[] symmetrickeyencoded) {
+        /* if (DocTypeEnum.DOCTYPEENUM_01.getCode().equals(docType)) {*/
+        // 内部解密
+        bankNo = InnerCipherUtils.decryptBankData(bankNo);
+        /*}*/
+        // 协会加密
+        log.info("---------解密银行卡号明文-----------：{}", bankNo);
+        return CFCACipherUtils.encrypt(symmetrickeyencoded, bankNo);
+    }
 
 
+    /**
+     * @param secretKey   协会的
+     * @param toBeEncData 需要加密的字段
+     */
+    private static String getPcacEncrypt(String secretKey, String toBeEncData) {
+        String encrypt = null;
+        try {
+            byte[] symmetricKeyEncoded = EncryptUtil.decryptMessageByRSA(secretKey.getBytes(), encPfxFilePath, encPfxFilePwd, session);
+            encrypt = encrypt(symmetricKeyEncoded, toBeEncData);
+            return encrypt;
+        } catch (PKIException e) {
+            log.info("加密数据异常");
+            e.printStackTrace();
+        }
+        return encrypt;
+    }
 
-  public static void main(String[] args) {
+
+    public static void main(String[] args) {
 
 
-
-      // *********************************************//*
-      // 去掉外层Base64编码，在方法体内部已经做过Base64编码
-      String sk = "AUp/Ox7uih5TPm885tK5fyRd0UgYA+QhVhDJP8vwyCFodBs5WGyScOb1RoF32piKsMF6xvuqSLn0E5C//pz9d9mDTq8PGLE5ndy6XgOceDqbx/iGxz7VFPxdYcB5PVrvb2s5w9EWeErwEd7s9Z1kdMSMP0E3/lIPMdeOkIV8ouivwngwfQ2EmCTD0jCTc9UtbQoQ3FmeNWlqH3pVNxqqq7xaE+MtlVTk1HQgwxnKcFnn+aXajXui4Sl2bksm7cUttZYGzgRrGsLo8/ooQbKgvXbD0JzzqyGd4sBXynmGAs+Xh0omks/fiylTezW1GaNtChXPiEPTewZGJb5kmjk1NQ==";
-      String toBeEncData = "913301095832109572";
-      String pcacEncrypt = getPcacEncrypt(sk, toBeEncData);
-      System.out.println(pcacEncrypt);
+        // *********************************************//*
+        // 去掉外层Base64编码，在方法体内部已经做过Base64编码
+        String sk = "AUp/Ox7uih5TPm885tK5fyRd0UgYA+QhVhDJP8vwyCFodBs5WGyScOb1RoF32piKsMF6xvuqSLn0E5C//pz9d9mDTq8PGLE5ndy6XgOceDqbx/iGxz7VFPxdYcB5PVrvb2s5w9EWeErwEd7s9Z1kdMSMP0E3/lIPMdeOkIV8ouivwngwfQ2EmCTD0jCTc9UtbQoQ3FmeNWlqH3pVNxqqq7xaE+MtlVTk1HQgwxnKcFnn+aXajXui4Sl2bksm7cUttZYGzgRrGsLo8/ooQbKgvXbD0JzzqyGd4sBXynmGAs+Xh0omks/fiylTezW1GaNtChXPiEPTewZGJb5kmjk1NQ==";
+        String toBeEncData = "913301095832109572";
+        String pcacEncrypt = getPcacEncrypt(sk, toBeEncData);
+        System.out.println(pcacEncrypt);
 
 
 
@@ -293,5 +321,5 @@ public class CFCACipherUtils {
     String secrit = "lleNS0s4RooCSVCkC5enwrdcdTRM8w0wkOAyArK/i3VyGFAgsjkMggDs79PcWxATJuZCVErQZyJ02JxuJmoVag3PaEo2LWrGSN13Wn9UqlFPGb6MyxLH+E5mWFsbNyF7wdrqKaf64rDvPqW8KpN7Z4/GlyT3W2CTop8WLCfhJWYuhzeCAvatBq3B6Amq0o8RzcVkps9OcoauGiGnfaeSaTdjSzvbSASLkF25GGRJ55q3mCYSGB6O+I0JRNomLUsMwPjEsPJrLrq0PESASYZlGkq3AkLC+wWiENjVi8OmMwtn+GGWRfKMh4LFR+Sww2fFPeaNa64o70gkrkputWj4ZQ==";
     String decrypt = decrypt(secrit, "ZSl26rc2RoY+nDE52jkT8w==");
     System.out.println(decrypt);*/
-  }
+    }
 }

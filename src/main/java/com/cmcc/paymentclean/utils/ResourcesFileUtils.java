@@ -12,27 +12,36 @@ import java.io.OutputStream;
 @Slf4j
 public class ResourcesFileUtils {
 
-  public static File getResourcesFile(String resourceFilePath) {
-    try {
-      File file = new File("./temp.xsd");
-      ClassPathResource resource = new ClassPathResource(resourceFilePath);
-      InputStream inputStream = resource.getInputStream();
-      OutputStream os = new FileOutputStream(file);
-      int len = 0;
-      byte[] buffer = new byte[8192];
-      while ((len = inputStream.read(buffer)) != -1) {
-        os.write(buffer, 0, len);
-      }
-      return file;
-    } catch (IOException e) {
-      log.error("异常:" + e);
+    public static File getResourcesFile(String resourceFilePath) {
+        OutputStream os = null;
+        try {
+            File file = new File("./temp.xsd");
+            ClassPathResource resource = new ClassPathResource(resourceFilePath);
+            InputStream inputStream = resource.getInputStream();
+            os = new FileOutputStream(file);
+            int len = 0;
+            byte[] buffer = new byte[8192];
+            while ((len = inputStream.read(buffer)) != -1) {
+                os.write(buffer, 0, len);
+            }
+            return file;
+        } catch (IOException e) {
+            log.error("异常:" + e);
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    log.error("异常:" + e);
+                }
+            }
+        }
+        return null;
     }
-    return null;
-  }
 
-  public static void main(String[] args) {
-    File resourcesFile = getResourcesFile("xsds/pcac.ries.001.xsd");
-    assert resourcesFile != null;
-    System.out.println("文件名称：" + resourcesFile.getAbsolutePath());
-  }
+    public static void main(String[] args) {
+        File resourcesFile = getResourcesFile("xsds/pcac.ries.001.xsd");
+        assert resourcesFile != null;
+        System.out.println("文件名称：" + resourcesFile.getAbsolutePath());
+    }
 }
