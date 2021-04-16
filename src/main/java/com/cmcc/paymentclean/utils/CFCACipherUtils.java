@@ -78,10 +78,10 @@ public class CFCACipherUtils {
         String encodedSignature = null;
         // 初始化加密会话
         try {
-            logger.info("需要加签原数据:{}", srcData);
+            logger.debug("需要加签原数据:{}", srcData);
       /*JCrypto.getInstance().initialize(JCrypto.JSOFT_LIB, null);
       Session session = JCrypto.getInstance().openSession(JCrypto.JSOFT_LIB);*/
-            logger.info("私钥路径:{}", encPfxFilePath);
+            logger.debug("私钥路径:{}", encPfxFilePath);
             // 获取私钥
             PrivateKey priKey = KeyUtil.getPrivateKeyFromPFX(encPfxFilePath, encPfxFilePwd);
 
@@ -93,8 +93,8 @@ public class CFCACipherUtils {
             // 签名结果已经做过Base64编码
             encodedSignature = new String(signature);
         } catch (Exception e) {
-            logger.info("-----数据加签失败");
-            log.error("异常:" + e);
+            e.printStackTrace();
+            log.error("数据加签失败异常:" + e);
         }
 
         return encodedSignature;
@@ -127,18 +127,18 @@ public class CFCACipherUtils {
                 return true;
             }
         } catch (Exception e) {
-            logger.info("RSA P1 verify FAILER!");
-            log.error("异常:" + e);
+            e.printStackTrace();
+            log.error("RSA校验失败异常:" + e);
         } finally {
             if (fin != null) {
                 try {
                     fin.close();
                 } catch (IOException e) {
-                    log.error("异常:" + e);
+                    log.error("IO异常:" + e);
                 }
             }
         }
-        logger.info("RSA P1 verify FAILER!");
+        logger.debug("RSA P1 verify FAILER!");
         return false;
     }
 
@@ -152,12 +152,13 @@ public class CFCACipherUtils {
         KeyGenerator kgen = null;
         try {
             kgen = KeyGenerator.getInstance("AES");
-            logger.info("---------------AES密钥:{}", new SecureRandom());
+            logger.debug("---------------AES密钥:{}", new SecureRandom());
             kgen.init(128, new SecureRandom());
             SecretKey secretKey = kgen.generateKey();
 
             symmetricKeyEncoded = secretKey.getEncoded();
         } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
             log.error("异常:" + e);
         }
 
@@ -180,15 +181,17 @@ public class CFCACipherUtils {
             // 去掉外层Base64编码，在方法体内部已经做过Base64编码
             encryptedKey =
                     new String(EncryptUtil.encryptMessageByRSA(symmetricKeyEncoded, cert, session));
-            logger.info("使用对方公钥加密后的密钥密文（经Base64编码）:{}", encryptedKey);
+            logger.debug("使用对方公钥加密后的密钥密文（经Base64编码）:{}", encryptedKey);
         } catch (Exception e) {
-            log.error("异常:" + e);
+            e.printStackTrace();
+            log.error("异常:" + e.getMessage());
         } finally {
             if (fin != null) {
                 try {
                     fin.close();
                 } catch (IOException e) {
-                    log.error("异常:" + e);
+                    e.printStackTrace();
+                    log.error("异常:" + e.getMessage());
                 }
             }
         }
@@ -217,11 +220,11 @@ public class CFCACipherUtils {
             byte[] result = cipher.doFinal(byteContent);
 
             encrytedData = new String(Base64.encode(result));
-            logger.info("使用AES对称密钥加密后的密文（经Base64编码）:{}", encrytedData);
+            logger.debug("使用AES对称密钥加密后的密文（经Base64编码）:{}", encrytedData);
 
         } catch (Exception e) {
-            logger.info("加密数据失败");
-            log.error("异常:" + e);
+            e.printStackTrace();
+            log.error("加密数据失败异常:" + e.getMessage());
         }
         return encrytedData;
     }
@@ -251,11 +254,11 @@ public class CFCACipherUtils {
             cipher.init(Cipher.DECRYPT_MODE, symmetricKey);
             byte[] result = cipher.doFinal(Base64.decode(toBeDecStr));
             decryptedData = new String(result, StandardCharsets.UTF_8);
-            logger.info("解密后的原文数据:{}", decryptedData);
+            logger.debug("解密后的原文数据:{}", decryptedData);
 
         } catch (Exception e) {
-            logger.info("解密数据失败");
-            log.error("异常:" + e);
+            e.printStackTrace();
+            log.error("解密数据失败异常:" + e.getMessage());
         }
         return decryptedData;
     }
@@ -267,7 +270,7 @@ public class CFCACipherUtils {
         docCode = InnerCipherUtils.decryptUserData(docCode);
         /*}*/
         // 协会加密
-        log.info("---------解密身份证号明文-----------：{}", docCode);
+        log.debug("---------解密身份证号明文-----------：{}", docCode);
         return CFCACipherUtils.encrypt(symmetrickeyencoded, docCode);
     }
 
@@ -277,7 +280,7 @@ public class CFCACipherUtils {
         bankNo = InnerCipherUtils.decryptBankData(bankNo);
         /*}*/
         // 协会加密
-        log.info("---------解密银行卡号明文-----------：{}", bankNo);
+        log.debug("---------解密银行卡号明文-----------：{}", bankNo);
         return CFCACipherUtils.encrypt(symmetrickeyencoded, bankNo);
     }
 
@@ -293,7 +296,7 @@ public class CFCACipherUtils {
             encrypt = encrypt(symmetricKeyEncoded, toBeEncData);
             return encrypt;
         } catch (PKIException e) {
-            log.info("加密数据异常");
+            log.error("加密数据异常"+e);
             e.printStackTrace();
         }
         return encrypt;
@@ -305,10 +308,17 @@ public class CFCACipherUtils {
 
         // *********************************************//*
         // 去掉外层Base64编码，在方法体内部已经做过Base64编码
-        String sk = "AUp/Ox7uih5TPm885tK5fyRd0UgYA+QhVhDJP8vwyCFodBs5WGyScOb1RoF32piKsMF6xvuqSLn0E5C//pz9d9mDTq8PGLE5ndy6XgOceDqbx/iGxz7VFPxdYcB5PVrvb2s5w9EWeErwEd7s9Z1kdMSMP0E3/lIPMdeOkIV8ouivwngwfQ2EmCTD0jCTc9UtbQoQ3FmeNWlqH3pVNxqqq7xaE+MtlVTk1HQgwxnKcFnn+aXajXui4Sl2bksm7cUttZYGzgRrGsLo8/ooQbKgvXbD0JzzqyGd4sBXynmGAs+Xh0omks/fiylTezW1GaNtChXPiEPTewZGJb5kmjk1NQ==";
+        /*String sk = "AUp/Ox7uih5TPm885tK5fyRd0UgYA+QhVhDJP8vwyCFodBs5WGyScOb1RoF32piKsMF6xvuqSLn0E5C//pz9d9mDTq8PGLE5ndy6XgOceDqbx/iGxz7VFPxdYcB5PVrvb2s5w9EWeErwEd7s9Z1kdMSMP0E3/lIPMdeOkIV8ouivwngwfQ2EmCTD0jCTc9UtbQoQ3FmeNWlqH3pVNxqqq7xaE+MtlVTk1HQgwxnKcFnn+aXajXui4Sl2bksm7cUttZYGzgRrGsLo8/ooQbKgvXbD0JzzqyGd4sBXynmGAs+Xh0omks/fiylTezW1GaNtChXPiEPTewZGJb5kmjk1NQ==";
         String toBeEncData = "913301095832109572";
         String pcacEncrypt = getPcacEncrypt(sk, toBeEncData);
-        System.out.println(pcacEncrypt);
+        System.out.println(pcacEncrypt);*/
+        try {
+            int i = 1 / 0;
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("异常信息:"+e.getMessage());
+        }
+
 
 
 

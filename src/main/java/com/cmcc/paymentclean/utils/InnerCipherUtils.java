@@ -68,7 +68,8 @@ public class InnerCipherUtils {
         try {
           throw new InnerCipherException(recv.getResponseCode(), recv.getResponseRemark());
         } catch (InnerCipherException e) {
-          log.error("异常:" + e);
+          e.printStackTrace();
+          log.error("异常:" + e.getMessage());
           return message;
         }
       }
@@ -90,7 +91,7 @@ public class InnerCipherUtils {
   /** 加密银行卡号 */
   public static String encryptBankData(String message) {
     try {
-      log.info("银行卡密钥明文：{}", decrypt(CIPHERSTR, BANKKN));
+      log.debug("银行卡密钥明文：{}", decrypt(CIPHERSTR, BANKKN));
       return StringUtils.isEmpty(message) ? "" : encryptMode(decrypt(CIPHERSTR, BANKKN), message);
     } catch (NoSuchAlgorithmException
         | InvalidKeyException
@@ -121,14 +122,15 @@ public class InnerCipherUtils {
             mode, keyName, keyValue, algorithmID, exportFlag, data, iv, format, separator);
     if (recv != null) {
       if (recv.getResponseCode() == 0) {
-        log.info("数据解密成功！！");
+        log.debug("数据解密成功！！");
         return new String(recv.getData());
 
       } else {
         try {
           throw new InnerCipherException(recv.getResponseCode(), recv.getResponseRemark());
         } catch (InnerCipherException e) {
-          log.error("异常:" + e);
+          e.printStackTrace();
+          log.error("异常:" + e.getMessage());
           return message;
         }
       }
@@ -136,7 +138,8 @@ public class InnerCipherUtils {
       try {
         throw new InnerCipherException("内部加密服务异常");
       } catch (InnerCipherException e) {
-        log.error("异常:" + e);
+        e.printStackTrace();
+        log.error("异常:" + e.getMessage());
         return message;
       }
     }
@@ -145,10 +148,11 @@ public class InnerCipherUtils {
   /** 解密银行卡号 */
   public static String decryptBankData(String message) {
     try {
-      log.info("银行卡密钥明文：{}", decrypt(CIPHERSTR, BANKKN));
+      log.debug("银行卡密钥明文：{}", decrypt(CIPHERSTR, BANKKN));
       return StringUtils.isEmpty(message) ? "" : decryptMode(decrypt(CIPHERSTR, BANKKN), message);
     } catch (Exception e) {
-      log.error("银行卡解密异常：" + e);
+      e.printStackTrace();
+      log.error("银行卡解密异常：" + e.getMessage());
       return message;
     }
   }
