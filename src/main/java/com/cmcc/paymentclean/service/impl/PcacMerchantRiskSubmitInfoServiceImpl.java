@@ -236,7 +236,7 @@ public class PcacMerchantRiskSubmitInfoServiceImpl
       BankInfo bankInfo = new BankInfo();
       String decryptBankData =
           InnerCipherUtils.decryptBankData(pcacMerchantRiskSubmitInfo.getBankNo());
-      log.info("解密后的银行卡号是：{}", decryptBankData);
+      log.debug("解密后的银行卡号是：{}", decryptBankData);
       // pcacMerchantRiskSubmitInfo.setBankNo(decryptBankData);
       BeanUtilsEx.copyProperties(bankInfo, pcacMerchantRiskSubmitInfo);
       bankInfo.setBankNo(decryptBankData);
